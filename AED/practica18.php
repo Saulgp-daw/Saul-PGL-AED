@@ -7,8 +7,8 @@
         $array[$j] .= $j;
         echo "<br>";
         var_dump($array);
-        echo "<br> $key => $val"; //esta línea no tiene el efecto deseado
-        echo "<br> $key => $array[$key]"; // aquí sí
+        echo "<br>No llamamos al array: $key => $val"; //esta línea no tiene el efecto deseado
+        echo "<br> Llamamos al array: $key => $array[$key]"; // aquí sí
         echo "<br>";
     }
  ?>
