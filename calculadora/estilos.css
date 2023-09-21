@@ -1,0 +1,66 @@
+@font-face { font-family: 'digital-7'; src: url('fuente/digital-7.TTF'); } 
+
+body{
+    background-image: url(https://j.gifs.com/G65MKL.gif);
+    font-family: 'Courier New', Courier, monospace;
+}
+table, tr, td{
+    border: 1px solid black;
+    border-spacing: 5px 1rem;
+}
+
+table{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255, 0.7);
+    padding: 30px;
+    border-radius: 20px;
+    height: 30%;
+    font-size: 2rem;
+}
+
+input{
+    font-family: 'digital-7';
+    font-size: 2rem;
+    height: 100%;
+}
+
+input:hover{
+    background-color: rgb(248, 248, 152); 
+}
+input:focus{
+    background-color: rgb(252, 252, 46);
+}
+
+textarea, select, button{
+    width: 99%;
+    height: 100%;
+    font-size: 1.7rem;
+    font-family: 'digital-7';
+}
+
+textarea{
+    resize: none;
+    white-space: normal;
+    text-align: justify;
+    -moz-text-align-last: center; /* Firefox 12+ */
+    text-align-last: center;
+}
+
+button{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+select:hover{
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: rgb(53, 49, 49);
+}
+

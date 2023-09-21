@@ -1,0 +1,38 @@
+.container{
+    background: rgb(141, 215, 245);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.texto{
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 3em;
+    background-color: rgb(60, 187, 238);
+}
+
+#palabra, #errores{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.botones{
+    justify-content: flex-end;
+    display: inline-flex;
+}
+
+button{
+    border: 0px solid;
+    font-size: 2em;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: rgb(56, 56, 247);
+    color: white;
+    filter: drop-shadow(3px 3px 3px #1c1c5a);
+}
+
+button:hover{
+    background-color: rgb(30, 30, 243);
+    cursor: pointer;
+}

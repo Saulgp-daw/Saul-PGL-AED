@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Número 1</th>
+            <th>operador</th>
+            <th>Número 2</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                <input type="number" name="numero1" id="numero1">
+            </td>
+            <td>
+                <select name="operadores" id="operadores">
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">x</option>
+                    <option value="/">/</option>
+                </select>
+            </td>
+            <td>
+                <input type="number" name="numero2" id="numero2">
+            </td>
+            <td>
+                <button>Calcular</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <textarea name="resultado" id="resultado" disabled></textarea>
+            </td>
+        </tr>
+    </table>
+    
+   
+   
+   <script src="calculadora.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(243, 124, 124);
+}
+.container{
+    padding: 30px;
+    background: rgb(248, 152, 152);
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(5, 100px);
+    gap: 2em;
+    justify-content: center;
+    width: 50%;
+    margin: auto;
+}
+
+.container > div {
+    background: rgb(154, 154, 250);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+}
+
+.container > div:nth-child(11){
+    font-size: 2em;
+}
+.container > div:hover:not(:last-child), .container > div:hover:not(:nth-child(12)){
+    background: rgb(123, 123, 250);
+    cursor: pointer;
+}
+
+div:last-child, .container > div:nth-child(12){
+    background: rgb(191, 191, 252);
+    overflow-y: auto;
+    cursor: default;
+}
+
+div:last-child {
+    grid-column: 1 / 4;
+    font-size: 1em;
+    display: inline;
+    padding: 0px 30px;
+}
