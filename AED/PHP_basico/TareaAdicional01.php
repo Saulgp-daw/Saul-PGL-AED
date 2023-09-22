@@ -32,11 +32,16 @@ foreach ($arrayAleatorio as $key => $value) {
             $repeticiones++;
             $otroArray[$value] = $repeticiones;
         }
-        
-       
     }
-    
 }
+
+//EN MENOS CÓDIGO
+/**
+ * $otroArray[$value] = $otroArray[$value]??0;
+ * $otroArray[$value]++;
+ */
+
+arsort($otroArray);
 echo "<br>";
 print_r($otroArray);
 
