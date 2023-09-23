@@ -1,5 +1,6 @@
 import { duplaCartas } from "./variablesGlobales.js";
 import { devolverIntentos } from "./variablesGlobales.js";
+import { intervalo } from "./variablesGlobales.js";
 let intentos = 0;
 let dimensiones = 3;
 
@@ -17,13 +18,13 @@ iniciarJuego(dimensiones);
  * hacerlo más "justo" en dimensiones grandes
  * @param {*} dimensiones el tamaño de nuestra matriz
  */
-function iniciarJuego(dimensiones){
+function iniciarJuego(dimensiones) {
     DOM.tablero.innerHTML = "";
     let numCasillas = dimensiones * dimensiones;
     intentos = devolverIntentos(numCasillas);
-    console.log("Casillas: "+numCasillas+" intentos: "+intentos);
+    console.log("Casillas: " + numCasillas + " intentos: " + intentos);
     DOM.tablero.style.gridTemplateColumns = `repeat(${dimensiones}, 5em)`;
-    DOM.tablero.style.gridTemplateRows  = `repeat(${dimensiones}, 5em)`;
+    DOM.tablero.style.gridTemplateRows = `repeat(${dimensiones}, 5em)`;
     dibujarCasillas(numCasillas);
     darEventosACartas();
 }
@@ -33,10 +34,10 @@ function iniciarJuego(dimensiones){
  * haremos uso de createElement y appendChild para insertarlos dentro de nuestra clase tablero
  * @param {*} numCasillas nuestro número de casillas que se mostrarán en el DOM
  */
-function dibujarCasillas(numCasillas){
+function dibujarCasillas(numCasillas) {
     let arrayParejas = generarArrayAleatorios(numCasillas);
 
-    for(let i = 0; i < arrayParejas.length; i++){
+    for (let i = 0; i < arrayParejas.length; i++) {
         let divCarta = document.createElement("div");
         divCarta.classList.add("carta");
 
@@ -57,19 +58,19 @@ function dibujarCasillas(numCasillas){
  * @param {*} numCasillas nuestro número de casillas que se mostrarán en el DOM
  * @returns 
  */
-function generarArrayAleatorios(numCasillas){
+function generarArrayAleatorios(numCasillas) {
     let arrayAleatorios = [];
-    for(let i = 0; i < Math.floor(numCasillas / 2); i++){
+    for (let i = 0; i < Math.floor(numCasillas / 2); i++) {
         const numAleatorio = Math.floor(Math.random() * 100);
-        if(arrayAleatorios.includes(numAleatorio)){
+        if (arrayAleatorios.includes(numAleatorio)) {
             i--;
-        }else{
+        } else {
             arrayAleatorios.push(numAleatorio);
             arrayAleatorios.push(numAleatorio);
         }
-        
+
     }
-    if(numCasillas % 2 != 0){
+    if (numCasillas % 2 != 0) {
         arrayAleatorios.push("🃏");
     }
 
@@ -81,22 +82,31 @@ function generarArrayAleatorios(numCasillas){
 
 function mezclarArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
-      // Generar un índice aleatorio entre 0 y i
-      const j = Math.floor(Math.random() * (i + 1));
-      
-      // Intercambiar elementos array[i] y array[j]
-      [array[i], array[j]] = [array[j], array[i]];
+        // Generar un índice aleatorio entre 0 y i
+        const j = Math.floor(Math.random() * (i + 1));
+
+        // Intercambiar elementos array[i] y array[j]
+        [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
-  }
+}
 
-function darEventosACartas(){
+function darEventosACartas() {
     DOM.cartas.forEach(carta => {
         carta.addEventListener("click", girarCartaClickada);
-    
-        carta.addEventListener("click", (e) => {
+
+        /*carta.addEventListener("click", (e) => {
             compararCartas(e, DOM.cartas);
-        });
+        });*/
+
+        carta.addEventListener("click", compararCartas);
+    });
+}
+
+function bloquearEventosCartas() {
+    DOM.cartas.forEach(carta => {
+        carta.removeEventListener('click', girarCartaClickada);
+        carta.removeEventListener("click", compararCartas);
     });
 }
 
@@ -114,9 +124,9 @@ function girarCartaClickada(e) {
  * @param {*} e evento
  * @param {*} cartas los elementos del DOM
  */
-function compararCartas(e, cartas) {
+function compararCartas(e) {
 
-    let pos = Array.from(cartas).indexOf(e.target); 
+    let pos = Array.from(DOM.cartas).indexOf(e.target);
     duplaCartas[pos] = e.target.innerText;
 
     const longitud = Object.keys(duplaCartas).length;
@@ -125,14 +135,14 @@ function compararCartas(e, cartas) {
         let coincidenCartas = obtenerCoincidencia();
         coincidenCartas ? limpiarDupla() : quitarClaseDespuesDeEsperar();
 
-       /* if (coincidenCartas) {
-            console.log("Son iguales");
-            limpiarDupla();
-
-        } else {
-            console.log("Son diferentes");
-            quitarClaseDespuesDeEsperar();
-        }*/
+        /* if (coincidenCartas) {
+             console.log("Son iguales");
+             limpiarDupla();
+ 
+         } else {
+             console.log("Son diferentes");
+             quitarClaseDespuesDeEsperar();
+         }*/
     }
 
     console.log(duplaCartas);
@@ -146,7 +156,7 @@ function esperar(ms) {
 // Función asincrónica para quitar la clase después de un período de tiempo
 async function quitarClaseDespuesDeEsperar() {
 
-    await esperar(2000); // Esperar 2000 milisegundos (2 segundos)
+    await esperar(1000); // Esperar 2000 milisegundos (2 segundos)
 
     for (const clave in duplaCartas) {
         console.log("pos: " + clave + " valor: " + duplaCartas[clave]);
@@ -187,29 +197,61 @@ function obtenerCoincidencia() {
             restarIntentos();
         }
     }
-    console.log("Intentos: "+intentos);
+    console.log("Intentos: " + intentos);
     return coinciden;
 }
 
-function restarIntentos(){
-    if(intentos > 0){
+function restarIntentos() {
+    if (intentos > 0) {
         intentos--;
         DOM.spanIntentosRestantes.innerText = intentos;
-    }else{
-        alert("Has perdido, reiniciando juego...");
-        location.reload();
+    } else {
+        //alert("Has perdido, reiniciando juego...");
+        bloquearEventosCartas();
+        revelarElementosSecuencialmente();
+
     }
 }
 
-function comprobarResultado(){
+// Función para revelar un elemento
+function revelarElemento(elemento) {
+    elemento.classList.add('revelada');
+}
+
+// Función para mostrar el alert después de revelar todos los elementos
+function mostrarAlert() {
+    alert('Has perdido, más suerte la próxima vez');
+    location.reload();
+}
+
+// Itera a través de los elementos con un intervalo de tiempo
+//const intervalo = 500; // La hice una variable global
+let indice = 0;
+
+function revelarElementosSecuencialmente() {
+    console.log(DOM.cartas);
+    if (indice < DOM.cartas.length) {
+        revelarElemento(DOM.cartas[indice]);
+        indice++;
+        setTimeout(revelarElementosSecuencialmente, intervalo);
+    } else {
+        mostrarAlert();
+    }
+}
+
+/**
+ * Aquí hacemos conteo con la cantidad de cartas que tienen cara, dependiendo de si es par o impar y el número de cartas cruz aún en la 
+ * mesa sabremos si se ha conseguido superar el juego
+ */
+function comprobarResultado() {
     let cartasConCruz = 0;
     DOM.cartas.forEach(carta => {
         if (!carta.classList.contains('cara')) {
             cartasConCruz++;
-          }
+        }
     });
 
-    if(DOM.cartas.length % 2 == 0 && cartasConCruz == 0 || DOM.cartas.length % 2 != 0 && cartasConCruz == 1){
+    if (DOM.cartas.length % 2 == 0 && cartasConCruz == 0 || DOM.cartas.length % 2 != 0 && cartasConCruz == 1) {
         alert("Has ganado el juego, enhorabuena");
         iniciarJuego(++dimensiones);
     }

@@ -23,10 +23,14 @@ body {
 
 .carta {
     font-size: 2em;
-    
     user-select: none;
     background-color: rgb(10, 7, 212);
     border: 1px solid #fff;
+}
+
+.carta:hover{
+    cursor: pointer;
+    background-color: rgb(8, 6, 131);
 }
 
 .cruz{
@@ -39,8 +43,14 @@ body {
     opacity: 0;
 }
 
+.revelada{
+    background-color: rgb(10, 7, 212);
+    opacity: 1;
+    color: white;
+}
+
 .cara{
     background-color: rgb(7, 212, 58);
     opacity: 1;
-    transform: rotateY(0deg);
+    color: black;
 }
