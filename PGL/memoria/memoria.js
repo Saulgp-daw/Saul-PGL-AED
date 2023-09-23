@@ -1,13 +1,14 @@
 import { duplaCartas } from "./variablesGlobales.js";
 import { devolverIntentos } from "./variablesGlobales.js";
 let intentos = 0;
+let dimensiones = 3;
 
 const DOM = {
     tablero: document.getElementsByClassName("tablero")[0],
     spanIntentosRestantes: document.getElementById("intentos")
 }
 
-iniciarJuego(3);
+iniciarJuego(dimensiones);
 
 /**
  * Aquí recibiremos las dimensiones de la matriz, es decir su dificultad
@@ -17,12 +18,14 @@ iniciarJuego(3);
  * @param {*} dimensiones el tamaño de nuestra matriz
  */
 function iniciarJuego(dimensiones){
+    DOM.tablero.innerHTML = "";
     let numCasillas = dimensiones * dimensiones;
     intentos = devolverIntentos(numCasillas);
     console.log("Casillas: "+numCasillas+" intentos: "+intentos);
     DOM.tablero.style.gridTemplateColumns = `repeat(${dimensiones}, 5em)`;
     DOM.tablero.style.gridTemplateRows  = `repeat(${dimensiones}, 5em)`;
     dibujarCasillas(numCasillas);
+    darEventosACartas();
 }
 
 /**
@@ -58,8 +61,13 @@ function generarArrayAleatorios(numCasillas){
     let arrayAleatorios = [];
     for(let i = 0; i < Math.floor(numCasillas / 2); i++){
         const numAleatorio = Math.floor(Math.random() * 100);
-        arrayAleatorios.push(numAleatorio);
-        arrayAleatorios.push(numAleatorio);
+        if(arrayAleatorios.includes(numAleatorio)){
+            i--;
+        }else{
+            arrayAleatorios.push(numAleatorio);
+            arrayAleatorios.push(numAleatorio);
+        }
+        
     }
     if(numCasillas % 2 != 0){
         arrayAleatorios.push("🃏");
@@ -82,14 +90,18 @@ function mezclarArray(array) {
     return array;
   }
 
-
-DOM.cartas.forEach(carta => {
-    carta.addEventListener("click", girarCartaClickada);
-
-    carta.addEventListener("click", (e) => {
-        compararCartas(e, DOM.cartas);
+function darEventosACartas(){
+    DOM.cartas.forEach(carta => {
+        carta.addEventListener("click", girarCartaClickada);
+    
+        carta.addEventListener("click", (e) => {
+            compararCartas(e, DOM.cartas);
+        });
     });
-});
+}
+
+
+
 
 function girarCartaClickada(e) {
     e.target.classList.add("cara");
@@ -169,6 +181,7 @@ function obtenerCoincidencia() {
 
         if (cartasVistas.has(valor)) {
             coinciden = true;
+            comprobarResultado();
         } else {
             cartasVistas.add(valor);
             restarIntentos();
@@ -179,8 +192,27 @@ function obtenerCoincidencia() {
 }
 
 function restarIntentos(){
-    intentos--;
-    DOM.spanIntentosRestantes.innerText = intentos;
+    if(intentos > 0){
+        intentos--;
+        DOM.spanIntentosRestantes.innerText = intentos;
+    }else{
+        alert("Has perdido, reiniciando juego...");
+        location.reload();
+    }
+}
+
+function comprobarResultado(){
+    let cartasConCruz = 0;
+    DOM.cartas.forEach(carta => {
+        if (!carta.classList.contains('cara')) {
+            cartasConCruz++;
+          }
+    });
+
+    if(DOM.cartas.length % 2 == 0 && cartasConCruz == 0 || DOM.cartas.length % 2 != 0 && cartasConCruz == 1){
+        alert("Has ganado el juego, enhorabuena");
+        iniciarJuego(++dimensiones);
+    }
 
 }
 
