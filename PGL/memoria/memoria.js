@@ -194,11 +194,11 @@ function obtenerCoincidencia() {
             comprobarResultado();
         } else {
             cartasVistas.add(valor);
-            //restarIntentos();
+            restarIntentos();
         }
     }
     console.log("Intentos: " + intentos);
-    coinciden ? null : restarIntentos();
+    //coinciden ? null : restarIntentos();
     return coinciden;
 }
 
@@ -258,5 +258,3 @@ function comprobarResultado() {
     }
 
 }
-
-
