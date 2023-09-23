@@ -5,18 +5,15 @@ const DOM = {
 }
 
 DOM.cartas.forEach(carta => {
-    carta.addEventListener("click", cambiarClase);
+    carta.addEventListener("click", girarCartaClickada);
 
     carta.addEventListener("click", (e) => {
         compararCartas(e, DOM.cartas);
     });
 });
 
-function cambiarClase(e) {
-    //console.log(e.target.classList);
+function girarCartaClickada(e) {
     e.target.classList.add("cara");
-    //console.log(e.target.innerText);
-
 }
 
 function compararCartas(e, cartas) {
@@ -28,30 +25,54 @@ function compararCartas(e, cartas) {
     duplaCartas[pos] = e.target.innerText;
     const longitud = Object.keys(duplaCartas).length;
 
-
-    //duplaCartas.length === 2? console.log(duplaCartas[0] == duplaCartas[1] ? "Son iguales" : duplaCartas.length = 0) : null;
     if (longitud == 2) {
         let coincidenCartas = obtenerCoincidencia();
+        coincidenCartas ? limpiarDupla() : quitarClaseDespuesDeEsperar();
 
-        if (coincidenCartas) {
+       /* if (coincidenCartas) {
             console.log("Son iguales");
-            
+            limpiarDupla();
 
         } else {
             console.log("Son diferentes");
-        }
-
-        for (const clave in duplaCartas) {
-            if (duplaCartas.hasOwnProperty(clave)) {
-                delete duplaCartas[clave];
-            }
-        }
-
-
+            quitarClaseDespuesDeEsperar();
+        }*/
     }
 
     console.log(duplaCartas);
 }
+
+// Función para esperar un período de tiempo
+function esperar(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Función asincrónica para quitar la clase después de un período de tiempo
+async function quitarClaseDespuesDeEsperar() {
+
+    await esperar(2000); // Esperar 2000 milisegundos (2 segundos)
+
+    for (const clave in duplaCartas) {
+        console.log("pos: " + clave + " valor: " + duplaCartas[clave]);
+        DOM.cartas[clave].classList.remove("cara");
+    }
+
+    limpiarDupla();
+}
+
+/**
+ * Aquí es donde borraremos los elementos dentro de la dupla para futuras comparaciones
+ * no interesa nunca tener más de dos dentro de nuestro objeto
+ */
+function limpiarDupla() {
+    for (const clave in duplaCartas) {
+        if (duplaCartas.hasOwnProperty(clave)) {
+            delete duplaCartas[clave];
+        }
+    }
+}
+
+
 
 
 /**
