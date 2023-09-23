@@ -1,23 +1,37 @@
 import { duplaCartas } from "./variablesGlobales.js";
+import { devolverIntentos } from "./variablesGlobales.js";
+let intentos = 0;
 
 const DOM = {
-    tablero: document.getElementsByClassName("tablero")[0]
+    tablero: document.getElementsByClassName("tablero")[0],
+    spanIntentosRestantes: document.getElementById("intentos")
 }
 
 iniciarJuego(3);
 
+/**
+ * Aquí recibiremos las dimensiones de la matriz, es decir su dificultad
+ * calculamos el número de casillas con una multiplicación
+ * calculamos los intentos teniendo en cuenta el número total de casillas y sumándole la mitad de las mismas para
+ * hacerlo más "justo" en dimensiones grandes
+ * @param {*} dimensiones el tamaño de nuestra matriz
+ */
 function iniciarJuego(dimensiones){
     let numCasillas = dimensiones * dimensiones;
-    let intentos = numCasillas + parseInt(numCasillas / 2);
+    intentos = devolverIntentos(numCasillas);
     console.log("Casillas: "+numCasillas+" intentos: "+intentos);
     DOM.tablero.style.gridTemplateColumns = `repeat(${dimensiones}, 5em)`;
     DOM.tablero.style.gridTemplateRows  = `repeat(${dimensiones}, 5em)`;
     dibujarCasillas(numCasillas);
 }
 
+/**
+ * Aquí crearemos los elementos dinámicamente dependiendo del número de casillas que nos manden
+ * haremos uso de createElement y appendChild para insertarlos dentro de nuestra clase tablero
+ * @param {*} numCasillas nuestro número de casillas que se mostrarán en el DOM
+ */
 function dibujarCasillas(numCasillas){
     let arrayParejas = generarArrayAleatorios(numCasillas);
-    console.log(arrayParejas);
 
     for(let i = 0; i < arrayParejas.length; i++){
         let divCarta = document.createElement("div");
@@ -31,9 +45,15 @@ function dibujarCasillas(numCasillas){
         divCarta.appendChild(divCruz);
     }
 
-    DOM.cartas = document.querySelectorAll(".cruz");
+    DOM.cartas = document.querySelectorAll(".cruz"); //lo añadimos al objeto DOM DESPUÉS de haberlas generado porque de lo contrario los eventlistener no lo encontrarán
+    DOM.spanIntentosRestantes.innerText = intentos;
 }
 
+/**
+ * Crearemos un array de aleatorios y luego lo devolveremos para luego trabajar con él
+ * @param {*} numCasillas nuestro número de casillas que se mostrarán en el DOM
+ * @returns 
+ */
 function generarArrayAleatorios(numCasillas){
     let arrayAleatorios = [];
     for(let i = 0; i < Math.floor(numCasillas / 2); i++){
@@ -46,7 +66,6 @@ function generarArrayAleatorios(numCasillas){
     }
 
     console.log(arrayAleatorios);
-
     arrayAleatorios = mezclarArray(arrayAleatorios);
 
     return arrayAleatorios;
@@ -152,10 +171,17 @@ function obtenerCoincidencia() {
             coinciden = true;
         } else {
             cartasVistas.add(valor);
+            restarIntentos();
         }
     }
-
+    console.log("Intentos: "+intentos);
     return coinciden;
+}
+
+function restarIntentos(){
+    intentos--;
+    DOM.spanIntentosRestantes.innerText = intentos;
+
 }
 
 
