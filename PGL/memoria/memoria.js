@@ -1,8 +1,68 @@
 import { duplaCartas } from "./variablesGlobales.js";
 
 const DOM = {
-    cartas: document.querySelectorAll(".cruz")
+    tablero: document.getElementsByClassName("tablero")[0]
 }
+
+iniciarJuego(3);
+
+function iniciarJuego(dimensiones){
+    let numCasillas = dimensiones * dimensiones;
+    let intentos = numCasillas + parseInt(numCasillas / 2);
+    console.log("Casillas: "+numCasillas+" intentos: "+intentos);
+    DOM.tablero.style.gridTemplateColumns = `repeat(${dimensiones}, 5em)`;
+    DOM.tablero.style.gridTemplateRows  = `repeat(${dimensiones}, 5em)`;
+    dibujarCasillas(numCasillas);
+}
+
+function dibujarCasillas(numCasillas){
+    let arrayParejas = generarArrayAleatorios(numCasillas);
+    console.log(arrayParejas);
+
+    for(let i = 0; i < arrayParejas.length; i++){
+        let divCarta = document.createElement("div");
+        divCarta.classList.add("carta");
+
+        DOM.tablero.appendChild(divCarta);
+
+        let divCruz = document.createElement("div");
+        divCruz.classList.add("cruz");
+        divCruz.innerText = arrayParejas[i];
+        divCarta.appendChild(divCruz);
+    }
+
+    DOM.cartas = document.querySelectorAll(".cruz");
+}
+
+function generarArrayAleatorios(numCasillas){
+    let arrayAleatorios = [];
+    for(let i = 0; i < Math.floor(numCasillas / 2); i++){
+        const numAleatorio = Math.floor(Math.random() * 100);
+        arrayAleatorios.push(numAleatorio);
+        arrayAleatorios.push(numAleatorio);
+    }
+    if(numCasillas % 2 != 0){
+        arrayAleatorios.push("🃏");
+    }
+
+    console.log(arrayAleatorios);
+
+    arrayAleatorios = mezclarArray(arrayAleatorios);
+
+    return arrayAleatorios;
+}
+
+function mezclarArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      // Generar un índice aleatorio entre 0 y i
+      const j = Math.floor(Math.random() * (i + 1));
+      
+      // Intercambiar elementos array[i] y array[j]
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
 
 DOM.cartas.forEach(carta => {
     carta.addEventListener("click", girarCartaClickada);
@@ -16,13 +76,18 @@ function girarCartaClickada(e) {
     e.target.classList.add("cara");
 }
 
+/**
+ * En esta función recogeremos todos los div del DOM para crear un array y obtener tanto su posición como su valor
+ * una vez los tengamos los añadiremos a nuestra dupla y calcularemos su longitud de valores, si es mayor que dos sabremos 
+ * que tenemos una pareja de dos ya clickada y haremos las comprobaciones
+ * @param {*} e evento
+ * @param {*} cartas los elementos del DOM
+ */
 function compararCartas(e, cartas) {
 
-    let pos = Array.from(cartas).indexOf(e.target);
-    //console.log(e.target);
-    //console.log(pos);
-    //duplaCartas.push(e.target.innerText);
+    let pos = Array.from(cartas).indexOf(e.target); 
     duplaCartas[pos] = e.target.innerText;
+
     const longitud = Object.keys(duplaCartas).length;
 
     if (longitud == 2) {
@@ -71,9 +136,6 @@ function limpiarDupla() {
         }
     }
 }
-
-
-
 
 /**
  * En duplaCartas tenemos clave y valor que desconocemos, por lo tanto recorreremos el objeto, recogemos su valor y 
