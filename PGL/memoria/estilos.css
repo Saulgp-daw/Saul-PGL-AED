@@ -10,7 +10,7 @@ body {
     background-color: rgb(209, 209, 209);
 }
 
-.container {
+.tablero {
     display: grid;
     grid-template-columns: repeat(3, 5em);
     grid-template-rows: repeat(3, 5em);
