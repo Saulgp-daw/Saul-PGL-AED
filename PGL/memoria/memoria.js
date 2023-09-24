@@ -1,6 +1,6 @@
 import { duplaCartas } from "./variablesGlobales.js";
 import { devolverIntentos } from "./variablesGlobales.js";
-import { intervalo } from "./variablesGlobales.js";
+import { intervalo, totalNumerosAleatorios } from "./variablesGlobales.js";
 let intentos = 0;
 let dimensiones = 3;
 
@@ -61,7 +61,7 @@ function dibujarCasillas(numCasillas) {
 function generarArrayAleatorios(numCasillas) {
     let arrayAleatorios = [];
     for (let i = 0; i < Math.floor(numCasillas / 2); i++) {
-        const numAleatorio = Math.floor(Math.random() * 100);
+        const numAleatorio = Math.floor(Math.random() * totalNumerosAleatorios);
         if (arrayAleatorios.includes(numAleatorio)) {
             i--;
         } else {
@@ -194,11 +194,11 @@ function obtenerCoincidencia() {
             comprobarResultado();
         } else {
             cartasVistas.add(valor);
-            restarIntentos();
+            //restarIntentos();
         }
     }
     console.log("Intentos: " + intentos);
-    //coinciden ? null : restarIntentos();
+    coinciden ? null : restarIntentos();
     return coinciden;
 }
 
