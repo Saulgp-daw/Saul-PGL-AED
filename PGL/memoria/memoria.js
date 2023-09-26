@@ -45,6 +45,7 @@ function dibujarCasillas(numCasillas) {
 
         let divCruz = document.createElement("div");
         divCruz.classList.add("cruz");
+        //divCruz.classList.remove("bloqueada");
         divCruz.innerText = arrayParejas[i];
         divCarta.appendChild(divCruz);
     }
@@ -60,13 +61,14 @@ function dibujarCasillas(numCasillas) {
  */
 function generarArrayAleatorios(numCasillas) {
     let arrayAleatorios = [];
-    for (let i = 0; i < Math.floor(numCasillas / 2); i++) {
+    for (let i = 0; i < Math.floor(numCasillas / 2); ) {
         const numAleatorio = Math.floor(Math.random() * totalNumerosAleatorios);
         if (arrayAleatorios.includes(numAleatorio)) {
-            i--;
+            
         } else {
             arrayAleatorios.push(numAleatorio);
             arrayAleatorios.push(numAleatorio);
+            i++;
         }
 
     }
@@ -80,13 +82,15 @@ function generarArrayAleatorios(numCasillas) {
     return arrayAleatorios;
 }
 
-function mezclarArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        // Generar un índice aleatorio entre 0 y i
-        const j = Math.floor(Math.random() * (i + 1));
 
-        // Intercambiar elementos array[i] y array[j]
-        [array[i], array[j]] = [array[j], array[i]];
+
+function mezclarArray(array) {
+
+    for(let i=0;i<array.length; i++){
+        let posIntercambio = Math.trunc(Math.random()*array.length);
+        let aux = array[i];
+        array[i] = array[posIntercambio];
+        array[posIntercambio] = aux;
     }
     return array;
 }
@@ -99,8 +103,10 @@ function darEventosACartas() {
             compararCartas(e, DOM.cartas);
         });*/
 
+
         carta.addEventListener("click", compararCartas);
     });
+    console.log(DOM.cartas);
 }
 
 function bloquearEventosCartas() {
@@ -127,13 +133,15 @@ function girarCartaClickada(e) {
 function compararCartas(e) {
 
     let pos = Array.from(DOM.cartas).indexOf(e.target);
+    console.log(DOM.cartas[pos]);
     duplaCartas[pos] = e.target.innerText;
+
 
     const longitud = Object.keys(duplaCartas).length;
 
     if (longitud == 2) {
         let coincidenCartas = obtenerCoincidencia();
-        coincidenCartas ? limpiarDupla() : quitarClaseDespuesDeEsperar();
+        coincidenCartas ? bloquearCartas() : quitarClaseDespuesDeEsperar();
 
         /* if (coincidenCartas) {
              console.log("Son iguales");
@@ -145,7 +153,7 @@ function compararCartas(e) {
          }*/
     }
 
-    console.log(duplaCartas);
+    //console.log(duplaCartas);
 }
 
 // Función para esperar un período de tiempo
@@ -159,7 +167,7 @@ async function quitarClaseDespuesDeEsperar() {
     await esperar(1000); // Esperar 2000 milisegundos (2 segundos)
 
     for (const clave in duplaCartas) {
-        console.log("pos: " + clave + " valor: " + duplaCartas[clave]);
+        //console.log("pos: " + clave + " valor: " + duplaCartas[clave]);
         DOM.cartas[clave].classList.remove("cara");
     }
 
@@ -173,6 +181,15 @@ async function quitarClaseDespuesDeEsperar() {
 function limpiarDupla() {
     for (const clave in duplaCartas) {
         if (duplaCartas.hasOwnProperty(clave)) {
+            delete duplaCartas[clave];
+        }
+    }
+}
+
+function bloquearCartas(){
+    for (const clave in duplaCartas) {
+        if (duplaCartas.hasOwnProperty(clave)) {
+            DOM.cartas[clave].classList.add("bloqueada");
             delete duplaCartas[clave];
         }
     }
@@ -203,7 +220,7 @@ function obtenerCoincidencia() {
 }
 
 function restarIntentos() {
-    if (intentos > 0) {
+    if (intentos > 1) {
         intentos--;
         DOM.spanIntentosRestantes.innerText = intentos;
     } else {
@@ -247,13 +264,15 @@ function revelarElementosSecuencialmente() {
 function comprobarResultado() {
     let cartasConCruz = 0;
     DOM.cartas.forEach(carta => {
-        if (!carta.classList.contains('cara')) {
+        if (carta.classList.length == 1) {
             cartasConCruz++;
         }
     });
+    console.log("Cartas con cruz: "+cartasConCruz);
 
     if (DOM.cartas.length % 2 == 0 && cartasConCruz == 0 || DOM.cartas.length % 2 != 0 && cartasConCruz == 1) {
         alert("Has ganado el juego, enhorabuena");
+        limpiarDupla();
         iniciarJuego(++dimensiones);
     }
 

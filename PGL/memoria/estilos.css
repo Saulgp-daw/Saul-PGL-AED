@@ -7,16 +7,18 @@ body {
     height: 100vh;
     justify-content: center;
     align-content: center;
-    background-color: rgb(209, 209, 209);
+    background-color: #ffffff;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 200 200'%3E%3Cpolygon fill='%23CED4FA' points='100 0 0 100 100 100 100 200 200 100 200 0'/%3E%3C/svg%3E");
 }
 
 .texto-motivador{
     font-size: 2em;
+    text-align: center;
 }
 
 .tablero {
     display: grid;
-    background-color: rgb(212, 7, 7);
+    background-color: #B6AFE3;
     padding: 0.5em;
     gap: 0.2em;
     margin: auto;
@@ -25,33 +27,41 @@ body {
 .carta {
     font-size: 2em;
     user-select: none;
-    background-color: rgb(10, 7, 212);
+    background-color: #CED4FA;
     border: 1px solid #fff;
 }
 
 .carta:hover{
     cursor: pointer;
-    background-color: rgb(8, 6, 131);
+    background-color: #AFC3E3;
 }
 
 .cruz{
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.8s ease;
+    transition: all 0.4s ease;
     width: 100%;
     height: 100%;
     opacity: 0;
 }
 
 .revelada{
-    background-color: rgb(10, 7, 212);
+    background-color: #B6AFE3;
     opacity: 1;
-    color: white;
+    color: black;
 }
 
+
+
 .cara{
-    background-color: rgb(7, 212, 58);
+    background-color: #C3E9FD;
+    opacity: 1;
+    color: black;
+}
+
+.bloqueada{
+    background-color: #DAC3FD;
     opacity: 1;
     color: black;
 }
