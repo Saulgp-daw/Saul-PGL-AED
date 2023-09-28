@@ -29,13 +29,15 @@
         $arrayPuntuacion[$key] = $puntuacion;
     }
 
-    echo "<br>---AÑADIENDO SUS VALORES----<br>";
+    echo "<br>---AÑADIENDO SUS VALORES-----<br>";
     $puntuacionUsuarios[$usuario] = $arrayPuntuacion;
     print_r($puntuacionUsuarios);
     $texto = serialize($puntuacionUsuarios);
 
 
     file_put_contents("./puntuaciones.txt", $texto);
+
+
     ?>
 </body>
 

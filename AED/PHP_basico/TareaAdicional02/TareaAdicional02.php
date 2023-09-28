@@ -13,6 +13,12 @@
         <label for="usuario">Usuario: </label><input type="text" name="usuario" id="usuario"><br>
         <?php
 
+        echo "<select name='encuestado' id='encuestado' >";
+        foreach ($alumnos as $i => $alumno) {
+
+            echo "<option value='$i' id='$i'>$alumno</option>";
+        }
+        echo "</select> <br><br><br>";
 
 
         foreach ($alumnos as $key => $value) {
