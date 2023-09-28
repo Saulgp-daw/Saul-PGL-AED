@@ -1,0 +1,16 @@
+RewriteEngine on
+
+
+#si la ruta no coincide con un fichero físico 
+#lleva a index.php para gestionar
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?pathtocontroller=$1 [NC,L,QSA]
+
+#se impide el acceso directo a la carpeta app
+#redireccionando siempre a index.php
+RewriteCond %{REQUEST_URI} app/.*
+RewriteRule ^(.*)$ index.php?pathtocontroller=$1 [NC,L,QSA]
+
+
+#los ficheros físicos que no están en app son accesibles directamente
