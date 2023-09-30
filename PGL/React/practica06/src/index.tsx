@@ -4,16 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import RelojesMundiales from './Components/RelojesMundiales';
-import ComponenteApp from './Components/practica07';
-import FCContador from './Components/practica07';
+import ComponenteApp from './Components/practica08';
+import FCContador from './Components/practica08';
+import ComponenteMostrarHora from './Components/practica07';
+import MultiplicationTable from './Components/practica09';
+import ComponenteArrayAleatorio from './Components/practica10';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <RelojesMundiales />
-    <FCContador />
+    <ComponenteArrayAleatorio />
   </React.StrictMode>
 );
 
