@@ -13,3 +13,6 @@
     
 
     require_once($nombreFichero);
+
+    $nombreClase::balar();
+
