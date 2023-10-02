@@ -13,6 +13,7 @@ import Practica11 from './Components/practica11';
 import Practica12 from './Components/practica12';
 
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
