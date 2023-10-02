@@ -9,15 +9,15 @@ import FCContador from './Components/practica08';
 import ComponenteMostrarHora from './Components/practica07';
 import MultiplicationTable from './Components/practica09';
 import ComponenteArrayAleatorio from './Components/practica10';
+import Practica11 from './Components/practica11';
+import Practica12 from './Components/practica12';
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <ComponenteArrayAleatorio />
-  </React.StrictMode>
+    <Practica12-2 />
 );
 
 // If you want to start measuring performance in your app, pass a function
