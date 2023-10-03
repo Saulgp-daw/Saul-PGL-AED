@@ -38,20 +38,48 @@
 
     file_put_contents("./puntuaciones.txt", $texto);
 
+    $arrayPuntosParejas = [];
+
     foreach ($puntuacionUsuarios as $id => $arrayNotas) {
         $suma = 0;
-        foreach ($arrayNotas as $key => $value) {
-            echo "<br>$id: $key te da ";
-            //echo gettype($id);
-            echo $arrayNotas[$id];
-            //busco el $id en el array de $key
-            //echo "$key te da $arrayNotas[$posicion]";
-            //$puntuacion = $arrayNotas[$id];
-            //print_r($arrayNotas);
-            echo "<br>";
-            //echo "El usuario con id: $id tiene puntuacion de $key es: $puntuacion <br>";
+        $ningunCompi = true;
+        foreach ($arrayNotas as $id2 => $puntos) {
+
+            if($puntos > 0){
+                $ningunCompi  = false;
+            }
+
+            if(array_key_exists($id2, $puntuacionUsuarios) ){
+                if($id < $id2){
+                    $suma = intval($puntuacionUsuarios[$id][$id2]) + intval($puntuacionUsuarios[$id2][$id]);
+                    $arrayPuntosParejas["$id/".$id2] = $suma;
+                }
+            }
         }
+        
+        if($ningunCompi){
+            $arrayPuntosParejas["$id/".$id] = 100;
+        }
+
     }
+    
+    arsort($arrayPuntosParejas);
+    print_r($arrayPuntosParejas);
+    $parejasFinales = [];
+    foreach ($arrayPuntosParejas as $idCombinado => $SumaPuntuacion) {
+        $ids = explode("/", $idCombinado);
+        $id1 = $ids[0];
+        $id2 = $ids[1];
+
+        if(!isset($parejasFinales[$id1]) && !isset($parejasFinales[$id2])){
+            $parejasFinales[$id1]  = $id2;
+            $parejasFinales[$id2]  = $id1;
+        }  
+
+    }
+
+    echo "<br>Parejas finales: <br>";
+    print_r($parejasFinales);
 
     ?>
 </body>
