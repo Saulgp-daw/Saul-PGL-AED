@@ -21,11 +21,12 @@
         print_r($puntuacionUsuarios);
     }
 
-    $usuario = $_GET['usuario'] ?? "Anónimo";
+    $usuario = $_GET['encuestado'] ?? "Anónimo";
+    echo "<br>$usuario<br>";
     $arrayPuntuacion = [];
    
     foreach ($alumnos as $key => $value) {
-        $puntuacion = $_GET[$value] ?? 0;
+        $puntuacion = $_GET[$key] ?? 0;
         $arrayPuntuacion[$key] = $puntuacion;
     }
 
@@ -37,6 +38,20 @@
 
     file_put_contents("./puntuaciones.txt", $texto);
 
+    foreach ($puntuacionUsuarios as $id => $arrayNotas) {
+        $suma = 0;
+        foreach ($arrayNotas as $key => $value) {
+            echo "<br>$id: ";
+            //echo gettype($key);
+            echo $arrayNotas[parse_str($id)];
+            //busco el $id en el array de $key
+            //echo "$key te da $arrayNotas[$posicion]";
+            //$puntuacion = $arrayNotas[$id];
+            //print_r($arrayNotas);
+            echo "<br>";
+            //echo "El usuario con id: $id tiene puntuacion de $key es: $puntuacion <br>";
+        }
+    }
 
     ?>
 </body>

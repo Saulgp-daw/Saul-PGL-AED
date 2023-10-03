@@ -10,7 +10,7 @@
 
 <body>
     <form action="puntuacion.php" method="get">
-        <label for="usuario">Usuario: </label><input type="text" name="usuario" id="usuario"><br>
+        <label for="usuario">Usuario: </label>
         <?php
 
         echo "<select name='encuestado' id='encuestado' >";
