@@ -41,9 +41,9 @@
     foreach ($puntuacionUsuarios as $id => $arrayNotas) {
         $suma = 0;
         foreach ($arrayNotas as $key => $value) {
-            echo "<br>$id: ";
-            //echo gettype($key);
-            echo $arrayNotas[parse_str($id)];
+            echo "<br>$id: $key te da ";
+            //echo gettype($id);
+            echo $arrayNotas[$id];
             //busco el $id en el array de $key
             //echo "$key te da $arrayNotas[$posicion]";
             //$puntuacion = $arrayNotas[$id];
