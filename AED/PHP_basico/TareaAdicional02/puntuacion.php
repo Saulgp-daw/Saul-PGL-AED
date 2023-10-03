@@ -17,12 +17,12 @@
         $puntuacionUsuarios = unserialize($fichero_puntuaciones);
         echo "<br> -------DATOS CARGADOS CORRECTAMENTE-----<br> ";
         echo "Sin serializar: <br> $fichero_puntuaciones";
-        echo "<br>-----DATOS DESERIALIZADOS-----<br>";
-        print_r($puntuacionUsuarios);
+        echo "<br><h5>-----DATOS DESERIALIZADOS-----</h5><br>";
+        //print_r($puntuacionUsuarios);
     }
 
     $usuario = $_GET['encuestado'] ?? "Anónimo";
-    echo "<br>$usuario<br>";
+    //echo "<br>$usuario<br>";
     $arrayPuntuacion = [];
    
     foreach ($alumnos as $key => $value) {
@@ -30,9 +30,9 @@
         $arrayPuntuacion[$key] = $puntuacion;
     }
 
-    echo "<br>---AÑADIENDO SUS VALORES-----<br>";
+    echo "<br><h5>---AÑADIENDO SUS VALORES-----</h5><br>";
     $puntuacionUsuarios[$usuario] = $arrayPuntuacion;
-    print_r($puntuacionUsuarios);
+    //print_r($puntuacionUsuarios);
     $texto = serialize($puntuacionUsuarios);
 
 
