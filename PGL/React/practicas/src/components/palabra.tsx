@@ -6,7 +6,7 @@ type Props = {
 
 const Palabra = (props: Props) => {
   return (
-    <div>P</div>
+    <div>Componente palabra</div>
   )
 }
 

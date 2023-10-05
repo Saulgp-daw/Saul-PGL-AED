@@ -7,33 +7,33 @@ type Props = {}
 
 const Practica17 = (props: Props) => {
     const [texto, setTextoState] = useState('');
+    const  [componenteElegido, setComponenteElegido] = useState(false);
 
-    const cambiarTexto = (event:any) => {
-        setTextoState(event.target.value);
+    const cambiarTexto = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTextoState(event.target.value );
     }
 
-    const variableTipo = () => {
+    function variableTipoNumero() {
+        
        if(!isNaN(parseFloat(texto))){
             console.log("Es un número");
+            setComponenteElegido(true);
         }else{
             console.log("Es texto");
-            
+            setComponenteElegido(false);
         }
 
-        return (
-            <>
-            (!isNaN(parseFloat(texto))) ? <Multiplicar numero={parseFloat(texto)} /> : <Palabra palabra={texto} />
-            </>
-        )
+      
     }
 
     return (
         <>
             <div>practica17</div>
-            <textarea name="textarea" id="textarea" value={texto} onChange={cambiarTexto}></textarea>
-            <button onClick={variableTipo}>Recoger Valor</button>
+            <input name="textarea" id="textarea" value={texto} onChange={cambiarTexto}></input>
+            <button onClick={variableTipoNumero}>Recoger Valor</button>
             <p>Valor del textarea: {texto}</p>
-            
+            { componenteElegido && texto != ""?  <Multiplicar numero={parseFloat(texto)} />: <Palabra palabra={texto} /> };
+           
         </>
     )
 }

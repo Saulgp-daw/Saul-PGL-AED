@@ -6,7 +6,7 @@ type Props = {
 
 const Multiplicar = (props: Props) => {
   return (
-    <div>Multiplicar</div>
+    <div>Componente Multiplicar</div>
   )
 }
 
