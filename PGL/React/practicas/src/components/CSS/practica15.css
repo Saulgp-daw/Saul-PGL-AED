@@ -1,0 +1,19 @@
+.verde{
+    border: 2px solid rgb(3, 221, 3);
+    color: rgb(3, 221, 3);
+}
+
+.rojo{
+    border: 2px solid rgb(236, 2, 2);
+    color: rgb(236, 2, 2);
+}
+
+.azul{
+    border: 2px solid rgb(0, 59, 168);
+    color: rgb(0, 59, 168);
+}
+
+.rosa{
+    border: 2px solid rgb(245, 28, 198);
+    color: rgb(245, 28, 198);
+}

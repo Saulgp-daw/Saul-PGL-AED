@@ -1,0 +1,12 @@
+.zonaHoraria{
+    margin: auto;
+}
+
+.zonaHoraria > h5{
+    color: red;
+    font-weight: bold;
+}
+
+.zonaHoraria > p{
+    font-weight: bold;
+}
