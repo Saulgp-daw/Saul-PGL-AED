@@ -1,0 +1,58 @@
+{
+    "productos":{
+       "prod01":{
+          "nombre":"Manzana",
+          "categoria":"fruta",
+          "stock":10,
+          "precio":2.10
+       },
+       "prod02":{
+          "nombre":"Pistachos",
+          "categoria":"frutos secos",
+          "stock":99,
+          "precio":1.2
+       },
+       "prod03":{
+          "nombre":"Tomate",
+          "categoria":"fruta",
+          "stock":12,
+          "precio":2.1
+       },
+       "prod04":{
+          "nombre":"Galletas",
+          "categoria":"bollería",
+          "stock":33,
+          "precio":4
+       },
+       "prod05":{
+          "nombre":"Donut",
+          "categoria":"bollería",
+          "stock":23,
+          "precio":5
+       },
+       "prod06":{
+          "nombre":"Pizza",
+          "categoria":"comida rápida",
+          "stock":56,
+          "precio":12
+       },
+       "prod07":{
+          "nombre":"Almendras",
+          "categoria":"frutos secos",
+          "stock":89,
+          "precio":3
+       },
+       "prod08":{
+          "nombre":"Anacardos",
+          "categoria":"frutos secos",
+          "stock":2,
+          "precio":3
+       },
+       "prod09":{
+          "nombre":"Papas bonitas",
+          "categoria":"verdura",
+          "stock":0,
+          "precio":13
+       }
+    }
+ }
