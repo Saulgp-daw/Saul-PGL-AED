@@ -88,7 +88,7 @@
                 $archivo = fopen($rutaJSON, 'w');
                 fclose($archivo);
             }
-            echo "<br>" .json_encode(self::$productos);
+            echo "<br>" .json_encode(self::$productos)."<br>";
             file_put_contents($rutaJSON, json_encode(self::$productos));
         }
     }
