@@ -10,7 +10,7 @@ class AgregarView {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="app/CSS/estiloCatalogo.css">
+            <link rel="stylesheet" href="CSS/estiloCatalogo.css">
             <title>Agregar Producto</title>
             
         </head>
@@ -26,7 +26,7 @@ class AgregarView {
 
     public function body(){
         echo $this->cabecera();
-        echo "<h3>-Agregar Producto-</h3>";
+        echo "<h3 class='titulo'>-Agregar Producto-</h3>";
         echo "<form action='agregarProducto' method='GET'";
         echo "<label>Nombre: </label><input type='text' name='nombre_producto' required/><br>";
         echo "<label>Categoria: </label><input type='text' name='categoria_producto' required/><br>";

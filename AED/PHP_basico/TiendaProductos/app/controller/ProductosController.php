@@ -8,12 +8,13 @@
          * El index es el método por defecto, comprobará si la vista de catálogo de productos existe y de ser así llamará a la vista con un mensaje u otro o no mostrará nada
          */
         function index($args){
-            echo "Dentro del método por defecto Productos Controller";
+            //echo "Dentro del método por defecto Productos Controller";
             if($this->comprobarFicheroExiste("app/view/ProductosView.php")){
                 $vistaCatalogo = new ProductosView();
                 $vistaCatalogo->enlacesAVistas();
                 if(self::$productos != null){
-                    (isset($args['agregado']))? $mensaje = "Producto añadido!" : $mensaje="";
+                    (isset($args['agregado']) && !isset($args['borrado']))? $mensaje = "Producto añadido!" : $mensaje = "Producto borrado!";
+                    //(isset($args['borrado']))? $mensaje = "Producto borrado!" : $mensaje="";
                     $vistaCatalogo->mostrar_productos(self::$productos, $mensaje);
                 }else{
                     $vistaCatalogo->no_productos();
@@ -159,7 +160,7 @@
             }
             self::guardarCatalogoProductos("app/model/data.json");
 
-            header("Location: /practicas/AED/PHP_basico/TiendaProductos/productos");
+            header("Location: /practicas/AED/PHP_basico/TiendaProductos/productos?borrado=true");
             exit;
             
         }

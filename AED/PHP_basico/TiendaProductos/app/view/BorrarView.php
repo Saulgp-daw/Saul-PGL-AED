@@ -10,7 +10,7 @@ class BorrarView {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="app/CSS/estiloCatalogo.css">
+            <link rel="stylesheet" href="CSS/estiloCatalogo.css">
             <title>Borrar Producto</title>
             
         </head>

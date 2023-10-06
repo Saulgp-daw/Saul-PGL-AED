@@ -1,0 +1,56 @@
+.containerProductos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    width: 70vw;
+    margin: auto;
+}
+
+.fichaProducto {
+    text-align: center;
+    background-color: rgb(149, 247, 247);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgb(0, 155, 245);
+}
+
+.fichaProducto>.nombres {
+    color: rgb(0, 0, 109);
+}
+
+.titulo {
+    text-align: center;
+}
+
+.contenedor_enlaces {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 70vw;
+    margin: auto;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.contenedor_enlaces>a:link {
+    text-align: center;
+    text-decoration: none;
+    padding: 0.6rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgb(149, 247, 247);
+    background: rgb(149, 255, 255);
+    background: linear-gradient(69deg, rgba(149, 255, 255, 1) 0%, rgba(0, 0, 109, 1) 23%, rgba(0, 0, 109, 1) 77%, rgba(149, 255, 255, 1) 100%);
+    color: white;
+    transition: background-color 1000ms linear;
+}
+
+.contenedor_enlaces>a:visited{
+    color: white;
+}
+
+.contenedor_enlaces>a:hover{
+    color: rgb(1, 36, 192);
+    background: rgb(0,0,109);
+background: linear-gradient(69deg, rgba(0,0,109,1) 0%, rgba(149,255,255,1) 23%, rgba(149,255,255,1) 77%, rgba(0,0,109,1) 100%);
+}
+
+
