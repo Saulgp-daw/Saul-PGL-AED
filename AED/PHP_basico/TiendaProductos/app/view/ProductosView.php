@@ -24,6 +24,11 @@ class ProductosView {
         ';
     }
 
+    public function enlacesAVistas(){
+        echo "<br><a href='productos/agregarView'>Agregar Producto</a>";
+        echo "<br><a href='#'>Borrar Producto</a>";
+    }
+
     public function mostrar_productos($productos){
         echo $this->cabecera();
         echo "<h3>-Catálogo de productos-</h3>";
@@ -36,6 +41,7 @@ class ProductosView {
             echo "<div>Stock: ".$producto['stock']."uds.</div>";
             echo "<div>".$producto['precio']."€</div>";
             echo "</div>";
+            echo "<br>-----------------------------";
         }
         echo "</div>";
         echo $this->pie();

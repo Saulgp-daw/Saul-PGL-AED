@@ -8,6 +8,7 @@
             echo "Dentro del método por defecto Productos Controller";
             if($this->comprobarFicheroExiste("app/view/ProductosView.php")){
                 $vistaCatalogo = new ProductosView();
+                $vistaCatalogo->enlacesAVistas();
                 if(self::$productos != null){
                     $vistaCatalogo->mostrar_productos(self::$productos);
                 }else{
@@ -32,6 +33,15 @@
                 $archivo = fopen($rutaJSON, 'w');
                 fclose($archivo);
             }
+        }
+
+        public static function guardarCatalogoProductos($rutaJSON){
+            if(!file_exists($rutaJSON)){
+                $archivo = fopen($rutaJSON, 'w');
+                fclose($archivo);
+            }
+            echo "<br>" .json_encode(self::$productos)."<br>";
+            file_put_contents($rutaJSON, json_encode(self::$productos));
         }
 
         function comprobarFicheroExiste($nombreFichero): bool{
@@ -68,29 +78,26 @@
             if($this->comprobarFicheroExiste("app/model/Producto.php")){
                 if(self::$productos != null){
                     $idProd = "prod0" . (intval(sizeof(self::$productos))+1);
-                    $prodNuevo = new Producto($idProd, $args['nombre_producto'], $args['categoria_producto'], $args['stock_producto'],  $args['precio_producto']);
-                    //$prodJSON =  json_encode($prodNuevo);
-                    //print_r(self::$productos);
-                    array_push(self::$productos, $prodNuevo);
-                    //print_r(self::$productos);
-                    //echo "<br>" .json_encode(self::$productos);
-                    self::guardarCatalogoProductos("app/model/data.json");
+                }else{
+                    $idProd = "prod01";
+                    self::$productos = [];
                 }
-                
+                $prodNuevo = new Producto($idProd, $args['nombre_producto'], $args['categoria_producto'], $args['stock_producto'],  $args['precio_producto']);
+                //$prodJSON =  json_encode($prodNuevo);
+                //print_r(self::$productos);
+                array_push(self::$productos, $prodNuevo);
+                //print_r(self::$productos);
+                //echo "<br>" .json_encode(self::$productos);
+                self::guardarCatalogoProductos("app/model/data.json");
+                header("Location: index");
+                exit;
             }else{
                 echo "El fichero no existe!!";
             }
             
         }
 
-        public static function guardarCatalogoProductos($rutaJSON){
-            if(!file_exists($rutaJSON)){
-                $archivo = fopen($rutaJSON, 'w');
-                fclose($archivo);
-            }
-            echo "<br>" .json_encode(self::$productos)."<br>";
-            file_put_contents($rutaJSON, json_encode(self::$productos));
-        }
+        
     }
 
     ProductosController::cargarCatalogoProductos("app/model/data.json");
