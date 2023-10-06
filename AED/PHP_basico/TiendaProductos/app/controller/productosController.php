@@ -1,5 +1,4 @@
 <?php
-   
 
     class ProductosController{
 
@@ -8,8 +7,12 @@
         function index($args){
             echo "Dentro del método por defecto Productos Controller";
             if($this->comprobarFicheroExiste("app/view/ProductosView.php")){
-                    $vistaCatalogo = new ProductosView();
+                $vistaCatalogo = new ProductosView();
+                if(self::$productos != null){
                     $vistaCatalogo->mostrar_productos(self::$productos);
+                }else{
+                    $vistaCatalogo->no_productos();
+                }
             }
         }
 
@@ -17,14 +20,17 @@
             if(file_exists($rutaJSON) && filesize($rutaJSON) != 0){
                 $contenidoJSON = file_get_contents($rutaJSON);
                 $datosJSON = json_decode($contenidoJSON, true);
-                $productosJSON = $datosJSON['productos'];
+                $productosJSON = $datosJSON;
                 self::$productos = $productosJSON;
             }else{
-                if(file_put_contents($rutaJSON, "{}")){
+                /*if(file_put_contents($rutaJSON, "")){
                     echo 'Archivo JSON vacío creado con éxito.';
                 }else{
                     echo 'No se pudo crear el archivo JSON vacío.';
-                }
+                }*/
+
+                $archivo = fopen($rutaJSON, 'w');
+                fclose($archivo);
             }
         }
 
@@ -54,7 +60,36 @@
         }
 
         function agregarProducto($args){
-            print_r($args);
+            echo $args['nombre_producto'] . "<br>";
+            echo $args['categoria_producto'] . "<br>";
+            echo $args['stock_producto'] . "<br>";
+            echo $args['precio_producto'] . "<br>";
+
+            if($this->comprobarFicheroExiste("app/model/Producto.php")){
+                if(self::$productos != null){
+                    $idProd = "prod0" . (intval(sizeof(self::$productos))+1);
+                    $prodNuevo = new Producto($idProd, $args['nombre_producto'], $args['categoria_producto'], $args['stock_producto'],  $args['precio_producto']);
+                    //$prodJSON =  json_encode($prodNuevo);
+                    //print_r(self::$productos);
+                    array_push(self::$productos, $prodNuevo);
+                    //print_r(self::$productos);
+                    //echo "<br>" .json_encode(self::$productos);
+                    self::guardarCatalogoProductos("app/model/data.json");
+                }
+                
+            }else{
+                echo "El fichero no existe!!";
+            }
+            
+        }
+
+        public static function guardarCatalogoProductos($rutaJSON){
+            if(!file_exists($rutaJSON)){
+                $archivo = fopen($rutaJSON, 'w');
+                fclose($archivo);
+            }
+            echo "<br>" .json_encode(self::$productos);
+            file_put_contents($rutaJSON, json_encode(self::$productos));
         }
     }
 

@@ -11,6 +11,7 @@ import MultiplicationTable from './Components/practica09';
 import ComponenteArrayAleatorio from './Components/practica10';
 import Practica11 from './Components/practica11';
 import Practica12 from './Components/practica12';
+import practica17 from './Components/practica17';
 
 
 
@@ -18,7 +19,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <Practica12-2 />
+    <practica17 />
 );
 
 // If you want to start measuring performance in your app, pass a function

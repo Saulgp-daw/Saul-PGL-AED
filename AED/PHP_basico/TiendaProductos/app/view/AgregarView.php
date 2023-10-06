@@ -31,7 +31,7 @@ class AgregarView {
         echo "<label>Nombre: </label><input type='text' name='nombre_producto' required/><br>";
         echo "<label>Categoria: </label><input type='text' name='categoria_producto' required/><br>";
         echo "<label>Stock: </label><input type='number' name='stock_producto' step='1' required/><br>";
-        echo "<label>Precio: </label><input type='number' name='stock_producto' step='any' required/><br>";
+        echo "<label>Precio: </label><input type='number' name='precio_producto' step='any' required/><br>";
         echo "<input type='submit' value='Enviar'>";
         echo "</form>";
         echo $this->pie();
