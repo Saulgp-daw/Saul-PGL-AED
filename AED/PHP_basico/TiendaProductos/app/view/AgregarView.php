@@ -34,7 +34,12 @@ class AgregarView {
         echo "<label>Precio: </label><input type='number' name='precio_producto' step='any' required/><br>";
         echo "<input type='submit' value='Enviar'>";
         echo "</form>";
+        echo "<br>".$this->enlacesPaginas("Volver");
         echo $this->pie();
+    }
+
+    private function enlacesPaginas($mensaje){
+        return '<a href="../">'. $mensaje .'</a>';
     }
 
 

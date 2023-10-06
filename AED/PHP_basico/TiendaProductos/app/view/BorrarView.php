@@ -31,7 +31,12 @@ class BorrarView {
         echo "<label>Id a borrar: </label><input type='text' name='id_producto' required/><br>";
         echo "<input type='submit' value='Enviar'>";
         echo "</form>";
+        echo "<br>".$this->enlacesPaginas("Volver");
         echo $this->pie();
+    }
+
+    private function enlacesPaginas($mensaje){
+        return '<a href="../">'. $mensaje .'</a>';
     }
 
 

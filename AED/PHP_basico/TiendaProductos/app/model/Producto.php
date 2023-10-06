@@ -14,6 +14,26 @@
             $this->precio = $precio;
         }
 
+        public function getId(){
+            return $this->id;
+        }
+
+        public function getNombre(){
+            return $this->nombre;
+        }
+
+        public function getCategoria(){
+            return $this->categoria;
+        }
+
+        public function getStock(){
+            return $this->stock;
+        }
+
+        public function getPrecio(){
+            return $this->precio;
+        }
+
 
     }
 

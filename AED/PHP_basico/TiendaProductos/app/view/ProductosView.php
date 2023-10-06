@@ -27,6 +27,7 @@ class ProductosView {
     public function enlacesAVistas(){
         echo "<br><a href='productos/agregarView'>Agregar Producto</a>";
         echo "<br><a href='productos/borrarView'>Borrar Producto</a>";
+        echo "<br><a href='productos/filtrarView'>Filtrar Producto</a>";
     }
 
     public function mostrar_productos($productos, $mensaje){

@@ -97,6 +97,29 @@
             }
         }
 
+        function filtrarView($args){
+            if($this->comprobarFicheroExiste("app/view/FiltrarView.php")){
+                $vistaFiltrar = new FiltrarView();
+                $vistaFiltrar->body();
+            }else{
+                echo "No se encuentra dicho archivo";
+            }
+        }
+
+        function filtrarProducto($args){
+            $nombre_producto_filtrar =  $args['nombre_producto'] ?? "";
+            if($nombre_producto_filtrar != "" && self::comprobarFicheroExiste("app/view/FiltrarView.php")){
+                foreach (self::$productos as $key => $producto) {
+                    if(strtolower($nombre_producto_filtrar) == strtolower($producto['nombre'])){
+                        $vistaFiltrar = new FiltrarView();
+                        $vistaFiltrar->detallesProducto($producto);
+                    }
+                }
+            }
+        }
+
+
+
         /**
          * Función que recibirá los parámetros del formulario de la vista del agregar producto. Calculamos dentro el código del producto y crearemos un objeto Producto al que luego añadiremos a nuestro array y guardaremos en el JSON
          */
