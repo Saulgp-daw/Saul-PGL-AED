@@ -26,12 +26,13 @@ class ProductosView {
 
     public function enlacesAVistas(){
         echo "<br><a href='productos/agregarView'>Agregar Producto</a>";
-        echo "<br><a href='#'>Borrar Producto</a>";
+        echo "<br><a href='productos/borrarView'>Borrar Producto</a>";
     }
 
-    public function mostrar_productos($productos){
+    public function mostrar_productos($productos, $mensaje){
         echo $this->cabecera();
         echo "<h3>-Catálogo de productos-</h3>";
+        echo "<div style='position: absolute;top: 10px;right: 10px;'>$mensaje</div>";
         echo "<div class='containerProductos'>";
         foreach ($productos as $key => $producto) {
             echo "<div class='fichaProducto'>";

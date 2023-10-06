@@ -2,21 +2,28 @@
 
     class ProductosController{
 
-        private static $productos = null;
+        private static $productos = null; //Este va a ser el array con el que lidiaremos con los valores cargados, insertados y los que queremos filtrar y borrar
 
+        /**
+         * El index es el método por defecto, comprobará si la vista de catálogo de productos existe y de ser así llamará a la vista con un mensaje u otro o no mostrará nada
+         */
         function index($args){
             echo "Dentro del método por defecto Productos Controller";
             if($this->comprobarFicheroExiste("app/view/ProductosView.php")){
                 $vistaCatalogo = new ProductosView();
                 $vistaCatalogo->enlacesAVistas();
                 if(self::$productos != null){
-                    $vistaCatalogo->mostrar_productos(self::$productos);
+                    (isset($args['agregado']))? $mensaje = "Producto añadido!" : $mensaje="";
+                    $vistaCatalogo->mostrar_productos(self::$productos, $mensaje);
                 }else{
                     $vistaCatalogo->no_productos();
                 }
             }
         }
 
+        /**
+         * Este método recogerá los valores del JSON y los decodificará para guardarlos en nuestro atributo array de productos, en caso de no existir el archivo json lo generaremos vacío
+         */
         public static function cargarCatalogoProductos($rutaJSON){
             if(file_exists($rutaJSON) && filesize($rutaJSON) != 0){
                 $contenidoJSON = file_get_contents($rutaJSON);
@@ -29,12 +36,14 @@
                 }else{
                     echo 'No se pudo crear el archivo JSON vacío.';
                 }*/
-
                 $archivo = fopen($rutaJSON, 'w');
                 fclose($archivo);
             }
         }
 
+        /**
+         * Mismo caso que cargar solo que a la inversa, encodearemos los datos de nuestro array como JSON para reemplazar el texto del fichero con los nuevos datos
+         */
         public static function guardarCatalogoProductos($rutaJSON){
             if(!file_exists($rutaJSON)){
                 $archivo = fopen($rutaJSON, 'w');
@@ -44,6 +53,10 @@
             file_put_contents($rutaJSON, json_encode(self::$productos));
         }
 
+        /**
+         * Esta función solo nos comprobará si la ruta de los ficheros aportada existe, de ser así devolverá un booleano
+         * @return bool existe o no el archivo
+         */
         function comprobarFicheroExiste($nombreFichero): bool{
             $existe = false;
             if( file_exists($nombreFichero)){
@@ -60,7 +73,10 @@
             return $existe;
         }
 
-        function agregarView(){
+        /**
+         * Función que llama a la vista de agregar
+         */
+        function agregarView($args){
             if($this->comprobarFicheroExiste("app/view/AgregarView.php")){
                 $vistaAgregar = new AgregarView();
                 $vistaAgregar->body();
@@ -68,13 +84,23 @@
                 echo "No se encuentra dicho archivo";
             }
         }
+        /**
+         * Función que llama a la vista de borrar
+         */
 
+        function borrarView($args){
+            if($this->comprobarFicheroExiste("app/view/BorrarView.php")){
+                $vistaBorrar = new BorrarView();
+                $vistaBorrar->body();
+            }else{
+                echo "No se encuentra dicho archivo";
+            }
+        }
+
+        /**
+         * Función que recibirá los parámetros del formulario de la vista del agregar producto. Calculamos dentro el código del producto y crearemos un objeto Producto al que luego añadiremos a nuestro array y guardaremos en el JSON
+         */
         function agregarProducto($args){
-            echo $args['nombre_producto'] . "<br>";
-            echo $args['categoria_producto'] . "<br>";
-            echo $args['stock_producto'] . "<br>";
-            echo $args['precio_producto'] . "<br>";
-
             if($this->comprobarFicheroExiste("app/model/Producto.php")){
                 if(self::$productos != null){
                     $idProd = "prod0" . (intval(sizeof(self::$productos))+1);
@@ -89,16 +115,37 @@
                 //print_r(self::$productos);
                 //echo "<br>" .json_encode(self::$productos);
                 self::guardarCatalogoProductos("app/model/data.json");
-                header("Location: index");
+                header("Location: /practicas/AED/PHP_basico/TiendaProductos/productos?agregado=true");
                 exit;
             }else{
                 echo "El fichero no existe!!";
+            } 
+        }
+
+        /**
+         * Función que recibirá los parámetros del formulario de la vista del borrar producto. Hacemos un foreach de nuestro array para verificar que el id recibido/que se desea borrar es el mismo que un objeto de nuestro array para borrarlos y guardaremos en el JSON el array sin él
+         */
+        function borrarProducto($args){
+            $id_producto_borrar =  $args['id_producto'] ?? "";
+            if($id_producto_borrar != ""){
+                foreach (self::$productos as $key => $producto) {
+                    if($id_producto_borrar == $producto['id']){
+                        unset(self::$productos[$key]);
+                    }
+                }
             }
+            self::guardarCatalogoProductos("app/model/data.json");
+
+            header("Location: /practicas/AED/PHP_basico/TiendaProductos/productos");
+            exit;
             
         }
 
         
+
+        
     }
 
+    //Nada más iniciar la aplicación llamaremos al método estático para cargar los datos del json que contienen nuestros productos
     ProductosController::cargarCatalogoProductos("app/model/data.json");
 ?>
