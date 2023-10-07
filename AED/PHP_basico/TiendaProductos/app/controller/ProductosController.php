@@ -146,14 +146,14 @@ class ProductosController
 
     function modificarProducto($args)
     {
-        print_r($args);
         if (GestionarFichero::comprobarFicheroExiste("app/model/Producto.php")) {
             $prodMod = new Producto($args['id_producto'], $args['nombre_producto'], $args['categoria_producto'], $args['stock_producto'],  $args['precio_producto']);
             if (self::comprobarIdExiste($prodMod->id)) {
                 self::borrarProducto($args, $prodMod->id);
                 self::agregarProducto($args, $prodMod);
             } else {
-                echo "El id no existe";
+                $mensaje = "El id no existe";
+                header("Location: /" . $this->obtenerCarpetaRaiz() . "/AED/PHP_basico/TiendaProductos/productos/modificarView");
             }
         }
     }
