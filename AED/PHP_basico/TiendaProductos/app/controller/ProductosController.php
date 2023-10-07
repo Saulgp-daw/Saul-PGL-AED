@@ -24,13 +24,13 @@ class ProductosController
             $vistaCatalogo->enlacesAVistas();
             if (self::$productos != null) {
                 $mensaje = "";
-                if(isset($args['agregado'])){
+                if (isset($args['agregado'])) {
                     $mensaje = "Producto añadido correctamente";
                 }
-                if(isset($args['borrado'])){
+                if (isset($args['borrado'])) {
                     $mensaje = "Producto borrado correctamente";
                 }
-                
+
                 //(isset($args['borrado']))? $mensaje = "Producto borrado!" : $mensaje="";
                 $vistaCatalogo->mostrar_productos(self::$productos, $mensaje);
             } else {
@@ -134,6 +134,72 @@ class ProductosController
         }
     }
 
+    function modificarView($args)
+    {
+        if (GestionarFichero::comprobarFicheroExiste("app/view/ModificarView.php")) {
+            $vistaModificar = new ModificarView();
+            $vistaModificar->body();
+        } else {
+            echo "No se encuentra dicho archivo";
+        }
+    }
+
+    function modificarProducto($args)
+    {
+        print_r($args);
+        if (GestionarFichero::comprobarFicheroExiste("app/model/Producto.php")) {
+            $prodMod = new Producto($args['id_producto'], $args['nombre_producto'], $args['categoria_producto'], $args['stock_producto'],  $args['precio_producto']);
+            if (self::comprobarIdExiste($prodMod->id)) {
+                self::borrarProducto($args, $prodMod->id);
+                self::agregarProducto($args, $prodMod);
+            } else {
+                echo "El id no existe";
+            }
+        }
+    }
+
+    function comprobarIdExiste($idModificar)
+    {
+        $existe = false;
+        foreach (self::$productos as $key => $producto) {
+            if ($producto['id'] == $idModificar) {
+                $existe = true;
+            }
+        }
+        return $existe;
+    }
+
+    /**
+     * Función que recibirá los parámetros del formulario de la vista del agregar producto. Calculamos dentro el código del producto y crearemos un objeto Producto al que luego añadiremos a nuestro array y guardaremos en el JSON
+     */
+    function agregarProducto($args, $prodMod = null)
+    {
+        if (GestionarFichero::comprobarFicheroExiste("app/model/Producto.php")) {
+            if (self::$productos != null) {
+                $ultimoProd = end(self::$productos);
+                print_r($ultimoProd);
+                $separacionId = explode("prod0", $ultimoProd["id"]);
+                $idProd = "prod0" . (intval($separacionId[1]) + 1);
+                echo $idProd;
+                //$idProd = "prod0" . (intval(sizeof(self::$productos)) + 1);
+            } else {
+                $idProd = "prod01";
+                self::$productos = [];
+            }
+
+            $prodNuevo = new Producto($idProd, $args['nombre_producto'], $args['categoria_producto'], $args['stock_producto'],  $args['precio_producto']);
+            if ($prodMod != null) {
+                $prodNuevo = $prodMod;
+            }
+            array_push(self::$productos, $prodNuevo);
+            self::guardarCatalogoProductos();
+            header("Location: /" . $this->obtenerCarpetaRaiz() . "/AED/PHP_basico/TiendaProductos/productos?agregado=true");
+            exit;
+        } else {
+            echo "El fichero no existe!!";
+        }
+    }
+
     function filtrarProducto($args)
     {
         $nombre_producto_filtrar =  $args['nombre_producto'] ?? "";
@@ -154,56 +220,41 @@ class ProductosController
 
 
 
-    /**
-     * Función que recibirá los parámetros del formulario de la vista del agregar producto. Calculamos dentro el código del producto y crearemos un objeto Producto al que luego añadiremos a nuestro array y guardaremos en el JSON
-     */
-    function agregarProducto($args)
-    {
-        if (GestionarFichero::comprobarFicheroExiste("app/model/Producto.php")) {
-            if (self::$productos != null) {
-                $ultimoProd = end(self::$productos);
-                print_r($ultimoProd);
-                $separacionId = explode("prod0", $ultimoProd["id"]);
-                $idProd = "prod0" . (intval($separacionId[1]) + 1);
-                echo $idProd;
-                //$idProd = "prod0" . (intval(sizeof(self::$productos)) + 1);
-            } else {
-                $idProd = "prod01";
-                self::$productos = [];
-            }
-            $prodNuevo = new Producto($idProd, $args['nombre_producto'], $args['categoria_producto'], $args['stock_producto'],  $args['precio_producto']);
-            array_push(self::$productos, $prodNuevo);
-            self::guardarCatalogoProductos();
-            header("Location: /" . $this->obtenerCarpetaRaiz() . "/AED/PHP_basico/TiendaProductos/productos?agregado=true");
-            exit;
-        } else {
-            echo "El fichero no existe!!";
-        }
-    }
+
 
     /**
      * Función que recibirá los parámetros del formulario de la vista del borrar producto. Hacemos un foreach de nuestro array para verificar que el id recibido/que se desea borrar es el mismo que un objeto de nuestro array para borrarlos y guardaremos en el JSON el array sin él
      */
-    function borrarProducto($args)
+    function borrarProducto($args, $idMod=null)
     {
         $id_producto_borrar =  $args['id_producto'] ?? "";
         $borrado = false;
+        $modificado = false;
         if ($id_producto_borrar != "") {
             foreach (self::$productos as $key => $producto) {
                 if ($id_producto_borrar == $producto['id']) {
                     unset(self::$productos[$key]);
-                    $borrado = true;
+                    if($idMod == null){
+                        $borrado = true;
+                    }else{
+                        $modificado = true;
+                    }
+                    
                 }
             }
         }
         self::guardarCatalogoProductos();
         $mensaje = "";
-        if($borrado){
+        if ($borrado) {
             $mensaje = "?borrado=true";
+            header("Location: /" . $this->obtenerCarpetaRaiz() . "/AED/PHP_basico/TiendaProductos/productos" . $mensaje);
+            exit;
+        }else if($modificado){
+            $mensaje = "?modificado=true";
+        }else{
+            header("Location: /" . $this->obtenerCarpetaRaiz() . "/AED/PHP_basico/TiendaProductos/productos" . $mensaje);
         }
-        header("Location: /" . $this->obtenerCarpetaRaiz() . "/AED/PHP_basico/TiendaProductos/productos".$mensaje);
-
-        exit;
+       
     }
 }
 

@@ -32,7 +32,7 @@ class ProductosView {
         echo "<a class='enlaces' href='productos/agregarView'>Agregar Producto</a>";
         echo "<a class='enlaces' href='productos/borrarView'>Borrar Producto</a>";
         echo "<a class='enlaces' href='productos/filtrarView'>Filtrar Producto</a>";
-        echo "<a class='enlaces' href='#'>Modificar Producto (en proceso)</a>";
+        echo "<a class='enlaces' href='productos/modificarView'>Modificar Producto</a>";
         echo "</div>";
     }
 
