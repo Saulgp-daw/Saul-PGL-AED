@@ -24,7 +24,7 @@ class FiltrarView {
         ';
     }
 
-    public function body(){
+    public function body($encontrado){
         echo $this->cabecera();
         echo "<h3>-Filtrar un Producto-</h3>";
         echo "<h5>-Filtre por nombre-</h5>";
@@ -32,6 +32,7 @@ class FiltrarView {
         echo "<label>Nombre: </label><input type='text' name='nombre_producto' required/> ";
         echo "<input type='submit' value='Buscar'>";
         echo "</form>";
+        echo "<label>$encontrado</label><br>";
         echo $this->enlacesPaginas("Volver");
         echo $this->pie();
     }
