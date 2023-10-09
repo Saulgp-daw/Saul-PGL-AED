@@ -12,12 +12,14 @@ import Practica15 from './components/practica15';
 import Practica16 from './components/practica16';
 import Practica17 from './components/practica17';
 import PruebaUseEffect from './components/pruebaUseEffect';
+import Practica18_useEffect from './components/practica18_1';
+import Practica19 from './components/practica19';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <PruebaUseEffect />
+    <Practica19 />
 );
 
 // If you want to start measuring performance in your app, pass a function
