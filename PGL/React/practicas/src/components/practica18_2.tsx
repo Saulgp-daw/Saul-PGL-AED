@@ -1,6 +1,11 @@
-/*import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 type Props = {}
-class Example extends React.Component {
+type MiState={
+    count: number,
+    nombre?: string
+}
+class Example extends React.Component<Props,MiState> {
+
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -20,5 +25,5 @@ class Example extends React.Component {
         );
     }
 }
-*/
+
 export {}
