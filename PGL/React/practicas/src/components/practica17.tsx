@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Multiplicar from './multiplicar';
 import Palabra from './palabra';
+import NumerosAleatorios from './numerosAleatorios';
+import Fecha from './fecha';
 
 
 type Props = {}
@@ -9,30 +11,20 @@ const Practica17 = (props: Props) => {
     const [texto, setTextoState] = useState('');
     const  [componenteElegido, setComponenteElegido] = useState(false);
 
-    const cambiarTexto = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTextoState(event.target.value );
+    function generarNumerosAleatorios(){
+        setComponenteElegido(true);
     }
 
-    function variableTipoNumero() {
-        
-       if(!isNaN(parseFloat(texto))){
-            console.log("Es un número");
-            setComponenteElegido(true);
-        }else{
-            console.log("Es texto");
-            setComponenteElegido(false);
-        }
-
-      
+    function fechaYSaludar(){
+        setComponenteElegido(false);
     }
 
     return (
         <>
             <div>practica17</div>
-            <input name="textarea" id="textarea" value={texto} onChange={cambiarTexto}></input>
-            <button onClick={variableTipoNumero}>Recoger Valor</button>
-            <p>Valor del textarea: {texto}</p>
-            { componenteElegido && texto != ""?  <Multiplicar numero={parseFloat(texto)} />: <Palabra palabra={texto} /> };
+            <button onClick={generarNumerosAleatorios}>Numeros aleatorios</button>
+            <button  onClick={fechaYSaludar}>Fecha</button>
+            { componenteElegido?  <NumerosAleatorios />: <Fecha fechaActual={new Date()} /> }
            
         </>
     )

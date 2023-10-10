@@ -6,8 +6,10 @@ const Practica27 = (props: Props) => {
     const inputSegundos = useRef<HTMLInputElement>({} as HTMLInputElement);
     const spanSegundos = useRef<HTMLInputElement>({} as HTMLInputElement);
     const [estadoBoton, setEstadoBoton] = useState<boolean>(false);
-    let valorInput = 0;
+
+    let valorInput =  inputSegundos.current.value;
     let span = spanSegundos.current;
+    let cuentaAtras = 40;
 
     useEffect(() => {
         const timerID = setInterval(cronometro, 1000);
@@ -15,14 +17,13 @@ const Practica27 = (props: Props) => {
 
     function cronometro() {
         if (estadoBoton) {
-            span.innerText = ""+(parseInt(valorInput.value)-1);
-            console.log(parseInt(valorInput.value)-1);
+            span.innerText = ""+cuentaAtras;
+            cuentaAtras--;
             
         }
     }
 
     function iniciarParar() {
-        valorInput = inputSegundos.current.value;
         setEstadoBoton(!estadoBoton);
 
     }

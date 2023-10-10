@@ -19,12 +19,16 @@ import EjemploRelojActivo from './components/practica21';
 import RelojMundialActivo from './components/Practica22/practica22';
 import Practica23 from './components/practica23';
 import Practica27 from './components/practica27';
+import Practica24 from './components/practica24';
+import Practica25 from './components/practica25';
+import Practica28 from './components/practica28';
+import Practica29 from './components/practica29';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <Practica27 />
+    <Practica29 />
 );
 
 // If you want to start measuring performance in your app, pass a function
