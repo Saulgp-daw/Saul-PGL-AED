@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,21 @@ Route::get('/anacardos', function(){
     echo "Estamos saludando un poco";
     die();
 } );
+
+
+Route::get('/goodbye', function () {
+    return view('goodbye');
+});
+
+Route::post('/pruebita', function () {
+    echo "Se ha ejecutado una paetición post";
+});
+
+Route::match(['get', 'post'], '/getypost', function(){
+    echo "Responde a get y post";
+});
+
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
