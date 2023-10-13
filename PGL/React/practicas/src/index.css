@@ -24,3 +24,23 @@ code {
 .box {
   margin: auto;
 }
+
+.container{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin: auto;
+  width: 50rem;
+}
+
+.cell{
+  background-color: rgb(121, 240, 190);
+}
+
+.hidden{
+  opacity: 0.5;
+}
+
+.revealed{
+  opacity: 1;
+}
