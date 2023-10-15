@@ -10,16 +10,45 @@ const Practica31 = (props: Props) => {
 
     const [aleatorios, setAleatorios] = useState<Array<JSX.Element>>();
 
+    const [segundos, setSegundos] = useState(5);
+
+
+
+
+
     useEffect(() => {
         const nuevosAleatorios = numAleatoriosRef.current.map(numero => (
             <div className='cell' onClick={() => probar(numero)} key={numero}>
-                <span className={`cell ${ordenados.includes(numero) ? 'revealed' : 'hidden'}`}>{numero}</span>
+                <span className="revealed">{numero}</span>
             </div>
         ));
+
         setAleatorios(nuevosAleatorios);
-        console.log("log del useeffect: " + numAleatoriosRef.current);
 
     }, []);
+
+    useEffect(() => {
+        
+
+        if (segundos > 0) {
+            const temporizador = setTimeout(() => {
+              setSegundos(segundos - 1);
+            }, 1000);
+      
+            // Limpia el temporizador cuando el componente se desmonta
+            return () => clearTimeout(temporizador);
+          }else{
+            const nuevosAleatorios = numAleatoriosRef.current.map(numero => (
+                <div className='cell' onClick={() => probar(numero)} key={numero}>
+                    <span className="hidden">{numero}</span>
+                </div>
+            ));
+    
+            setAleatorios(nuevosAleatorios);
+          }
+
+    }, [segundos]);
+
 
     function generarNumerosAleatorios(): Array<number> {
         const numAleatorios: Array<number> = [];
@@ -33,13 +62,6 @@ const Practica31 = (props: Props) => {
         return numAleatorios;
     }
 
-    function shuffleArray(array: Array<number>) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
 
 
     function probar(num: number) {
@@ -51,6 +73,7 @@ const Practica31 = (props: Props) => {
             if (num - 1 == prevOrdenados.length) {
                 return [...prevOrdenados, num];
             }
+
             return prevOrdenados; // Si la condición no se cumple, devuelve el estado sin cambios
         });
     }
@@ -60,7 +83,7 @@ const Practica31 = (props: Props) => {
 
         const nuevosAleatorios = numAleatoriosRef.current.map(numero => (
             <div className='cell' onClick={() => probar(numero)} key={numero}>
-                <span className={`cell ${ordenados.includes(numero) ? 'revealed' : 'hidden'}`}>{numero}</span>
+                <span className={`${ordenados.includes(numero) ? 'revealed' : 'hidden'}`}>{numero}</span>
             </div>
         ));
         setAleatorios(nuevosAleatorios);
@@ -69,19 +92,35 @@ const Practica31 = (props: Props) => {
 
     useEffect(() => {
         // Este efecto se ejecutará cada vez que ordenados se actualice
-        cambiarClase();
+        if(segundos == 0){
+            cambiarClase();
+        }
+        if(ordenados.length == 8){
+            alert("Has ganado el videogame");
+            window.location.reload();
+        }
+        
     }, [ordenados]);
+
 
 
     return (
         <div>
             <h4>Practica31</h4>
+            <div className='textoSegundos'>
+                {segundos === 0 ? (
+                    <p>¡Tiempo agotado!</p>
+                ) : (
+                    <p>Quedan {segundos} segundos</p>
+                )}
+            </div>
             <div className='container'>
                 {aleatorios}
 
             </div>
             <div>Aleatorios: {numAleatoriosRef.current}</div>
             <div>Ordenados: {ordenados}</div>
+            
         </div>
 
     )

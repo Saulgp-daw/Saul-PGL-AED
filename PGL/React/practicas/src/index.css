@@ -28,17 +28,36 @@ code {
 .container{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 3rem);
   gap: 5px;
   margin: auto;
   width: 50rem;
 }
 
+.textoSegundos{
+  text-align: center;
+}
+
 .cell{
   background-color: rgb(121, 240, 190);
+  display: flex;
+  justify-content: center;
+  user-select: none;
+}
+
+.cell:hover{
+  cursor: pointer;
+  background-color: rgb(62, 177, 129);
+
+}
+
+.hidden, .revealed{
+  margin:auto;
+  transition: 0.6s ease;
 }
 
 .hidden{
-  opacity: 0.5;
+  opacity: 0;
 }
 
 .revealed{
