@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 
 class ListaProductos extends Controller
 {
-    public static function ejecutaGET()
+    public static function respuesta()
     {
-        echo "Ejecutando el controlador ListarProductos mediante get";
+        $metodo = $_SERVER['REQUEST_METHOD'];
+        return view('welcome');
+
+        echo "Ejecutando el controlador ListarProductos mediante $metodo";
     }
 
-    public static function ejecutaPOST()
-    {
-        echo "Ejecutando el controlador ListarProductos mediante POST";
-    }
 }

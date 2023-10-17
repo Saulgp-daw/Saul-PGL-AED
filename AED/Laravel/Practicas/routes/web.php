@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ListaProductos;
+use App\Http\Controllers\NumerosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,10 +42,12 @@ Route::get('/', function () {
 
 
 //Practica05
-Route::get('/', function () {
-    ListaProductos::ejecutaGET();
+Route::any('/', function () {
+    ListaProductos::respuesta();
 });
 
-Route::post('/', function () {
-    ListaProductos::ejecutaPOST();
-});
+//Practic10
+
+
+Route::any("/numeros", [NumerosController::class, 'mostrarVista']);
+
