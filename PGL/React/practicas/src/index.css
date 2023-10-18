@@ -62,4 +62,6 @@ code {
 
 .revealed{
   opacity: 1;
+  pointer-events: none;
 }
+

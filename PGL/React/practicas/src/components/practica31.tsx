@@ -18,7 +18,7 @@ const Practica31 = (props: Props) => {
 
     useEffect(() => {
         const nuevosAleatorios = numAleatoriosRef.current.map(numero => (
-            <div className='cell' onClick={() => probar(numero)} key={numero}>
+            <div className='cell'  key={numero}>
                 <span className="revealed">{numero}</span>
             </div>
         ));
