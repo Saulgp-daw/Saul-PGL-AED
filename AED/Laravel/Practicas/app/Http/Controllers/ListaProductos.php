@@ -9,9 +9,7 @@ class ListaProductos extends Controller
     public static function respuesta()
     {
         $metodo = $_SERVER['REQUEST_METHOD'];
-        return view('welcome');
-
-        echo "Ejecutando el controlador ListarProductos mediante $metodo";
+        return view('listar', compact('metodo'));
     }
 
 }
