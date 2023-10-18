@@ -31,7 +31,7 @@ Route::get('/goodbye', function () {
 });
 
 Route::post('/pruebita', function () {
-    echo "Se ha ejecutado una paetición post";
+    echo "Se ha ejecutado una petición post";
 });
 
 Route::match(['get', 'post'], '/getypost', function(){
