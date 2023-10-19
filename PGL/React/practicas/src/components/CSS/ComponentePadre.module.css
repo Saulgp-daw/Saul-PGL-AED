@@ -1,0 +1,12 @@
+.btnAgregarPersona{
+    position: fixed;
+    bottom: 0px;
+    background-color: grey;
+    width: 100%;
+    height: 2rem;
+    cursor: pointer;
+}
+
+.btnAgregarPersona:hover{
+    background-color: rgb(80, 80, 80);
+}

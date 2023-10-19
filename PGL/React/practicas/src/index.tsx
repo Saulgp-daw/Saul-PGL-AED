@@ -27,12 +27,17 @@ import Practica30 from './components/practica30';
 import Practica31 from './components/practica31';
 import FormularioProductos from './components/practica32';
 import Practica33 from './components/practica33';
+import Practica34 from './components/practica34';
+import { HijoModificaPadre, PadreModificadoPorHijo } from './components/ejemploPadreHijo';
+import EjStateByProps from './components/Practica35/ejStateByProps';
+import ComponentePadre from './components/Practica36/componentePadre';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <Practica33 />
+    <ComponentePadre />
 );
 
 // If you want to start measuring performance in your app, pass a function
