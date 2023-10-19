@@ -1,5 +1,6 @@
 import React from 'react'
 import { Persona } from './Persona'
+import style from '../CSS/PersonaCard.module.css'
 
 type Props = {}
 
@@ -8,18 +9,33 @@ interface PropsAHijos {
     persona: Persona
 }
 
-const PersonaCard = (props: PropsAHijos) => {
+function PersonaCard (props: PropsAHijos) {
     const { persona, modificarStatePadre } = props;
 
     function enviarInfo(e: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.currentTarget;
         console.log(name+ " "+value);
+
         
+         
         // Actualizar el valor correspondiente en el objeto persona
         const nuevaPersona = {
             ...persona,
             [name]: value
         };
+
+        /**
+         * let personaCambiad = new Persona(nuevaPersona.id,
+         * nuevaPersona.nombre, 
+         * nuevaPersona.apellido, 
+         * nuevaPersona.altura, 
+         * nuevaPersona.edad, 
+         * nuevaPersona.peso);
+         * 
+         * personaCambiada.calcularImc()
+         * setPersonaState(personaCambiada)
+         * modificarStatePadre(personaCambiada);
+         */
 
         console.log(nuevaPersona);
         
@@ -27,7 +43,7 @@ const PersonaCard = (props: PropsAHijos) => {
         modificarStatePadre(nuevaPersona);
     }
     return (
-        <div className='personaCard'>
+        <div>
             <h4>Id: {persona.getId()}</h4>
             <label htmlFor="nombre">Nombre: </label><input type="text" name="nombre" defaultValue={persona.getNombre()} onChange={enviarInfo} /><br />
             <label htmlFor="apellido">Apellido: </label><input type="text" name="apellido" defaultValue={persona.getApellido()} onChange={enviarInfo} /><br />

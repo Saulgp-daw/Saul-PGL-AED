@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Persona } from './Persona'
 import style from '../CSS/ComponentePadre.module.css'
-import PersonaCard from './personaCard'
+import PersonaCard from './personaCard';
 
 type Props = {}
 
-const ComponentePadre = (props: Props) => {
+function ComponentePadre (props: Props) {
     const [arrayPersonas, setArrayPersonas] = useState<Array<Persona>>([]);
 
     function crearPersona() {
@@ -18,6 +18,10 @@ const ComponentePadre = (props: Props) => {
         
         
         const personaEncontrada = arrayPersonas.find(persona => persona.getId() == personaHijo.getId());
+        //let nuevoarray = persona.filter(p => p.id != persona.id)
+        //nuevoaray.push(persona)
+        //nuevoarray.sort((a, b) => a.id - b.id)
+        //setArrayPersona(nuevoArray)
         personaEncontrada?.setNombre(personaHijo.getNombre());
         personaEncontrada?.setApellido(personaHijo.getApellido());
         personaEncontrada?.setAltura(personaHijo.getAltura());
@@ -33,7 +37,9 @@ const ComponentePadre = (props: Props) => {
             <div className="container">
                 {
                     arrayPersonas.map(persona => (
-                        <PersonaCard modificarStatePadre={modificarPersona} persona={persona}/>
+                        <div className={style.personaCard}>
+                            <PersonaCard key={persona.getId()} modificarStatePadre={modificarPersona} persona={persona}/>
+                        </div>
                     ))
                 }
             </div>

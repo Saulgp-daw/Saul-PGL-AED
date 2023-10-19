@@ -10,3 +10,13 @@
 .btnAgregarPersona:hover{
     background-color: rgb(80, 80, 80);
 }
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.personaCard{
+    background-color: rgb(127, 182, 255);
+    padding: 10px;
+}
