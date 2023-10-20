@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\GestionarFichero;
+use App\Models\GestionarFichero;
 
 class LoginRegistroController extends Controller
 {
@@ -30,13 +30,23 @@ class LoginRegistroController extends Controller
 
     function home()
     {
-        return view("home");
+        if (session()->has("nombreUsuario")) {
+            return view("home");
+        }else{
+            return redirect()->action([LoginRegistroController::class, 'index']);
+        }
+
     }
 
     function registro(Request $request)
     {
         $nombreUsuario = $request->input("nombreUsuario");
         $contrasenha = $request->input("contrasenha");
+
+        if ($nombreUsuario == ""|| $contrasenha == "") {
+            $mensaje = "El usuario o contraseña están vacíos";
+            return view("registro", compact("mensaje"));
+        }
         $arrayDatos[] = [$nombreUsuario, $contrasenha];
 
 
@@ -52,6 +62,14 @@ class LoginRegistroController extends Controller
 
         session()->put("nombreUsuario", $nombreUsuario);
         return redirect()->action([LoginRegistroController::class, 'index']);
+    }
+
+    function urlRedirect($view){
+        if (session()->has("nombreUsuario")) {
+            return view($view);
+        }else{
+            return redirect()->action([LoginRegistroController::class, 'index']);
+        }
     }
 
     function login(Request $request)
