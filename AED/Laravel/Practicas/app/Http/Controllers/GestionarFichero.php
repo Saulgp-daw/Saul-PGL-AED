@@ -23,30 +23,6 @@ class GestionarFichero
         return $existe;
     }
 
-    /**
-     * @var $ruta string
-     */
-    public function cargarCatalogoProductos($ruta)
-    {
-        $productos = [];
-        if (file_exists($ruta) && filesize($ruta) != 0) {
-            $fichero = fopen($ruta, "r");
-            if (flock($fichero, LOCK_EX)) {
-                rewind($fichero);
-                $contenidoJSON = fread($fichero, filesize($ruta));
-                flock($fichero, LOCK_UN);
-                fclose($fichero);
-                $productos = json_decode($contenidoJSON, true);
-            } else {
-                echo "El archivo está siendo usado actualmente";
-                return false;
-            }
-        } else {
-            $archivo = fopen($ruta, 'w');
-            fclose($archivo);
-        }
-        return $productos;
-    }
 
     public function guardarDatosUsuarioFichero($ruta, $arrayDatos)
     {
@@ -70,6 +46,19 @@ class GestionarFichero
             }
         }
         return $existe;
+    }
+
+    public function credencialesCorrectas($ruta, $nombre, $password){
+        if(self::comprobarFicheroExiste($ruta)){
+            $usuarios = self::obtenerUsuarios($ruta);
+            $credencialesCorrectas = false;
+            foreach ($usuarios as $usuario) {
+               if($usuario[0] == $nombre && $usuario[1] == $password) {
+                $credencialesCorrectas = true;
+               }
+            }
+        }
+        return $credencialesCorrectas;
     }
 
     public function obtenerUsuarios($ruta){

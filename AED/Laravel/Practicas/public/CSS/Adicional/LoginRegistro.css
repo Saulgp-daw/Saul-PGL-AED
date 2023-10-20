@@ -1,0 +1,62 @@
+.carta {
+    background-color: rgb(238, 175, 123);
+    width: 30rem;
+    margin: auto;
+    padding: 2rem 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 10px rgba(255, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+h3 {
+    text-align: center;
+}
+
+.logout{
+    position: fixed;
+    top: 0.5rem;
+    right:  0.5rem;
+    background-color: rgb(255, 94, 0);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.logout:hover{
+    background-color: rgb(167, 61, 0);
+}
+
+.contenedor {
+    display: grid;
+    grid-column-gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.alinearDerecha {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.btnSubmit {
+    background-color: rgb(17, 80, 132);
+    color: white;
+    border-radius: 5px;
+    border: 0px;
+    padding: 0.4rem;
+    cursor: pointer;
+}
+
+.btnSubmit:hover {
+    background-color: rgb(7, 36, 59);
+}
+
+.mensaje{
+    color: red;
+    text-align: center;
+}
+
+

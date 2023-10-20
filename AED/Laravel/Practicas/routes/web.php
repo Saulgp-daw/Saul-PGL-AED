@@ -80,5 +80,7 @@ use Illuminate\Support\Facades\Route;
 Route::any("/", [LoginRegistroController::class,"index"]);
 Route::any("/registro", [LoginRegistroController::class,"registro"]);
 Route::any("/login", [LoginRegistroController::class,"login"]);
+Route::any("/logout", [LoginRegistroController::class,"logout"]);
 Route::any("/redirigirLogin", [LoginRegistroController::class,"redirigirLogin"]);
+Route::any("/redirigirRegistro", [LoginRegistroController::class,"redirigirRegistro"]);
 Route::any("/home", [LoginRegistroController::class,"home"]);
