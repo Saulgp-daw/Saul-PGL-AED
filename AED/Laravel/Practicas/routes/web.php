@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\FechaController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ListaProductos;
 use App\Http\Controllers\LoginRegistroController;
 use App\Http\Controllers\NumerosController;
 use App\Http\Controllers\PrimosController;
+use App\Http\Controllers\TextAreaController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,16 +74,28 @@ use Illuminate\Support\Facades\Route;
 
 // //Practica11
 
+// Route::any("/", [TextAreaController::class, "index"]);
+// Route::any("/devolverLista", [TextAreaController::class, "convertirALista"]);
 
+// //Práctica 12
+// Route::any("/", [ImageController::class, "index"]);
 
 // //Practica13
 // Route::any('/colores', [ColoresController::class,'index']);
 // Route::any('/agregarColor', [ColoresController::class,'agregarColor']);
 
-Route::any("/", [LoginRegistroController::class,"index"]);
-Route::any("/registro", [LoginRegistroController::class,"registro"]);
-Route::any("/login", [LoginRegistroController::class,"login"]);
-Route::any("/logout", [LoginRegistroController::class,"logout"]);
-Route::any("/redirigirLogin", [LoginRegistroController::class,"redirigirLogin"]);
-Route::any("/redirigirRegistro", [LoginRegistroController::class,"redirigirRegistro"]);
-Route::any("/home", [LoginRegistroController::class,"home"]);
+//Practica 14
+//  Route::any("/", [ImageController::class, "index"]);
+
+//Practica 15
+// Route::any("/", [UsuarioController::class,"index"]);
+// Route::any("/procesar", [UsuarioController::class,"procesar"]);
+
+//Practica 16
+// Route::any("/", [LoginRegistroController::class,"index"]);
+// Route::any("/registro", [LoginRegistroController::class,"registro"]);
+// Route::any("/login", [LoginRegistroController::class,"login"]);
+// Route::any("/logout", [LoginRegistroController::class,"logout"]);
+// Route::any("/redirigirLogin", [LoginRegistroController::class,"redirigirLogin"]);
+// Route::any("/redirigirRegistro", [LoginRegistroController::class,"redirigirRegistro"]);
+// Route::any("/home", [LoginRegistroController::class,"home"]);
