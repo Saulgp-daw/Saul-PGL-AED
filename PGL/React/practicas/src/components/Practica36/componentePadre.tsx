@@ -13,32 +13,23 @@ function ComponentePadre (props: Props) {
     }
 
     function modificarPersona(personaHijo: Persona) {
-       
         console.log(personaHijo);
-        
-        
-        const personaEncontrada = arrayPersonas.find(persona => persona.getId() == personaHijo.getId());
-        //let nuevoarray = persona.filter(p => p.id != persona.id)
-        //nuevoaray.push(persona)
-        //nuevoarray.sort((a, b) => a.id - b.id)
-        //setArrayPersona(nuevoArray)
-        personaEncontrada?.setNombre(personaHijo.getNombre());
-        personaEncontrada?.setApellido(personaHijo.getApellido());
-        personaEncontrada?.setAltura(personaHijo.getAltura());
-        personaEncontrada?.setPeso(personaHijo.getPeso());
-        personaEncontrada?.calcularIMC(personaHijo.getPeso(), personaHijo.getAltura());
-        console.log(personaEncontrada);
+        //const personaEncontrada = arrayPersonas.find(persona => persona.getId() == personaHijo.getId());
+        let arrayFiltrado = arrayPersonas.filter(p => p.id != personaHijo.id);
+        arrayFiltrado.push(personaHijo)
+        arrayFiltrado.sort((a, b) => a.id - b.id)
+        setArrayPersonas(arrayFiltrado);
         
     }
 
     return (
         <div>
             <h3>Componente Padre</h3>
-            <div className="container">
+            <div className="contenedorPersona">
                 {
                     arrayPersonas.map(persona => (
-                        <div className={style.personaCard}>
-                            <PersonaCard key={persona.getId()} modificarStatePadre={modificarPersona} persona={persona}/>
+                        <div className={style.personaCard} key={persona.getId()}>
+                            <PersonaCard modificarStatePadre={modificarPersona} persona={persona}/>
                         </div>
                     ))
                 }

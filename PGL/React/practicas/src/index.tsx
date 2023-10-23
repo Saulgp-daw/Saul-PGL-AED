@@ -25,12 +25,14 @@ import Practica28 from './components/practica28';
 import Practica29 from './components/practica29';
 import Practica30 from './components/practica30';
 import Practica31 from './components/practica31';
+import Practica31_2 from './components/Practica31_chimp_test/practica31_2';
 import FormularioProductos from './components/practica32';
 import Practica33 from './components/practica33';
 import Practica34 from './components/practica34';
 import { HijoModificaPadre, PadreModificadoPorHijo } from './components/ejemploPadreHijo';
 import EjStateByProps from './components/Practica35/ejStateByProps';
 import ComponentePadre from './components/Practica36/componentePadre';
+
 
 
 const root = ReactDOM.createRoot(

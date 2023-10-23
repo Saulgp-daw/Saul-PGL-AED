@@ -1,11 +1,11 @@
 class Persona {
-    private id: number;
-    private nombre: string;
-    private apellido: string;
-    private altura: number;
-    private edad: number;
-    private peso: number;
-    private imc: number;
+    public id: number;
+    public nombre: string;
+    public apellido: string;
+    public altura: number;
+    public edad: number;
+    public peso: number;
+    public imc: number;
 
     constructor(id: number = 0, nombre: string = "", apellido: string = "", altura: number = 0, edad: number = 0, peso: number = 0, imc: number = 0) {
         this.id = id;
@@ -69,8 +69,8 @@ class Persona {
         this.imc = imc;
     }
 
-    public calcularIMC(peso: number, altura:number): void {
-        let imc = peso / (altura * altura);
+    public calcularIMC(): void {
+        let imc = this.peso / (this.altura * this.altura);
         this.setImc(imc);
     }
 
