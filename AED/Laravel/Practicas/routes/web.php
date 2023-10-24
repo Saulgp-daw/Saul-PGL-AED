@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ColoresController;
+use App\Http\Controllers\DirectorioNombreController;
 use App\Http\Controllers\FechaController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LeerFicheroController;
 use App\Http\Controllers\ListaProductos;
 use App\Http\Controllers\LoginRegistroController;
 use App\Http\Controllers\NumerosController;
@@ -91,7 +93,7 @@ use Illuminate\Support\Facades\Route;
 // Route::any("/", [UsuarioController::class,"index"]);
 // Route::any("/procesar", [UsuarioController::class,"procesar"]);
 
-//Practica 16
+// Practica 16
 // Route::any("/", [LoginRegistroController::class,"index"]);
 // Route::any("/registro", [LoginRegistroController::class,"registro"]);
 // Route::any("/login", [LoginRegistroController::class,"login"]);
@@ -99,3 +101,12 @@ use Illuminate\Support\Facades\Route;
 // Route::any("/redirigirLogin", [LoginRegistroController::class,"redirigirLogin"]);
 // Route::any("/redirigirRegistro", [LoginRegistroController::class,"redirigirRegistro"]);
 // Route::any("/home", [LoginRegistroController::class,"home"]);
+
+// Practica 17
+// Route::any("/", [DirectorioNombreController::class, "index"]);
+// Route::any("/crear_directorio", [DirectorioNombreController::class,"crearDirectorio"]);
+
+// Practica 18
+// Route::any("/", [LeerFicheroController::class,"index"]);
+
+//Practica 19
