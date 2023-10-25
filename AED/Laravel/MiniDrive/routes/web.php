@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DriveController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::any('/',[DriveController::class, "index"]);
+Route::any('/', [UsuarioController::class, "index"]);
+Route::any('/home', [DriveController::class, "index"]);
 Route::any('/descargar/{archivo}', [DriveController::class, "descargar"]);
 Route::any('/borrar/{archivo}', [DriveController::class, "borrar"]);
+Route::any('/registro', [UsuarioController::class, "registro"]);
