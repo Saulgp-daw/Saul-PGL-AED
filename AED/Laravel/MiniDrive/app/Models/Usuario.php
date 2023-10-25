@@ -46,7 +46,7 @@ class Usuario extends Model
     }*/
 
     public function __toString() {
-        return $this->__getNickname(); // O cualquier otra representación que desees
+        return $this->getNickname(); // O cualquier otra representación que desees
     }
 
 

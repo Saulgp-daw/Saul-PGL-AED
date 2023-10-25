@@ -25,7 +25,7 @@ class DriveController extends Controller
         if (Storage::exists("Archivos/".$archivo)){
             Storage::delete("Archivos/".$archivo);
         }
-        return redirect("/");
+        return redirect("/home");
 
     }
 }
