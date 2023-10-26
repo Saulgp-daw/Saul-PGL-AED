@@ -16,8 +16,11 @@
     @endphp
 
     {{-- Verificar si el objeto Usuario existe --}}
-    @if ($usuario)
-        <h1>Bienvenido, {{ $usuario->getNickname() }}</h1>
+    @isset($usuario)
+    <h1>Bienvenido, {{ $usuario->getNickname() }}</h1>
+    @endisset
+    @isset ($usuario)
+
     @else
         <h1>Bienvenido, Invitado</h1>
     @endif

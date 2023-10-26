@@ -200,21 +200,27 @@ class ProductosController
         }
     }
 
-    function filtrarProducto($args)
-    {
+
+    function filtrarProductos($args){
         $nombre_producto_filtrar =  $args['nombre_producto'] ?? "";
-        $encontrado = false;
+        $productosFiltrados = [];
+
         if ($nombre_producto_filtrar != "" && GestionarFichero::comprobarFicheroExiste("app/view/FiltrarView.php")) {
             $vistaFiltrar = new FiltrarView();
-            foreach (self::$productos as $key => $producto) {
-                if (strtolower($nombre_producto_filtrar) == strtolower($producto['nombre'])) {
-                    $vistaFiltrar->detallesProducto($producto);
-                    $encontrado = true;
+            foreach(self::$productos as $producto) {
+                if(strpos(strtolower($producto['nombre']), strtolower($nombre_producto_filtrar)) !== false){
+                    $productosFiltrados[] = $producto;
                 }
+                
+            }
+            if(sizeof($productosFiltrados) > 0) {
+                $encontrado = true;
+                $vistaFiltrar->detallesProductos($productosFiltrados);
             }
             if (!$encontrado) {
                 header("Location: /" . $this->obtenerCarpetaRaiz() . "/AED/PHP_basico/TiendaProductos/productos/filtrarView?no_encontrado=false");
             }
+            
         }
     }
 

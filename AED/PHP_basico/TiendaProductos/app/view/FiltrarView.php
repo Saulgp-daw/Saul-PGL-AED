@@ -1,9 +1,13 @@
 <?php
 
-class FiltrarView {
-    public function __contruct(){}
+class FiltrarView
+{
+    public function __contruct()
+    {
+    }
 
-    private function cabecera(){
+    private function cabecera()
+    {
         return '            
         <!DOCTYPE html>
         <html lang="en">
@@ -17,18 +21,20 @@ class FiltrarView {
         <body>';
     }
 
-    private function pie(){
+    private function pie()
+    {
         return '
         </body>
         </html>            
         ';
     }
 
-    public function body($encontrado){
+    public function body($encontrado)
+    {
         echo $this->cabecera();
         echo "<h3>-Filtrar un Producto-</h3>";
         echo "<h5>-Filtre por nombre-</h5>";
-        echo "<form action='filtrarProducto' method='GET'";
+        echo "<form action='filtrarProductos' method='GET'";
         echo "<label>Nombre: </label><input type='text' name='nombre_producto' required/> ";
         echo "<input type='submit' value='Buscar'>";
         echo "</form>";
@@ -37,23 +43,26 @@ class FiltrarView {
         echo $this->pie();
     }
 
-    public function detallesProducto($producto){
+
+    public function detallesProductos($arrayProductos)
+    {
         echo $this->cabecera();
-        echo "<h3>-Detalles del Producto-</h3>";
-        echo "Id:". $producto['id'] ."<br>";
-        echo "Nombre:". $producto['nombre']."<br>";
-        echo "Categoría:". $producto['categoria']."<br>";
-        echo "Stock:". $producto['stock']  ."uds. <br>";
-        echo "Precio:". $producto['precio']  ."€<br>";
-        echo $this->enlacesPaginas("Ir al home")."<br>";
+        echo "<h3>-Detalles de los Productos-</h3>";
+        foreach ($arrayProductos as $producto) {
+            echo "Id:" . $producto['id'] . "<br>";
+            echo "Nombre:" . $producto['nombre'] . "<br>";
+            echo "Categoría:" . $producto['categoria'] . "<br>";
+            echo "Stock:" . $producto['stock']  . "uds. <br>";
+            echo "Precio:" . $producto['precio']  . "€<br>";
+            echo "<br/>";
+        }
+
+        echo $this->enlacesPaginas("Ir al home") . "<br>";
         echo $this->pie();
     }
 
-    private function enlacesPaginas($mensaje){
-        return '<a href="../">'. $mensaje .'</a>';
+    private function enlacesPaginas($mensaje)
+    {
+        return '<a href="../">' . $mensaje . '</a>';
     }
-
-
 }
-
-?>
