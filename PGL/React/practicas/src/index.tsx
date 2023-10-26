@@ -32,6 +32,9 @@ import Practica34 from './components/practica34';
 import { HijoModificaPadre, PadreModificadoPorHijo } from './components/ejemploPadreHijo';
 import EjStateByProps from './components/Practica35/ejStateByProps';
 import ComponentePadre from './components/Practica36/componentePadre';
+import Practica37 from './components/practica37/practica37';
+import PokemonCard from './components/practica40/PokemonCard';
+import PokemonListCard from './components/practica40/PokemonListCard';
 
 
 
@@ -39,7 +42,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <ComponentePadre />
+    <PokemonListCard />
 );
 
 // If you want to start measuring performance in your app, pass a function
