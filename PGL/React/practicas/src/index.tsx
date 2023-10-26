@@ -35,6 +35,7 @@ import ComponentePadre from './components/Practica36/componentePadre';
 import Practica37 from './components/practica37/practica37';
 import PokemonCard from './components/practica40/PokemonCard';
 import PokemonListCard from './components/practica40/PokemonListCard';
+import CreatePoblacion from './components/createPoblacion';
 
 
 

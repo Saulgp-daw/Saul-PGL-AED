@@ -1,0 +1,157 @@
+{
+  "peliculas": [
+    
+      {
+        "id": "001",
+        "titulo": "Todo a la vez en todas partes",
+        "direccion": "Dan Kwan, Daniel Scheinert, Daniels",
+        "actores": "Michelle Yeoh, Ke Huy Quan, Jamie Lee Curtis",
+        "argumento": "Cuando una ruptura interdimensional altera la realidad, Evelyn (Michelle Yeoh), una inmigrante china en Estados Unidos, se ve envuelta en una aventura salvaje en la que solo ella puede salvar el mundo. Perdida en los mundos infinitos del multiverso, esta heroína inesperada debe canalizar sus nuevos poderes para luchar contra los extraños y desconcertantes peligros del multiverso mientras el destino del mundo pende de un hilo",
+        "imagen": "001.jpg"
+      },
+      {
+        "id": "002",
+        "titulo": "Ellas hablan",
+        "direccion": "Sarah Polley",
+        "actores": "Rooney Mara, Claire Foy, Ben Whishaw, Jessie Buckley",
+        "argumento": "En 2010, las mujeres que integran una colonia religiosa tratan de reconciliarse con la fe tras haber sufrido una serie de agresiones sexuales.",
+        "imagen": "002.jpg"
+      },
+      {
+        "id": "003",
+        "titulo": "El triángulo de la tristeza",
+        "direccion": "Ruben Östlund",
+        "actores": "Harris Dickinson, Charlbi Dean, Zlatko Buric, Dolly De Leon",
+        "argumento": "Tras la Semana de la moda, Carl y Yaya, pareja de modelos e influencers, son invitados a un yate en un crucero de lujo. Mientras que la tripulación brinda todas las atenciones necesarias a los ricos invitados, el capitán se niega a salir de su cabina, a pesar de la llegada inminente de la célebre cena de gala. Los eventos toman un giro inesperado y el equilibrio de poder se invierte cuando se levanta una tormenta que pone en peligro el confort de los pasajeros.",
+        "imagen": "003.jpg"
+      },
+      {
+        "id": "004",
+        "titulo": "Top Gun: Maverick",
+        "direccion": "Joseph Kosinski",
+        "actores": "Tom Cruise, Miles Teller, Jennifer Connelly, Jon Hamm",
+        "argumento": "Después de más de treinta años de servicio como uno de los mejores aviadores de la Armada, Pete \"Mavericks\" Mitchel (Tom Cruise) se encuentra donde siempre quiso estar: superando los límites como un valiente piloto de pruebas y esquivando el ascenso de rango, que no le dejaría volar emplazándolo en tierra. Cuando es destinado a la academia de Top Gun con el objetivo de entrenar a los pilotos de élite para realizar una peligrosa misión",
+        "imagen": "004.jpg"
+      },
+      {
+        "id": "005",
+        "titulo": "TÁR",
+        "direccion": "Todd Field",
+        "actores": "Cate Blanchett, Nina Hoss, Noémie Merlant, Mark Strong",
+        "argumento": "La mundialmente famosa Lydia Tár está a solo unos días de afrontar el mayor reto de su carrera profesional: grabar la sinfonía que la llevará a las alturas de su ya formidable carrera. Pero su vida personal y sus decisiones van a ir interfiriendo en su carrera musical con consecuencias imprevisibles.",
+        "imagen": "005.jpg"
+      },
+      {
+        "id": "006",
+        "titulo": "Los Fabelman",
+        "direccion": "Steven Spielberg",
+        "actores": "Michelle Williams, Paul Dano, Gabriel LaBelle, Seth Rogen",
+        "argumento": "Film semiautobiográfico de la propia infancia y juventud de Spielberg. Ambientada a finales de la década de 1950 y principios de los años 60, un niño de Arizona llamado Sammy Fabelman, influido por su excéntrica madre, artista (Michelle Williams), y su pragmático padre, ingeniero informático (Paul Dano), descubre un secreto familiar devastador y explora cómo el poder de las películas puede ayudarlo a contar historias y a forjar su propia identidad.",
+        "imagen": "006.jpg"
+      },
+      {
+        "id": "007",
+        "titulo": "Elvis",
+        "direccion": "Baz Luhrmann",
+        "actores": "Austin Butler, Tom Hanks, Olivia DeJonge, Richard Roxburgh",
+        "argumento": "La película explora la vida y la música de Elvis Presley (Butler) a través del prisma de su relación con el coronel Tom Parker (Hanks), su enigmático manager. La historia profundiza en la compleja dinámica que existía entre Presley y Parker que abarca más de 20 años, desde el ascenso de Presley a la fama hasta su estrellato sin precedentes, en el contexto de la revolución cultural y la pérdida de la inocencia en Estados Unidos",
+        "imagen": "007.jpg"
+      },
+      {
+        "id": "008",
+        "titulo": "Almas en pena de Inisherin",
+        "direccion": "Martin McDonagh",
+        "actores": "Colin Farrell, Brendan Gleeson, Kerry Condon, Barry Keoghan",
+        "argumento": "Ambientada en una isla remota frente a la costa oeste de Irlanda en 1923, narra la historia de dos amigos de toda la vida, Pádraic y Colm, quienes se encuentran en un callejón sin salida cuando Colm pone fin a su amistad de un modo abrupto. Un Pádraic atónito, con la única comprensión de su hermana Siobhán y del simple Dominic, se esfuerza por reconstruir la relación, negándose a aceptar las negativas de su amigo de siempre.",
+        "imagen": "008.jpg"
+      },
+      {
+        "id": "009",
+        "titulo": "Avatar: El sentido del agua",
+        "direccion": "James Cameron",
+        "actores": "Sam Worthington, Zoe Saldana, Sigourney Weaver, Kate Winslet",
+        "argumento": "Más de una década después de los acontecimientos de 'Avatar', los Na'vi Jake Sully, Neytiri y sus hijos viven en paz en los bosques de Pandora hasta que regresan los hombres del cielo. Entonces comienzan los problemas que persiguen sin descanso a la familia Sully, que decide hacer un gran sacrificio para mantener a su pueblo a salvo y seguir ellos con vida.",
+        "imagen": "009.jpg"
+      },
+      {
+        "id": "010",
+        "titulo": "Sin novedad en el frente",
+        "direccion": "Edward Berger",
+        "actores": "Felix Kammerer, Albrecht Schuch, Aaron Hilmer, Moritz Klaus",
+        "argumento": "Relato de las terribles experiencias y la angustia de un joven soldado alemán en el frente occidental durante la Primera Guerra Mundial.",
+        "imagen": "010.jpg"
+      },
+      {
+        "id": "011",
+        "titulo": "El método Williams",
+        "direccion": "Reinaldo Marcus Green",
+        "actores": "Will Smith, Aunjanue Ellis, Jon Bernthal, Saniyya Sidney",
+        "argumento": "Biopic sobre Richard Williams, un padre inasequible que ayudó a formar a dos de las deportistas más extraordinarias de todos los tiempos, dos atletas que acabarían marcando época en el deporte del tenis. Richard tenía una visión muy clara del futuro de sus hijas, y sirviéndose de métodos arriesgados y poco convencionales, elaboró un plan que llevaría a Venus y Serena Williams de las calles de Compton, California, al olimpo del deporte",
+        "imagen": "011.jpg"
+      },
+      {
+        "id": "012",
+        "titulo": "Licorice Pizza",
+        "direccion": "Paul Thomas Anderson",
+        "actores": "Alana Haim, Cooper Hoffman, Sean Penn, Bradley Cooper",
+        "argumento": "Es la historia de Alana Kane y Gary Valentine, de cómo se conocen, pasan el tiempo juntos y acaban enamorándose en el Valle de San Fernando en 1973",
+        "imagen": "012.jpg"
+      },
+      {
+        "id": "013",
+        "titulo": "El callejón de las almas perdidas",
+        "direccion": "Guillermo del Toro",
+        "actores": "Bradley Cooper, Rooney Mara, Cate Blanchett, Toni Collette",
+        "argumento": "013.jpg",
+        "imagen": ""
+      },
+      {
+        "id": "014",
+        "titulo": "Belfast",
+        "direccion": "Kenneth Branagh",
+        "actores": "Jude Hill, Caitriona Balfe, Jamie Dornan, Judi Dench",
+        "argumento": "Drama ambientado en la tumultuosa Irlanda del Norte de finales de los años 60. Sigue al pequeño Buddy mientras crece en un ambiente de lucha obrera, cambios culturales, odio interreligioso y violencia sectaria. Buddy sueña con un futuro que le aleje de los problemas, pero, mientras tanto, encuentra consuelo en su pasión por el cine, en la niña que le gusta de su clase, y en sus carismáticos padres y abuelos.",
+        "imagen": "014.jpg"
+      },
+      {
+        "id": "015",
+        "titulo": "CODA: Los sonidos del silencio",
+        "direccion": "Siân Heder",
+        "actores": "Emilia Jones, Troy Kotsur, Marlee Matlin, Daniel Durant",
+        "argumento": "Ruby (Emilia Jones) es el único miembro oyente de una familia de sordos. Ella es una CODA -child of deaf adult-. A sus 17 años, trabaja por la mañana con sus padres y su hermano en Gloucester, Massachusetts, antes de ir a clase, tratando de mantener a flote el negocio pesquero familiar.",
+        "imagen": "015.jpg"
+      },
+      {
+        "id": "016",
+        "titulo": "El poder del perro",
+        "direccion": "Jane Campion",
+        "actores": "Benedict Cumberbatch, Jesse Plemons, Kirsten Dunst, Kodi Smit-McPhee",
+        "argumento": "Montana, 1925. Los acaudalados hermanos Phil (Cumberbatch) y George Burbank (Plemons) son las dos caras de la misma moneda. Phil es impetuoso y cruel, mientras George es impasible y amable. Juntos son copropietarios de un enorme rancho donde tienen ganado.",
+        "imagen": "016.jpg"
+      },
+      {
+        "id": "017",
+        "titulo": "No mires arriba",
+        "direccion": "Adam McKay",
+        "actores": "Leonardo DiCaprio, Jennifer Lawrence, Meryl Streep, Cate Blanchett",
+        "argumento": "Kate Dibiasky (Jennifer Lawrence), estudiante de posgrado de Astronomía, y su profesor, el doctor Randall Mindy (Leonardo DiCaprio) hacen un descubrimiento tan asombros como terrorífico: un enorme cometa lleva un rumbo de colisión directa con la Tierra",
+        "imagen": "017.jpg"
+      },
+      {
+        "id": "018",
+        "titulo": "Drive My Car",
+        "direccion": "Ryûsuke Hamaguchi",
+        "actores": "Hidetoshi Nishijima, Tôko Miura, Reika Kirishima, Park Yu-rim",
+        "argumento": "Pese a no ser capaz de recuperarse de un drama personal, Yusuke Kafuku, actor y director de teatro, acepta montar la obra \"Tío Vania\" en un festival de Hiroshima. Allí, conoce a Misaki, una joven reservada que le han asignado como chófer. A medida que pasan los trayectos, la sinceridad creciente de sus conversaciones les obliga a enfrentarse a su pasado.",
+        "imagen": "018.jpg"
+      },
+      {
+        "id": "019",
+        "titulo": "Dune",
+        "direccion": "Denis Villeneuve",
+        "actores": "Timothée Chalamet, Rebecca Ferguson, Oscar Isaac, Josh Brolin",
+        "argumento": "En el Año 10191 el desértico planeta Arrakis, feudo de la familia Harkonnen desde hace generaciones, queda en manos de la Casa de los Atreides por orden del emperador. Con ello les cede la explotación de las reservas de especia, la materia prima más valiosa de la galaxia, necesaria para los viajes interestelares y también una droga capaz de amplificar la conciencia y extender la vida.",
+        "imagen": "019.jpg"
+      }
+    ]
+}    

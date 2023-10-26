@@ -1,29 +1,40 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import '../CSS/practica40.css'
 
 interface PokemonCardData {
     name: string; // El nombre del Pokémon
-    image: string; // La URL de la imagen del Pokémon
+    front: string; // La URL de la imagen del Pokémon
+    front_shiny: string;
+    back: string;
+    back_shiny: string;
     weight: number;
     height: number;
-  }
+    type1: string;
+}
 
 type IProps = {
     urlApi: string
 }
 
-export default function PokemonCard(props: IProps){
+export default function PokemonCard(props: IProps) {
     const [cardData, setCardData] = useState<PokemonCardData>({} as PokemonCardData);
     const uri: string = props.urlApi;
 
-    useEffect( () => {
-        async function getPokemonCard(direccion:string){
+    useEffect(() => {
+        async function getPokemonCard(direccion: string) {
             const response = await axios.get(direccion);
+            console.log(response.data.types[0].type.name);
+
             const newCard: PokemonCardData = {
                 name: response.data.name,
-                image: response.data.sprites.front_default,
+                front: response.data.sprites.front_default,
+                front_shiny: response.data.sprites.front_shiny,
+                back: response.data.sprites.back_default,
+                back_shiny: response.data.sprites.back_shiny,
                 weight: response.data.weight,
-                height: response.data.height
+                height: response.data.height,
+                type1: response.data.types[0].type.name
 
             }
             setCardData(newCard);
@@ -33,11 +44,15 @@ export default function PokemonCard(props: IProps){
 
     return (
         <div className="PokemonCard">
-            <h3>{cardData.name}</h3>
-            <img src={cardData.image} alt={cardData.name} /><br />
-            <h5>{cardData.weight} kg</h5>
-            <h5>{cardData.height} m</h5>
 
+            <div className={ cardData.type1}>
+                <h3>{cardData.name}</h3>
+                <h5>Tipo: {cardData.type1}</h5>
+                <img src={cardData.front} alt={cardData.name} /><img src={cardData.front_shiny} alt={cardData.name} /><br />
+                <img src={cardData.back} alt={cardData.name} /><img src={cardData.back_shiny} alt={cardData.name} />
+                <h5>{cardData.weight} kg</h5>
+                <h5>{cardData.height} m</h5>
+            </div>
         </div>
     )
 }

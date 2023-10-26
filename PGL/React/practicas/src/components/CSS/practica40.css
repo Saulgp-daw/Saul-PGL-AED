@@ -1,0 +1,37 @@
+.steel{
+    background-color: rgb(139, 151, 161);
+}
+
+.water{
+    background-color: rgb(50, 144, 221);
+}
+
+.fighting{
+    background-color: rgb(190, 16, 54);
+}
+
+.electric{
+    background-color: rgb(252, 227, 5);
+}
+
+.bug{
+    background-color: rgb(110, 151, 110);
+}
+
+.grass{
+    background-color: rgb(37, 199, 37);
+}
+
+.poison{
+    background-color: rgb(143, 3, 143);
+}
+
+.fire{
+    background-color: rgb(197, 64, 12);
+}
+
+.pokedex{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
