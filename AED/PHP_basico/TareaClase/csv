@@ -1,0 +1,25 @@
+function getUsers(){
+$contenido = [];
+if (($open = fopen(storage_path() . "/"."fileUsers.csv", "r")) !== FALSE) {
+
+while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
+$contenido[] = $data;
+}
+fclose($open);
+return $contenido;
+}
+}
+
+
+function registerInFile($array){
+
+if (($open = fopen(storage_path() . "/"."fileUsers.csv", "a")) !== FALSE) {
+$open = fopen(storage_path() . "/"."fileUsers.csv", "a");
+
+foreach ($array as $fila) {
+fputcsv($open,$fila);
+
+}
+
+
+Array ( [0] => Array ( [0] => jose;asas;asasas;2343234 ) ) 

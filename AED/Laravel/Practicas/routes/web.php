@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\BorrarController;
 use App\Http\Controllers\ColoresController;
+use App\Http\Controllers\DescargarController;
 use App\Http\Controllers\DirectorioNombreController;
 use App\Http\Controllers\FechaController;
 use App\Http\Controllers\ImageController;
@@ -102,7 +104,7 @@ use Illuminate\Support\Facades\Route;
 // Route::any("/redirigirRegistro", [LoginRegistroController::class,"redirigirRegistro"]);
 // Route::any("/home", [LoginRegistroController::class,"home"]);
 
-// Practica 17
+//Practica 17
 // Route::any("/", [DirectorioNombreController::class, "index"]);
 // Route::any("/crear_directorio", [DirectorioNombreController::class,"crearDirectorio"]);
 
@@ -110,3 +112,8 @@ use Illuminate\Support\Facades\Route;
 // Route::any("/", [LeerFicheroController::class,"index"]);
 
 //Practica 19
+// Route::any("/", [DescargarController::class, "index"]);
+// Route::any("/descargar/{archivo}", [DescargarController::class, "descargar"]);
+
+//Practica 20
+// Route::any("/", [BorrarController::class, "index"]);
