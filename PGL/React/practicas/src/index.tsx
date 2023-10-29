@@ -35,7 +35,7 @@ import ComponentePadre from './components/Practica36/componentePadre';
 import Practica37 from './components/practica37/practica37';
 import PokemonCard from './components/practica40/PokemonCard';
 import PokemonListCard from './components/practica40/PokemonListCard';
-import CreatePoblacion from './components/createPoblacion';
+import CreatePoblacion from './components/Practica43/createPoblacion';
 
 
 
@@ -43,7 +43,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <PokemonListCard />
+    <App />
 );
 
 // If you want to start measuring performance in your app, pass a function

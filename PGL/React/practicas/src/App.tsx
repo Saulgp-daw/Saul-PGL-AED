@@ -1,25 +1,48 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import RelojesMundiales from './components/RelojesMundiales';
+import Practica27 from './components/practica27';
+import Navbar from './components/navbar';
+import Practica19 from './components/practica19';
+import About from './components/Practica38/about';
+import ComponentePadre from './components/Practica36/componentePadre';
+import AplicacionJuegos from './components/Practica39/aplicacionJuegos';
+import Practica31_2 from './components/Practica31_chimp_test/practica31_2';
+import Practica20 from './components/practica20';
+import Pokemon from './components/Practica42/pokemon';
+import Capital from './components/Practica42/capital';
+import NavbarEjemplos from './components/Practica42/navbarEjemplos';
+import CreatePoblacion from './components/Practica43/createPoblacion';
+import NavbarProvincias from './components/Practica43/navbarProvincias';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <h3>Aplicación de juegos</h3>
+        <AplicacionJuegos/>
+        <h3>Navbar componentes</h3>
+        <Navbar />
+        <h3>Navbar Pokemon</h3>
+        <NavbarEjemplos/>
+        <h3>Navbar CRUD</h3>
+        <NavbarProvincias/>
+          <Routes>
+            <Route path="/" element={<About />} /> 
+            <Route path="/relojesmundiales" element={<RelojesMundiales />} /> 
+            <Route path="/cronometro" element={<Practica27 />} />
+            <Route path="/imc" element={<ComponentePadre />} />
+            <Route path="/chimp_test" element={<Practica31_2/>}/>
+            <Route path="/acertar_numero" element={<Practica20/>}/>
+            <Route path="/pokemon/:pokedex" element={<Pokemon/>}/>
+            <Route path="/capital/:id" element={<Capital/>}/>
+            <Route path="/crear_capital" element={<CreatePoblacion/>}/>
+            <Route path="/borrar_capital" element={<CreatePoblacion/>}/>
+            <Route path="/modificar_capital" element={<CreatePoblacion/>}/>
+          </Routes>
+      </BrowserRouter>
     </div>
   );
 }
