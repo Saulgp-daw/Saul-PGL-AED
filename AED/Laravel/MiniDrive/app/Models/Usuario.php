@@ -21,10 +21,10 @@ class Usuario extends Model
     public function getNickname(){
         return $this->nickname;
     }
-    public function __getEmail(){
+    public function getEmail(){
         return $this->email;
     }
-    public function __getPassword(){
+    public function getPassword(){
         return $this->password;
     }
 

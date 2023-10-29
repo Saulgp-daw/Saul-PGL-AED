@@ -1,7 +1,10 @@
 <?php
-require_once("app/model/Anotacion.php");
-class GestionarFichero
-{
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class GestionarFichero{
 
 
 
