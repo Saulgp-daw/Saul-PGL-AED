@@ -3,8 +3,6 @@ import { PokemonCardData } from '../practica40/PokemonCard';
 
 
 
-type Props = {}
-
 export interface PokemonFavorito {
     favorito: PokemonCardData; // El nombre del Pokémon
     setfavorito: Dispatch<SetStateAction<PokemonCardData>>
@@ -12,7 +10,7 @@ export interface PokemonFavorito {
 
 export const PokemonContext = createContext<PokemonFavorito>({} as PokemonFavorito);
 
-const PokemonContextProvider = (props: Props) => {
+const PokemonContextProvider = (props: any) => {
     const [favorito, setFavorito] = useState<PokemonCardData>({} as PokemonCardData);
     const contextValues: PokemonFavorito = {
         favorito: favorito,
@@ -21,7 +19,10 @@ const PokemonContextProvider = (props: Props) => {
 
 
   return (
-    <div>PokemonContextProvider</div>
+    <PokemonContext.Provider value={contextValues}>
+        {props.children}
+    </PokemonContext.Provider>
+
   );
 
 }
