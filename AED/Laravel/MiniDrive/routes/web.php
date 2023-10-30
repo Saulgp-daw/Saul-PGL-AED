@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::any('/', [UsuarioController::class, "index"]);
 Route::any('/home', [DriveController::class, "index"]);
-Route::any('/descargar/{archivo}', [DriveController::class, "descargar"]);
-Route::any('/borrar/{archivo}', [DriveController::class, "borrar"]);
+Route::get('/descargar/{archivo}', [DriveController::class, "descargar"]);
+Route::get('/borrar/{archivo}', [DriveController::class, "borrar"]);
 Route::post('/subir', '\App\Http\Controllers\DriveController@subir');
 
 
-Route::any('/registro', [UsuarioController::class, "registro"]);
+Route::post('/registro', [UsuarioController::class, "registro"]);
 Route::any('/registroForm', [UsuarioController::class, "registroForm"]);
 Route::any('/logout', [UsuarioController::class, "logout"]);
 Route::any('/loginForm', [UsuarioController::class, "loginForm"]);
-Route::any('/login', [UsuarioController::class, "login"]);
+Route::post('/login', [UsuarioController::class, "login"]);

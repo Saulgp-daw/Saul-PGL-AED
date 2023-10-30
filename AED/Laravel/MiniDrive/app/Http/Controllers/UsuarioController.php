@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DriveController;
+use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
@@ -83,6 +84,7 @@ class UsuarioController extends Controller
 
     public static function guardarUsuarioPHPPuro($usuario)
     {
+
         $rutaFichero = storage_path("app/Archivos/registros.csv");
         $contenidoFichero = self::LeerFicheroPHPPuro();
         //var_dump($contenidoFichero);
@@ -113,6 +115,11 @@ class UsuarioController extends Controller
     public static function LeerFicheroPHPPuro()
     {
         $contenido = null;
+
+        if(!Storage::exists("Archivos/registros.csv")){
+            Storage::makeDirectory("/Archivos/", 0755, true);
+            Storage::put('/Archivos/registros.csv', 'null;null;null');
+        }
 
         if (($open = fopen(storage_path("app/Archivos/registros.csv"), "r")) !== FALSE) {
             while (($data = fgetcsv($open, 1000, ";")) !== FALSE) {
