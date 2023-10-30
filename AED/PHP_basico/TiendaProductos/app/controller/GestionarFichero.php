@@ -58,4 +58,8 @@ class GestionarFichero
         }
         return $guardadoDatos;
     }
+
+    public function guardarEnCSV(){
+        
+    }
 }

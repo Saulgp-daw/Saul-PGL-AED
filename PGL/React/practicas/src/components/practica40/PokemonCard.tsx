@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import '../CSS/practica40.css'
 
-interface PokemonCardData {
+export interface PokemonCardData {
     name: string; // El nombre del Pokémon
     front: string; // La URL de la imagen del Pokémon
     front_shiny: string;
@@ -52,6 +52,7 @@ export default function PokemonCard(props: IProps) {
                 <img src={cardData.back} alt={cardData.name} /><img src={cardData.back_shiny} alt={cardData.name} />
                 <h5>{cardData.weight} kg</h5>
                 <h5>{cardData.height} m</h5>
+                <button>Establecer favorito</button>
             </div>
         </div>
     )

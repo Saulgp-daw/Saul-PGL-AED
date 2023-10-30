@@ -20,9 +20,9 @@ const PokemonListCard = (props: Props) => {
     useEffect(() => {
         async function cargarUrl(direccion: string) {
             const response = await axios.get(direccion);
-            //console.log(response.data.results);
-            const reultados = response.data.results
-            setUrlPokemon(response.data.results);
+            console.log(response.data);
+            const resultados = response.data.results
+            setUrlPokemon(resultados);
 
         }
         cargarUrl(uri);

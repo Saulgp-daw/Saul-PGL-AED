@@ -96,7 +96,7 @@ class ProductosController
     /**
      * Función que llama a la vista de agregar
      */
-    function agregarView($args)
+    static function agregarView($args)
     {
         if (GestionarFichero::comprobarFicheroExiste("app/view/AgregarView.php")) {
             $vistaAgregar = new AgregarView();
@@ -177,10 +177,10 @@ class ProductosController
         if (GestionarFichero::comprobarFicheroExiste("app/model/Producto.php")) {
             if (self::$productos != null) {
                 $ultimoProd = end(self::$productos);
-                print_r($ultimoProd);
+                //print_r($ultimoProd);
                 $separacionId = explode("prod0", $ultimoProd["id"]);
                 $idProd = "prod0" . (intval($separacionId[1]) + 1);
-                echo $idProd;
+                //echo $idProd;
                 //$idProd = "prod0" . (intval(sizeof(self::$productos)) + 1);
             } else {
                 $idProd = "prod01";
@@ -193,7 +193,8 @@ class ProductosController
             }
             array_push(self::$productos, $prodNuevo);
             self::guardarCatalogoProductos();
-            header("Location: /" . $this->obtenerCarpetaRaiz() . "/AED/PHP_basico/TiendaProductos/productos?agregado=true");
+            self::agregarView($args);
+            //header("Location: /" . $this->obtenerCarpetaRaiz() . "/AED/PHP_basico/TiendaProductos/productos?agregado=true");
             exit;
         } else {
             echo "El fichero no existe!!";
