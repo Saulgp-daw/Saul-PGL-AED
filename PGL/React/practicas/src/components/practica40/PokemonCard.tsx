@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import '../CSS/practica40.css'
+import { useAppContext } from "../Practica47/PokemonContextProvider";
 
 export interface PokemonCardData {
     name: string; // El nombre del Pokémon
@@ -20,6 +21,7 @@ type IProps = {
 export default function PokemonCard(props: IProps) {
     const [cardData, setCardData] = useState<PokemonCardData>({} as PokemonCardData);
     const uri: string = props.urlApi;
+    const {favorito, setfavorito } = useAppContext();
 
     useEffect(() => {
         async function getPokemonCard(direccion: string) {
@@ -42,6 +44,10 @@ export default function PokemonCard(props: IProps) {
         getPokemonCard(uri);
     }, []);
 
+    function establecerFavorito (cardData: PokemonCardData){
+        setfavorito(cardData);
+    }
+
     return (
         <div className="PokemonCard">
 
@@ -52,7 +58,7 @@ export default function PokemonCard(props: IProps) {
                 <img src={cardData.back} alt={cardData.name} /><img src={cardData.back_shiny} alt={cardData.name} />
                 <h5>{cardData.weight} kg</h5>
                 <h5>{cardData.height} m</h5>
-                <button>Establecer favorito</button>
+                <button onClick={() => establecerFavorito(cardData)}>Establecer favorito</button>
             </div>
         </div>
     )

@@ -14,7 +14,7 @@ function PokemonRouter() {
                 <BrowserRouter>
                     <h3>Aplicación pokémon</h3>
                     <PokemonContextProvider>
-                    <PokemonFavorito/>
+                    <PokemonFavorito />
                     <Routes>
                         
                         <Route path="/" element={ <PokemonListCard/>} />
