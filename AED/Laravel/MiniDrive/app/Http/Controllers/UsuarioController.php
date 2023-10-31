@@ -75,8 +75,7 @@ class UsuarioController extends Controller
         if ($usuarios) {
             foreach ($usuarios as $usuario) {
                 if ($usuario[0] == $nickname && $usuario[2] == $password) {
-                    //return DriveController::index($nickname);
-                    return redirect()->route('drive')->with($nickname);
+                    return DriveController::index($nickname);
                 }
             }
         }
