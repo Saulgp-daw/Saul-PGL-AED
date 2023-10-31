@@ -19,7 +19,7 @@ Route::any('/', [UsuarioController::class, "index"]);
 Route::any('/home', [DriveController::class, "index"]);
 Route::get('/descargar/{archivo}', [DriveController::class, "descargar"]);
 Route::get('/borrar/{archivo}', [DriveController::class, "borrar"]);
-Route::post('/subir', '\App\Http\Controllers\DriveController@subir');
+Route::post('/subir', [DriveController::class, "subir"]);
 
 
 Route::post('/registro', [UsuarioController::class, "registro"]);

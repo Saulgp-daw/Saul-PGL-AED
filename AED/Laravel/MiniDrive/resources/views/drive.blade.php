@@ -9,13 +9,13 @@
     <title>Mini Drive</title>
     <style>
         h3 {
-            font-size: 45px; /* Tamaño de fuente */
-            font-weight: bold; /* Texto en negrita */
+            font-size: 45px;
+            /* Tamaño de fuente */
+            font-weight: bold;
+            /* Texto en negrita */
 
             text-align: center;
         }
-
-
     </style>
 </head>
 
@@ -29,7 +29,7 @@
     @else
         <h1>Bienvenido, Invitado</h1>
     @endif
-    <div class="h5" style="position: absolute; top: 50px; right: 10px;">{{ $mensaje ?? "" }}</div>
+    <div class="h5" style="position: absolute; top: 50px; right: 10px;">{{ $mensaje ?? '' }}</div>
     <div class="h5" style="position: absolute; top: 10px; right: 10px;"><a href="/logout">Logout</a></div>
     <div class="container">
         <form action="/subir" enctype='multipart/form-data' method="post">
@@ -45,6 +45,14 @@
                     href="/borrar/{{ basename($fichero) }}">Borrar</a>
             </div>
         @endforeach
+        @isset($carpetas)
+            @foreach ($carpetas as $carpeta)
+                <div class="cell">
+                    <a href="#">{{ $carpeta }}</span>
+                </div>
+            @endforeach
+        @endisset
+
     </div>
     <script>
         const text = document.getElementById("colorful-text").textContent;

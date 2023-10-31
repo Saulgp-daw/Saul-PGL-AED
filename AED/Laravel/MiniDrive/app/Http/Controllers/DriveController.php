@@ -13,10 +13,9 @@ class DriveController extends Controller
     {
         if ($usuario != null) {
             session(['usuario' => $usuario]);
-
             Storage::makeDirectory("/Archivos/" . $usuario, 0755, true);
-            $ficheros = Storage::allFiles("/Archivos/" . $usuario);
-            return view("drive", compact("ficheros", "usuario"));
+
+            return self::home();
         } else {
             echo "No hay usuario registrado";
         }
@@ -26,8 +25,9 @@ class DriveController extends Controller
     {
         $usuario = session('usuario');
         if ($usuario) {
-            $ficheros = Storage::allFiles("/Archivos/" . $usuario);
-            return view("drive", compact("ficheros", "usuario", "mensaje"));
+            $ficheros = Storage::files("/Archivos/" . $usuario);
+            $carpetas = Storage::directories("/Archivos/" . $usuario);
+            return view("drive", compact("ficheros", "usuario", "mensaje", "carpetas"));
         } else {
             echo "No hay usuario loggeado";
         }
