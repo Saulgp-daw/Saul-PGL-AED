@@ -20,7 +20,7 @@ class AsignaturaController extends Controller
     }
 
     public function guardarAsignatura(){
-        $asignatura = new Asignatura(9, "LND", "1ºDAW");
+        $asignatura = new Asignatura(0, "LND", "1ºDAW");
         $pdo = DB::getPdo();
         $asignaturaDAO = new AsignaturaDAO($pdo);
         $asignaturaDAO->save($asignatura);

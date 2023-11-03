@@ -64,3 +64,25 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Guía de endpoints
+## ALUMNO
+1. Obtener todos los alumnos: check
+2. Guardar/crear un alumno: check
+3. Buscar alumno por dni: check
+4. Buscar alumno por nombre: check
+5. Actualizar alumno (salvo su dni): check
+6. Eliminar alumno: falta la tabla de relacional en caso de tener una matrícula asociada
+
+## MATRICULA
+1. Obtener todos los matriculas: check
+2. Obtener todas las asignaturas de una matricula, pasando el id de esta: check
+3. Guardar/crear una matricula: check
+4. Buscar matriculas por dni de alumno(pueden haber más de una): check
+5. Buscar matricula por id: check
+6. Buscar alumno por nombre: check
+7. Actualizar matricula (salvo su id): check
+8. Eliminar matrícula (tabla intermedia asignatura_matricula también): check
+
+

@@ -39,6 +39,17 @@ class AlumnoController extends Controller
         }
     }
 
+    public function buscarPorNombre($nombre){
+        $pdo = DB::getPdo();
+        $alumnoDAO = new AlumnoDAO($pdo);
+        $alumno = $alumnoDAO->findByName($nombre);
+
+        if($alumno){
+            echo "Alumno encontrado: ". $alumno->nombre. " ".$alumno->apellidos. " ". $alumno->dni . " ".
+            date("d/m/Y", $alumno->fechaNacimiento);
+        }
+    }
+
     public function actualizarAlumno(){
         $alumno = new Alumno("78649205S", "Benito", "Jiménez", strtotime("07/29/1996"));
         $pdo = DB::getPdo();

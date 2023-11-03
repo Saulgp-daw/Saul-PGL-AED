@@ -3,6 +3,7 @@
 namespace App\DAO;
 
 use App\Contracts\AsignaturaContract;
+use App\Contracts\MatriculaContract;
 use App\DAO\Crud;
 use App\Models\Asignatura;
 use Exception;
@@ -88,6 +89,7 @@ class AsignaturaDAO implements Crud
 
         return $asignaturaEncontrada;
     }
+
 
     function findByCurso($curso){
         $stmt = $this->myPDO->prepare("SELECT * FROM " . self::$tabla ." WHERE :curso = ".self::$colCurso);

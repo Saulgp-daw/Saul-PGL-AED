@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Matricula;
 use Illuminate\Support\Facades\DB;
 use App\DAO\MatriculaDAO;
+use App\DAO\AsignaturaDAO;
+use App\DAO\AsignaturaMatriculaDAO;
 
 class MatriculaController extends Controller
 {
@@ -19,20 +21,34 @@ class MatriculaController extends Controller
         }
     }
 
+    public function obtenerAsignaturasDeLaMatricula($id){
+        $pdo = DB::getPdo();
+        $matriculaDAO = new MatriculaDAO($pdo);
+        $asignaturasDeLaMatricula = $matriculaDAO->findAsignaturasByMatriculaId($id);
+
+        self::buscarPorId($id);
+        echo "<h3>Las asignaturas que tiene la matrícula con el id $id son: </h3>";
+
+
+        foreach ($asignaturasDeLaMatricula as $asignatura) {
+            echo $asignatura->id. " ".$asignatura->nombre. " ". $asignatura->curso . "</br>";
+         }
+    }
+
     public function guardarMatricula(){
-        $matricula = new Matricula(5, "12312312K", 2006);
+        $matricula = new Matricula(0, "78649205S", 2006);
         $pdo = DB::getPdo();
         $matriculaDAO = new MatriculaDAO($pdo);
         $matriculaDAO->save($matricula);
     }
 
-    public function buscarPorId($id){
+    public static function buscarPorId($id){
         $pdo = DB::getPdo();
         $matriculaDAO = new MatriculaDAO($pdo);
         $matricula = $matriculaDAO->findById($id);
 
         if($matricula){
-            echo "Matricula encontrado: ". $matricula->id. " ".$matricula->dni. " ". $matricula->year;
+            echo "Matricula encontrada: ID-". $matricula->id. " DNI-".$matricula->dni. " Año-". $matricula->year. "</br>";
         }
     }
 
@@ -53,9 +69,14 @@ class MatriculaController extends Controller
         $matriculaDAO->update($matricula);
     }
 
+    /**
+     * Como se trata de una tabla intermedia, hay un constraint en tabla_asignatura, por lo que hay que eliminarla primero de ahí para poder permitir borrar la matrícula del alumno
+     */
     public function eliminarMatricula($id){
         $pdo = DB::getPdo();
         $matriculaDAO = new MatriculaDAO($pdo);
+        $asignaturaMatriculaDAO = new AsignaturaMatriculaDAO($pdo);
+        $asignaturaMatriculaDAO->deleteRelacionMatricula($id);
         $matriculaDAO->delete($id);
     }
 

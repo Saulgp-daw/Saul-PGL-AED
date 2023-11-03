@@ -20,11 +20,13 @@ use Illuminate\Support\Facades\Route;
 Route::any("/obtenerAlumnos", [AlumnoController::class, 'obtenerAlumnos']);
 Route::any("/guardarAlumno", [AlumnoController::class, 'guardarAlumno']);
 Route::any("/buscarAlumno/{dni}", [AlumnoController::class, 'buscarPorDni']);
+Route::any("/buscarPorNombre/{nombre}", [AlumnoController::class, 'buscarPorNombre']);
 Route::any("/actualizarAlumno", [AlumnoController::class, 'actualizarAlumno']);
 Route::any("/eliminarAlumno/{dni}", [AlumnoController::class, 'eliminarAlumno']);
 
 //MATRICULAS
 Route::get("/obtenerMatriculas", [MatriculaController::class, 'obtenerMatriculas']);
+Route::get("/obtenerAsignaturasDeLaMatricula/{id}", [MatriculaController::class, 'obtenerAsignaturasDeLaMatricula']);
 Route::get("/guardarMatricula", [MatriculaController::class, 'guardarMatricula']);
 Route::get("/buscarMatricula/{id}", [MatriculaController::class, 'buscarPorId']);
 Route::get("/buscarMatriculas/{dni}", [MatriculaController::class, 'buscarPorDni']);

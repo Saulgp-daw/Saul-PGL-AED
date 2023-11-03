@@ -92,7 +92,29 @@ class AlumnoDAO implements Crud
         }
 
         return $alumnoEncontrado;
+    }
 
+    function findByName($nombre)
+    {
+        $alumnoEncontrado = null;
+        $sql = "SELECT * FROM " . self::$tabla . " WHERE UPPER(:nombre) = UPPER(" . self::$colNombre.")";
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->execute(
+            [
+                ':nombre' => $nombre
+            ]
+        );
+
+        if ($row = $stmt->fetch()) {
+            $alumno = new Alumno();
+            $alumno->dni = $row[self::$colDni];
+            $alumno->nombre = $row[self::$colNombre];
+            $alumno->apellidos = $row[self::$colApellidos];
+            $alumno->fechaNacimiento = $row[self::$colFechaNacimiento];
+            $alumnoEncontrado = $alumno;
+        }
+
+        return $alumnoEncontrado;
     }
 
     function update($alumno)
