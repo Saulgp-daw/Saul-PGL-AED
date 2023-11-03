@@ -69,6 +69,8 @@ class AlumnoDAO implements Crud
             $this->myPDO->rollback();
         }
         $stmt = null;
+        $alumnoCreado = new Alumno($alumno->dni, $alumno->nombre, $alumno->apellidos, $alumno->fechaNacimiento);
+        return $alumnoCreado;
     }
 
     function findById($dni)

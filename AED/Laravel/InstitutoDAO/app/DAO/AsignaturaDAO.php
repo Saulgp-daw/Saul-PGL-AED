@@ -67,7 +67,7 @@ class AsignaturaDAO implements Crud
         }
         $stmt = null;
 
-        Echo "Último id generado: ".$this->myPDO->lastInsertId();
+        //Echo "Último id generado: ".$this->myPDO->lastInsertId();
         $asignaturaCreada = new Asignatura($this->myPDO->lastInsertId(), $asignatura->nombre, $asignatura->curso);
         return $asignaturaCreada;
     }
