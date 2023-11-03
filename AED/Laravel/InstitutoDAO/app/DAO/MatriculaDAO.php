@@ -2,20 +2,18 @@
 
 namespace App\DAO;
 
-use App\Contracts\AlumnoContract;
+use App\Contracts\MatriculaContract;
 use App\DAO\Crud;
-use App\Models\Alumno;
+use App\Models\Matricula;
 use Exception;
 use PDO;
 
-class AlumnoDAO implements Crud
-{
+class MatriculaDAO implements Crud {
 
-    private static $tabla = AlumnoContract::TABLE_NAME;
-    private static $colDni = AlumnoContract::COL_DNI;
-    private static $colNombre = AlumnoContract::COL_NOMBRE;
-    private static $colApellidos = AlumnoContract::COL_APELLIDOS;
-    private static $colFechaNacimiento = AlumnoContract::COL_FECHANACIMIENTO;
+    private static $tabla = MatriculaContract::TABLE_NAME;
+    private static $colId = MatriculaContract::COL_ID;
+    private static $colDni = MatriculaContract::COL_DNI;
+    private static $colYear = MatriculaContract::COL_YEAR;
 
     private $myPDO;
     public function __construct($pdo)
@@ -28,33 +26,31 @@ class AlumnoDAO implements Crud
         $stmt = $this->myPDO->prepare("SELECT * FROM " . self::$tabla);
         $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
         $stmt->execute(); // Ejecutamos la sentencia
-        $alumnos = [];
+        $matriculas = [];
         while ($row = $stmt->fetch()) {
 
+
+            $id = $row[self::$colId];
             $dni = $row[self::$colDni];
-            $nombre = $row[self::$colNombre];
-            $apellidos = $row[self::$colApellidos];
-            $fechaNacimiento = $row[self::$colFechaNacimiento];
-            $alumno = new Alumno($dni, $nombre, $apellidos, $fechaNacimiento);
-            $alumnos[] = $alumno;
+            $year = $row[self::$colYear];
+            $matricula = new Matricula($id, $dni, $year);
+            $matriculas[] = $matricula;
         }
-        return $alumnos;
+        return $matriculas;
     }
 
-    function save($alumno)
+    function save($matricula)
     {
-        $sql = "INSERT INTO " . self::$tabla . " (" . self::$colDni . ", " . self::$colNombre . ", " . self::$colApellidos . ", " . self::$colFechaNacimiento . ")
-        VALUES (:dni, :nombre, :apellidos, :fechanacimiento)";
+        $sql = "INSERT INTO " . self::$tabla . " (" . self::$colId . ", " . self::$colDni . ", " . self::$colYear . ") VALUES (:id, :dni, :year)";
 
         try {
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':dni' => $alumno->dni,
-                    ':nombre' => $alumno->nombre,
-                    ":apellidos" => $alumno->apellidos,
-                    ":fechanacimiento" => $alumno->fechaNacimiento
+                    ':id' => $matricula->id,
+                    ':dni' => $matricula->dni,
+                    ":year" => $matricula->year
                 ]
             );
             //si filasAfectadas > 0 => hubo éxito consulta
@@ -71,69 +67,41 @@ class AlumnoDAO implements Crud
         $stmt = null;
     }
 
-    function findById($dni)
+    function findById($id)
     {
-        $alumnoEncontrado = null;
-        $sql = "SELECT * FROM " . self::$tabla . " WHERE :dni = " . self::$colDni;
+        $matriculaEncontrado = null;
+        $sql = "SELECT * FROM " . self::$tabla . " WHERE :id = " . self::$colId;
         $stmt = $this->myPDO->prepare($sql);
         $stmt->execute(
             [
-                ':dni' => $dni
+                ':id' => $id
             ]
         );
 
         if ($row = $stmt->fetch()) {
-            $alumno = new Alumno();
-            $alumno->dni = $row[self::$colDni];
-            $alumno->nombre = $row[self::$colNombre];
-            $alumno->apellidos = $row[self::$colApellidos];
-            $alumno->fechaNacimiento = $row[self::$colFechaNacimiento];
-            $alumnoEncontrado = $alumno;
+            $matricula = new Matricula();
+            $matricula->id = $row[self::$colId];
+            $matricula->dni = $row[self::$colDni];
+            $matricula->year = $row[self::$colYear];
+            $matriculaEncontrado = $matricula;
         }
 
-        return $alumnoEncontrado;
+        return $matriculaEncontrado;
 
     }
 
-    function update($alumno)
+    function update($matricula)
     {
-        $sql = "UPDATE ". self::$tabla. " SET ".self::$colNombre. " = :nombre, ".
-        self::$colApellidos. " = :apellidos, ".self::$colFechaNacimiento. " = :fechanacimiento WHERE ".self::$colDni . " = :dni";
+        $sql = "UPDATE ". self::$tabla. " SET ". self::$colDni. " = :dni, ".self::$colYear. " = :year WHERE ".self::$colId . " = :id";
 
         try{
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':dni' => $alumno->dni,
-                    ':nombre' => $alumno->nombre,
-                    ":apellidos" => $alumno->apellidos,
-                    ":fechanacimiento" => $alumno->fechaNacimiento
-                ]
-            );
-            $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
-
-            if ($filasAfectadas > 0) {
-                $this->myPDO->commit();
-            }
-
-        }catch(Exception $ex){
-            echo "ha habido una excepción se lanza rollback automático: $ex";
-            $this->myPDO->rollback();
-        }
-        $stmt = null;
-    }
-
-    function delete($dni)
-    {
-        $sql = "DELETE FROM ".self::$tabla. " WHERE :dni = ".self::$colDni;
-        try{
-            $this->myPDO->beginTransaction();
-            $stmt = $this->myPDO->prepare($sql);
-            $stmt->execute(
-                [
-                    ':dni' => $dni
+                    ':id' => $matricula->id,
+                    ':dni' => $matricula->dni,
+                    ":year" => $matricula->year
                 ]
             );
             $filasAfectadas = $stmt->rowCount();
@@ -147,5 +115,48 @@ class AlumnoDAO implements Crud
             $this->myPDO->rollback();
         }
         $stmt = null;
+    }
+
+    function delete($id)
+    {
+        $sql = "DELETE FROM ".self::$tabla. " WHERE :id = ".self::$colId;
+        try{
+            $this->myPDO->beginTransaction();
+            $stmt = $this->myPDO->prepare($sql);
+            $stmt->execute(
+                [
+                    ':id' => $id
+                ]
+            );
+            $filasAfectadas = $stmt->rowCount();
+            echo "Filas afectadas: $filasAfectadas";
+
+            if ($filasAfectadas > 0) {
+                $this->myPDO->commit();
+            }
+        }catch(Exception $ex){
+            echo "ha habido una excepción se lanza rollback automático: $ex";
+            $this->myPDO->rollback();
+        }
+        $stmt = null;
+    }
+
+    function findByDni($dni){
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . self::$tabla ." WHERE :dni = ".self::$colDni);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute(
+            [
+                ':dni' => $dni
+            ]
+        ); // Ejecutamos la sentencia
+        $matriculas = [];
+        while ($row = $stmt->fetch()) {
+            $id = $row[self::$colId];
+            $dni = $row[self::$colDni];
+            $year = $row[self::$colYear];
+            $matricula = new Matricula($id, $dni, $year);
+            $matriculas[] = $matricula;
+        }
+        return $matriculas;
     }
 }
