@@ -93,6 +93,24 @@ class MatriculaDAO implements Crud {
 
     }
 
+    function findByDni($dni){
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . self::$tabla ." WHERE :dni = ".self::$colDni);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute(
+            [
+                ':dni' => $dni
+            ]
+        ); // Ejecutamos la sentencia
+        $matriculas = [];
+        while ($row = $stmt->fetch()) {
+            $id = $row[self::$colId];
+            $dni = $row[self::$colDni];
+            $year = $row[self::$colYear];
+            $matricula = new Matricula($id, $dni, $year);
+            $matriculas[] = $matricula;
+        }
+        return $matriculas;
+    }
 
 
     function update($matricula)
@@ -125,6 +143,7 @@ class MatriculaDAO implements Crud {
     function delete($id)
     {
         $sql = "DELETE FROM ".self::$tabla. " WHERE :id = ".self::$colId;
+        $filasAfectadas = 0;
         try{
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
@@ -144,24 +163,33 @@ class MatriculaDAO implements Crud {
             $this->myPDO->rollback();
         }
         $stmt = null;
+        return $filasAfectadas;
     }
 
-    function findByDni($dni){
-        $stmt = $this->myPDO->prepare("SELECT * FROM " . self::$tabla ." WHERE :dni = ".self::$colDni);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
-        $stmt->execute(
-            [
-                ':dni' => $dni
-            ]
-        ); // Ejecutamos la sentencia
-        $matriculas = [];
-        while ($row = $stmt->fetch()) {
-            $id = $row[self::$colId];
-            $dni = $row[self::$colDni];
-            $year = $row[self::$colYear];
-            $matricula = new Matricula($id, $dni, $year);
-            $matriculas[] = $matricula;
+    function deleteByDni($dni){
+        $sql = "DELETE FROM ".self::$tabla. " WHERE :dni = ".self::$colDni;
+        $filasAfectadas = 0;
+        try{
+            $this->myPDO->beginTransaction();
+            $stmt = $this->myPDO->prepare($sql);
+            $stmt->execute(
+                [
+                    ':dni' => $dni
+                ]
+            );
+            $filasAfectadas = $stmt->rowCount();
+            echo "TABLA Matricula: Filas afectadas: $filasAfectadas </br>";
+
+            if ($filasAfectadas > 0) {
+                $this->myPDO->commit();
+            }
+        }catch(Exception $ex){
+            echo "ha habido una excepción se lanza rollback automático: $ex";
+            $this->myPDO->rollback();
         }
-        return $matriculas;
+        $stmt = null;
+        return $filasAfectadas;
     }
+
+
 }

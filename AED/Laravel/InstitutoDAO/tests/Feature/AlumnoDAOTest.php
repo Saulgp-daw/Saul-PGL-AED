@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use App\DAO\AlumnoDAO;
+use App\DAO\AsignaturaMatriculaDAO;
+use App\DAO\MatriculaDAO;
 use App\Models\Alumno;
 
 use function PHPUnit\Framework\assertTrue;
@@ -61,5 +63,23 @@ class AlumnoDAOTest extends TestCase
         echo $obtenido->dni;
 
         assertTrue(isset($obtenido)  && ("87654321X" == $obtenido->dni ));
+    }
+
+    public function test_4_deletebyDni(): void{
+        $pdo = DB::getPdo();
+        $dni = "87654321X";
+        $alumnoDAO = new AlumnoDAO($pdo);
+        $matriculaDAO = new MatriculaDAO($pdo);
+        $asignaturaMatriculaDAO = new AsignaturaMatriculaDAO($pdo);
+
+        $matriculasAlumno = $matriculaDAO->findByDni($dni);
+
+        foreach ($matriculasAlumno as $matricula) {
+            $asignaturaMatriculaDAO->deleteRelacionMatricula($matricula->id);
+        }
+
+        $matriculasEliminadas = $matriculaDAO->deleteByDni($dni);
+        $alumnosEliminados = $alumnoDAO->delete($dni);
+        assertTrue($alumnosEliminados == 1 && $matriculasEliminadas >= 1); //da error porque debe de borrarse de la relacional primero
     }
 }

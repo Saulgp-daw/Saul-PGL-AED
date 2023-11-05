@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\AsignaturaController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MatriculaController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//VISTAS
+Route::any("/home", [HomeController::class, 'index']);
+Route::any("/gestion_alumnos", [HomeController::class, 'gestionarAlumnosView']);
+Route::post("/agregar_alumno", [HomeController::class, 'agregarAlumno']);
+Route::post("/borrar_alumno", [HomeController::class, 'borrarAlumno']);
+Route::post("/actualizar_alumno", [HomeController::class, 'actualizarAlumno']);
+Route::post("/buscar_alumno", [HomeController::class, 'buscarAlumno']);
 //ALUMNOS
 Route::any("/obtenerAlumnos", [AlumnoController::class, 'obtenerAlumnos']);
 Route::any("/guardarAlumno", [AlumnoController::class, 'guardarAlumno']);

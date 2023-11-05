@@ -146,6 +146,7 @@ class AsignaturaDAO implements Crud
     function delete($id)
     {
         $sql = "DELETE FROM ".self::$tabla. " WHERE :id = ".self::$colId;
+        $filasAfectadas = 0;
         try{
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
@@ -165,5 +166,6 @@ class AsignaturaDAO implements Crud
             $this->myPDO->rollback();
         }
         $stmt = null;
+        return $filasAfectadas;
     }
 }

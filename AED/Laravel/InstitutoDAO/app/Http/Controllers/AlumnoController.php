@@ -15,17 +15,24 @@ class AlumnoController extends Controller
         $pdo = DB::getPdo();
         $alumnoDAO = new AlumnoDAO($pdo);
         $alumnos = $alumnoDAO->findAll();
-        foreach ($alumnos as $alumno) {
-           echo $alumno->nombre. " ".$alumno->apellidos. " ". $alumno->dni . " ".
-           date("d/m/Y", $alumno->fechaNacimiento). "</br>";
-        }
+        // foreach ($alumnos as $alumno) {
+        //    echo $alumno->nombre. " ".$alumno->apellidos. " ". $alumno->dni . " ".
+        //    date("d/m/Y", $alumno->fechaNacimiento). "</br>";
+        // }
+
+        return $alumnos;
     }
 
-    public function guardarAlumno(){
-        $alumno = new Alumno("78649205S", "Saul", "González Pérez", strtotime("07/29/1996"));
+    public function guardarAlumno($dni, $nombre, $apellidos, $fechaNacimiento){
         $pdo = DB::getPdo();
         $alumnoDAO = new AlumnoDAO($pdo);
-        $alumnoDAO->save($alumno);
+        if(strtotime($fechaNacimiento) == ""){
+            $fechaNacimiento = 0;
+        }else{
+            $fechaNacimiento = strtotime($fechaNacimiento);
+        }
+        $alumno = $alumnoDAO->save(new Alumno($dni, $nombre, $apellidos, $fechaNacimiento));
+        return $alumno;
     }
 
     public function buscarPorDni($dni){
@@ -33,34 +40,48 @@ class AlumnoController extends Controller
         $alumnoDAO = new AlumnoDAO($pdo);
         $alumno = $alumnoDAO->findById($dni);
 
-        if($alumno){
-            echo "Alumno encontrado: ". $alumno->nombre. " ".$alumno->apellidos. " ". $alumno->dni . " ".
-            date("d/m/Y", $alumno->fechaNacimiento);
-        }
+        // if($alumno){
+        //     echo "Alumno encontrado: ". $alumno->nombre. " ".$alumno->apellidos. " ". $alumno->dni . " ".
+        //     date("d/m/Y", $alumno->fechaNacimiento);
+        // }
+
+        return $alumno;
     }
 
     public function buscarPorNombre($nombre){
         $pdo = DB::getPdo();
         $alumnoDAO = new AlumnoDAO($pdo);
-        $alumno = $alumnoDAO->findByName($nombre);
+        return $alumnoDAO->findByName($nombre);
 
-        if($alumno){
-            echo "Alumno encontrado: ". $alumno->nombre. " ".$alumno->apellidos. " ". $alumno->dni . " ".
-            date("d/m/Y", $alumno->fechaNacimiento);
-        }
+        // if($alumno){
+        //     echo "Alumno encontrado: ". $alumno->nombre. " ".$alumno->apellidos. " ". $alumno->dni . " ".
+        //     date("d/m/Y", $alumno->fechaNacimiento);
+        // }
+
+
     }
 
-    public function actualizarAlumno(){
-        $alumno = new Alumno("78649205S", "Benito", "Jiménez", strtotime("07/29/1996"));
+    public function actualizarAlumno($dni, $nombre, $apellidos, $fechaNacimiento){
+        //$alumno = new Alumno("78649205S", "Benito", "Jiménez", strtotime("07/29/1996"));
         $pdo = DB::getPdo();
         $alumnoDAO = new AlumnoDAO($pdo);
-        $alumnoDAO->update($alumno);
+        $fechaNacimiento = $this->establecerFecha($fechaNacimiento);
+        return $alumnoDAO->update(new Alumno($dni, $nombre, $apellidos, $fechaNacimiento));
     }
 
     public function eliminarAlumno($dni){
         $pdo = DB::getPdo();
         $alumnoDAO = new AlumnoDAO($pdo);
-        $alumnoDAO->delete($dni);
+        return $alumnoDAO->delete($dni);
+    }
+
+    public function establecerFecha($fechaNacimiento){
+        if(strtotime($fechaNacimiento) == ""){
+            $fechaNacimiento = 0;
+        }else{
+            $fechaNacimiento = strtotime($fechaNacimiento);
+        }
+        return $fechaNacimiento;
     }
 
 

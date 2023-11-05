@@ -46,6 +46,7 @@ class AlumnoDAO implements Crud
         $sql = "INSERT INTO " . self::$tabla . " (" . self::$colDni . ", " . self::$colNombre . ", " . self::$colApellidos . ", " . self::$colFechaNacimiento . ")
         VALUES (:dni, :nombre, :apellidos, :fechanacimiento)";
 
+
         try {
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
@@ -59,18 +60,19 @@ class AlumnoDAO implements Crud
             );
             //si filasAfectadas > 0 => hubo éxito consulta
             $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
+            //echo "Filas afectadas: $filasAfectadas";
 
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
+                $alumnoCreado = new Alumno($alumno->dni, $alumno->nombre, $alumno->apellidos, $alumno->fechaNacimiento);
             }
         } catch (Exception $ex) {
             echo "ha habido una excepción se lanza rollback automático: $ex";
             $this->myPDO->rollback();
         }
         $stmt = null;
-        $alumnoCreado = new Alumno($alumno->dni, $alumno->nombre, $alumno->apellidos, $alumno->fechaNacimiento);
-        return $alumnoCreado;
+
+        return $alumnoCreado ?? null;
     }
 
     function findById($dni)
@@ -98,7 +100,7 @@ class AlumnoDAO implements Crud
 
     function findByName($nombre)
     {
-        $alumnoEncontrado = null;
+        $alumnosEncontrados = [];
         $sql = "SELECT * FROM " . self::$tabla . " WHERE UPPER(:nombre) = UPPER(" . self::$colNombre.")";
         $stmt = $this->myPDO->prepare($sql);
         $stmt->execute(
@@ -107,23 +109,25 @@ class AlumnoDAO implements Crud
             ]
         );
 
-        if ($row = $stmt->fetch()) {
+        while ($row = $stmt->fetch()) {
             $alumno = new Alumno();
             $alumno->dni = $row[self::$colDni];
             $alumno->nombre = $row[self::$colNombre];
             $alumno->apellidos = $row[self::$colApellidos];
             $alumno->fechaNacimiento = $row[self::$colFechaNacimiento];
-            $alumnoEncontrado = $alumno;
+            $alumnosEncontrados[] = $alumno;
         }
 
-        return $alumnoEncontrado;
+        return $alumnosEncontrados;
     }
+
+
 
     function update($alumno)
     {
         $sql = "UPDATE ". self::$tabla. " SET ".self::$colNombre. " = :nombre, ".
         self::$colApellidos. " = :apellidos, ".self::$colFechaNacimiento. " = :fechanacimiento WHERE ".self::$colDni . " = :dni";
-
+        $filasAfectadas = 0;
         try{
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
@@ -136,7 +140,7 @@ class AlumnoDAO implements Crud
                 ]
             );
             $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
+            //echo "Filas afectadas: $filasAfectadas";
 
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
@@ -147,11 +151,13 @@ class AlumnoDAO implements Crud
             $this->myPDO->rollback();
         }
         $stmt = null;
+        return $filasAfectadas;
     }
 
     function delete($dni)
     {
         $sql = "DELETE FROM ".self::$tabla. " WHERE :dni = ".self::$colDni;
+        $filasAfectadas = 0;
         try{
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
@@ -161,7 +167,7 @@ class AlumnoDAO implements Crud
                 ]
             );
             $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
+            //echo "Filas afectadas: $filasAfectadas";
 
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
@@ -171,5 +177,6 @@ class AlumnoDAO implements Crud
             $this->myPDO->rollback();
         }
         $stmt = null;
+        return $filasAfectadas;
     }
 }

@@ -57,9 +57,11 @@ class MatriculaController extends Controller
         $matriculaDAO = new MatriculaDAO($pdo);
         $matriculas = $matriculaDAO->findByDni($dni); //la relación es N a 1, un alumno puede tener varias matrículas
 
-        foreach ($matriculas as $matricula) {
-            echo $matricula->id. " ".$matricula->dni. " ". $matricula->year. " </br>";
-         }
+        // foreach ($matriculas as $matricula) {
+        //     echo $matricula->id. " ".$matricula->dni. " ". $matricula->year. " </br>";
+        //  }
+
+         return $matriculas;
     }
 
     public function actualizarMatricula(){

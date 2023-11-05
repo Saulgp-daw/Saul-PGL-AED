@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use App\DAO\AsignaturaDAO;
+use App\DAO\AsignaturaMatriculaDAO;
 use App\Models\Asignatura;
 
 use function PHPUnit\Framework\assertTrue;
@@ -63,6 +64,18 @@ class AsignaturaDAOTest extends TestCase{
 
 
         assertTrue(isset($obtenido) && (1 == $obtenido->id ) );
+    }
+
+    public function test_borrar_asignatura(): void{
+        $pdo = DB::getPdo();
+        $idAsignatura = 7;
+
+        $relacionDAO = new AsignaturaMatriculaDAO($pdo);
+        $asignaturaDAO = new AsignaturaDAO($pdo);
+        $filasRelacionAfectadas = $relacionDAO->deleteRelacionAsignatura($idAsignatura);
+        $asignaturasEliminadas = $asignaturaDAO->delete($idAsignatura);
+
+        assertTrue($filasRelacionAfectadas >= 1 && $asignaturasEliminadas == 1);
     }
 }
 
