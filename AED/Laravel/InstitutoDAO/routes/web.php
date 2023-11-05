@@ -20,19 +20,17 @@ use Illuminate\Support\Facades\Route;
 //VISTAS
 Route::any("/home", [HomeController::class, 'index']);
 Route::any("/gestion_alumnos", [HomeController::class, 'gestionarAlumnosView']);
+Route::any("/gestion_matriculas", [HomeController::class, 'gestionarMatriculasView']);
+//ALUMNOS
 Route::post("/agregar_alumno", [HomeController::class, 'agregarAlumno']);
 Route::post("/borrar_alumno", [HomeController::class, 'borrarAlumno']);
 Route::post("/actualizar_alumno", [HomeController::class, 'actualizarAlumno']);
 Route::post("/buscar_alumno", [HomeController::class, 'buscarAlumno']);
-//ALUMNOS
-Route::any("/obtenerAlumnos", [AlumnoController::class, 'obtenerAlumnos']);
-Route::any("/guardarAlumno", [AlumnoController::class, 'guardarAlumno']);
-Route::any("/buscarAlumno/{dni}", [AlumnoController::class, 'buscarPorDni']);
-Route::any("/buscarPorNombre/{nombre}", [AlumnoController::class, 'buscarPorNombre']);
-Route::any("/actualizarAlumno", [AlumnoController::class, 'actualizarAlumno']);
-Route::any("/eliminarAlumno/{dni}", [AlumnoController::class, 'eliminarAlumno']);
 
 //MATRICULAS
+Route::post("/agregar_matricula", [HomeController::class, 'agregarMatricula']);
+
+
 Route::get("/obtenerMatriculas", [MatriculaController::class, 'obtenerMatriculas']);
 Route::get("/obtenerAsignaturasDeLaMatricula/{id}", [MatriculaController::class, 'obtenerAsignaturasDeLaMatricula']);
 Route::get("/guardarMatricula", [MatriculaController::class, 'guardarMatricula']);

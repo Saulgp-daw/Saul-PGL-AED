@@ -46,6 +46,7 @@ class AsignaturaDAOTest extends TestCase{
 
         $asignatura = $asignaturaDAO->save($a);
         $asignaturas = $asignaturaDAO->findAll();
+        //echo $asignatura->id;
         assertTrue(count($asignaturas) == 9);
         assertTrue(isset($asignatura->id ) && $asignatura->id > 0 );
     }

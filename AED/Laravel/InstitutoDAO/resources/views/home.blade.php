@@ -11,6 +11,6 @@
 
     <a href="/gestion_alumnos">Gestionar Alumnos</a>
     <a href="">Gestionar Asignaturas</a>
-    <a href="">Gestiona Matrículas</a>
+    <a href="/gestion_matriculas">Gestiona Matrículas</a>
 </body>
 </html>

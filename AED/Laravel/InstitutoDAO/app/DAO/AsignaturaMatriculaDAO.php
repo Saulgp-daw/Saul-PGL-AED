@@ -51,7 +51,7 @@ class AsignaturaMatriculaDAO
                 ':idasignatura' => $idAsignatura
             ]);
             $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
+            //echo "Filas afectadas: $filasAfectadas";
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
             }

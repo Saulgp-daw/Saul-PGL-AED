@@ -26,11 +26,7 @@ class AlumnoController extends Controller
     public function guardarAlumno($dni, $nombre, $apellidos, $fechaNacimiento){
         $pdo = DB::getPdo();
         $alumnoDAO = new AlumnoDAO($pdo);
-        if(strtotime($fechaNacimiento) == ""){
-            $fechaNacimiento = 0;
-        }else{
-            $fechaNacimiento = strtotime($fechaNacimiento);
-        }
+        $fechaNacimiento = $this->establecerFecha($fechaNacimiento);
         $alumno = $alumnoDAO->save(new Alumno($dni, $nombre, $apellidos, $fechaNacimiento));
         return $alumno;
     }

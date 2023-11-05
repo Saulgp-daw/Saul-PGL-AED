@@ -50,6 +50,17 @@ class MatriculaDAOTest extends TestCase{
 
     }
 
+    public function test_guardar(): void{
+        $pdo = DB::getPdo();
+
+        $matriculaDAO = new MatriculaDAO($pdo);
+        $a = new Matricula(0, "78649205S", 2005);
+        $matricula = $matriculaDAO->save($a);
+        echo $matricula->id;
+    }
+
+
+
 
 }
 

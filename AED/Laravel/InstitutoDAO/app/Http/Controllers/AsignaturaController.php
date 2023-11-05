@@ -15,9 +15,10 @@ class AsignaturaController extends Controller
         $pdo = DB::getPdo();
         $asignaturaDAO = new AsignaturaDAO($pdo);
         $asignaturas = $asignaturaDAO->findAll();
-        foreach ($asignaturas as $asignatura) {
-           echo $asignatura->id. " ".$asignatura->nombre. " ". $asignatura->curso . "</br>";
-        }
+        // foreach ($asignaturas as $asignatura) {
+        //    echo $asignatura->id. " ".$asignatura->nombre. " ". $asignatura->curso . "</br>";
+        // }
+        return $asignaturas;
     }
 
     public function guardarAsignatura(){

@@ -45,7 +45,7 @@ class MatriculaDAO implements Crud {
     function save($matricula)
     {
         $sql = "INSERT INTO " . self::$tabla . " (" . self::$colId . ", " . self::$colDni . ", " . self::$colYear . ") VALUES (:id, :dni, :year)";
-
+        $filasAfectadas = 0;
         try {
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
@@ -58,16 +58,25 @@ class MatriculaDAO implements Crud {
             );
             //si filasAfectadas > 0 => hubo éxito consulta
             $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
+            //echo "Filas afectadas: $filasAfectadas";
 
             if ($filasAfectadas > 0) {
+                //echo "Estoy en el dao ". $this->myPDO->lastInsertId();
+                $matriculaCreada = new Matricula($this->myPDO->lastInsertId(),$matricula->dni, $matricula->year );
                 $this->myPDO->commit();
+
             }
         } catch (Exception $ex) {
-            echo "ha habido una excepción se lanza rollback automático: $ex";
+            //echo "ha habido una excepción se lanza rollback automático: $ex";
             $this->myPDO->rollback();
         }
         $stmt = null;
+
+
+
+        //die();
+
+        return $matriculaCreada ?? null;
     }
 
     function findById($id)

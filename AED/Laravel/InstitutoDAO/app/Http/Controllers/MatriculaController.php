@@ -16,9 +16,11 @@ class MatriculaController extends Controller
         $pdo = DB::getPdo();
         $matriculaDAO = new MatriculaDAO($pdo);
         $matriculas = $matriculaDAO->findAll();
-        foreach ($matriculas as $matricula) {
-           echo $matricula->id. " ".$matricula->dni. " ". $matricula->year. " </br>";
-        }
+        // foreach ($matriculas as $matricula) {
+        //    echo $matricula->id. " ".$matricula->dni. " ". $matricula->year. " </br>";
+        // }
+
+        return $matriculas;
     }
 
     public function obtenerAsignaturasDeLaMatricula($id){
@@ -33,13 +35,15 @@ class MatriculaController extends Controller
         foreach ($asignaturasDeLaMatricula as $asignatura) {
             echo $asignatura->id. " ".$asignatura->nombre. " ". $asignatura->curso . "</br>";
          }
+
+         return $asignaturasDeLaMatricula;
     }
 
-    public function guardarMatricula(){
-        $matricula = new Matricula(0, "78649205S", 2006);
+    public function guardarMatricula($id, $dni, $year){
+        $matricula = new Matricula($id, $dni, $year);
         $pdo = DB::getPdo();
         $matriculaDAO = new MatriculaDAO($pdo);
-        $matriculaDAO->save($matricula);
+        return $matriculaDAO->save($matricula);
     }
 
     public static function buscarPorId($id){

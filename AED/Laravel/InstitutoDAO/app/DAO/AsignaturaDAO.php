@@ -56,9 +56,10 @@ class AsignaturaDAO implements Crud
             );
             //si filasAfectadas > 0 => hubo éxito consulta
             $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
+            //echo "Filas afectadas: $filasAfectadas";
 
             if ($filasAfectadas > 0) {
+                $asignaturaCreada = new Asignatura($this->myPDO->lastInsertId(), $asignatura->nombre, $asignatura->curso);
                 $this->myPDO->commit();
             }
         } catch (Exception $ex) {
@@ -68,8 +69,10 @@ class AsignaturaDAO implements Crud
         $stmt = null;
 
         //Echo "Último id generado: ".$this->myPDO->lastInsertId();
-        $asignaturaCreada = new Asignatura($this->myPDO->lastInsertId(), $asignatura->nombre, $asignatura->curso);
-        return $asignaturaCreada;
+
+
+        //echo "Estoy en asignatura dao ". $this->myPDO->lastInsertId(). " ";
+        return $asignaturaCreada ?? null;
     }
 
     function findById($id)

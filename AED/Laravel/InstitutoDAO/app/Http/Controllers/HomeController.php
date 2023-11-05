@@ -28,9 +28,31 @@ class HomeController extends Controller
         return view("gestionAlumnos", compact("mensaje", "alumnos"));
     }
 
-    public function gestionarMatriculasView()
+    public static function gestionarMatriculasView($mensaje = "")
     {
-        return view("gestionAlumnos");
+        $matriculaController = new MatriculaController();
+        $alumnoController = new AlumnoController();
+        $asignaturaController = new AsignaturaController();
+        $asignaturaMatriculaController = new AsignaturaMatriculaController();
+
+        $matriculas = $matriculaController->obtenerMatriculas();
+        $alumnos = $alumnoController->obtenerAlumnos();
+        $asignaturas = $asignaturaController->obtenerAsignaturas();
+
+        $datos = [];
+        foreach ($matriculas as $matricula) {
+                $datos[$matricula->id] = $asignaturaMatriculaController->devolverAsignaturasDeMatricula($matricula->id);
+        }
+
+        // foreach ($datos as $key => $asignaturas) {
+        //    echo $key;
+        //    foreach ($asignaturas as $asignatura) {
+        //         echo $asignatura->nombre;
+        //    }
+        // }
+        // die();
+
+        return view("gestionMatriculas", compact("mensaje", "matriculas", "alumnos", "datos", "asignaturas"));
     }
 
     public function gestionarAsignaturasView()
@@ -128,7 +150,44 @@ class HomeController extends Controller
             }
         }
 
-
         return self::gestionarAlumnosView($mensaje);
     }
+
+    /**
+     * Matriculas
+     */
+
+     public function agregarMatricula(Request $request){
+        $dni = $request->input("dni");
+        $year = $request->input("year");
+        $asignaturas = $request->input('asignaturas', []); //esto convierte los checkbox en un array con los values
+
+        // echo $dni. " ".$year." <br>";
+        // print_r($asignaturas);
+
+        $matriculaController = new MatriculaController();
+        $asignaturaMatriculaController = new AsignaturaMatriculaController();
+        $matricula = $matriculaController->guardarMatricula(0, $dni, $year);
+        $filasAfectadas = 0;
+
+        //echo $matricula->id;
+        $mensaje = "Ha habido un error a la hora de agregar una matrícula";
+        if($matricula != null){
+            $mensaje = "Matrícula sin asignaturas relacioandas agregada correctamente";
+            if(!empty($asignaturas)){
+                foreach ($asignaturas as $id) {
+                    $filasAfectadas = $asignaturaMatriculaController->asignarRelacionMatriculaAsignatura($matricula->id, $id);
+                }
+                if($filasAfectadas){
+                    $mensaje = "Todo ha ido correctamente. Se añadió una matrícula con asignaturas";
+                }
+            }
+        }
+
+
+
+        return self::gestionarMatriculasView($mensaje);
+     }
+
+
 }
