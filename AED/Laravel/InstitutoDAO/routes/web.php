@@ -41,3 +41,4 @@ Route::get("/buscarAsignatura/{id}", [AsignaturaController::class, 'buscarPorId'
 Route::get("/buscarAsignaturaCurso/{nombreCurso}", [AsignaturaController::class, 'buscarPorCurso']);
 Route::get("/actualizarAsignatura", [AsignaturaController::class, 'actualizarAsignatura']);
 Route::get("/eliminarAsignatura/{id}", [AsignaturaController::class, 'eliminarAsignatura']);
+Route::get("/obtenerMatriculasConEstaAsignatura/{id}", [AsignaturaController::class, 'obtenerMatriculasConEstaAsignatura']);

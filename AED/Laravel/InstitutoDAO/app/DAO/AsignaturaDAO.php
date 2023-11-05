@@ -114,6 +114,8 @@ class AsignaturaDAO implements Crud
         return $asignaturas;
     }
 
+
+
     function update($asignatura)
     {
         $sql = "UPDATE ". self::$tabla. " SET ". self::$colNombre. " = :nombre, ".self::$colCurso. " = :curso WHERE ".self::$colId . " = :id";

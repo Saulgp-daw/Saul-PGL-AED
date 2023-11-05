@@ -17,14 +17,6 @@ class MatriculaDAO implements Crud {
     private static $colId = MatriculaContract::COL_ID;
     private static $colDni = MatriculaContract::COL_DNI;
     private static $colYear = MatriculaContract::COL_YEAR;
-    private static $tablaAsignatura = AsignaturaContract::TABLE_NAME;
-    private static $colIdAsignatura = AsignaturaContract::COL_ID;
-    private static $colNombreAsignatura = AsignaturaContract::COL_NOMBRE;
-    private static $colCursoDeLaAsignatura = AsignaturaContract::COL_CURSO;
-    private static $tablaAsignaturaMatricula = AsignaturaMatriculaContract::TABLE_NAME;
-    private static $colIdAsignaturaMatricula = AsignaturaMatriculaContract::COL_ID;
-    private static $colIdAsignaturaM = AsignaturaMatriculaContract::COL_IDASIGNATURA;
-    private static $colIdMatriculaA = AsignaturaMatriculaContract::COL_IDMATRICULA;
 
     private $myPDO;
     public function __construct($pdo)
@@ -101,23 +93,7 @@ class MatriculaDAO implements Crud {
 
     }
 
-    function findAsignaturasByMatriculaId($id){
-        //Por visibilidad dejo lo de arriba
-        //SELECT a.id, a.nombre, a.curso FROM matriculas m INNER JOIN asignatura_matricula am INNER JOIN asignaturas a ON a.id = am.idasignatura WHERE am.idmatricula = 1 AND m.id = 1;
-        //Preguntar si esto está bien
-        $stmt = $this->myPDO->prepare("SELECT a.". self::$colIdAsignatura.", a.".self::$colNombreAsignatura.", a.". self::$colCursoDeLaAsignatura." FROM ".self::$tabla. " AS m INNER JOIN ".self::$tablaAsignaturaMatricula ." AS am INNER JOIN ". self::$tablaAsignatura ." AS a ON a.". self::$colIdAsignatura." = am.".self::$colIdAsignaturaM." WHERE am.".self::$colIdMatriculaA." = $id AND m.".self::$colId." = $id");
-        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
-        $stmt->execute(); // Ejecutamos la sentencia
-        $asignaturas = [];
-        while ($row = $stmt->fetch()) {
-            $id = $row["id"];
-            $nombre = $row["nombre"];
-            $curso = $row["curso"];
-            $asignatura = new Asignatura($id, $nombre, $curso);
-            $asignaturas[] = $asignatura;
-        }
-        return $asignaturas;
-    }
+
 
     function update($matricula)
     {

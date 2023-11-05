@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DAO\AsignaturaDAO;
+use App\DAO\AsignaturaMatriculaDAO;
 use Illuminate\Http\Request;
 use App\Models\Asignatura;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +48,20 @@ class AsignaturaController extends Controller
          }
     }
 
+    public function obtenerMatriculasConEstaAsignatura($idAsignatura){
+        $pdo = DB::getPdo();
+        $asignaturaMatriculaDAO = new AsignaturaMatriculaDAO($pdo);
+        $matriculasConEstaAsignatura = $asignaturaMatriculaDAO->findMatriculasByAsignaturaId($idAsignatura);
+
+        self::buscarPorId($idAsignatura);
+        echo "<h3>Las asignaturas que tiene la matrícula con el id $idAsignatura son: </h3>";
+
+
+        foreach ($matriculasConEstaAsignatura as $matricula) {
+            echo $matricula->id." ". $matricula->dni." ". $matricula->year."</br>";
+         }
+    }
+
     public function actualizarAsignatura(){
         $asignatura = new Asignatura(9, "DEW", "2º DAW");
         $pdo = DB::getPdo();
@@ -57,8 +72,12 @@ class AsignaturaController extends Controller
     public function eliminarAsignatura($id){
         $pdo = DB::getPdo();
         $asignaturaDAO = new AsignaturaDAO($pdo);
+        $asignaturaMatriculaDAO = new AsignaturaMatriculaDAO($pdo);
+        $asignaturaMatriculaDAO->deleteRelacionAsignatura($id);
         $asignaturaDAO->delete($id);
     }
+
+
     //hacer eliminar asignatura por curso
     //hacer tabla intermedia mañana
 

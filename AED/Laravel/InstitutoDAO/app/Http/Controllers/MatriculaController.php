@@ -23,7 +23,7 @@ class MatriculaController extends Controller
 
     public function obtenerAsignaturasDeLaMatricula($id){
         $pdo = DB::getPdo();
-        $matriculaDAO = new MatriculaDAO($pdo);
+        $matriculaDAO = new AsignaturaMatriculaDAO($pdo);
         $asignaturasDeLaMatricula = $matriculaDAO->findAsignaturasByMatriculaId($id);
 
         self::buscarPorId($id);
