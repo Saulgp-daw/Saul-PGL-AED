@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::any("/home", [HomeController::class, 'index']);
 Route::any("/gestion_alumnos", [HomeController::class, 'gestionarAlumnosView']);
 Route::any("/gestion_matriculas", [HomeController::class, 'gestionarMatriculasView']);
+Route::get("/gestion_asignaturas", [HomeController::class, 'gestionarAsignaturasView']);
 //ALUMNOS
 Route::post("/agregar_alumno", [HomeController::class, 'agregarAlumno']);
 Route::post("/borrar_alumno", [HomeController::class, 'borrarAlumno']);
@@ -33,16 +34,9 @@ Route::post("/borrar_matricula", [HomeController::class, 'borrarMatricula']);
 Route::post("/editar_matricula", [HomeController::class, 'editarMatricula']);
 Route::post("/buscar_matricula", [HomeController::class, 'buscarMatricula']);
 
-Route::get("/obtenerMatriculas", [MatriculaController::class, 'obtenerMatriculas']);
-Route::get("/obtenerAsignaturasDeLaMatricula/{id}", [MatriculaController::class, 'obtenerAsignaturasDeLaMatricula']);
-Route::get("/guardarMatricula", [MatriculaController::class, 'guardarMatricula']);
-Route::get("/buscarMatricula/{id}", [MatriculaController::class, 'buscarPorId']);
-Route::get("/buscarMatriculas/{dni}", [MatriculaController::class, 'buscarPorDni']);
-Route::get("/actualizarMatricula", [MatriculaController::class, 'actualizarMatricula']);
-Route::get("/eliminarMatricula/{id}", [MatriculaController::class, 'eliminarMatricula']);
-
 //ASIGNATURAS
-Route::get("/obtenerAsignaturas", [AsignaturaController::class, 'obtenerAsignaturas']);
+Route::post("/agregar_asignatura", [HomeController::class, 'agregarAsignatura']);
+
 Route::get("/obtenerAsignaturas", [AsignaturaController::class, 'obtenerAsignaturas']);
 Route::get("/guardarAsignatura", [AsignaturaController::class, 'guardarAsignatura']);
 Route::get("/buscarAsignatura/{id}", [AsignaturaController::class, 'buscarPorId']);

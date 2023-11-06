@@ -21,11 +21,11 @@ class AsignaturaController extends Controller
         return $asignaturas;
     }
 
-    public function guardarAsignatura(){
-        $asignatura = new Asignatura(0, "LND", "1ºDAW");
+    public function guardarAsignatura($nombre, $curso){
+        $asignatura = new Asignatura(0, $nombre, $curso);
         $pdo = DB::getPdo();
         $asignaturaDAO = new AsignaturaDAO($pdo);
-        $asignaturaDAO->save($asignatura);
+        return $asignaturaDAO->save($asignatura);
     }
 
     public function buscarPorId($id){
@@ -36,6 +36,12 @@ class AsignaturaController extends Controller
         if($asignatura){
             echo "Asignatura encontrada: ". $asignatura->id. " ".$asignatura->nombre. " ". $asignatura->curso;
         }
+    }
+
+    public function comprobarExiste($nombre){
+        $pdo = DB::getPdo();
+        $asignaturaDAO = new AsignaturaDAO($pdo);
+        return $asignaturaDAO->existsAsignatura($nombre);
     }
 
     public function buscarPorCurso($nombreCurso){

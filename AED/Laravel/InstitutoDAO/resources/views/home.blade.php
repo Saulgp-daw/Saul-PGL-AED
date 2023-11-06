@@ -10,7 +10,7 @@
     <h2>Gestionar Instituto</h2>
 
     <a href="/gestion_alumnos">Gestionar Alumnos</a>
-    <a href="">Gestionar Asignaturas</a>
+    <a href="/gestion_asignaturas">Gestionar Asignaturas</a>
     <a href="/gestion_matriculas">Gestiona Matrículas</a>
 </body>
 </html>

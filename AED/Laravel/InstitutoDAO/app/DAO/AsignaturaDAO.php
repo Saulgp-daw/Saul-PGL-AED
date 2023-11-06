@@ -39,6 +39,23 @@ class AsignaturaDAO implements Crud
         return $asignaturas;
     }
 
+    function existsAsignatura($nombre){
+        $asignaturaEncontrada = false;
+        $sql = "SELECT * FROM " . self::$tabla . " WHERE :nombre = " . self::$colNombre;
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->execute(
+            [
+                ':nombre' => $nombre
+            ]
+        );
+
+        if ($row = $stmt->fetch()) {
+            $asignaturaEncontrada = true;
+        }
+
+        return $asignaturaEncontrada;
+    }
+
     function save($asignatura)
     {
         $sql = "INSERT INTO " . self::$tabla . " (" . self::$colId . ", " . self::$colNombre . ", " . self::$colCurso . ")

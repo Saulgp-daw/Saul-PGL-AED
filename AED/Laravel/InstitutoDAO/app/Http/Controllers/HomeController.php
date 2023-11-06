@@ -55,11 +55,18 @@ class HomeController extends Controller
         return view("gestionMatriculas", compact("mensaje", "matriculas", "alumnos", "datos", "asignaturas"));
     }
 
-    public function gestionarAsignaturasView()
+    public static function gestionarAsignaturasView($mensaje)
     {
-        return view("gestionAlumnos");
+        $asignaturaController = new AsignaturaController();
+        $asignaturas = $asignaturaController->obtenerAsignaturas();
+
+
+        return view("gestionAsignaturas", compact("asignaturas", "mensaje"));
     }
 
+    /**
+     * ALUMNOS
+     */
     public function agregarAlumno(Request $request)
     {
         $dni = $request->input("dni");
@@ -243,9 +250,31 @@ class HomeController extends Controller
         }
 
         foreach ($matriculas as $matricula) {
-            $mensaje .= "<br>".$matricula->id. " ".$matricula->dni. " ".$matricula->year;
+            $mensaje .= "<br>".$matricula->id. " - ".$matricula->dni. " - ".$matricula->year;
         }
         return self::gestionarMatriculasView($mensaje);
+    }
+
+    /**
+     * ASIGNATURAS
+     */
+
+    public function agregarAsignatura(Request $request){
+        $nombre = $request->input("nombre");
+        $curso =  $request->input("curso");
+        $asignaturaController = new AsignaturaController();
+        $mensaje = "Hubo un error a la hora de crear la asignatura. El nombre ya existe";
+        $asignatura = null;
+        if(!$asignaturaController->comprobarExiste($nombre)){
+            $asignatura = $asignaturaController->guardarAsignatura($nombre, $curso);
+        }
+
+
+        if($asignatura != null){
+            $mensaje = "Asignatura creada correctamente";
+        }
+
+        return self::gestionarAsignaturasView($mensaje);
     }
 
 
