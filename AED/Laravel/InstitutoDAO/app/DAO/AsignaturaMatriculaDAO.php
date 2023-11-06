@@ -164,4 +164,21 @@ class AsignaturaMatriculaDAO
 
         return $existe;
     }
+
+    function existsIdAsignatura($id){
+        $existe = false;
+        $sql = "SELECT * FROM " . self::$tabla . " WHERE :idasignatura = " . self::$colIdAsignatura;
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->execute(
+            [
+                ':idasignatura' => $id
+            ]
+        );
+
+        if ($row = $stmt->fetch()) {
+            $existe = true;
+        }
+
+        return $existe;
+    }
 }

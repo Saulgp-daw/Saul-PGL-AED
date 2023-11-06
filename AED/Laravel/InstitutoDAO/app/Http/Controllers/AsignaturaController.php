@@ -69,19 +69,23 @@ class AsignaturaController extends Controller
          }
     }
 
-    public function actualizarAsignatura(){
-        $asignatura = new Asignatura(9, "DEW", "2º DAW");
+    public function actualizarAsignatura($id, $nombre, $curso){
+        $asignatura = new Asignatura($id, $nombre, $curso);
         $pdo = DB::getPdo();
         $asignaturaDAO = new AsignaturaDAO($pdo);
-        $asignaturaDAO->update($asignatura);
+        return $asignaturaDAO->update($asignatura);
     }
 
     public function eliminarAsignatura($id){
         $pdo = DB::getPdo();
         $asignaturaDAO = new AsignaturaDAO($pdo);
         $asignaturaMatriculaDAO = new AsignaturaMatriculaDAO($pdo);
-        $asignaturaMatriculaDAO->deleteRelacionAsignatura($id);
-        $asignaturaDAO->delete($id);
+
+        if($asignaturaMatriculaDAO->existsIdAsignatura($id)){
+            $asignaturaMatriculaDAO->deleteRelacionAsignatura($id);
+        }
+
+        return $asignaturaDAO->delete($id);
     }
 
 

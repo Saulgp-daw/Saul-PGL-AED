@@ -139,7 +139,7 @@ class AsignaturaDAO implements Crud
     function update($asignatura)
     {
         $sql = "UPDATE ". self::$tabla. " SET ". self::$colNombre. " = :nombre, ".self::$colCurso. " = :curso WHERE ".self::$colId . " = :id";
-
+        $filasAfectadas = 0;
         try{
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
@@ -151,7 +151,7 @@ class AsignaturaDAO implements Crud
                 ]
             );
             $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
+            //echo "Filas afectadas: $filasAfectadas";
 
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
@@ -161,6 +161,7 @@ class AsignaturaDAO implements Crud
             $this->myPDO->rollback();
         }
         $stmt = null;
+        return $filasAfectadas;
     }
 
     function delete($id)

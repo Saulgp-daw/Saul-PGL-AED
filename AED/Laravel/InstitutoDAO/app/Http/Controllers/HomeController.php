@@ -55,7 +55,7 @@ class HomeController extends Controller
         return view("gestionMatriculas", compact("mensaje", "matriculas", "alumnos", "datos", "asignaturas"));
     }
 
-    public static function gestionarAsignaturasView($mensaje)
+    public static function gestionarAsignaturasView($mensaje = "")
     {
         $asignaturaController = new AsignaturaController();
         $asignaturas = $asignaturaController->obtenerAsignaturas();
@@ -272,6 +272,38 @@ class HomeController extends Controller
 
         if($asignatura != null){
             $mensaje = "Asignatura creada correctamente";
+        }
+
+        return self::gestionarAsignaturasView($mensaje);
+    }
+
+    public function borrarAsignatura(Request $request){
+        $id = $request->input("id");
+
+        // echo $id;
+        // die();
+        $asignaturaController = new AsignaturaController();
+        $mensaje = "Hubo un error a la hora de borrar la asignatura";
+        $filasAfectadas = $asignaturaController->eliminarAsignatura($id);
+
+        if($filasAfectadas >= 1){
+            $mensaje = "Éxito. Asignatura borrada";
+        }
+
+        return self::gestionarAsignaturasView($mensaje);
+
+    }
+
+    public function editarAsignatura(Request $request){
+        $id = $request->input("id");
+        $nombre = $request->input("nombre");
+        $curso = $request->input("curso");
+        $asignaturaController = new AsignaturaController();
+        $filasAfectadas = $asignaturaController->actualizarAsignatura($id, $nombre, $curso);
+        $mensaje = "Error. No se puedo editar la asignatura";
+
+        if($filasAfectadas >= 1){
+            $mensaje = "Éxito. La asignatura ha sido modificada";
         }
 
         return self::gestionarAsignaturasView($mensaje);

@@ -36,6 +36,8 @@ Route::post("/buscar_matricula", [HomeController::class, 'buscarMatricula']);
 
 //ASIGNATURAS
 Route::post("/agregar_asignatura", [HomeController::class, 'agregarAsignatura']);
+Route::post("/borrar_asignatura", [HomeController::class, 'borrarAsignatura']);
+Route::post("/editar_asignatura", [HomeController::class, 'editarAsignatura']);
 
 Route::get("/obtenerAsignaturas", [AsignaturaController::class, 'obtenerAsignaturas']);
 Route::get("/guardarAsignatura", [AsignaturaController::class, 'guardarAsignatura']);
