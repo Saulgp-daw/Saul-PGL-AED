@@ -50,9 +50,10 @@ class AsignaturaController extends Controller
         $asignaturaDAO = new asignaturaDAO($pdo);
         $asignaturas = $asignaturaDAO->findByCurso($nombreCurso);
 
-        foreach ($asignaturas as $asignatura) {
-            echo $asignatura->curso." ".  $asignatura->id. " ".$asignatura->nombre.  " </br>";
-         }
+        // foreach ($asignaturas as $asignatura) {
+        //     echo $asignatura->curso." ".  $asignatura->id. " ".$asignatura->nombre.  " </br>";
+        //  }
+        return $asignaturas;
     }
 
     public function obtenerMatriculasConEstaAsignatura($idAsignatura){

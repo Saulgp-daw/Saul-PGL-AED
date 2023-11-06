@@ -60,8 +60,18 @@ class HomeController extends Controller
         $asignaturaController = new AsignaturaController();
         $asignaturas = $asignaturaController->obtenerAsignaturas();
 
+        $asignaturasUnicas = [];
 
-        return view("gestionAsignaturas", compact("asignaturas", "mensaje"));
+        foreach ($asignaturas as $asignatura) {
+            if (!in_array($asignatura->curso, $asignaturasUnicas)) {
+                $asignaturasUnicas[] = $asignatura->curso;
+            }
+        }
+        // print_r($asignaturasUnicas);
+        // die();
+
+
+        return view("gestionAsignaturas", compact("asignaturas", "mensaje", "asignaturasUnicas"));
     }
 
     /**
@@ -304,6 +314,22 @@ class HomeController extends Controller
 
         if($filasAfectadas >= 1){
             $mensaje = "Éxito. La asignatura ha sido modificada";
+        }
+
+        return self::gestionarAsignaturasView($mensaje);
+    }
+
+    public function buscarAsignatura(Request $request){
+        $curso = $request->input("curso");
+        // echo $curso;
+        // die();
+
+        $asignaturaController = new AsignaturaController();
+        $asignaturas = $asignaturaController->buscarPorCurso($curso);
+
+        $mensaje = "Asignaturas de $curso: ";
+        foreach ($asignaturas as $asignatura) {
+            $mensaje .= "<br>".$asignatura->id. " ".$asignatura->nombre." ".$asignatura->curso;
         }
 
         return self::gestionarAsignaturasView($mensaje);

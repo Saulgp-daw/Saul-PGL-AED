@@ -55,6 +55,21 @@
                 <button type="submit">Editar</button>
             </form>
         </div>
+        <div class="form">
+            <h4>Buscar asignatura</h4>
+            <form action="/buscar_asignatura" method="post">
+                @csrf
+                <label for="curso">* Buscar por curso: </label>
+                <select name="curso">
+                    @isset($asignaturasUnicas)
+                        @foreach ($asignaturasUnicas as $asignatura)
+                            <option value="{{ $asignatura}}">{{ $asignatura }}</option>
+                        @endforeach
+                    @endisset
+                </select><br>
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
     </div>
     @isset($asignaturas)
         @foreach ($asignaturas as $asignatura)
