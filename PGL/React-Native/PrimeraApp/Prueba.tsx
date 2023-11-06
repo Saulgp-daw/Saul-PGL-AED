@@ -14,5 +14,5 @@ const Prueba = (props: Props) => {
 export default Prueba
 
 const styles = StyleSheet.create({
-
+    background: "red"
 })
