@@ -41,7 +41,7 @@ class HomeController extends Controller
 
         $datos = [];
         foreach ($matriculas as $matricula) {
-                $datos[$matricula->id] = $asignaturaMatriculaController->devolverAsignaturasDeMatricula($matricula->id);
+            $datos[$matricula->id] = $asignaturaMatriculaController->devolverAsignaturasDeMatricula($matricula->id);
         }
 
         // foreach ($datos as $key => $asignaturas) {
@@ -139,14 +139,14 @@ class HomeController extends Controller
                 date("d/m/Y", $alumno->fechaNacimiento);
         }
 
-        if($alumnos != null){
+        if ($alumnos != null) {
             $mensaje = "";
 
             // print_r($alumnos);
             // die();
             foreach ($alumnos as $alumno) {
                 $mensaje .= "Alumno encontrado: " . $alumno->nombre . " " . $alumno->apellidos . " " . $alumno->dni . " " .
-                date("d/m/Y", $alumno->fechaNacimiento)." <br>";
+                    date("d/m/Y", $alumno->fechaNacimiento) . " <br>";
             }
         }
 
@@ -157,7 +157,8 @@ class HomeController extends Controller
      * Matriculas
      */
 
-     public function agregarMatricula(Request $request){
+    public function agregarMatricula(Request $request)
+    {
         $dni = $request->input("dni");
         $year = $request->input("year");
         $asignaturas = $request->input('asignaturas', []); //esto convierte los checkbox en un array con los values
@@ -167,27 +168,85 @@ class HomeController extends Controller
 
         $matriculaController = new MatriculaController();
         $asignaturaMatriculaController = new AsignaturaMatriculaController();
-        $matricula = $matriculaController->guardarMatricula(0, $dni, $year);
-        $filasAfectadas = 0;
-
-        //echo $matricula->id;
         $mensaje = "Ha habido un error a la hora de agregar una matrícula";
-        if($matricula != null){
-            $mensaje = "Matrícula sin asignaturas relacioandas agregada correctamente";
-            if(!empty($asignaturas)){
+        if (is_numeric($year) && !empty($asignaturas)) {
+            $filasAfectadas = 0;
+            $matricula = $matriculaController->guardarMatricula(0, $dni, $year);
+            if ($matricula != null) {
+                $mensaje = "Matrícula sin asignaturas relacionadas agregada correctamente";
+
                 foreach ($asignaturas as $id) {
                     $filasAfectadas = $asignaturaMatriculaController->asignarRelacionMatriculaAsignatura($matricula->id, $id);
                 }
-                if($filasAfectadas){
+                if ($filasAfectadas) {
                     $mensaje = "Todo ha ido correctamente. Se añadió una matrícula con asignaturas";
                 }
             }
         }
 
-
-
         return self::gestionarMatriculasView($mensaje);
-     }
+    }
+
+    public function borrarMatricula(Request $request)
+    {
+        $id = $request->input("id");
+        $matriculaController = new MatriculaController();
+        $filasAfectadas = $matriculaController->eliminarMatricula($id);
+
+        $mensaje = "Hubo un error a la hora de borrar la matrícula";
+        if ($filasAfectadas >= 1) {
+            $mensaje = "Matrícula borrada con éxito";
+        }
+        return self::gestionarMatriculasView($mensaje);
+    }
+
+    public function editarMatricula(Request $request)
+    {
+        $idMatricula = $request->input("idMatricula");
+        $dni = $request->input("dni");
+        $year =  $request->input("year");
+        $asignaturas = $request->input('asignaturas', []);
+        $matriculaController = new MatriculaController();
+        $asignaturaMatriculaController = new AsignaturaMatriculaController();
+
+        $mensaje = "Ha habido un error a la hora de editar la matrícula";
+        if (!empty($asignaturas) && is_numeric($year)) {
+            $filasAfectadas = $matriculaController->eliminarMatricula($idMatricula);
+            if ($filasAfectadas >= 1) {
+                $matricula = $matriculaController->guardarMatricula(0, $dni, $year);
+                if ($matricula != null) {
+                    foreach ($asignaturas as $id) {
+                        $filasRelacion = $asignaturaMatriculaController->asignarRelacionMatriculaAsignatura($matricula->id, $id);
+                    }
+                    if ($filasRelacion) {
+                        $mensaje = "Todo ha ido correctamente. Se ha editado la matrícula";
+                    }
+                }
+            }
+        }
+        return self::gestionarMatriculasView($mensaje);
+    }
+
+    public function buscarMatricula(Request $request){
+        $dni = $request->input("dni");
+        $year =  $request->input("year");
+        $opcion = $request->input('opcion');
+        $matriculaController = new MatriculaController();
+        $mensaje = "";
+
+        if($opcion == "dni"){
+            $matriculas = $matriculaController->buscarPorDni($dni);
+            $mensaje = "-- Las matrículas con el DNI: $dni son --";
+        }else{
+            $matriculas = $matriculaController->buscarPorAnho($year);
+            $mensaje = "-- Las matrículas del año: $year son -- ";
+        }
+
+        foreach ($matriculas as $matricula) {
+            $mensaje .= "<br>".$matricula->id. " ".$matricula->dni. " ".$matricula->year;
+        }
+        return self::gestionarMatriculasView($mensaje);
+    }
 
 
 }

@@ -29,7 +29,9 @@ Route::post("/buscar_alumno", [HomeController::class, 'buscarAlumno']);
 
 //MATRICULAS
 Route::post("/agregar_matricula", [HomeController::class, 'agregarMatricula']);
-
+Route::post("/borrar_matricula", [HomeController::class, 'borrarMatricula']);
+Route::post("/editar_matricula", [HomeController::class, 'editarMatricula']);
+Route::post("/buscar_matricula", [HomeController::class, 'buscarMatricula']);
 
 Route::get("/obtenerMatriculas", [MatriculaController::class, 'obtenerMatriculas']);
 Route::get("/obtenerAsignaturasDeLaMatricula/{id}", [MatriculaController::class, 'obtenerAsignaturasDeLaMatricula']);

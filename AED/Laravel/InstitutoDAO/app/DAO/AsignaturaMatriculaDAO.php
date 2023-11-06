@@ -66,16 +66,19 @@ class AsignaturaMatriculaDAO
 
     function deleteRelacionMatricula($id)
     {
-        $sql = "DELETE FROM " . self::$tabla . " WHERE :id = " . self::$colIdMatricula;
+        $sql = "DELETE FROM " . self::$tabla . " WHERE :idmatricula = " . self::$colIdMatricula;
         $filasAfectadas = 0;
         try {
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
             $stmt->execute([
-                ':id' => $id
+                ':idmatricula' => $id
             ]);
             $filasAfectadas = $stmt->rowCount();
-            echo "TABLA Asignatura_Matricula: Filas afectadas: $filasAfectadas </br>";
+            //echo "TABLA Asignatura_Matricula: Filas afectadas: $filasAfectadas </br>";
+            // echo $filasAfectadas;
+            // die();
+
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
             }
@@ -89,16 +92,16 @@ class AsignaturaMatriculaDAO
 
     function deleteRelacionAsignatura($id)
     {
-        $sql = "DELETE FROM " . self::$tabla . " WHERE :id = " . self::$colIdAsignatura;
+        $sql = "DELETE FROM " . self::$tabla . " WHERE :idasignatura = " . self::$colIdAsignatura;
         $filasAfectadas = 0;
         try {
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
             $stmt->execute([
-                ':id' => $id
+                ':idasignatura' => $id
             ]);
             $filasAfectadas = $stmt->rowCount();
-            echo "TABLA Asignatura_Matricula: Filas afectadas: $filasAfectadas </br>";
+            //echo "TABLA Asignatura_Matricula: Filas afectadas: $filasAfectadas </br>";
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
             }
@@ -143,5 +146,22 @@ class AsignaturaMatriculaDAO
             $asignaturas[] = $asignatura;
         }
         return $asignaturas;
+    }
+
+    function existsIdMatricula($id){
+        $existe = false;
+        $sql = "SELECT * FROM " . self::$tabla . " WHERE :idmatricula = " . self::$colIdMatricula;
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->execute(
+            [
+                ':idmatricula' => $id
+            ]
+        );
+
+        if ($row = $stmt->fetch()) {
+            $existe = true;
+        }
+
+        return $existe;
     }
 }

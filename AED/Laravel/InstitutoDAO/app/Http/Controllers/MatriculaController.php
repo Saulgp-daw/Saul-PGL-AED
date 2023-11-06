@@ -68,6 +68,14 @@ class MatriculaController extends Controller
          return $matriculas;
     }
 
+    public function buscarPorAnho($year){
+        $pdo = DB::getPdo();
+        $matriculaDAO = new MatriculaDAO($pdo);
+        $matriculas = $matriculaDAO->findByYear($year); //la relación es N a 1, un alumno puede tener varias matrículas
+
+         return $matriculas;
+    }
+
     public function actualizarMatricula(){
         $matricula = new Matricula(5, "12345678Z", 2023);
         $pdo = DB::getPdo();
@@ -82,8 +90,12 @@ class MatriculaController extends Controller
         $pdo = DB::getPdo();
         $matriculaDAO = new MatriculaDAO($pdo);
         $asignaturaMatriculaDAO = new AsignaturaMatriculaDAO($pdo);
-        $asignaturaMatriculaDAO->deleteRelacionMatricula($id);
-        $matriculaDAO->delete($id);
+
+        if($asignaturaMatriculaDAO->existsIdMatricula($id)){
+            $asignaturaMatriculaDAO->deleteRelacionMatricula($id);
+        }
+
+        return $matriculaDAO->delete($id);
     }
 
 

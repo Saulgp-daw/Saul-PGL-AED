@@ -121,6 +121,25 @@ class MatriculaDAO implements Crud {
         return $matriculas;
     }
 
+    function findByYear($year){
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . self::$tabla ." WHERE :year = ".self::$colYear);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute(
+            [
+                ':year' => $year
+            ]
+        ); // Ejecutamos la sentencia
+        $matriculas = [];
+        while ($row = $stmt->fetch()) {
+            $id = $row[self::$colId];
+            $dni = $row[self::$colDni];
+            $year = $row[self::$colYear];
+            $matricula = new Matricula($id, $dni, $year);
+            $matriculas[] = $matricula;
+        }
+        return $matriculas;
+    }
+
 
     function update($matricula)
     {
@@ -137,7 +156,7 @@ class MatriculaDAO implements Crud {
                 ]
             );
             $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
+            //echo "Filas afectadas: $filasAfectadas";
 
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
@@ -162,7 +181,7 @@ class MatriculaDAO implements Crud {
                 ]
             );
             $filasAfectadas = $stmt->rowCount();
-            echo "TABLA Matricula: Filas afectadas: $filasAfectadas </br>";
+            //echo "TABLA Matricula: Filas afectadas: $filasAfectadas </br>";
 
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
@@ -187,7 +206,7 @@ class MatriculaDAO implements Crud {
                 ]
             );
             $filasAfectadas = $stmt->rowCount();
-            echo "TABLA Matricula: Filas afectadas: $filasAfectadas </br>";
+            //echo "TABLA Matricula: Filas afectadas: $filasAfectadas </br>";
 
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
