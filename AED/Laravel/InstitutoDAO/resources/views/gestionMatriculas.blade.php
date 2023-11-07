@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gestión Matrículas</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('CSS/formularios.css') }}">
 </head>
 
 <body>
     <div>
         <a href="/home"><h2>Gestionar Instituto</h2></a>
     </div>
-    <div class="h5" style="position: absolute; top: 10px; right: 10px;"><a href="/logout">Logout</a></div>
+    <div class="logout"><a href="/logout">Logout</a></div>
     <h3>Gestión Matriculas</h3>
     <p>{!! $mensaje ?? '' !!}</p>
     <div class="contenedorForms">
@@ -95,6 +96,7 @@
             </form>
         </div>
         <div class="form">
+            <h4>Buscar matrícula</h4>
             <form action="/buscar_matricula" method="post">
                 @csrf
                 <label for="dni">Dni: </label>
@@ -125,12 +127,9 @@
         </div>
     </div>
     <div class="matriculas">
-        <br>
-        <br>
-        <br>
         @isset($matriculas)
             @foreach ($matriculas as $matricula)
-                <div>
+                <div class="matricula">
                     <span>Id: </span>{{ $matricula->id }} <br>
                     <span>Dni: </span>{{ $matricula->dni }}<br>
                     @isset($alumnos)

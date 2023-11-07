@@ -25,9 +25,9 @@ Route::post("/login", [UsuarioController::class, 'login']);
 Route::get("/logout", [UsuarioController::class, 'logout']);
 Route::get("/loginForm", [UsuarioController::class, 'loginView']);
 //VISTAS
-Route::any("/home", [HomeController::class, 'index']);
-Route::any("/gestion_alumnos", [HomeController::class, 'gestionarAlumnosView']);
-Route::any("/gestion_matriculas", [HomeController::class, 'gestionarMatriculasView']);
+Route::get("/home", [HomeController::class, 'index']);
+Route::get("/gestion_alumnos", [HomeController::class, 'gestionarAlumnosView']);
+Route::get("/gestion_matriculas", [HomeController::class, 'gestionarMatriculasView']);
 Route::get("/gestion_asignaturas", [HomeController::class, 'gestionarAsignaturasView']);
 //ALUMNOS
 Route::post("/agregar_alumno", [HomeController::class, 'agregarAlumno']);

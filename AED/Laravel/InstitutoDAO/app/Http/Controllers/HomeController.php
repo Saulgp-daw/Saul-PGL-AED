@@ -89,13 +89,15 @@ class HomeController extends Controller
         $fechaNacimiento = $request->input("fechanacimiento");
 
         //echo $dni." ".$nombre." ".$apellidos. " ".$fechaNacimiento;
-
-        $alumnoController = new AlumnoController();
-        $alumno = $alumnoController->guardarAlumno($dni, $nombre, $apellidos, $fechaNacimiento);
         $mensaje = "Hubo un error a la hora de crear el alumno";
-        if ($alumno != null) {
+        $alumnoController = new AlumnoController();
+        if($alumnoController->buscarPorDni($dni) == null){
+            $alumno = $alumnoController->guardarAlumno($dni, $nombre, $apellidos, $fechaNacimiento);
             $mensaje = "Alumno creado correctamente";
+        }else{
+            $mensaje = "Este alumno con ese DNI ya existe";
         }
+
 
         return self::gestionarAlumnosView($mensaje);
     }

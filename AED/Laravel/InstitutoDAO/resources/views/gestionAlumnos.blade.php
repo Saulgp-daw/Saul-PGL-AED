@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gestión Alumnos</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('CSS/formularios.css') }}">
 </head>
 
 <body>
     <div>
         <a href="/home"><h2>Gestionar Instituto</h2></a>
     </div>
-    <div class="h5" style="position: absolute; top: 10px; right: 10px;"><a href="/logout">Logout</a></div>
+    <div class="logout"><a href="/logout">Logout</a></div>
     <h3>Gestión alumnos</h3>
     <p>{!! $mensaje ?? '' !!}</p>
     <div class="contenedorForms">
@@ -74,7 +75,8 @@
     <div class="alumnos">
             @isset($alumnos)
                 @foreach ($alumnos as $alumno)
-                        <div>
+                        <div class="alumno">
+                            <h4>Alumno</h4>
                             <span>Dni: </span>{{ $alumno->dni }} <br>
                             <span>Nombre: </span>{{ $alumno->nombre }}<br>
                             <span>Apellidos: </span>{{ $alumno->apellidos }}<br>

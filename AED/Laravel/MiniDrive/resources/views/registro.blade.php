@@ -9,7 +9,7 @@
 <body>
     <div class="h5" style="position: absolute; top: 10px; right: 10px;">{{ $mensaje ?? "" }}</div>
     <h3>Registro</h3>
-    <form action="registro" method="post">
+    <form action="/registro" method="post">
         @csrf
         <label for="nickname">Nickname: </label><input type="text" name="nickname"><br>
         <label for="email">Email: </label><input type="text" name="email"><br>

@@ -1,0 +1,49 @@
+body{
+    background:rgb(160, 199, 235);
+    margin: 0;
+    padding: 0;
+}
+.contenedorForms{
+    background:rgb(104, 161, 214);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 3rem;
+}
+
+h2, h3{
+    text-align: center;
+}
+
+
+.alumnos, .matriculas{
+    background:rgb(84, 104, 122);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    padding: 3rem;
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+.alumno, .matricula{
+    background:rgb(179, 200, 218);
+    padding: 1rem;
+    max-height: 10rem;
+}
+.matricula{
+    max-height: auto;
+}
+
+.alumno > h4{
+    text-align: center;
+}
+
+.logout {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: white;
+    padding: 1rem;
+}
+
+

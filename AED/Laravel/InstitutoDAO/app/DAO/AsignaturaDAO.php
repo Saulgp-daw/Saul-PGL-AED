@@ -177,7 +177,7 @@ class AsignaturaDAO implements Crud
                 ]
             );
             $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
+            //echo "Filas afectadas: $filasAfectadas";
 
             if ($filasAfectadas > 0) {
                 $this->myPDO->commit();
