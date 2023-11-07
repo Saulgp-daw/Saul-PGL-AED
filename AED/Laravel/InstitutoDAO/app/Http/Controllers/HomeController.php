@@ -17,12 +17,18 @@ class HomeController extends Controller
 
     public static function home()
     {
-
-        return view("home");
+        if(session()->has('usuario')){
+            return view("home");
+        }else{
+            return redirect("/");
+        }
     }
 
     public static function gestionarAlumnosView($mensaje = "")
     {
+        if(!session()->has('usuario')){
+            return redirect("/");
+        }
         $alumnoController = new AlumnoController();
         $alumnos = $alumnoController->obtenerAlumnos();
         return view("gestionAlumnos", compact("mensaje", "alumnos"));
@@ -30,6 +36,9 @@ class HomeController extends Controller
 
     public static function gestionarMatriculasView($mensaje = "")
     {
+        if(!session()->has('usuario')){
+            return redirect("/");
+        }
         $matriculaController = new MatriculaController();
         $alumnoController = new AlumnoController();
         $asignaturaController = new AsignaturaController();
@@ -44,19 +53,14 @@ class HomeController extends Controller
             $datos[$matricula->id] = $asignaturaMatriculaController->devolverAsignaturasDeMatricula($matricula->id);
         }
 
-        // foreach ($datos as $key => $asignaturas) {
-        //    echo $key;
-        //    foreach ($asignaturas as $asignatura) {
-        //         echo $asignatura->nombre;
-        //    }
-        // }
-        // die();
-
         return view("gestionMatriculas", compact("mensaje", "matriculas", "alumnos", "datos", "asignaturas"));
     }
 
     public static function gestionarAsignaturasView($mensaje = "")
     {
+        if(!session()->has('usuario')){
+            return redirect("/");
+        }
         $asignaturaController = new AsignaturaController();
         $asignaturas = $asignaturaController->obtenerAsignaturas();
 

@@ -9,6 +9,10 @@
 </head>
 
 <body>
+    <div>
+        <a href="/home"><h2>Gestionar Instituto</h2></a>
+    </div>
+    <div class="h5" style="position: absolute; top: 10px; right: 10px;"><a href="/logout">Logout</a></div>
     <h3>Gestión Matriculas</h3>
     <p>{!! $mensaje ?? '' !!}</p>
     <div class="contenedorForms">

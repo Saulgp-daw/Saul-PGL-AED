@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Gestionar Instituto</h2>
-
+    <div class="h5" style="position: absolute; top: 10px; right: 10px;"><a href="/logout">Logout</a></div>
     <a href="/gestion_alumnos">Gestionar Alumnos</a>
     <a href="/gestion_asignaturas">Gestionar Asignaturas</a>
     <a href="/gestion_matriculas">Gestiona Matrículas</a>

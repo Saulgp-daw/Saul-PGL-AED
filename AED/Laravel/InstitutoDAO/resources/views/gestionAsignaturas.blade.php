@@ -9,6 +9,11 @@
 </head>
 
 <body>
+
+    <div>
+        <a href="/home"><h2>Gestionar Instituto</h2></a>
+    </div>
+    <div class="h5" style="position: absolute; top: 10px; right: 10px;"><a href="/logout">Logout</a></div>
     <h3>Gestión Asignaturas</h3>
     <p>{!! $mensaje ?? '' !!}</p>
     <div class="contenedorForms">
@@ -29,7 +34,8 @@
                 <select name="id">
                     @isset($asignaturas)
                         @foreach ($asignaturas as $asignatura)
-                            <option value={{ $asignatura->id }}>{{ $asignatura->nombre . ' ' . $asignatura->curso }}</option>
+                            <option value={{ $asignatura->id }}>{{ $asignatura->nombre . ' ' . $asignatura->curso }}
+                            </option>
                         @endforeach
                     @endisset
                 </select>
@@ -45,7 +51,8 @@
                 <select name="id">
                     @isset($asignaturas)
                         @foreach ($asignaturas as $asignatura)
-                            <option value={{ $asignatura->id }}>{{ $asignatura->nombre . ' ' . $asignatura->curso }}</option>
+                            <option value={{ $asignatura->id }}>{{ $asignatura->nombre . ' ' . $asignatura->curso }}
+                            </option>
                         @endforeach
                     @endisset
                 </select><br>
@@ -63,7 +70,7 @@
                 <select name="curso">
                     @isset($asignaturasUnicas)
                         @foreach ($asignaturasUnicas as $asignatura)
-                            <option value="{{ $asignatura}}">{{ $asignatura }}</option>
+                            <option value="{{ $asignatura }}">{{ $asignatura }}</option>
                         @endforeach
                     @endisset
                 </select><br>

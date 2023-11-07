@@ -4,6 +4,7 @@ use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\AsignaturaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MatriculaController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//REGISTRO-LOGIN
+Route::any("/", [UsuarioController::class, 'index']);
+Route::any("/registro", [UsuarioController::class, 'registro']);
+Route::post("/login", [UsuarioController::class, 'login']);
+Route::get("/logout", [UsuarioController::class, 'logout']);
+Route::get("/loginForm", [UsuarioController::class, 'loginView']);
 //VISTAS
 Route::any("/home", [HomeController::class, 'index']);
 Route::any("/gestion_alumnos", [HomeController::class, 'gestionarAlumnosView']);
