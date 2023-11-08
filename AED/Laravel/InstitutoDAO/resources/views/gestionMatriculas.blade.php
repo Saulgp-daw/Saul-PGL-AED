@@ -125,6 +125,30 @@
                 <button type="submit">Buscar</button><br><br>
             </form>
         </div>
+        <div class="form">
+            <h4>Buscar alumno por asignatura y año</h4>
+            <form action="/buscar_nombre_year" method="post">
+                @csrf
+                <label for="nombre_asignatura">Asignatura: </label>
+                <select name="nombre_asignatura">
+                    @isset($asignaturas)
+                        @foreach ($asignaturas as $asignatura)
+                            <option value={{ $asignatura->nombre }}>
+                                {{ $asignatura->nombre }}</option>
+                        @endforeach
+                    @endisset
+                </select><br>
+                <label for="year">Año: </label>
+                <select name="year">
+                    @isset($matriculas)
+                        @foreach ($matriculas as $matricula)
+                            <option value={{ $matricula->year }}>{{ $matricula->year }}</option>
+                        @endforeach
+                    @endisset
+                </select><br>
+                <button type="submit">Buscar</button><br><br>
+            </form>
+        </div>
     </div>
     <div class="matriculas">
         @isset($matriculas)

@@ -66,6 +66,13 @@ class AsignaturaMatriculaDAOTest extends TestCase
         assertTrue(count($filasAfectadas) >= 1);
     }
 
+    public function test_buscar_year_nombre():void{
+        $pdo = DB::getPdo();
+
+        $relacionDAO = new AsignaturaMatriculaDAO($pdo);
+        $relacionDAO->buscarAlumnoConAsignaturaPorYearYNombre("BAE", 2021);
+    }
+
 
 
 

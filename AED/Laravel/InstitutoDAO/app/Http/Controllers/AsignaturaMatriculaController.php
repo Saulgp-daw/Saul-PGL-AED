@@ -25,4 +25,11 @@ class AsignaturaMatriculaController extends Controller
         $asignaturaMatriculaDAO = new AsignaturaMatriculaDAO($pdo);
         return $asignaturaMatriculaDAO->assignRelacionMatriculaAsignatura($idMatricula, $idAsignatura);
     }
+
+    public function buscarAlumnosPorAnhoYNombreAsignatura($nombre = "AED", $year=2006){
+        $pdo = DB::getPdo();
+        $asignaturaMatriculaDAO = new AsignaturaMatriculaDAO($pdo);
+        return $asignaturaMatriculaDAO->buscarAlumnoConAsignaturaPorYearYNombre($nombre, $year);
+
+    }
 }

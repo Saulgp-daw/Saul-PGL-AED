@@ -4,6 +4,7 @@ namespace App\DAO;
 
 use App\Contracts\AsignaturaContract;
 use App\Contracts\MatriculaContract;
+use App\Contracts\AlumnoContract;
 use App\Contracts\AsignaturaMatriculaContract;
 use App\DAO\Crud;
 use App\Models\Asignatura;
@@ -28,6 +29,12 @@ class AsignaturaMatriculaDAO
     private static $idMatricula = MatriculaContract::COL_ID;
     private static $dniMatricula = MatriculaContract::COL_DNI;
     private static $yearMatricula = MatriculaContract::COL_YEAR;
+    //ALUMNO
+    private static $tablaAlumno = AlumnoContract::TABLE_NAME;
+    private static $colDniAlumno = AlumnoContract::COL_DNI;
+    private static $colNombrealumno = AlumnoContract::COL_NOMBRE;
+    private static $colApellidosalumno = AlumnoContract::COL_APELLIDOS;
+    private static $colFechaNacimientoAlumno = AlumnoContract::COL_FECHANACIMIENTO;
 
 
     private $myPDO;
@@ -148,7 +155,45 @@ class AsignaturaMatriculaDAO
         return $asignaturas;
     }
 
-    function existsIdMatricula($id){
+    function buscarAlumnoConAsignaturaPorYearYNombre($nombre, $year)
+    {
+        //SELECT al.dni, al.nombre, al.apellidos, al.fechanacimiento, a.id, a.nombre, m.year FROM matriculas m INNER JOIN asignatura_matricula am INNER JOIN asignaturas a INNER JOIN alumnos al ON al.dni = m.dni  AND a.id = am.idasignatura AND m.id = am.idmatricula WHERE m.year = 2006  AND a.nombre = "AED";
+
+
+        // $sql = "SELECT al.dni, al.nombre AS nombreAlumno, al.apellidos, al.fechanacimiento, a.id, a.nombre as nombreAsignatura, m.year FROM matriculas m INNER JOIN asignatura_matricula am INNER JOIN asignaturas a INNER JOIN alumnos al ON al.dni = m.dni  AND a.id = am.idasignatura AND m.id = am.idmatricula WHERE m.year = 2006  AND a.nombre = 'AED'";
+
+        $sql = "SELECT al.". self::$colDniAlumno .", al.".self::$colNombrealumno ." AS nombreAlumno, al.".self::$colApellidosalumno.", al.".self::$colFechaNacimientoAlumno.", a.".self::$idAsignatura.", a.".self::$nombreAsignatura." AS nombreAsignatura, m.".self::$yearMatricula." FROM " . self::$tablaMatricula . " AS m INNER JOIN ".self::$tabla." AS am INNER JOIN ".self::$tablaAsignatura." AS a INNER JOIN ".self::$tablaAlumno." AS al ON al.".self::$colDniAlumno." = m.".self::$dniMatricula." AND a.".self::$idAsignatura." = am.".self::$colIdAsignatura." AND m.".self::$idMatricula." = am.".self::$colIdMatricula. " WHERE m.".self::$yearMatricula." = :year AND a.".self::$nombreAsignatura." = :nombre";
+
+
+        $stmt = $this->myPDO->prepare($sql);
+
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute(
+            [
+                ":year" => $year,
+                ":nombre" => $nombre
+            ]
+        ); // Ejecutamos la sentencia
+
+        $alumnosYearNombre = [];
+        while ($row = $stmt->fetch()) {
+            $id = $row["dni"];
+            $nombreAlumno = $row["nombreAlumno"];
+            $apellidos = $row["apellidos"];
+            $fechaNacimiento = $row["fechanacimiento"];
+            $nombreAsignatura = $row["nombreAsignatura"];
+            $year = $row["year"];
+            $datos = $id . " " . $nombreAlumno . " " . $apellidos . " " . $fechaNacimiento . " " . $nombreAsignatura . " " . $year;
+
+            $alumnosYearNombre[] = $datos;
+        }
+
+
+        return $alumnosYearNombre;
+    }
+
+    function existsIdMatricula($id)
+    {
         $existe = false;
         $sql = "SELECT * FROM " . self::$tabla . " WHERE :idmatricula = " . self::$colIdMatricula;
         $stmt = $this->myPDO->prepare($sql);
@@ -165,7 +210,8 @@ class AsignaturaMatriculaDAO
         return $existe;
     }
 
-    function existsIdAsignatura($id){
+    function existsIdAsignatura($id)
+    {
         $existe = false;
         $sql = "SELECT * FROM " . self::$tabla . " WHERE :idasignatura = " . self::$colIdAsignatura;
         $stmt = $this->myPDO->prepare($sql);

@@ -46,6 +46,7 @@ Route::post("/agregar_asignatura", [HomeController::class, 'agregarAsignatura'])
 Route::post("/borrar_asignatura", [HomeController::class, 'borrarAsignatura']);
 Route::post("/editar_asignatura", [HomeController::class, 'editarAsignatura']);
 Route::post("/buscar_asignatura", [HomeController::class, 'buscarAsignatura']);
+Route::any("/buscar_nombre_year", [HomeController::class, 'buscarNombreYear']);
 
 
 

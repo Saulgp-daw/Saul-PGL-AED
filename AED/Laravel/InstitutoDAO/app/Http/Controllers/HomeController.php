@@ -10,11 +10,17 @@ use App\Http\Controllers\AsignaturaController;
 
 class HomeController extends Controller
 {
+    /**
+     * Redirige al home
+     */
     public static function index()
     {
         return self::home();
     }
 
+    /**
+     * Dependiendo de si la sesión del usuario existe mostrará el home o reenviará al usuario directo al register, denegando el acceso
+     */
     public static function home()
     {
         if(session()->has('usuario')){
@@ -24,6 +30,9 @@ class HomeController extends Controller
         }
     }
 
+    /**
+     * @mensaje recibirá el mensaje con la información de de éxito o error
+     */
     public static function gestionarAlumnosView($mensaje = "")
     {
         if(!session()->has('usuario')){
@@ -33,6 +42,7 @@ class HomeController extends Controller
         $alumnos = $alumnoController->obtenerAlumnos();
         return view("gestionAlumnos", compact("mensaje", "alumnos"));
     }
+
 
     public static function gestionarMatriculasView($mensaje = "")
     {
@@ -52,6 +62,7 @@ class HomeController extends Controller
         foreach ($matriculas as $matricula) {
             $datos[$matricula->id] = $asignaturaMatriculaController->devolverAsignaturasDeMatricula($matricula->id);
         }
+
 
         return view("gestionMatriculas", compact("mensaje", "matriculas", "alumnos", "datos", "asignaturas"));
     }
@@ -339,6 +350,28 @@ class HomeController extends Controller
         }
 
         return self::gestionarAsignaturasView($mensaje);
+    }
+
+    public function buscarNombreYear(Request $request){
+        $nombre = $request->input("nombre_asignatura") ?? "";
+        $year = $request->input("year") ?? "";
+
+        $asignaturaMatriculaController = new AsignaturaMatriculaController();
+        $alumnosYear = $asignaturaMatriculaController->buscarAlumnosPorAnhoYNombreAsignatura($nombre, $year);
+
+
+        if(empty($alumnosYear)){
+            $mensaje = "Alumno o año no encontrado";
+        }else{
+            $mensaje = "";
+            foreach($alumnosYear as $alumno){
+                $mensaje .= "<br>".$alumno;
+            }
+        }
+
+        return self::gestionarMatriculasView($mensaje);
+
+
     }
 
 
