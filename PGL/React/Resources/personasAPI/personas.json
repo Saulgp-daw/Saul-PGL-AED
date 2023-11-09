@@ -1,0 +1,22 @@
+{
+  "personas": [
+    {
+      "id": 1,
+      "nombre": "Alejandro",
+      "apellido": "Morales",
+      "altura": 1.89,
+      "edad": 34,
+      "peso": 89,
+      "IMC": 24.915315920606925
+    },
+    {
+      "id": 2,
+      "nombre": "Jose",
+      "apellido": "Martin",
+      "altura": 1.57,
+      "edad": 13,
+      "peso": 67,
+      "IMC": 27.18163008641324
+    }
+  ]
+}

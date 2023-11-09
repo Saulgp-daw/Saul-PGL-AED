@@ -29,6 +29,9 @@ import {
 import Practica05 from './src/screens/Practica05';
 import Practica08 from './src/screens/Practica08';
 import Practica09 from './src/screens/Practica09';
+import Practica10 from './src/screens/Practica10';
+import Practica12 from './src/screens/Practica12';
+import Practica15 from './src/screens/Practica15';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -39,7 +42,7 @@ type SectionProps = PropsWithChildren<{
 function App(): JSX.Element {
   return(
     <View style={{flex:1}}>
-      <Practica09/>
+      <Practica15/>
     </View>
   );
 }

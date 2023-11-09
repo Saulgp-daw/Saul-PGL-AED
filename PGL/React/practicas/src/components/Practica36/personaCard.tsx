@@ -14,7 +14,7 @@ interface PropsAHijos {
 function PersonaCard(props: PropsAHijos) {
     const { persona, modificarStatePadre } = props;
     console.log(props.ultimoId);
-    
+
 
     function enviarInfo(e: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.currentTarget;
@@ -81,27 +81,51 @@ function PersonaCard(props: PropsAHijos) {
 
     }
 
+    function borrarPersona(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        let idPersona: number = persona.getId();
+        console.log(idPersona);
+        
+        let ruta = "http://localhost:3000/personas/";
+        const axiosDelete = async (ruta: string) => {
+            try {
+                const response = await axios.delete(ruta+idPersona);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        axiosDelete(ruta);
+    }
+
     return (
         <div>
-            <form onSubmit={agregarPersona}>
-                <h4>Id: {persona.getId()}</h4>
-                <label htmlFor="nombre">Nombre: </label><input type="text" name="nombre" defaultValue={persona.getNombre()} onChange={enviarInfo} /><br />
-                <label htmlFor="apellido">Apellido: </label><input type="text" name="apellido" defaultValue={persona.getApellido()} onChange={enviarInfo} /><br />
-                <label htmlFor="altura">Altura: </label><input type="number" name="altura" defaultValue={persona.getAltura()} onChange={enviarInfo} /><br />
-                <label htmlFor="edad">Edad: </label><input type="number" name="edad" defaultValue={persona.getEdad()} onChange={enviarInfo} /><br />
-                <label htmlFor="peso">Peso: </label><input type="number" name="peso" defaultValue={persona.getPeso()} onChange={enviarInfo} />
-                <p>IMC: {persona.getImc()} </p>
-                {persona.getId() < props.ultimoId ? (
-                    // Código a mostrar si el nombre no está vacío
-                    <div>
-                        <button type="submit">Borrar </button>
-                    </div>
-                ) : (
-                    // Código a mostrar si el nombre está vacío
-                    <button type="submit">Crear </button>
-                )}
 
-            </form>
+            {persona.getId() < props.ultimoId ? (
+                // Código a mostrar si el nombre no está vacío
+                <form onSubmit={borrarPersona}>
+                    <h4>Id: {persona.getId()}</h4>
+                    <label htmlFor="nombre">Nombre: </label><input type="text" name="nombre" defaultValue={persona.getNombre()} onChange={enviarInfo} /><br />
+                    <label htmlFor="apellido">Apellido: </label><input type="text" name="apellido" defaultValue={persona.getApellido()} onChange={enviarInfo} /><br />
+                    <label htmlFor="altura">Altura: </label><input type="number" name="altura" defaultValue={persona.getAltura()} onChange={enviarInfo} /><br />
+                    <label htmlFor="edad">Edad: </label><input type="number" name="edad" defaultValue={persona.getEdad()} onChange={enviarInfo} /><br />
+                    <label htmlFor="peso">Peso: </label><input type="number" name="peso" defaultValue={persona.getPeso()} onChange={enviarInfo} />
+                    <p>IMC: {persona.getImc()} </p>
+                    <button type='submit'>Borrar</button>
+                </form>
+            ) : (
+                // Código a mostrar si el nombre está vacío
+                
+                <form onSubmit={agregarPersona}>
+                    <h4>Id: {persona.getId()}</h4>
+                    <label htmlFor="nombre">Nombre: </label><input type="text" name="nombre" defaultValue={persona.getNombre()} onChange={enviarInfo} /><br />
+                    <label htmlFor="apellido">Apellido: </label><input type="text" name="apellido" defaultValue={persona.getApellido()} onChange={enviarInfo} /><br />
+                    <label htmlFor="altura">Altura: </label><input type="number" name="altura" defaultValue={persona.getAltura()} onChange={enviarInfo} /><br />
+                    <label htmlFor="edad">Edad: </label><input type="number" name="edad" defaultValue={persona.getEdad()} onChange={enviarInfo} /><br />
+                    <label htmlFor="peso">Peso: </label><input type="number" name="peso" defaultValue={persona.getPeso()} onChange={enviarInfo} />
+                    <p>IMC: {persona.getImc()} </p>
+                    <button type='submit'>Crear</button>
+                </form>
+            )}
 
         </div >
     )
