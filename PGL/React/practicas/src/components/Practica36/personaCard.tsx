@@ -7,11 +7,14 @@ type Props = {}
 
 interface PropsAHijos {
     modificarStatePadre: Function,
-    persona: Persona
+    persona: Persona,
+    ultimoId: number
 }
 
 function PersonaCard(props: PropsAHijos) {
     const { persona, modificarStatePadre } = props;
+    console.log(props.ultimoId);
+    
 
     function enviarInfo(e: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.currentTarget;
@@ -46,12 +49,12 @@ function PersonaCard(props: PropsAHijos) {
 
     function agregarPersona(event: React.FormEvent<HTMLFormElement>) {
         console.log(persona);
-        
+
         event.preventDefault();
         let formulario: HTMLFormElement = event.currentTarget;
         let nombre: string = formulario.nombre.value;
         let apellido: string = formulario.apellido.value;
-        let altura: number = parseInt(formulario.altura.value);
+        let altura: number = parseFloat(formulario.altura.value);
         let edad: number = parseInt(formulario.edad.value);
         let peso: number = parseInt(formulario.peso.value);
 
@@ -88,7 +91,16 @@ function PersonaCard(props: PropsAHijos) {
                 <label htmlFor="edad">Edad: </label><input type="number" name="edad" defaultValue={persona.getEdad()} onChange={enviarInfo} /><br />
                 <label htmlFor="peso">Peso: </label><input type="number" name="peso" defaultValue={persona.getPeso()} onChange={enviarInfo} />
                 <p>IMC: {persona.getImc()} </p>
-                <button type="submit">Crear </button>
+                {persona.getId() < props.ultimoId ? (
+                    // Código a mostrar si el nombre no está vacío
+                    <div>
+                        <button type="submit">Borrar </button>
+                    </div>
+                ) : (
+                    // Código a mostrar si el nombre está vacío
+                    <button type="submit">Crear </button>
+                )}
+
             </form>
 
         </div >
