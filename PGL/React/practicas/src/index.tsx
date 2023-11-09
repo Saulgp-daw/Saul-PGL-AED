@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import "./components/CSS/practica16.css";
 
-import App from './App';
+import App from './App'; //Este tiene los routers
 import reportWebVitals from './reportWebVitals';
 import ListaMonedas from './components/practica13';
 import Tabla from './components/Tabla';
@@ -35,9 +35,10 @@ import ComponentePadre from './components/Practica36/componentePadre';
 import Practica37 from './components/practica37/practica37';
 import PokemonCard from './components/practica40/PokemonCard';
 import PokemonListCard from './components/practica40/PokemonListCard';
-import CreatePoblacion from './components/Practica43/createPoblacion';
+import CreatePoblacion from './components/Practica43-44/createPoblacion';
 import CapitalesList from './components/practica41/capitalesList';
 import PokemonRouter from './components/Practica47/pokemonRouter';
+import IMCRouter from './components/Practica45/IMCRouter';
 
 
 
@@ -45,7 +46,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <CapitalesList />
+    <IMCRouter />
 );
 
 // If you want to start measuring performance in your app, pass a function

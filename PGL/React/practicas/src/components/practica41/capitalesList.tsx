@@ -5,11 +5,24 @@ import CapitalCard from './CapitalCard';
 type Props = {}
 
 interface iCapitales {
-    capitales: Array<Object>
+    capitales: Array<Capital>
+}
+
+type Capital = {
+    id: string;
+    nombre: string;
+    foto: string;
+    datos: Array<Datos>;
+}
+
+type Datos = {
+    anio: number;
+    poblacion: number;
+
 }
 
 const CapitalesList = (props: Props) => {
-    const [capitalesData, setCapitalesData] = useState<iCapitales>({} as iCapitales);
+    const [capitalesData, setCapitalesData] = useState<iCapitales>({ capitales: [] });
     const uri: string = "http://localhost:3000/capitales/";
 
     useEffect(() => {
@@ -36,9 +49,15 @@ const CapitalesList = (props: Props) => {
     return (
         <div>
             <h3>Capitales</h3>
-            {capitalesData.capitales.map(capital => (
-                <p>{<CapitalCard capital={capital}/>}</p>
-            ))}
+            {capitalesData.capitales ? (
+            capitalesData.capitales.map(capital => (
+                <div key={capital.id}>
+                    <CapitalCard capital={capital} />
+                </div>
+            ))
+        ) : (
+            <p>Cargando datos...</p>
+        )}
 
         </div>
     )

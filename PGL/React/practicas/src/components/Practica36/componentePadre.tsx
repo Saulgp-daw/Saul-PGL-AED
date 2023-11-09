@@ -35,7 +35,7 @@ function ComponentePadre (props: Props) {
                 }
             </div>
 
-            <button onClick={crearPersona} className={style.btnAgregarPersona}>+</button>
+            <button onClick={crearPersona} className={style.btnAgregarPersona}>Agregar</button>
         </div>
     )
 }

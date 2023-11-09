@@ -14,8 +14,10 @@ import Practica20 from './components/practica20';
 import Pokemon from './components/Practica42/pokemon';
 import Capital from './components/Practica42/capital';
 import NavbarEjemplos from './components/Practica42/navbarEjemplos';
-import CreatePoblacion from './components/Practica43/createPoblacion';
-import NavbarProvincias from './components/Practica43/navbarProvincias';
+import CreatePoblacion from './components/Practica43-44/createPoblacion';
+import NavbarProvincias from './components/Practica43-44/navbarProvincias';
+import BorrarPoblacion from './components/Practica43-44/borrarPoblacion'; //Practica
+import ModifyPoblacion from './components/Practica43-44/modificarPoblacion';
 
 function App() {
   return (
@@ -39,8 +41,8 @@ function App() {
             <Route path="/pokemon/:pokedex" element={<Pokemon/>}/>
             <Route path="/capital/:id" element={<Capital/>}/>
             <Route path="/crear_capital" element={<CreatePoblacion/>}/>
-            <Route path="/borrar_capital" element={<CreatePoblacion/>}/>
-            <Route path="/modificar_capital" element={<CreatePoblacion/>}/>
+            <Route path="/borrar_capital" element={<BorrarPoblacion/>}/>
+            <Route path="/modificar_capital" element={<ModifyPoblacion/>}/>
           </Routes>
       </BrowserRouter>
     </div>
