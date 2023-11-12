@@ -1,0 +1,112 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Pelicula } from '../models/Pelicula'
+
+type Props = {}
+
+interface iPelicula {
+    id: string,
+    titulo: string,
+    direccion: string,
+    actores: string,
+    argumento: string,
+    imagen: string,
+    trailer: string,
+    categoria: string
+}
+
+interface iPeliculas {
+    peliculas: Array<Pelicula>
+}
+
+const usePelicula = () => {
+    const ruta = "http://localhost:3000/peliculas/";
+  const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
+
+  useEffect(() => {
+    async function recogerDatosPeliculas() {
+      try {
+        const response = await axios.get<iPelicula[]>(ruta);
+        const peliculasGuardadas: iPeliculas = {
+          peliculas: response.data.map((peliculaData: iPelicula) => {
+            return new Pelicula(
+              peliculaData.id,
+              peliculaData.titulo,
+              peliculaData.direccion,
+              peliculaData.actores,
+              peliculaData.argumento,
+              peliculaData.imagen,
+              peliculaData.trailer,
+              peliculaData.categoria
+            );
+          }),
+        };
+        console.log(peliculasGuardadas);
+        
+        setArrayPeliculas(peliculasGuardadas);
+      } catch (error) {
+        console.error('Error al obtener datos de la API', error);
+      }
+    }
+
+    //devolverUltimoId();
+    recogerDatosPeliculas();
+  }, []);
+
+    function devolverUltimoId() {
+        if (arrayPeliculas.peliculas.length > 0) {
+            let ultimoId: string = parseInt(arrayPeliculas.peliculas[arrayPeliculas.peliculas.length - 1].getId())+1+"";
+            //console.log(ultimoId);
+            if(ultimoId.length == 1){
+                ultimoId = "00"+ultimoId;
+            }else if(ultimoId.length == 2){
+                ultimoId = "0"+ultimoId;
+            }
+            //console.log(ultimoId);  
+            return ultimoId;
+        } 
+
+        return null;
+    }
+
+    function agregarPelicula(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        let formulario: HTMLFormElement = event.currentTarget;
+        let titulo: string = formulario.titulo.value;
+        let direccion: string = formulario.direccion.value;
+        let actores: string = formulario.actores.value;
+        let argumento: string = formulario.argumento.value;
+        let imagen: string = formulario.imagen.value ?? "";
+        let trailer: string = formulario.trailer.value ?? "";
+        let categoria: string = formulario.categoria.value ?? "";
+
+        const nuevaPelicula = {
+            "id": devolverUltimoId(),
+            "titulo": titulo,
+            "direccion": direccion,
+            "actores": actores,
+            "argumento": argumento,
+            "imagen": imagen,
+            "trailer": trailer,
+            "categoria": categoria
+        }
+
+        console.log(nuevaPelicula);
+        
+
+        const axiospost = async () => {
+            try {
+                const response = await axios.post(ruta, nuevaPelicula);
+                console.log(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        axiospost();
+    }
+
+
+    return { agregarPelicula }
+}
+
+export default usePelicula
