@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Pelicula } from '../models/Pelicula'
+import { useNavigate } from 'react-router-dom';
 
 type Props = {}
 
@@ -22,6 +23,7 @@ interface iPeliculas {
 const usePelicula = () => {
     const ruta = "http://localhost:3000/peliculas/";
   const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function recogerDatosPeliculas() {
@@ -76,7 +78,10 @@ const usePelicula = () => {
         let direccion: string = formulario.direccion.value;
         let actores: string = formulario.actores.value;
         let argumento: string = formulario.argumento.value;
-        let imagen: string = formulario.imagen.value ?? "";
+        let imagen: string = formulario.imagen.value ?? "default.gif";
+        if(imagen.trim() === ""){
+          imagen = "default.gif";
+        }
         let trailer: string = formulario.trailer.value ?? "";
         let categoria: string = formulario.categoria.value ?? "";
 
@@ -98,15 +103,17 @@ const usePelicula = () => {
             try {
                 const response = await axios.post(ruta, nuevaPelicula);
                 console.log(response.data);
+                navigate("/");
             } catch (error) {
                 console.log(error);
             }
         }
         axiospost();
     }
+    
 
 
-    return { agregarPelicula }
+    return { agregarPelicula, arrayPeliculas }
 }
 
 export default usePelicula
