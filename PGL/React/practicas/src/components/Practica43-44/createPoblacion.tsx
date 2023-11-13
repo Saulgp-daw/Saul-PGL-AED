@@ -28,7 +28,7 @@ export default function CreatePoblacion() {
         let ruta = "http://localhost:3000/capitales";
         const axiospost = async (rutaDeMoneda: string) => {
             try {
-                const response = await axios.post(rutaDeMoneda, newComunidad)
+                const response = await axios.post(rutaDeMoneda, newComunidad);
                 console.log(response.data);
             } catch (error) {
                 console.log(error);
