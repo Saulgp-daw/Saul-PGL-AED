@@ -74,6 +74,12 @@ class Persona {
         this.setImc(imc);
     }
 
+    /**
+     *  public calcularIMC = ()=> {
+        let imc = this.peso / (this.altura * this.altura);
+        this.setImc(imc);
+    }
+     */
 
 }
 
