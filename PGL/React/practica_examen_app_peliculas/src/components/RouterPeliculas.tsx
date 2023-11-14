@@ -6,22 +6,28 @@ import Crear from '../screens/Crear';
 import Operaciones from '../screens/Operaciones';
 import Mostrar from '../screens/Mostrar';
 import PeliculaCard from './PeliculaCard';
+import PeliculasContextProvider from '../contexts/PeliculasContextProvider';
+import PeliculasFavoritas from './PeliculasFavoritas';
 
 type Props = {}
 
 const RouterPeliculas = (props: Props) => {
   return (
     <div>
-        <BrowserRouter>
-            <Navbar/>
-            <Routes>
-                <Route path='/' element={<Mostrar/>}></Route>
-                <Route path='/pelicula/:id' element={<PeliculaCard/>}></Route>
-                <Route path='/mostrar' element={<Mostrar/>}></Route>
-                <Route path='/crear_pelicula' element={<Crear/>}></Route>
-                <Route path='/categorias' element={<Categorias/>}></Route>
-            </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Navbar />
+        <PeliculasContextProvider>
+          <PeliculasFavoritas />
+
+          <Routes>
+            <Route path='/' element={<Mostrar />}></Route>
+            <Route path='/pelicula/:id' element={<PeliculaCard />}></Route>
+            <Route path='/mostrar' element={<Mostrar />}></Route>
+            <Route path='/crear_pelicula' element={<Crear />}></Route>
+            <Route path='/categorias' element={<Categorias />}></Route>
+          </Routes>
+        </PeliculasContextProvider>
+      </BrowserRouter>
     </div>
   )
 }
