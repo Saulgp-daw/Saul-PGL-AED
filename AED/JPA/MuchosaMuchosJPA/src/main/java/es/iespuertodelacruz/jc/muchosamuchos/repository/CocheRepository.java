@@ -100,14 +100,19 @@ public class CocheRepository implements ICRUD<Coche,String>{
 		Coche coche = null;
 		try {
 			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
 			if(entity.getConductores() != null && entity.getConductores().size()>0) {
 				for(Conductor c: entity.getConductores()) {
 					Conductor find = em.find(Conductor.class, c.getId());
 					if(find == null)
 						throw new Exception("no se admite el guardado en cascada de conductores");
+					if(find.getCoches() == null) {
+						find.setCoches(new ArrayList<Coche>());
+					}
+					find.getCoches().add(entity);
 				}
 			}
-			em.getTransaction().begin();
+			
 			em.persist(entity);
 			em.getTransaction().commit();
 			
