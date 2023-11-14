@@ -7,7 +7,9 @@ type Props = {}
 const useFavorita = () => {
     const { pelisfavoritas, setpelisfavoritas } = useAppContext();
     
-    function agregarQuitarFavorita(pelicula: Pelicula) {
+    const agregarQuitarFavorita = (e: any, pelicula: Pelicula) => {
+        e.preventDefault();
+        
         if (!pelisfavoritas.some((p) => p.getId() === pelicula.getId())) {
             setpelisfavoritas([...pelisfavoritas, pelicula]);
         }else{
@@ -19,7 +21,12 @@ const useFavorita = () => {
         console.log(pelisfavoritas);
 
     }
-  return {agregarQuitarFavorita}
+
+    function actualizarFavoritoSiSeBorra(id: string | undefined){
+        const nuevoArray = pelisfavoritas.filter((p) => p.getId() !== id);
+        setpelisfavoritas(nuevoArray);
+    }
+  return { actualizarFavoritoSiSeBorra, agregarQuitarFavorita, pelisfavoritas}
 }
 
 export default useFavorita

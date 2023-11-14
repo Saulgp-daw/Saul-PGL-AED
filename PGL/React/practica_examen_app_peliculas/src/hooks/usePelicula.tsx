@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Pelicula } from '../models/Pelicula'
 import { useNavigate } from 'react-router-dom';
+import useObtenerPeliculas from './useObtenerPeliculas';
 
 type Props = {}
 
@@ -22,38 +23,9 @@ interface iPeliculas {
 
 const usePelicula = () => {
     const ruta = "http://localhost:3000/peliculas/";
-  const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
+  // const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function recogerDatosPeliculas() {
-      try {
-        const response = await axios.get<iPelicula[]>(ruta);
-        const peliculasGuardadas: iPeliculas = {
-          peliculas: response.data.map((peliculaData: iPelicula) => {
-            return new Pelicula(
-              peliculaData.id,
-              peliculaData.titulo,
-              peliculaData.direccion,
-              peliculaData.actores,
-              peliculaData.argumento,
-              peliculaData.imagen,
-              peliculaData.trailer,
-              peliculaData.categoria
-            );
-          }),
-        };
-        console.log(peliculasGuardadas);
-        
-        setArrayPeliculas(peliculasGuardadas);
-      } catch (error) {
-        console.error('Error al obtener datos de la API', error);
-      }
-    }
-
-    //devolverUltimoId();
-    recogerDatosPeliculas();
-  }, []);
+  const { arrayPeliculas } = useObtenerPeliculas();
 
     function devolverUltimoId() {
         if (arrayPeliculas.peliculas.length > 0) {
@@ -113,7 +85,7 @@ const usePelicula = () => {
     
 
 
-    return { agregarPelicula, arrayPeliculas }
+    return { agregarPelicula }
 }
 
 export default usePelicula

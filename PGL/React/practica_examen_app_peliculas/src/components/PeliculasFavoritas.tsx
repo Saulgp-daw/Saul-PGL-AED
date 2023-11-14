@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAppContext } from '../contexts/PeliculasContextProvider'
+import { Link } from 'react-router-dom';
 
 type Props = {}
 
@@ -16,10 +17,12 @@ const PeliculasFavoritas = (props: Props) => {
       <div style={{ display: "flex" }}>
         {
           pelisfavoritas.map(pelicula => (
-            <div style={{ display: "flex", width: "160px" }} key={pelicula.getId()}>
+            <Link to={`/pelicula/${pelicula.getId()}`} key={pelicula.getId()} >
+            <div style={{ display: "flex", width: "160px" }} >
               <img src={uri + pelicula.getImagen()} alt={pelicula.getTitulo()} height="100px" />
               <h4>{pelicula.getTitulo()}</h4>
             </div>
+            </Link>
           ))
         }
       </div>
