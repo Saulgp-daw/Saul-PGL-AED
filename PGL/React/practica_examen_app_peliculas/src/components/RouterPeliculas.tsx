@@ -8,6 +8,7 @@ import Mostrar from '../screens/Mostrar';
 import PeliculaCard from './PeliculaCard';
 import PeliculasContextProvider from '../contexts/PeliculasContextProvider';
 import PeliculasFavoritas from './PeliculasFavoritas';
+import MostrarPorCategoria from '../screens/MostrarPorCategoria';
 
 type Props = {}
 
@@ -25,6 +26,7 @@ const RouterPeliculas = (props: Props) => {
             <Route path='/mostrar' element={<Mostrar />}></Route>
             <Route path='/crear_pelicula' element={<Crear />}></Route>
             <Route path='/categorias' element={<Categorias />}></Route>
+            <Route path='/categorias/:nombre' element={<MostrarPorCategoria />}></Route>
           </Routes>
         </PeliculasContextProvider>
       </BrowserRouter>

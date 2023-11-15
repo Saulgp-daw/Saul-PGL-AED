@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Pelicula } from '../models/Pelicula';
 import { useParams } from 'react-router-dom';
+import useObtenerCategorias from './useObtenerCategorias';
 
 type Props = {
     id: string
@@ -21,6 +22,7 @@ interface iPelicula {
 const useDetallePelicula = (id: string | undefined) => {
     const ruta = "http://localhost:3000/peliculas/";
     const [pelicula, setPelicula] = useState<Pelicula>();
+    const { categorias } = useObtenerCategorias();
 
     useEffect(() => {
         async function recogerDatos() {
@@ -35,9 +37,10 @@ const useDetallePelicula = (id: string | undefined) => {
             }
         }
         recogerDatos();
-    }, []);
+    }, [categorias]);
 
     function convertirAObjetoPelicula(apiResponse: iPelicula): Pelicula{
+        const nombreCategoria = categorias.find( categoria => categoria.id.toString() == apiResponse.categoria)?.nombre || '';
         return new Pelicula(
             apiResponse.id,
             apiResponse.titulo,
@@ -46,7 +49,7 @@ const useDetallePelicula = (id: string | undefined) => {
             apiResponse.argumento,
             apiResponse.imagen,
             apiResponse.trailer,
-            apiResponse.categoria
+            nombreCategoria
         );
     }
 

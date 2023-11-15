@@ -15,15 +15,19 @@ const PeliculasFavoritas = (props: Props) => {
     <div>
       <h4>Películas favoritas</h4>
       <div style={{ display: "flex" }}>
-        {
+        {pelisfavoritas.length > 0 ? (
           pelisfavoritas.map(pelicula => (
             <Link to={`/pelicula/${pelicula.getId()}`} key={pelicula.getId()} >
-            <div style={{ display: "flex", width: "160px" }} >
-              <img src={uri + pelicula.getImagen()} alt={pelicula.getTitulo()} height="100px" />
-              <h4>{pelicula.getTitulo()}</h4>
-            </div>
+              <div style={{ display: "flex", width: "160px" }} >
+                <img src={uri + pelicula.getImagen()} alt={pelicula.getTitulo()} height="100px" />
+                <h4>{pelicula.getTitulo()}</h4>
+              </div>
             </Link>
           ))
+        ) :
+          (
+            <p>No hay favoritas asignadas</p>
+          )
         }
       </div>
     </div>
