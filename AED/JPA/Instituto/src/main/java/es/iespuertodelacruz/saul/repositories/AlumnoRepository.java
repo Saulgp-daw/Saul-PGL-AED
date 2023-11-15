@@ -33,7 +33,7 @@ public class AlumnoRepository implements ICRUD<Alumno, String>{
 		if(dni != null) {
 			EntityManager em = emf.createEntityManager();
 			alumno = em.createNamedQuery("Alumno.findByDni", Alumno.class)
-					.setParameter(":dni", dni)
+					.setParameter("dni", dni)
 					.getSingleResult();
 			
 			if(alumno != null && alumno.getMatriculas() != null) {
