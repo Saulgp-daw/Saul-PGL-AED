@@ -1,6 +1,7 @@
 import React from 'react'
 import useObtenerCategorias from '../hooks/useObtenerCategorias'
 import { Link } from 'react-router-dom';
+import CrearCategoria from '../components/CrearCategoria';
 
 type Props = {}
 
@@ -9,6 +10,7 @@ const Categorias = (props: Props) => {
   return (
     <div>
       <h3>-- Lista de Categorías --</h3>
+      <CrearCategoria/>
       {categorias.length > 0 ?
         (
           categorias.map(categoria => (

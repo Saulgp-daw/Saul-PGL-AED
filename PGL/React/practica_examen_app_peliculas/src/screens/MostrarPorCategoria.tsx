@@ -13,10 +13,15 @@ const MostrarPorCategoria = (props: Props) => {
 
   return (
     <div>
-      {
+      <h3>Películas con categoría de {nombre}</h3>
+      {pelisCategoria.peliculas.length > 0 ? (
         pelisCategoria.peliculas.map(pelicula => (
           <PeliculaEnCatalogo pelicula={pelicula} key={pelicula.getId()}/>
         ))
+      ) : (
+        <h5>No hay ninguna con esta categoría</h5>
+      )
+        
       }
     </div>
   )

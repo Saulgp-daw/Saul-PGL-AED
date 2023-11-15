@@ -31,7 +31,7 @@ const Mostrar = (props: Props) => {
             <input type='text' onChange={(e) => filtrarPeliculas(e)} placeholder='Escriba aquí el nombre del título'></input>
             {
                 buscador.peliculas.map(pelicula => (
-                    <PeliculaEnCatalogo pelicula={pelicula} />
+                    <PeliculaEnCatalogo pelicula={pelicula} key={pelicula.getId()}/>
 
                 ))
             }
