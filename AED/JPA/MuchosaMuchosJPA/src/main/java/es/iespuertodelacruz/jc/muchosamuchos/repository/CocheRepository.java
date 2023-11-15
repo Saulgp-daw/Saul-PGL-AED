@@ -56,9 +56,6 @@ public class CocheRepository implements ICRUD<Coche,String>{
 			Coche find = em.find(Coche.class, id);
 			if(find != null) {
 				em.getTransaction().begin();
-				if(find.getConductores() != null && find.getConductores().size() > 0) {
-					
-				}
 				em.remove(find);
 				em.getTransaction().commit();
 				ok = true;

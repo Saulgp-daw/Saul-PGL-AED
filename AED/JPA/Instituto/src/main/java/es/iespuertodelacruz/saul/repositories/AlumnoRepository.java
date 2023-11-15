@@ -31,41 +31,91 @@ public class AlumnoRepository implements ICRUD<Alumno, String>{
 	public Alumno findById(String dni) {
 		Alumno alumno = null;
 		if(dni != null) {
-			EntityManager em = emf.createEntityManager();
-			alumno = em.createNamedQuery("Alumno.findByDni", Alumno.class)
-					.setParameter("dni", dni)
-					.getSingleResult();
-			
-			if(alumno != null && alumno.getMatriculas() != null) {
-				alumno.getMatriculas().size();
+			try {
+				EntityManager em = emf.createEntityManager();
+				alumno = em.createNamedQuery("Alumno.findByDni", Alumno.class)
+						.setParameter("dni", dni)
+						.getSingleResult();
+				
+				if(alumno != null && alumno.getMatriculas() != null) {
+					alumno.getMatriculas().size();
+				}
+				em.close();
+			}catch(Exception ex) {
+				return null;
 			}
-			em.close();
 		}
 		
 		return alumno;
 	}
 	
+	public Alumno findByName(String nombre) {
+		Alumno alumno = null;
+		if(nombre != null) {
+			try {
+				EntityManager em = emf.createEntityManager();
+				alumno = em.createNamedQuery("Alumno.findByName", Alumno.class)
+						.setParameter("nombre", nombre)
+						.getSingleResult();
+				
+				if(alumno != null && alumno.getMatriculas() != null) {
+					alumno.getMatriculas().size();
+				}
+				em.close();
+			}catch(Exception ex) {
+				return null;
+			}
+			
+		}
+		
+		return alumno;
+	}
+	
+	
+	
 	@Override
 	public boolean deleteById(String dni) {
 		boolean borrado = false;
 		if(dni != null) {
-			EntityManager em = emf.createEntityManager();
-			Alumno find = em.find(Alumno.class, dni);
-			if(find != null) {
-				em.getTransaction().begin();
-				
+			try {
+				EntityManager em = emf.createEntityManager();
+				Alumno find = em.find(Alumno.class, dni);
+				if(find != null) {
+					em.getTransaction().begin();
+					if(find.getMatriculas().size() > 0 && find.getMatriculas() != null ) {
+						throw new Exception("No se puede borrar el alumno porque tiene matriculas vinculadas");
+					}
+					em.remove(find);
+					em.getTransaction().commit();
+					borrado = true;
+				}
+				em.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
 			}
 		}
-			
 		return borrado;
 	}
 	
 	@Override
 	public boolean update(Alumno entity) {
+		boolean actualizado = false;
 		
+		if(entity != null && entity.getMatriculas() != null) {
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			Alumno alumnoActualizable = em.find(Alumno.class, entity.getMatriculas());
+			if(alumnoActualizable != null) {
+				alumnoActualizable.setNombre(entity.getNombre());
+				alumnoActualizable.setApellidos(entity.getApellidos());
+				alumnoActualizable.setFechanacimiento(entity.getFechanacimiento());
+				em.getTransaction().commit();
+				actualizado = true;
+			}
+			em.close();
+		}
 		
-		return false;
-		
+		return actualizado;
 	}
 	
 	@Override

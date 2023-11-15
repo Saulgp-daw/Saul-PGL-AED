@@ -41,11 +41,36 @@ class AlumnoRepositoryTest {
 
 	@Test
 	@Order(1)
-	void test_save() {
+	void test_find_by_dni() {
 		Alumno alumnoEncontrado = alumnoRepository.findById("12345678Z");
 		assertNotNull(alumnoEncontrado);
 		assertTrue(alumnoEncontrado.getDni().equals("12345678Z"));
-		
+	}
+	
+	@Test
+	@Order(2)
+	void test_find_by_name() {
+		Alumno alumnoEncontrado = alumnoRepository.findByName("Ana");
+		assertNotNull(alumnoEncontrado);
+		assertTrue(alumnoEncontrado.getNombre().equals("Ana"));
+	}
+	
+	@Test
+	@Order(3)
+	void test_delete_by_dni() {
+		boolean alumnoBorrado = alumnoRepository.deleteById("87654321X");
+		assertTrue(alumnoBorrado);
+		Alumno alumnoEncontrado = alumnoRepository.findById("87654321X");
+		assertNull(alumnoEncontrado);
+	}
+	
+	@Test
+	@Order(4)
+	void test_actualizar_alumno() {
+		boolean alumnoBorrado = alumnoRepository.deleteById("87654321X");
+		assertTrue(alumnoBorrado);
+		Alumno alumnoEncontrado = alumnoRepository.findById("87654321X");
+		assertNull(alumnoEncontrado);
 	}
 
 }
