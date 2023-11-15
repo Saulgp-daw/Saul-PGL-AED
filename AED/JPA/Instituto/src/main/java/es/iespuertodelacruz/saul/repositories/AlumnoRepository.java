@@ -44,9 +44,34 @@ public class AlumnoRepository implements ICRUD<Alumno, String>{
 		
 		return alumno;
 	}
-	public boolean deleteById(E id) {
+	
+	@Override
+	public boolean deleteById(String dni) {
+		boolean borrado = false;
+		if(dni != null) {
+			EntityManager em = emf.createEntityManager();
+			Alumno find = em.find(Alumno.class, dni);
+			if(find != null) {
+				em.getTransaction().begin();
+				
+			}
+		}
+			
+		return borrado;
+	}
+	
+	@Override
+	public boolean update(Alumno entity) {
+		
+		
+		return false;
 		
 	}
-	boolean update(T entity);
-	T save(T entity);
+	
+	@Override
+	public Alumno save(Alumno entity) {
+		return null;
+	}
+
+	
 }

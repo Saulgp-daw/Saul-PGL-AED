@@ -38,7 +38,7 @@ const PeliculaCard = (props: Props) => {
     }
 
     return (
-        <div >
+        <div className='vistaDetalle'>
             {modificar ? (
                 <div className='vistaDetalle'>
                     <h2>Modificar Película</h2>
