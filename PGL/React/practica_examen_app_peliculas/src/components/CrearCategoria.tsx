@@ -17,4 +17,4 @@ const CrearCategoria = (props: Props) => {
   )
 }
 
-export default CrearCategoria
+export default CrearCategoria 
