@@ -7,6 +7,9 @@ import ReactPlayer from 'react-player';
 import useBorrarPelicula from '../hooks/useBorrarPelicula';
 import useModificarPelicula from '../hooks/useModificarPelicula';
 
+//css
+import "../styles/peliculacard.css"
+
 type Props = {
 }
 
@@ -35,9 +38,9 @@ const PeliculaCard = (props: Props) => {
     }
 
     return (
-        <div>
+        <div >
             {modificar ? (
-                <div>
+                <div className='vistaDetalle'>
                     <h2>Modificar Película</h2>
                     <div>
                         <form onSubmit={modificarPelicula}>
@@ -55,7 +58,7 @@ const PeliculaCard = (props: Props) => {
                     </div>
                 </div>
             ) : (
-                <div>
+                <div className='vistaDetalle'>
                     <h2>Detalles Película</h2>
                     <div>
                         <img src={uri + pelicula?.getImagen()} alt={pelicula?.getTitulo()} />

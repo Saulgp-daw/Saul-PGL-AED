@@ -113,7 +113,8 @@ public class CocheRepository implements ICRUD<Coche,String>{
 				}
 			}
 			
-			em.persist(entity);
+			em.persist(entity); //lanza excepción si el id está en la bbdd
+			//em.merge(entity); no lanza una excepción, al no vigilar la bbdd
 			em.getTransaction().commit();
 			
 

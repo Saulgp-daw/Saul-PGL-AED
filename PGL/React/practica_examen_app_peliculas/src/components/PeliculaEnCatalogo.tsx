@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import { Pelicula } from '../models/Pelicula'
 import useFavorita from '../hooks/useFavorita'
 
+//css
+import "../styles/peliculaencatalogo.css";
+
 type Props = {
     pelicula: Pelicula
 }
@@ -14,28 +17,28 @@ const PeliculaEnCatalogo = (props: Props) => {
     const { agregarQuitarFavorita, pelisfavoritas } = useFavorita();
 
     return (
-        <div>
-            <Link to={`/pelicula/${pelicula.getId()}`} >
+        <div className='miniaturaPelicula'>
+            <Link to={`/pelicula/${pelicula.getId()}`} className='enlace'>
                 <img src={uri + pelicula.getImagen()} alt={pelicula.getTitulo()} />
             </Link>
             <div>
-                <h5>{pelicula.getTitulo()} &nbsp;
+                <h3 className='titulo'>{pelicula.getTitulo()} &nbsp;
                     <span onClick={(e) => agregarQuitarFavorita(e, pelicula)}>
                         {pelisfavoritas.some((p) => p.getId() === pelicula.getId()) ?
                             (
-                                <FaStar className='favourite' />
+                                <FaStar className='favourite icon' />
                             ) : (
-                                <FaRegStar />
+                                <FaRegStar className='icon'/>
                             )
 
                         }
                     </span>
-                </h5>
+                </h3>
                 <br />
-                <span>{pelicula.getDireccion()}</span><br />
-                <span>{pelicula.getActores()}</span><br />
-                <span>{pelicula.getCategoria()}</span><br />
-                <span>{pelicula.getArgumento()}</span><br />
+                <span><span className="tipo">Dirección:</span> {pelicula.getDireccion()}</span><br />
+                <span><span className="tipo">Reparto:</span> {pelicula.getActores()}</span><br />
+                <span><span className="tipo">Categoría: </span>{pelicula.getCategoria()}</span><br />
+                <span><span className='tipo'>Sinopsis:</span> {pelicula.getArgumento()}</span><br />
 
             </div>
         </div>

@@ -1,0 +1,32 @@
+.vistaFavoritas{
+    background: rgb(54, 54, 54);
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    height: 7rem;
+    padding: 1rem;
+}
+
+.enlacePeli {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+.fichaFavorita{
+    display: flex;
+    width: 15rem;
+    margin-left: 2rem;
+    border: 2px solid rgb(6, 245, 145);
+    border-radius: 10px;
+}
+
+.fichaFavorita:hover{
+    background-color: rgb(6, 245, 145);
+    color: black;
+}
+
+
+
+.fichaFavorita > h4 {
+    margin: 0.5rem;
+}

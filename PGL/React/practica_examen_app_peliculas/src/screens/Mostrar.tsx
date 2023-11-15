@@ -26,15 +26,16 @@ const Mostrar = (props: Props) => {
     const uri: string = "http://localhost:3000/";
 
     return (
-        <div>
+        <div className='vista'>
             <h2>Catálogo</h2>
-            <input type='text' onChange={(e) => filtrarPeliculas(e)} placeholder='Escriba aquí el nombre del título'></input>
-            {
-                buscador.peliculas.map(pelicula => (
-                    <PeliculaEnCatalogo pelicula={pelicula} key={pelicula.getId()}/>
-
-                ))
-            }
+            <input className="inputFiltro" type='text' onChange={(e) => filtrarPeliculas(e)} placeholder='Escriba aquí el nombre del título'></input>
+            <div className="containerMiniaturas">
+                {
+                    buscador.peliculas.map(pelicula => (
+                        <PeliculaEnCatalogo pelicula={pelicula} key={pelicula.getId()} />
+                    ))
+                }
+            </div>
         </div>
     )
 }
