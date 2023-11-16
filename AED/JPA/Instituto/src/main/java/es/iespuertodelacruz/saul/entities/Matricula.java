@@ -5,78 +5,72 @@ import javax.persistence.*;
 import java.util.List;
 
 
+
 /**
- * The persistent class for the matriculas database table.
- * 
- */
+ 
+The persistent class for the matriculas database table.
+*/
 @Entity
 @Table(name="matriculas")
 @NamedQuery(name="Matricula.findAll", query="SELECT m FROM Matricula m")
+@NamedQuery(name="Matricula.findByIdRel", query= "SELECT m FROM Matricula m JOIN FETCH m.asignaturas WHERE m.id = :id")
 public class Matricula implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
 
-	private int year;
 
-	//bi-directional many-to-one association to AsignaturaMatricula
-	@OneToMany(mappedBy="matricula")
-	private List<AsignaturaMatricula> asignaturaMatriculas;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
 
-	//bi-directional many-to-one association to Alumno
-	@ManyToOne
-	@JoinColumn(name="dni")
-	private Alumno alumno;
+    private int year;
 
-	public Matricula() {
-	}
 
-	public int getId() {
-		return this.id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
-	public int getYear() {
-		return this.year;
-	}
 
-	public void setYear(int year) {
-		this.year = year;
-	}
+    public Matricula() {
+    }
 
-	public List<AsignaturaMatricula> getAsignaturaMatriculas() {
-		return this.asignaturaMatriculas;
-	}
 
-	public void setAsignaturaMatriculas(List<AsignaturaMatricula> asignaturaMatriculas) {
-		this.asignaturaMatriculas = asignaturaMatriculas;
-	}
+    //bi-directional many-to-one association to Alumno
+    @ManyToOne
+    @JoinColumn(name="dni", referencedColumnName = "dni")
+    private Alumno alumno;
 
-	public AsignaturaMatricula addAsignaturaMatricula(AsignaturaMatricula asignaturaMatricula) {
-		getAsignaturaMatriculas().add(asignaturaMatricula);
-		asignaturaMatricula.setMatricula(this);
+    @ManyToMany(mappedBy="matriculas")
+    private List<Asignatura> asignaturas;
 
-		return asignaturaMatricula;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public AsignaturaMatricula removeAsignaturaMatricula(AsignaturaMatricula asignaturaMatricula) {
-		getAsignaturaMatriculas().remove(asignaturaMatricula);
-		asignaturaMatricula.setMatricula(null);
+    public void setId(int idmatricula) {
+        this.id = idmatricula;
+    }
 
-		return asignaturaMatricula;
-	}
+    public int getYear() {
+        return this.year;
+    }
 
-	public Alumno getAlumno() {
-		return this.alumno;
-	}
+    public void setYear(int year) {
+        this.year = year;
+    }
 
-	public void setAlumno(Alumno alumno) {
-		this.alumno = alumno;
-	}
+    public Alumno getAlumno() {
+        return this.alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+    public List<Asignatura> getAsignaturas() {
+        return this.asignaturas;
+    }
+
+    public void setAsignaturas(List<Asignatura> asignaturas) {
+        this.asignaturas = asignaturas;
+    }
 
 }

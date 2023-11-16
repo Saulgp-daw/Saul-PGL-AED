@@ -13,67 +13,65 @@ import java.util.List;
 @Table(name="asignaturas")
 @NamedQuery(name="Asignatura.findAll", query="SELECT a FROM Asignatura a")
 public class Asignatura implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(unique=true, nullable=false)
+    private int id;
 
-	private String curso;
+    @Column(length=50)
+    private String nombre;
 
-	private String nombre;
+    //bi-directional many-to-many association to Matricula
+    @ManyToMany
+    @JoinTable(
+            name="asignatura_matricula"
+            , joinColumns={
+                @JoinColumn(name="idasignatura")
+                }
+            , inverseJoinColumns={
+                @JoinColumn(name="idmatricula")
+                }
+            )
+    private List<Matricula> matriculas;
 
-	//bi-directional many-to-one association to AsignaturaMatricula
-	@OneToMany(mappedBy="asignatura")
-	private List<AsignaturaMatricula> asignaturaMatriculas;
+    private String curso;
 
-	public Asignatura() {
-	}
 
-	public int getId() {
-		return this.id;
-	}
+    public Asignatura() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public String getCurso() {
-		return this.curso;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setCurso(String curso) {
-		this.curso = curso;
-	}
+    public String getNombre() {
+        return this.nombre;
+    }
 
-	public String getNombre() {
-		return this.nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public String getCurso() {
+        return this.curso;
+    }
 
-	public List<AsignaturaMatricula> getAsignaturaMatriculas() {
-		return this.asignaturaMatriculas;
-	}
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
 
-	public void setAsignaturaMatriculas(List<AsignaturaMatricula> asignaturaMatriculas) {
-		this.asignaturaMatriculas = asignaturaMatriculas;
-	}
+    public List<Matricula> getMatriculas() {
+        return this.matriculas;
+    }
 
-	public AsignaturaMatricula addAsignaturaMatricula(AsignaturaMatricula asignaturaMatricula) {
-		getAsignaturaMatriculas().add(asignaturaMatricula);
-		asignaturaMatricula.setAsignatura(this);
-
-		return asignaturaMatricula;
-	}
-
-	public AsignaturaMatricula removeAsignaturaMatricula(AsignaturaMatricula asignaturaMatricula) {
-		getAsignaturaMatriculas().remove(asignaturaMatricula);
-		asignaturaMatricula.setAsignatura(null);
-
-		return asignaturaMatricula;
-	}
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
 
 }

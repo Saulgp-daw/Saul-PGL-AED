@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="es.iespuertodelacruz.saul.repositorytests.AlumnoRepositoryTest" time="0.234" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="es.iespuertodelacruz.saul.repositories.MatriculaRepositoryTest" time="1.73" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="20"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -59,252 +59,79 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="64.0"/>
   </properties>
-  <testcase name="testFindAll" classname="es.iespuertodelacruz.saul.repositorytests.AlumnoRepositoryTest" time="0.009">
+  <testcase name="testFindAll" classname="es.iespuertodelacruz.saul.repositories.MatriculaRepositoryTest" time="0.138">
     <system-out><![CDATA[Hibernate: 
     select
-        alumno0_."dni" as dni1_0_,
-        alumno0_."apellidos" as apellido2_0_,
-        alumno0_."fechanacimiento" as fechanac3_0_,
-        alumno0_."nombre" as nombre4_0_ 
+        matricula0_."id" as id1_3_,
+        matricula0_."dni" as dni3_3_,
+        matricula0_."year" as year2_3_ 
     from
-        "alumnos" alumno0_
+        "matriculas" matricula0_
 Hibernate: 
     select
-        matriculas0_."dni" as dni3_3_0_,
-        matriculas0_."id" as id1_3_0_,
-        matriculas0_."id" as id1_3_1_,
-        matriculas0_."dni" as dni3_3_1_,
-        matriculas0_."year" as year2_3_1_ 
+        alumno0_."dni" as dni1_0_0_,
+        alumno0_."apellidos" as apellido2_0_0_,
+        alumno0_."fechanacimiento" as fechanac3_0_0_,
+        alumno0_."nombre" as nombre4_0_0_ 
     from
-        "matriculas" matriculas0_ 
+        "alumnos" alumno0_ 
     where
-        matriculas0_."dni"=?
-Hibernate: 
-    select
-        matriculas0_."dni" as dni3_3_0_,
-        matriculas0_."id" as id1_3_0_,
-        matriculas0_."id" as id1_3_1_,
-        matriculas0_."dni" as dni3_3_1_,
-        matriculas0_."year" as year2_3_1_ 
-    from
-        "matriculas" matriculas0_ 
-    where
-        matriculas0_."dni"=?
-Hibernate: 
-    select
-        matriculas0_."dni" as dni3_3_0_,
-        matriculas0_."id" as id1_3_0_,
-        matriculas0_."id" as id1_3_1_,
-        matriculas0_."dni" as dni3_3_1_,
-        matriculas0_."year" as year2_3_1_ 
-    from
-        "matriculas" matriculas0_ 
-    where
-        matriculas0_."dni"=?
+        alumno0_."dni"=?
 ]]></system-out>
-    <system-err><![CDATA[nov 16, 2023 5:26:34 P. M. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
+    <system-err><![CDATA[nov 16, 2023 5:26:33 P. M. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
 INFO: HHH000204: Processing PersistenceUnitInfo [name: TEST]
-nov 16, 2023 5:26:34 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+nov 16, 2023 5:26:33 P. M. org.hibernate.Version logVersion
+INFO: HHH000412: Hibernate Core {5.4.3.Final}
+nov 16, 2023 5:26:33 P. M. org.hibernate.annotations.common.reflection.java.JavaReflectionManager <clinit>
+INFO: HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+nov 16, 2023 5:26:33 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-nov 16, 2023 5:26:34 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+nov 16, 2023 5:26:33 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=TRUE;DB_CLOSE_DELAY=0;MODE=Mysql;DATABASE_TO_LOWER=TRUE;INIT=RUNSCRIPT FROM 'src/test/resources/instituto.sql';]
-nov 16, 2023 5:26:34 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+nov 16, 2023 5:26:33 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001001: Connection properties: {}
-nov 16, 2023 5:26:34 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+nov 16, 2023 5:26:33 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001003: Autocommit mode: false
-nov 16, 2023 5:26:34 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections <init>
+nov 16, 2023 5:26:33 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections <init>
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-nov 16, 2023 5:26:35 P. M. org.hibernate.dialect.Dialect <init>
+nov 16, 2023 5:26:34 P. M. org.hibernate.dialect.Dialect <init>
 INFO: HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-nov 16, 2023 5:26:35 P. M. org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator initiateService
+nov 16, 2023 5:26:34 P. M. org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator initiateService
 INFO: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
 ]]></system-err>
   </testcase>
-  <testcase name="testFindAllRel" classname="es.iespuertodelacruz.saul.repositorytests.AlumnoRepositoryTest" time="0.005">
+  <testcase name="testFindAllRel" classname="es.iespuertodelacruz.saul.repositories.MatriculaRepositoryTest" time="0.008">
     <system-out><![CDATA[Hibernate: 
     select
+        matricula0_."id" as id1_3_,
+        matricula0_."dni" as dni3_3_,
+        matricula0_."year" as year2_3_ 
+    from
+        "matriculas" matricula0_
+Hibernate: 
+    select
         alumno0_."dni" as dni1_0_0_,
-        matriculas1_."id" as id1_3_1_,
         alumno0_."apellidos" as apellido2_0_0_,
         alumno0_."fechanacimiento" as fechanac3_0_0_,
-        alumno0_."nombre" as nombre4_0_0_,
-        matriculas1_."dni" as dni3_3_1_,
-        matriculas1_."year" as year2_3_1_,
-        matriculas1_."dni" as dni3_3_0__,
-        matriculas1_."id" as id1_3_0__ 
+        alumno0_."nombre" as nombre4_0_0_ 
     from
         "alumnos" alumno0_ 
+    where
+        alumno0_."dni"=?
+Hibernate: 
+    select
+        asignatura0_."idasignatura" as idasigna2_1_0_,
+        asignatura0_."idmatricula" as idmatric3_1_0_,
+        asignatura1_."id" as id1_2_1_,
+        asignatura1_."curso" as curso2_2_1_,
+        asignatura1_."nombre" as nombre3_2_1_ 
+    from
+        "asignatura_matricula" asignatura0_ 
     inner join
-        "matriculas" matriculas1_ 
-            on alumno0_."dni"=matriculas1_."dni"
-]]></system-out>
-  </testcase>
-  <testcase name="test_delete_by_dni" classname="es.iespuertodelacruz.saul.repositorytests.AlumnoRepositoryTest" time="0.033">
-    <system-out><![CDATA[Hibernate: 
-    select
-        alumno0_."dni" as dni1_0_0_,
-        alumno0_."apellidos" as apellido2_0_0_,
-        alumno0_."fechanacimiento" as fechanac3_0_0_,
-        alumno0_."nombre" as nombre4_0_0_ 
-    from
-        "alumnos" alumno0_ 
+        "asignaturas" asignatura1_ 
+            on asignatura0_."idmatricula"=asignatura1_."id" 
     where
-        alumno0_."dni"=?
-Hibernate: 
-    select
-        matriculas0_."dni" as dni3_3_0_,
-        matriculas0_."id" as id1_3_0_,
-        matriculas0_."id" as id1_3_1_,
-        matriculas0_."dni" as dni3_3_1_,
-        matriculas0_."year" as year2_3_1_ 
-    from
-        "matriculas" matriculas0_ 
-    where
-        matriculas0_."dni"=?
-Hibernate: 
-    delete 
-    from
-        "alumnos" 
-    where
-        "dni"=?
-Hibernate: 
-    select
-        alumno0_."dni" as dni1_0_0_,
-        alumno0_."apellidos" as apellido2_0_0_,
-        alumno0_."fechanacimiento" as fechanac3_0_0_,
-        alumno0_."nombre" as nombre4_0_0_ 
-    from
-        "alumnos" alumno0_ 
-    where
-        alumno0_."dni"=?
-]]></system-out>
-  </testcase>
-  <testcase name="test_actualizar_alumno" classname="es.iespuertodelacruz.saul.repositorytests.AlumnoRepositoryTest" time="0.008">
-    <system-out><![CDATA[Hibernate: 
-    select
-        alumno0_."dni" as dni1_0_0_,
-        alumno0_."apellidos" as apellido2_0_0_,
-        alumno0_."fechanacimiento" as fechanac3_0_0_,
-        alumno0_."nombre" as nombre4_0_0_ 
-    from
-        "alumnos" alumno0_ 
-    where
-        alumno0_."dni"=?
-Hibernate: 
-    update
-        "alumnos" 
-    set
-        "apellidos"=?,
-        "fechanacimiento"=?,
-        "nombre"=? 
-    where
-        "dni"=?
-]]></system-out>
-  </testcase>
-  <testcase name="testSave" classname="es.iespuertodelacruz.saul.repositorytests.AlumnoRepositoryTest" time="0.012">
-    <system-out><![CDATA[Hibernate: 
-    insert 
-    into
-        "alumnos"
-        ("apellidos", "fechanacimiento", "nombre", "dni") 
-    values
-        (?, ?, ?, ?)
-Hibernate: 
-    select
-        alumno0_."dni" as dni1_0_0_,
-        alumno0_."apellidos" as apellido2_0_0_,
-        alumno0_."fechanacimiento" as fechanac3_0_0_,
-        alumno0_."nombre" as nombre4_0_0_ 
-    from
-        "alumnos" alumno0_ 
-    where
-        alumno0_."dni"=?
-Hibernate: 
-    select
-        matriculas0_."dni" as dni3_3_0_,
-        matriculas0_."id" as id1_3_0_,
-        matriculas0_."id" as id1_3_1_,
-        matriculas0_."dni" as dni3_3_1_,
-        matriculas0_."year" as year2_3_1_ 
-    from
-        "matriculas" matriculas0_ 
-    where
-        matriculas0_."dni"=?
-Hibernate: 
-    delete 
-    from
-        "alumnos" 
-    where
-        "dni"=?
-]]></system-out>
-  </testcase>
-  <testcase name="test_find_by_dni" classname="es.iespuertodelacruz.saul.repositorytests.AlumnoRepositoryTest" time="0.005">
-    <system-out><![CDATA[Hibernate: 
-    select
-        alumno0_."dni" as dni1_0_0_,
-        alumno0_."apellidos" as apellido2_0_0_,
-        alumno0_."fechanacimiento" as fechanac3_0_0_,
-        alumno0_."nombre" as nombre4_0_0_ 
-    from
-        "alumnos" alumno0_ 
-    where
-        alumno0_."dni"=?
-Hibernate: 
-    select
-        matriculas0_."dni" as dni3_3_0_,
-        matriculas0_."id" as id1_3_0_,
-        matriculas0_."id" as id1_3_1_,
-        matriculas0_."dni" as dni3_3_1_,
-        matriculas0_."year" as year2_3_1_ 
-    from
-        "matriculas" matriculas0_ 
-    where
-        matriculas0_."dni"=?
-]]></system-out>
-  </testcase>
-  <testcase name="test_find_by_name" classname="es.iespuertodelacruz.saul.repositorytests.AlumnoRepositoryTest" time="0.007">
-    <system-out><![CDATA[Hibernate: 
-    select
-        alumno0_."dni" as dni1_0_,
-        alumno0_."apellidos" as apellido2_0_,
-        alumno0_."fechanacimiento" as fechanac3_0_,
-        alumno0_."nombre" as nombre4_0_ 
-    from
-        "alumnos" alumno0_ 
-    where
-        alumno0_."nombre"=?
-Hibernate: 
-    select
-        matriculas0_."dni" as dni3_3_0_,
-        matriculas0_."id" as id1_3_0_,
-        matriculas0_."id" as id1_3_1_,
-        matriculas0_."dni" as dni3_3_1_,
-        matriculas0_."year" as year2_3_1_ 
-    from
-        "matriculas" matriculas0_ 
-    where
-        matriculas0_."dni"=?
-]]></system-out>
-  </testcase>
-  <testcase name="test_find_by_dni_rel" classname="es.iespuertodelacruz.saul.repositorytests.AlumnoRepositoryTest" time="0.004">
-    <system-out><![CDATA[Hibernate: 
-    select
-        alumno0_."dni" as dni1_0_0_,
-        matriculas1_."id" as id1_3_1_,
-        alumno0_."apellidos" as apellido2_0_0_,
-        alumno0_."fechanacimiento" as fechanac3_0_0_,
-        alumno0_."nombre" as nombre4_0_0_,
-        matriculas1_."dni" as dni3_3_1_,
-        matriculas1_."year" as year2_3_1_,
-        matriculas1_."dni" as dni3_3_0__,
-        matriculas1_."id" as id1_3_0__ 
-    from
-        "alumnos" alumno0_ 
-    inner join
-        "matriculas" matriculas1_ 
-            on alumno0_."dni"=matriculas1_."dni" 
-    where
-        alumno0_."dni"=?
+        asignatura0_."idasignatura"=?
 ]]></system-out>
   </testcase>
 </testsuite>

@@ -1,7 +1,8 @@
-/home/dam2/Saul-PGL-AED/AED/JPA/Instituto/src/main/java/es/iespuertodelacruz/saul/repositories/ICRUD.java
-/home/dam2/Saul-PGL-AED/AED/JPA/Instituto/src/main/java/es/iespuertodelacruz/saul/entities/AsignaturaMatricula.java
-/home/dam2/Saul-PGL-AED/AED/JPA/Instituto/src/main/java/es/iespuertodelacruz/saul/entities/Asignatura.java
-/home/dam2/Saul-PGL-AED/AED/JPA/Instituto/src/main/java/es/iespuertodelacruz/jpinicial/Main.java
-/home/dam2/Saul-PGL-AED/AED/JPA/Instituto/src/main/java/es/iespuertodelacruz/saul/entities/Matricula.java
-/home/dam2/Saul-PGL-AED/AED/JPA/Instituto/src/main/java/es/iespuertodelacruz/saul/entities/Alumno.java
-/home/dam2/Saul-PGL-AED/AED/JPA/Instituto/src/main/java/es/iespuertodelacruz/saul/repositories/AlumnoRepository.java
+C:\xampp\htdocs\Saul-PGL-AED\AED\JPA\Instituto\src\main\java\es\iespuertodelacruz\saul\entities\AsignaturaMatricula.java
+C:\xampp\htdocs\Saul-PGL-AED\AED\JPA\Instituto\src\main\java\es\iespuertodelacruz\saul\entities\Matricula.java
+C:\xampp\htdocs\Saul-PGL-AED\AED\JPA\Instituto\src\main\java\es\iespuertodelacruz\saul\entities\Asignatura.java
+C:\xampp\htdocs\Saul-PGL-AED\AED\JPA\Instituto\src\main\java\es\iespuertodelacruz\saul\repositories\AlumnoRepository.java
+C:\xampp\htdocs\Saul-PGL-AED\AED\JPA\Instituto\src\main\java\es\iespuertodelacruz\saul\repositories\MatriculaRepository.java
+C:\xampp\htdocs\Saul-PGL-AED\AED\JPA\Instituto\src\main\java\es\iespuertodelacruz\jpinicial\Main.java
+C:\xampp\htdocs\Saul-PGL-AED\AED\JPA\Instituto\src\main\java\es\iespuertodelacruz\saul\entities\Alumno.java
+C:\xampp\htdocs\Saul-PGL-AED\AED\JPA\Instituto\src\main\java\es\iespuertodelacruz\saul\repositories\ICRUD.java
