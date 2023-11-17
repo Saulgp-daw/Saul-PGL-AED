@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.saul.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -169,6 +170,29 @@ public class AlumnoRepository implements ICRUD<Alumno, String>{
 			ex.printStackTrace();
 		}
 		return alumno;
+	}
+
+	public List<Alumno> findAlumnoYear(String anho, int idAsignatura){
+		List list = new ArrayList<Alumno>();
+		EntityManager em = emf.createEntityManager();
+		if(anho != null && idAsignatura != 0){
+				list = em.createNativeQuery(
+						"SELECT al.dni, al.nombre, al.apellidos, al.fechanacimiento, a.id, a.nombre, m.\"year\" "
+						+"FROM matriculas AS m "
+						+"INNER JOIN asignatura_matricula AS am "
+						+"INNER JOIN asignaturas AS a "
+						+"INNER JOIN alumnos AS al "
+						+"ON al.dni = m.dni "
+						+"AND a.id = am.idasignatura "
+						+"AND m.id = am.idmatricula "
+						+"WHERE m.\"year\" = ? "
+						+"AND a.id = ?", Alumno.class)
+						.setParameter(1,anho)
+						.setParameter(2,idAsignatura)
+						.getResultList();
+		}
+		em.close();
+		return list;
 	}
 
 	

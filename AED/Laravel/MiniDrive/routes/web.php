@@ -18,8 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::any('/', [UsuarioController::class, "index"]);
 Route::any('/home', [DriveController::class, "index"]);
 Route::get('/descargar/{archivo}', [DriveController::class, "descargar"]);
+Route::get('/descargar/zonacompartida/{archivo}', [DriveController::class, "descargarCompartida"]);
 Route::get('/borrar/{archivo}', [DriveController::class, "borrar"]);
+Route::get('/borrarCompartido/{archivo}', [DriveController::class, "borrarCompartido"]);
 Route::post('/subir', [DriveController::class, "subir"]);
+Route::post('/subirCompartida', [DriveController::class, "subirCompartida"]);
 
 
 Route::post('/registro', [UsuarioController::class, "registro"]);

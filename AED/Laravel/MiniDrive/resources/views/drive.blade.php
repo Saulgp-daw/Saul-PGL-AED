@@ -31,6 +31,8 @@
     @endif
     <div class="h5" style="position: absolute; top: 50px; right: 10px;">{{ $mensaje ?? '' }}</div>
     <div class="h5" style="position: absolute; top: 10px; right: 10px;"><a href="/logout">Logout</a></div>
+    @include('compartido')
+    <h5>Carpeta Propia</h5>
     <div class="container">
         <form action="/subir" enctype='multipart/form-data' method="post">
             @csrf

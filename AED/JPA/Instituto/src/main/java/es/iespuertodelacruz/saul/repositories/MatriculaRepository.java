@@ -47,7 +47,7 @@ public class MatriculaRepository implements ICRUD<Matricula, String>{
 		if(id != null) {
 			EntityManager em = emf.createEntityManager();
 			matricula = em.find(Matricula.class, Integer.parseInt(id));
-			if(matricula != null && matricula.getAsignaturas() != null) {
+			if(matricula != null && matricula.getAsignaturas()!= null) {
 				matricula.getAsignaturas().size();
 			}
 			em.close();
@@ -61,15 +61,13 @@ public class MatriculaRepository implements ICRUD<Matricula, String>{
 			try {
 				EntityManager em = emf.createEntityManager();
 				matricula = em.createNamedQuery("Matricula.findByIdRel", Matricula.class)
-						.setParameter("id", id)
+						.setParameter("id", Integer.parseInt(id))
 						.getSingleResult();
 				
-				if(matricula != null && matricula.getAsignaturas()!= null) {
-					matricula.getAsignaturas().size();
-				}
+
 				em.close();
 			}catch(Exception ex) {
-				return null;
+				ex.printStackTrace();
 			}
 		}
 		
@@ -116,23 +114,24 @@ public class MatriculaRepository implements ICRUD<Matricula, String>{
 				Matricula matricula = em.find(Matricula.class, entity.getId());
 				if(matricula != null) {
 					em.getTransaction().begin();
-					matricula.setYear(entity.getYear());
 					
-					if(matricula.getAsignaturas() != null && entity.getAsignaturas() != null && entity.getAsignaturas().size() > 0) {
-						matricula.setAsignaturas(new ArrayList<Asignatura>());
+					if(matricula.getAsignaturas() != null && entity.getAsignaturas() != null
+							&& entity.getAsignaturas().size() > 0
+							&& entity != null) {
+
 						
 						for (Asignatura asignatura : matricula.getAsignaturas()) {
 							Asignatura find = em.find(Asignatura.class, asignatura.getId());
-							find.getMatriculas().remove(entity);
+							asignatura.getMatriculas().remove(entity);
 						}
 						
 						for (Asignatura asignatura : entity.getAsignaturas()) {
-							em.find(Asignatura.class, asignatura.getId());
+							Asignatura find = em.find(Asignatura.class, asignatura.getId());
 							asignatura.getMatriculas().add(entity);
 						}
 					}
-					
-					
+					matricula.getAsignaturas().clear();
+					matricula.setAsignaturas(entity.getAsignaturas());
 					em.merge(matricula);
 					em.getTransaction().commit();
 					actualizado = true;
@@ -147,8 +146,35 @@ public class MatriculaRepository implements ICRUD<Matricula, String>{
 
 	@Override
 	public Matricula save(Matricula entity) {
-		// TODO Auto-generated method stub
-		return null;
+		Matricula matricula = null;
+		try {
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			if(entity.getAsignaturas() != null && entity.getAsignaturas().size()>0) {
+				for(Asignatura c: entity.getAsignaturas()) {
+					Matricula find = em.find(Matricula.class, entity.getId());
+					if(find == null) {
+						c.getMatriculas().add(entity);
+					}
+					if(find.getAsignaturas() == null) {
+						find.setAsignaturas(new ArrayList<Asignatura>());
+					}
+
+				}
+
+			}
+
+			em.persist(entity); //lanza excepción si el id está en la bbdd
+			//em.merge(entity); no lanza una excepción, al no vigilar la bbdd
+			em.getTransaction().commit();
+
+
+			em.close();
+			matricula = entity;
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return matricula;
 	}
 
 }

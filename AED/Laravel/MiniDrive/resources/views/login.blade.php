@@ -15,5 +15,7 @@
         <label for="password">Contraseña: </label><input type="text" name="password"><br>
         <input type="submit" value="Entrar"><a href="/registroForm">Registro</a>
     </form>
+    <br>
+    @include('compartido')
 </body>
 </html>

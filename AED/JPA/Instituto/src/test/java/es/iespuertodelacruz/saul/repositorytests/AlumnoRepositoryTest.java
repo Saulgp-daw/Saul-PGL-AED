@@ -123,6 +123,16 @@ class AlumnoRepositoryTest {
         // Limpiar: eliminar la asignatura creada durante la prueba
         assertTrue(alumnoRepository.deleteById(resultado.getDni()));
     }
+
+	@Test
+	@Order(9)
+	public void testNativeQuery() {
+
+
+		List<Alumno> resultado = alumnoRepository.findAlumnoYear("2023", 2);
+		assertNotNull(resultado);
+
+	}
 	
 	
 

@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
+    private static $rutaZonaCompartida = "/zonacompartida/";
+
     public function index()
     {
-        return view("registro");
+        $compartidos = Storage::allFiles("/zonacompartida/");
+
+        return view("registro", compact("compartidos"));
     }
 
     public function registro(Request $request)
@@ -52,7 +56,8 @@ class UsuarioController extends Controller
 
     public function registroForm($mensaje = "")
     {
-        return view("registro", compact("mensaje"));
+        $compartidos = Storage::allFiles("/zonacompartida/");
+        return view("registro", compact("mensaje", "compartidos"));
     }
 
     public function logout(Request $request)
@@ -63,7 +68,8 @@ class UsuarioController extends Controller
 
     public static function loginForm($mensaje = "")
     {
-        return view("login", compact("mensaje"));
+        $compartidos = Storage::allFiles("/zonacompartida/");
+        return view("login", compact("mensaje", "compartidos"));
     }
 
     public function login(Request $request)
