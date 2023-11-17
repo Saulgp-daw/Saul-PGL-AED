@@ -150,22 +150,7 @@ public class MatriculaRepository implements ICRUD<Matricula, String>{
 		try {
 			EntityManager em = emf.createEntityManager();
 			em.getTransaction().begin();
-			if(entity.getAsignaturas() != null && entity.getAsignaturas().size()>0) {
-				for(Asignatura c: entity.getAsignaturas()) {
-					Matricula find = em.find(Matricula.class, entity.getId());
-					if(find == null) {
-						c.getMatriculas().add(entity);
-					}
-					if(find.getAsignaturas() == null) {
-						find.setAsignaturas(new ArrayList<Asignatura>());
-					}
-
-				}
-
-			}
-
 			em.persist(entity); //lanza excepción si el id está en la bbdd
-			//em.merge(entity); no lanza una excepción, al no vigilar la bbdd
 			em.getTransaction().commit();
 
 

@@ -112,19 +112,31 @@ class MatriculaRepositoryTest {
 	@Test
 	@Order(14)
 	void test_save() {
+		Alumno alumno = new Alumno();
+		alumno.setDni("87654321X");
+		alumno.setNombre("Marcos");
+		alumno.setApellidos("Afonso Jiménez");
+		alumno.setFechanacimiento(874278000000L);
+
+		Asignatura asignatura = new Asignatura();
+		asignatura.setCurso("Pistacho");
+		asignatura.setNombre("Paloma");
+
 		Matricula matricula = new Matricula();
-		Alumno alumnoEncontrado = alumnoRepository.findById("12312312K");
-		List<Asignatura> lista = asignaturaRepository.findAll();
-		assertNotNull(alumnoEncontrado);
-		assertNotNull(lista);
+		matricula.setYear(2077);
+		matricula.setAlumno(alumno);
 
-		matricula.setId(56);
-		matricula.setAlumno(alumnoEncontrado);
-		matricula.setYear(2034);
-		matricula.setAsignaturas(lista);
+		List<Asignatura> list = new ArrayList<Asignatura>();
+		list.add(asignatura);
 
-		Matricula matriculaGuardada = matriculaRepository.save(matricula);
-		assertNotNull(matriculaGuardada);
+		matricula.setAsignaturas(list);
+
+		Matricula matriculasave = matriculaRepository.save(matricula);
+		assertNotNull(matriculasave);
+		assertTrue(matriculasave.getAsignaturas().size() == 1);
+		assertTrue(matriculasave.getAlumno().getNombre().equals("Marcos"));
+
+
 
 	
 	}
