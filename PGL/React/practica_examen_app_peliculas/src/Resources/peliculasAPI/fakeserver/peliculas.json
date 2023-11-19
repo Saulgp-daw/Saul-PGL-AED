@@ -259,16 +259,6 @@
       "imagen": "default.gif",
       "trailer": "",
       "categoria": "1"
-    },
-    {
-      "id": "022",
-      "titulo": "sdsdsd",
-      "direccion": "http://localhost:3001/crear_pelicula",
-      "actores": "sdfsdf",
-      "argumento": "sdfsdf",
-      "imagen": "default.gif",
-      "trailer": "",
-      "categoria": "4"
     }
   ]
 }

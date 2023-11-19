@@ -54,7 +54,7 @@ const usePelicula = () => {
         if(imagen.trim() === ""){
           imagen = "default.gif";
         }
-        let trailer: string = formulario.trailer.value ?? "";
+        let trailer: string = formulario.trailer.value ?? "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
         let categoria: string = formulario.categoria.value ?? "";
 
         const nuevaPelicula = {
