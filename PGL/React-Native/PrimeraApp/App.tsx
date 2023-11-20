@@ -34,6 +34,9 @@ import Practica12 from './src/screens/Practica12';
 import Practica15 from './src/screens/Practica15';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Practica23 from './src/screens/Practica23';
+import AgregarTarea from './src/components/AgregarTarea';
+import TareaContextProvider from './src/contexts/TareaContextProvider';
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -45,7 +48,7 @@ type Props = {
 
 
 
-function HomeScreen({navigation}: Props) {
+function HomeScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -57,25 +60,44 @@ function HomeScreen({navigation}: Props) {
   )
 }
 
+// export type RootStackParamList = {
+//   Gatos: undefined;
+//   Home: undefined;
+//   Practica08: undefined;
+//   Practica09: undefined;
+// }
+// const Stack = createNativeStackNavigator<RootStackParamList>();
+
+
 export type RootStackParamList = {
-  Gatos: undefined;
-  Home: undefined;
-  Practica08: undefined;
-  Practica09: undefined;
+  Tareas: undefined;
+  AgregarTarea: undefined;
 }
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-
+// function App(): JSX.Element {
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator>
+//         {/* se ponen todas las screen que queramos el navigation */}
+//         <Stack.Screen name="Home" component={HomeScreen} />
+//         <Stack.Screen name="Practica08" component={Practica08} />
+//         <Stack.Screen name="Practica09" component={Practica09} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   );
+// }
 
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {/* se ponen todas las screen que queramos el navigation */}
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Practica08" component={Practica08} />
-        <Stack.Screen name="Practica09" component={Practica09} />
-      </Stack.Navigator>
+      <TareaContextProvider>
+        <Stack.Navigator>
+          <Stack.Screen name="Tareas" component={Practica23} />
+          <Stack.Screen name="AgregarTarea" component={AgregarTarea} />
+        </Stack.Navigator>
+        <AgregarTarea />
+      </TareaContextProvider>
     </NavigationContainer>
   );
 }
