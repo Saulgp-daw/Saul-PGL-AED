@@ -94,7 +94,6 @@ function App(): JSX.Element {
     <NavigationContainer>
       <TareaContextProvider>
         <Stack.Navigator>
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="Tareas" component={Practica23} />
           <Stack.Screen name="AgregarTarea" component={AgregarTarea} />
 

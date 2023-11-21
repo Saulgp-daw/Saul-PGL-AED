@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useTareaContext } from '../contexts/TareaContextProvider'
 import { Tarea } from '../models/Tarea'
@@ -6,9 +6,12 @@ import { FaRegSquare } from "react-icons/fa6";
 import { FaRegCheckSquare } from "react-icons/fa";
 
 
-type Props = {}
+type Props = {
+    navigation: any;
+};
 
-const Practica23 = (props: Props) => {
+
+const Practica23 = ({ navigation }: Props) => {
     const { tareas, settareas } = useTareaContext();
     return (
         <View>
@@ -32,6 +35,7 @@ const Practica23 = (props: Props) => {
                     </View>
                 ))
             }
+            <Button title='Agregar Tarea' onPress={() => navigation.navigate('AgregarTarea')}></Button>
         </View>
     )
 }
