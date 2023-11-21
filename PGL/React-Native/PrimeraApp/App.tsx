@@ -48,17 +48,17 @@ type Props = {
 
 
 
-function HomeScreen({ navigation }: Props) {
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-        <Button title='Practica08' onPress={() => navigation.navigate('Practica08')}></Button>
-        <Button title='Practica09' onPress={() => navigation.navigate('Practica09')}></Button>
-      </View>
-    </SafeAreaView>
-  )
-}
+// function HomeScreen({ navigation }: Props) {
+//   return (
+//     <SafeAreaView style={{ flex: 1 }}>
+//       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//         <Text>Home Screen</Text>
+//         <Button title='Practica08' onPress={() => navigation.navigate('Practica08')}></Button>
+//         <Button title='Practica09' onPress={() => navigation.navigate('Practica09')}></Button>
+//       </View>
+//     </SafeAreaView>
+//   )
+// }
 
 // export type RootStackParamList = {
 //   Gatos: undefined;
@@ -72,6 +72,7 @@ function HomeScreen({ navigation }: Props) {
 export type RootStackParamList = {
   Tareas: undefined;
   AgregarTarea: undefined;
+  HomeScreen: undefined;
 }
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -93,16 +94,29 @@ function App(): JSX.Element {
     <NavigationContainer>
       <TareaContextProvider>
         <Stack.Navigator>
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="Tareas" component={Practica23} />
           <Stack.Screen name="AgregarTarea" component={AgregarTarea} />
+
+
         </Stack.Navigator>
-        <AgregarTarea />
+
       </TareaContextProvider>
     </NavigationContainer>
   );
 }
 
 export default App;
+
+function HomeScreen({ navigation }: Props) {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Button title='Agregar Tarea' onPress={() => navigation.navigate('AgregarTarea')}></Button>
+      </View>
+    </SafeAreaView>
+  )
+}
 
 
 // const [contador, setContador] = useState(0);

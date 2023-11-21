@@ -3,13 +3,13 @@ import { Tarea } from '../models/Tarea';
 
 export interface TareasContextType {
     tareas: Tarea[];
-    setTareas: Dispatch<SetStateAction<Tarea[]>>;
+    settareas: Dispatch<SetStateAction<Tarea[]>>;
 }
 
 //Contexto
 const TareaContext = createContext<TareasContextType>({
     tareas: [],
-    setTareas: () => { }
+    settareas: () => { }
 });
 
 //Proveedor
@@ -18,7 +18,7 @@ const TareaContextProvider = (props: any) => {
     const [misTareas, setMisTareas] = useState<Tarea[]>([]);
     const contextValues: TareasContextType = {
         tareas: misTareas,
-        setTareas: setMisTareas
+        settareas: setMisTareas
     }
 
     return (
