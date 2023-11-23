@@ -1,13 +1,9 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import 'react-native-gesture-handler';
 
 import React, { useState } from 'react';
 import type { PropsWithChildren } from 'react';
 import Practica04 from './src/screens/Practica04';
+
 import {
   Button,
   SafeAreaView,
@@ -37,6 +33,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Practica23 from './src/screens/Practica23';
 import AgregarTarea from './src/components/AgregarTarea';
 import TareaContextProvider from './src/contexts/TareaContextProvider';
+import SideMenu from './src/navigators/SideMenu';
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -89,6 +86,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 //   );
 // }
 
+//Practica 23
 function App(): JSX.Element {
   return (
     <NavigationContainer>
@@ -96,14 +94,20 @@ function App(): JSX.Element {
         <Stack.Navigator>
           <Stack.Screen name="Tareas" component={Practica23} />
           <Stack.Screen name="AgregarTarea" component={AgregarTarea} />
-
-
         </Stack.Navigator>
-
       </TareaContextProvider>
     </NavigationContainer>
   );
 }
+
+//Practica24
+// function App(): JSX.Element {
+//   return (
+//     <NavigationContainer>
+//       <SideMenu />
+//     </NavigationContainer>
+//   );
+// }
 
 export default App;
 

@@ -22,3 +22,9 @@ form button {
     display: block;
     margin: 1rem auto;
 }
+
+td {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 2rem;
+}

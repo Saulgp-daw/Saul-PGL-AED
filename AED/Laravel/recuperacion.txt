@@ -1,0 +1,12 @@
+
+
+
+
+Gestión de reservas de un restaurante
+
+
+cant mesas  con capacidades
+
+cancelada
+
+pagada

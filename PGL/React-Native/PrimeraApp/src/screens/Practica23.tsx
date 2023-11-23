@@ -4,6 +4,7 @@ import { useTareaContext } from '../contexts/TareaContextProvider'
 import { Tarea } from '../models/Tarea'
 import { FaRegSquare } from "react-icons/fa6";
 import { FaRegCheckSquare } from "react-icons/fa";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 type Props = {
@@ -13,30 +14,34 @@ type Props = {
 
 const Practica23 = ({ navigation }: Props) => {
     const { tareas, settareas } = useTareaContext();
+
     return (
-        <View>
-            <Text>Listado</Text>
-            {
-                tareas.map(tarea => (
-                    <View key={tarea.getId()}>
-                        {tarea.getCompletado() ?
-                            (
-                                <div>
-                                    <Text>Completada</Text>
-                                    <Text>{tarea.getTitulo()}</Text>
-                                </div>
-                            ) : (
-                                <div>
-                                    <Text>Sin completar</Text>
-                                    <Text>{tarea.getTitulo()}</Text>
-                                </div>
-                            )
-                        }
-                    </View>
-                ))
-            }
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+                <Text>Listado</Text>
+                {
+                    tareas.map(tarea => (
+                        <View key={tarea.getId()}>
+                            {tarea.getCompletado() ?
+                                (
+                                    <div>
+                                        <Text>Completada</Text>
+                                        <Text>{tarea.getTitulo()}</Text>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <Text>Sin completar</Text>
+                                        <Text>{tarea.getTitulo()}</Text>
+                                    </div>
+                                )
+                            }
+                        </View>
+                    ))
+                }
+
+            </View>
             <Button title='Agregar Tarea' onPress={() => navigation.navigate('AgregarTarea')}></Button>
-        </View>
+        </SafeAreaView>
     )
 }
 

@@ -9,7 +9,7 @@ type Props = {
 const SwitchLabel = (props: Props) => {
     const [dato, setDato] = useState(false);
 
-    function establecerData(){
+    function establecerData() {
         props.setData(!dato);
         setDato(!dato);
     }
