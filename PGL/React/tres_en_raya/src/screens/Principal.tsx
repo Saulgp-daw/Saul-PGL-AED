@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Tablero from '../components/Tablero';
 import Historial from '../components/Historial';
+import PartidaContextProvider from '../contexts/PartidaContextProvider';
 
 type Props = {}
 
@@ -12,11 +13,13 @@ const Principal = (props: Props) => {
             <h3>Tres en raya</h3>
             <BrowserRouter>
                 <Navbar />
-                <Routes>
-                <Route path='/' element={<Tablero/>}></Route>
-                    <Route path='/jugar' element={<Tablero/>}></Route>
-                    <Route path='/historial' element={<Historial/>}></Route>
-                </Routes>
+                <PartidaContextProvider>
+                    <Routes>
+                        <Route path='/' element={<Tablero />}></Route>
+                        <Route path='/jugar' element={<Tablero />}></Route>
+                        <Route path='/historial' element={<Historial />}></Route>
+                    </Routes>
+                </PartidaContextProvider>
             </BrowserRouter>
 
 
