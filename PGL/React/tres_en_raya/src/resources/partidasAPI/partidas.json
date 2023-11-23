@@ -1,54 +1,8 @@
 {
   "partidas": [
     {
-      "id": 2,
-      "J1": "jose",
-      "J2": "miguel",
-      "tablero": [
-        [
-          "O",
-          "",
-          ""
-        ],
-        [
-          "X",
-          "O",
-          ""
-        ],
-        [
-          "",
-          "X",
-          "O"
-        ]
-      ],
-      "ganador": "J1 jose"
-    },
-    {
-      "id": 3,
-      "J1": "Ángel",
-      "J2": "Juanma",
-      "tablero": [
-        [
-          "X",
-          "",
-          ""
-        ],
-        [
-          "O",
-          "X",
-          ""
-        ],
-        [
-          "O",
-          "O",
-          "X"
-        ]
-      ],
-      "ganador": "J2 Juanma"
-    },
-    {
-      "id": 4,
-      "J1": "Johan",
+      "id": 1,
+      "J1": "Pepe",
       "J2": "Lara",
       "tablero": [
         [
@@ -67,7 +21,30 @@
           "O"
         ]
       ],
-      "ganador": "J1: Johan"
+      "ganador": "J1"
+    },
+    {
+      "id": 2,
+      "J1": "Pepe",
+      "J2": "Juanma",
+      "tablero": [
+        [
+          "O",
+          "",
+          ""
+        ],
+        [
+          "X",
+          "O",
+          ""
+        ],
+        [
+          "",
+          "X",
+          "O"
+        ]
+      ],
+      "ganador": "J1"
     }
   ]
 }

@@ -7,6 +7,7 @@ type Props = {}
 
 const useTablero = () => {
     const [valor, setValor] = useState(false);
+    const [pintar, setPintar] = useState(true);
     const {partida, setpartida} = usePartidaContext();
     const { guardarPartidaJSON } = usePartida();
     
@@ -17,13 +18,15 @@ const useTablero = () => {
     ]);
 
     function agregarACelda(fila: number, columna: number) {
-        if (!tablero[fila][columna]) {
-            const nuevoTablero = [...tablero];
-            const nuevoValor: string = valor ? "X" : "O";
-            setValor(!valor);
-            nuevoTablero[fila][columna] = nuevoValor;
-            setTablero(nuevoTablero);
-            condicionVictoria(nuevoTablero);
+        if(pintar){
+            if (!tablero[fila][columna]) {
+                const nuevoTablero = [...tablero];
+                const nuevoValor: string = valor ? "X" : "O";
+                setValor(!valor);
+                nuevoTablero[fila][columna] = nuevoValor;
+                setTablero(nuevoTablero);
+                condicionVictoria(nuevoTablero);
+            }
         }
     }
 
@@ -33,51 +36,47 @@ const useTablero = () => {
         valores.forEach(valor => {
             for (let i: number = 0; i < 3; i++) {
                 if (tablero[i][0] === valor && tablero[i][1] === valor && tablero[i][2] === valor) {
-                    let nuevaPartida: Partida = salvarPartida(valor);
-                    alert("Victoria para "+nuevaPartida.getGanador()); 
+                    salvarPartida(valor);
                 }
                 if (tablero[0][i] === valor && tablero[1][i] === valor && tablero[2][i] === valor) {
-                    let nuevaPartida: Partida = salvarPartida(valor);
-                    alert("Victoria para "+nuevaPartida.getGanador()); 
+                    salvarPartida(valor);
                 }
             }
             //diagonal principal
             if (tablero[0][0] === valor && tablero[1][1] === valor && tablero[2][2] === valor) {
-                let nuevaPartida: Partida = salvarPartida(valor);
-                alert("Victoria para "+nuevaPartida.getGanador()); 
+                salvarPartida(valor); 
             }
         
             // diagonal secundaria
             if (tablero[0][2] === valor && tablero[1][1] === valor && tablero[2][0] === valor) {
-                let nuevaPartida: Partida = salvarPartida(valor);
-                alert("Victoria para "+nuevaPartida.getGanador()); 
+                salvarPartida(valor);
             }
         });
     }
 
-    function salvarPartida(valor: string): Partida{
+    function salvarPartida(valor: string){
         const nuevaPartida = new Partida(partida.getId(), partida.getJ1(), partida.getJ2(), tablero, descubrirGanador(valor));
         setpartida(nuevaPartida);
         //console.log(nuevaPartida);
+        setPintar(false);
         guardarPartidaJSON(nuevaPartida);
-        return nuevaPartida;
     }
     
     function descubrirGanador(valor: string): string{
-        let ganador: string = "J2: "+partida.getJ2();
+        let ganador: string = "J2";
         if(valor === "O"){
-            ganador = "J1: "+partida.getJ1();
+            ganador = "J1";
         }
         
         return ganador;
     }
 
-    const renderizarTabla = () => (
-        <table border={1} style={{ width: '300px', height: '300px' }}>
+    const renderizarTabla = (tablero: string[][], width: number = 300, height: number = 300) => (
+        <table border={1} style={{ width: `${width}px`, height:`${height}px` }}>
             {tablero.map((fila, indiceFila) => (
                 <tr key={indiceFila}>
                     {fila.map((celda, indiceColumna) => (
-                        <td style={{ width: '100px', height: '100px' }} key={indiceColumna} onClick={() => agregarACelda(indiceFila, indiceColumna)}>{celda}</td>
+                        <td style={{ width: `${width/3}px`, height:`${height/3}px` }} key={indiceColumna} onClick={() => agregarACelda(indiceFila, indiceColumna)}>{celda}</td>
                     ))}
                 </tr>
             ))}

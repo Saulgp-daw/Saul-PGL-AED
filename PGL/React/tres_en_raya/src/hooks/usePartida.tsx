@@ -12,6 +12,8 @@ type Props = {}
 const usePartida = () => {
     const { arrayPartidas, setArrayPartidas, ruta } = useObtenerPartidas();
     const {partida, setpartida} = usePartidaContext();
+    const [iniciar, setIniciar] = useState(false);
+    
 
     function obtenerId() {
         let ultimoId: number = 0;
@@ -30,7 +32,7 @@ const usePartida = () => {
         let tablero: string[][] = [[]];
         let nuevaPartida: Partida = new Partida(obtenerId(), nombreJ1, nombreJ2, tablero, "inacabada");
         setpartida(nuevaPartida);
-
+        setIniciar(true);
         console.log(partida);
         //guardarPartida();
         
@@ -49,7 +51,13 @@ const usePartida = () => {
         }
         axiospost();
     }
-    return { crearPartida, guardarPartidaJSON, partida }
+
+    function cargarPartida(partida: Partida){
+        setpartida(partida);
+        console.log(partida);
+        
+    }
+    return { crearPartida, guardarPartidaJSON, cargarPartida, partida, iniciar, setIniciar }
 }
 
 export default usePartida
