@@ -37,7 +37,7 @@ const Tablero: React.FC<Props> = () => {
             {iniciar ? (
                 <div>
                     {renderizarTabla(tablero)}
-                    <p>Estado de la partida: Resultado - {partida.getGanador()}</p>
+                    <p>Estado de la partida: Ganador - {partida.getGanador()}</p>
                 </div>
             ) : null}
 
