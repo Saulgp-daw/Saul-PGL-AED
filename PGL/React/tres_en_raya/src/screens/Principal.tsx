@@ -10,7 +10,6 @@ type Props = {}
 const Principal = (props: Props) => {
     return (
         <div>
-            <h3>Tres en raya</h3>
             <BrowserRouter>
                 <Navbar />
                 <PartidaContextProvider>

@@ -2,6 +2,7 @@ import React from 'react'
 import useTablero from '../hooks/useTablero';
 import usePartida from '../hooks/usePartida';
 import { usePartidaContext } from '../contexts/PartidaContextProvider';
+import "../styles/tablero.css";
 
 type Props = {}
 
@@ -12,7 +13,7 @@ const Tablero: React.FC<Props> = () => {
 
 
     return (
-        <div>
+        <div className='tablero'>
             <h3>Tablero</h3>
             <form onSubmit={(e) => crearPartida(e)}>
                 {iniciar ? (

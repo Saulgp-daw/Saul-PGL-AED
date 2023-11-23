@@ -70,29 +70,6 @@
       "ganador": "J1"
     },
     {
-      "id": 5,
-      "J1": "Empate",
-      "J2": "porfa",
-      "tablero": [
-        [
-          "X",
-          "O",
-          "X"
-        ],
-        [
-          "O",
-          "O",
-          "X"
-        ],
-        [
-          "O",
-          "X",
-          "O"
-        ]
-      ],
-      "ganador": "Empate"
-    },
-    {
       "id": 7,
       "J1": "Saúl",
       "J2": "Juanma",

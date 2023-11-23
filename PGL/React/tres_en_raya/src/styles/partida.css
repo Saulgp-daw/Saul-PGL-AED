@@ -1,0 +1,13 @@
+.historial {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+
+.partida {
+    display: flex;
+    align-items: center;
+    margin: 0.8rem;
+    background-color: rgb(207, 211, 210);
+    padding: 1rem;
+}

@@ -1,0 +1,24 @@
+.tablero {
+    display: block;
+    margin: auto;
+    width: fit-content;
+}
+
+.tablero h3 {
+    text-align: center;
+}
+
+.tablero>div>table {
+    margin: 1rem auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form button {
+    display: block;
+    margin: 1rem auto;
+}
