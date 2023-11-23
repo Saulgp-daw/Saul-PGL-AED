@@ -3,8 +3,6 @@ import { usePartidaContext } from '../contexts/PartidaContextProvider';
 import { Partida } from '../models/Partida';
 import usePartida from './usePartida';
 
-type Props = {}
-
 const useTablero = () => {
     const [valor, setValor] = useState(false);
     const [pintar, setPintar] = useState(true);
@@ -32,6 +30,13 @@ const useTablero = () => {
 
     function condicionVictoria(tablero: string[][]) {
         const valores: string[] = ["O", "X"];
+        for(let i: number = 0; i < tablero.length; i++) {
+            for(let j: number = 0; j < tablero.length; j++) {
+                if (tablero[i][0]) {
+                    salvarPartida(valor);
+                }
+            }
+        }
 
         valores.forEach(valor => {
             for (let i: number = 0; i < 3; i++) {

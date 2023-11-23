@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import useTablero from '../hooks/useTablero';
 import usePartida from '../hooks/usePartida';
 import { usePartidaContext } from '../contexts/PartidaContextProvider';

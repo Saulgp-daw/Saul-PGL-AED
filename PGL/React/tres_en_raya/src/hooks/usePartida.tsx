@@ -4,15 +4,14 @@ import axios from 'axios';
 import useObtenerPartidas from './useObtenerPartidas';
 import { useState } from 'react';
 import { Partida } from '../models/Partida';
-import useTablero from './useTablero';
 import { usePartidaContext } from '../contexts/PartidaContextProvider';
 
-type Props = {}
 
 const usePartida = () => {
-    const { arrayPartidas, setArrayPartidas, ruta } = useObtenerPartidas();
+    const { arrayPartidas, ruta } = useObtenerPartidas();
     const {partida, setpartida} = usePartidaContext();
     const [iniciar, setIniciar] = useState(false);
+    const navigate = useNavigate();
     
 
     function obtenerId() {
@@ -52,12 +51,21 @@ const usePartida = () => {
         axiospost();
     }
 
-    function cargarPartida(partida: Partida){
-        setpartida(partida);
-        console.log(partida);
-        
+    function borrarPartidaJSON(partida: Partida) {
+        const axiosDelete = async () => {
+            try {
+                const response = await axios.delete(ruta + partida.getId());
+                console.log(response);
+                navigate("/");
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        axiosDelete();
     }
-    return { crearPartida, guardarPartidaJSON, cargarPartida, partida, iniciar, setIniciar }
+
+
+    return { crearPartida, guardarPartidaJSON, borrarPartidaJSON, partida, iniciar, setIniciar }
 }
 
 export default usePartida
