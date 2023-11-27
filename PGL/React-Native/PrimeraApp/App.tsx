@@ -34,6 +34,8 @@ import Practica23 from './src/screens/Practica23';
 import AgregarTarea from './src/components/AgregarTarea';
 import TareaContextProvider from './src/contexts/TareaContextProvider';
 import SideMenu from './src/navigators/SideMenu';
+import Tabs from './src/navigators/Tabs';
+import Practica27 from './src/screens/Practica27';
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -100,11 +102,21 @@ function App(): JSX.Element {
   );
 }
 
+
 //Practica24
 // function App(): JSX.Element {
 //   return (
 //     <NavigationContainer>
 //       <SideMenu />
+//     </NavigationContainer>
+//   );
+// }
+
+//Tabs
+// function App(): JSX.Element {
+//   return (
+//     <NavigationContainer>
+//       <Practica27 />
 //     </NavigationContainer>
 //   );
 // }

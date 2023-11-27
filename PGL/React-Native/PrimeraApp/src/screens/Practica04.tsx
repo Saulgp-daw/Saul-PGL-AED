@@ -8,12 +8,12 @@ const Practica04 = (props: Props) => {
   return (
     <View style={styles.principal}>
       <Text>Practica04</Text>
-      <View style={{flex: 1, borderColor: "black", borderWidth: 2, justifyContent: "center"}}>
-        <Caja color={'white'}/>
-        <Caja color={'green'}/>
-        <Caja color={'purple'}/>
+      <View style={{ flex: 1, borderColor: "black", borderWidth: 2, justifyContent: "center" }}>
+        <Caja color={'white'} />
+        <Caja color={'green'} />
+        <Caja color={'purple'} />
       </View>
-      
+
     </View>
   )
 }
@@ -21,11 +21,11 @@ const Practica04 = (props: Props) => {
 export default Practica04
 
 const styles = StyleSheet.create({
-    principal: {
-        backgroundColor: "lightblue",
-        flex: 1,
-        padding: 10
-        
+  principal: {
+    backgroundColor: "lightblue",
+    flex: 1,
+    padding: 10
 
-    }
+
+  }
 })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { usePartidaContext } from '../contexts/PartidaContextProvider';
 import { Partida } from '../models/Partida';
 import usePartida from './usePartida';
@@ -8,6 +8,30 @@ const useTablero = () => {
     const [pintar, setPintar] = useState(true);
     const { partida, setpartida } = usePartidaContext();
     const { guardarPartidaJSON } = usePartida();
+
+    // useEffect(() => {
+
+    //     
+    //         let filaRandom: number = 0;
+    //         let columnaRandom: number = 0;
+    //         console.log(tablero);
+
+    //         do {
+    //             filaRandom = Math.floor(Math.random() * 2);
+    //             columnaRandom = Math.floor(Math.random() * 2);
+    //         } while (tablero[filaRandom][columnaRandom] != "");
+
+
+    //         agregarACelda(filaRandom, columnaRandom);
+
+    //         console.log(filaRandom);
+    //         console.log(columnaRandom);
+    //     
+
+
+
+
+    // }, [valor == true]);
 
     const [tablero, setTablero] = useState<string[][]>([
         ["", "", ""],
@@ -27,7 +51,11 @@ const useTablero = () => {
                 condicionVictoria(nuevoTablero);
             }
         }
+
+
     }
+
+
 
     function condicionVictoria(tablero: string[][]) {
         const valores: string[] = ["O", "X"];

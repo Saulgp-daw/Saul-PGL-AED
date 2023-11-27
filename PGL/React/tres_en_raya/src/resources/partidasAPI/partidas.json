@@ -1,29 +1,6 @@
 {
   "partidas": [
     {
-      "id": 2,
-      "J1": "Pepe",
-      "J2": "Juanma",
-      "tablero": [
-        [
-          "O",
-          "",
-          ""
-        ],
-        [
-          "X",
-          "O",
-          ""
-        ],
-        [
-          "",
-          "X",
-          "O"
-        ]
-      ],
-      "ganador": "J1"
-    },
-    {
       "id": 3,
       "J1": "Pepe",
       "J2": "Luis",
@@ -47,18 +24,41 @@
       "ganador": "J2"
     },
     {
-      "id": 4,
-      "J1": "yutyu",
-      "J2": "tyutyu",
+      "id": 5,
+      "J1": "Juan",
+      "J2": "Josema",
       "tablero": [
         [
           "X",
           "O",
-          "O"
+          "X"
         ],
         [
-          "X",
           "O",
+          "O",
+          "X"
+        ],
+        [
+          "O",
+          "X",
+          "O"
+        ]
+      ],
+      "ganador": "Empate"
+    },
+    {
+      "id": 6,
+      "J1": "sdfsfd",
+      "J2": "sfsdf",
+      "tablero": [
+        [
+          "O",
+          "",
+          ""
+        ],
+        [
+          "O",
+          "X",
           "X"
         ],
         [
@@ -71,13 +71,13 @@
     },
     {
       "id": 7,
-      "J1": "Saúl",
-      "J2": "Juanma",
+      "J1": "fdgd",
+      "J2": "dfgdfg",
       "tablero": [
         [
           "O",
           "X",
-          "X"
+          "O"
         ],
         [
           "X",
@@ -86,7 +86,7 @@
         ],
         [
           "O",
-          "O",
+          "X",
           "X"
         ]
       ],
@@ -94,8 +94,54 @@
     },
     {
       "id": 8,
-      "J1": "jgj",
-      "J2": "ytutyu",
+      "J1": "tert",
+      "J2": "ertert",
+      "tablero": [
+        [
+          "O",
+          "O",
+          "O"
+        ],
+        [
+          "X",
+          "O",
+          "X"
+        ],
+        [
+          "O",
+          "X",
+          "X"
+        ]
+      ],
+      "ganador": "Empate"
+    },
+    {
+      "id": 9,
+      "J1": "ewrwer",
+      "J2": "werwr",
+      "tablero": [
+        [
+          "X",
+          "O",
+          "X"
+        ],
+        [
+          "O",
+          "O",
+          "X"
+        ],
+        [
+          "O",
+          "X",
+          "O"
+        ]
+      ],
+      "ganador": "Empate"
+    },
+    {
+      "id": 10,
+      "J1": "dgdg",
+      "J2": "erter",
       "tablero": [
         [
           "O",
@@ -103,63 +149,17 @@
           "X"
         ],
         [
-          "",
           "O",
-          ""
+          "X",
+          "X"
         ],
         [
-          "",
-          "",
-          "O"
+          "X",
+          "O",
+          "X"
         ]
       ],
-      "ganador": "J1"
-    },
-    {
-      "id": 9,
-      "J1": "dsfsfd",
-      "J2": "sdfsdf",
-      "tablero": [
-        [
-          "",
-          "",
-          "O"
-        ],
-        [
-          "O",
-          "X",
-          "O"
-        ],
-        [
-          "X",
-          "X",
-          "O"
-        ]
-      ],
-      "ganador": "J1"
-    },
-    {
-      "id": 10,
-      "J1": "retert",
-      "J2": "retter",
-      "tablero": [
-        [
-          "O",
-          "O",
-          "O"
-        ],
-        [
-          "X",
-          "X",
-          ""
-        ],
-        [
-          "",
-          "",
-          ""
-        ]
-      ],
-      "ganador": "J1"
+      "ganador": "Empate"
     }
   ]
 }

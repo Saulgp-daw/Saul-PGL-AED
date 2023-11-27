@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="examenSaulAED_2023_11_17/examenSaulInstitutoJPA/src/main/java"/>
+	<classpathentry kind="src" path="examenSaulAED_2023_11_17/examenSaulInstitutoJPA/src/test/java"/>
+	<classpathentry kind="output" path="examenSaulAED_2023_11_17/examenSaulInstitutoJPA/target/classes"/>
+</classpath>
