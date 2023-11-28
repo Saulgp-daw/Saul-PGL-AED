@@ -1,13 +1,13 @@
-package es.iespuertodelacruz.saul.Gente;
+package es.iespuertodelacruz.jm.prueba2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootV2Application {
+public class Prueba2Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootV2Application.class, args);
+		SpringApplication.run(Prueba2Application.class, args);
 	}
 
 }

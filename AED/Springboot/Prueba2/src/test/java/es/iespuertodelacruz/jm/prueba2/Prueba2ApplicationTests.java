@@ -1,10 +1,10 @@
-package es.iespuertodelacruz.saul.Gente;
+package es.iespuertodelacruz.jm.prueba2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBootV2ApplicationTests {
+class Prueba2ApplicationTests {
 
 	@Test
 	void contextLoads() {

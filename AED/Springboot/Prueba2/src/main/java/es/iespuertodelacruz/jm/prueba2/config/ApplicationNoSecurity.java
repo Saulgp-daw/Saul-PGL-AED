@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.saul.config;
+package es.iespuertodelacruz.jm.prueba2.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
