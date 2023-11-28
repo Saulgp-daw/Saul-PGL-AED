@@ -4,7 +4,7 @@
  *
  * @format
  */
-
+import 'react-native-gesture-handler';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -24,36 +24,15 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import AgregarTarea from './src/components/AgregarTarea';
+import TareaContextProvider from './src/contexts/TareaContextProvider';
+import Practica23 from './src/screens/Practica23';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const Stack = createNativeStackNavigator();
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -63,9 +42,14 @@ function App(): JSX.Element {
   };
 
   return (
-      <View>
-        <Text>Hello world</Text>
-      </View>
+    <NavigationContainer>
+      <TareaContextProvider>
+        <Stack.Navigator>
+          <Stack.Screen name="Tareas" component={Practica23} />
+          <Stack.Screen name="AgregarTarea" component={AgregarTarea} />
+        </Stack.Navigator>
+      </TareaContextProvider>
+    </NavigationContainer>
   );
 }
 
