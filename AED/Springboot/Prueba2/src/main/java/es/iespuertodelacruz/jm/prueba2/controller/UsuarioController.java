@@ -11,50 +11,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.iespuertodelacruz.jm.prueba2.entity.Persona;
-import es.iespuertodelacruz.jm.prueba2.repository.IPersonaRepository;
+import es.iespuertodelacruz.jm.prueba2.entity.Usuario;
+import es.iespuertodelacruz.jm.prueba2.repository.IUsuarioRepository;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/personas")
-public class PruebaController {
-	
+@RequestMapping("/usuarios")
+public class UsuarioController {
 	@Autowired 
-	private IPersonaRepository personaRepository;
+	private IUsuarioRepository usuarioRepository;
 	
 	@GetMapping("/getAll")
 	public ResponseEntity<?> findAll(){
-		List<Persona> lista = personaRepository.findAll();
+		List<Usuario> lista = usuarioRepository.findAll();
 		return ResponseEntity.ok(lista);
 	}
 	
 	@GetMapping("/findById")
 	public ResponseEntity<?> findById(@RequestParam Integer id){
-		Optional<Persona> persona = personaRepository.findById(id);
-		return ResponseEntity.ok(persona);
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		return ResponseEntity.ok(usuario);
 	}
 	
 	@GetMapping("/findByName")
 	public ResponseEntity<?> findByName(@RequestParam String name){
-		List<Persona> personas = personaRepository.findByName("%"+name+"%");
-		return ResponseEntity.ok(personas);
+		List<Usuario> usuarios = usuarioRepository.findByName("%"+name+"%");
+		return ResponseEntity.ok(usuarios);
 	}
 	
 	@GetMapping("/deleteById")
 	public ResponseEntity<?> deleteById(@RequestParam Integer id){
-		personaRepository.deleteById(id);
+		usuarioRepository.deleteById(id);
 		return ResponseEntity.ok("Ok");
 	}
 	
 	@GetMapping("/save")
-	public ResponseEntity<?> save(@RequestParam String nombre, @RequestParam Integer edad){
-		Persona p = new Persona();
-		p.setEdad(edad);
-		p.setNombre(nombre);
-		Persona persona = personaRepository.save(p);
-		return ResponseEntity.ok(persona);
+	public ResponseEntity<?> save(@RequestParam String nombre, @RequestParam String password, @RequestParam String rol){
+		Usuario u = new Usuario();
+		u.setNombre(nombre);
+		u.setPassword(password);
+		u.setRol(rol);
+		Usuario usuario = usuarioRepository.save(u);
+		return ResponseEntity.ok(usuario);
 	}
-	
-	
-	
 }
