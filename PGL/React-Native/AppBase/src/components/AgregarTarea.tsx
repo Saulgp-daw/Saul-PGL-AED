@@ -8,7 +8,7 @@ import { useRoute } from '@react-navigation/native';
 import { RouteProp } from '@react-navigation/native';
 
 type RootStackParamList = {
-  AgregarTarea: { tareita?: Tarea }; // Define la forma de los parámetros de la ruta
+    AgregarTarea: { tareita?: Tarea }; // Define la forma de los parámetros de la ruta
 };
 
 type AgregarTareaScreenRouteProp = RouteProp<RootStackParamList, 'AgregarTarea'>;
@@ -24,7 +24,7 @@ const AgregarTarea = ({ navigation, route }: Props) => {
     const [titulo, setTitulo] = useState(tareita?.getTitulo() || "");
     const [descripcion, setDescripcion] = useState(tareita?.getContenido() || "");
     const [completada, setCompletada] = useState(tareita?.getCompletado() || false);
-    
+
     function obtenerId(): number {
         let id: number = 0;
         if (tareas.length > 0) {
@@ -38,7 +38,7 @@ const AgregarTarea = ({ navigation, route }: Props) => {
 
         if (titulo.trim() != "" && descripcion.trim() != "") {
             const nuevaTarea = tareita ? new Tarea(tareita.getId(), titulo, descripcion, completada) : new Tarea(obtenerId(), titulo, descripcion, completada);
-            const nuevasTareas = tareita? tareas.map(t => (t.getId() === tareita.getId() ? nuevaTarea : t)) : [...tareas, nuevaTarea];
+            const nuevasTareas = tareita ? tareas.map(t => (t.getId() === tareita.getId() ? nuevaTarea : t)) : [...tareas, nuevaTarea];
             settareas(nuevasTareas);
             navigation.goBack();
         } else {
