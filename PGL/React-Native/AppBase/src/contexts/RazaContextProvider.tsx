@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState, useContext, createContext } from 'react'
 import { Raza } from '../models/Raza';
 
-interface RazaArray extends Array<Raza[]> {}
+interface RazaArray extends Array<Raza[]> { }
 
 //interfaz
 export interface RazaContextType {
@@ -24,19 +24,19 @@ const defaultRazas: RazaArray = [
     ],
     [
         new Raza(1, 'gato', 'Calico', 'calico.jpg'),
-        new Raza(2, 'gato', 'Bangalí', 'bengali.jpg'),
-        new Raza(3, 'gato', 'Bombay', 'bombay.jpg'),
-        new Raza(4, 'gato', 'Angora', 'angora.jpg'),
-        new Raza(5, 'gato', 'Manx', 'manx.jpg'),
-        new Raza(6, 'gato', 'Noruega de los Bosques', 'noruega_de_los_bosques.webp'),
-        new Raza(7, 'gato', 'Ragdoll', 'ragdoll.png'),
-        new Raza(8, 'gato', 'Siamés', 'siames.png')
+        new Raza(2, 'gato', 'Bangalí', '../resources/practica26/Gatos/bengali.jpg'),
+        new Raza(3, 'gato', 'Bombay', '../resources/practica26/Gatos/bombay.jpg'),
+        new Raza(4, 'gato', 'Angora', '../resources/practica26/Gatos/angora.jpg'),
+        new Raza(5, 'gato', 'Manx', '../resources/practica26/Gatos/manx.jpg'),
+        new Raza(6, 'gato', 'Noruega de los Bosques', '../resources/practica26/Gatos/noruega_de_los_bosques.webp'),
+        new Raza(7, 'gato', 'Ragdoll', '../resources/practica26/Gatos/ragdoll.png'),
+        new Raza(8, 'gato', 'Siamés', '../resources/practica26/Gatos/siames.png')
     ]
 ];
 
 const RazaContext = createContext<RazaContextType>({
     razas: defaultRazas,
-    setrazas: () => {}
+    setrazas: () => { }
 });
 
 //Proveedor

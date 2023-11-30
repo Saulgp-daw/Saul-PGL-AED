@@ -3,10 +3,14 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import Tabs from '../navigators/Tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
 
 type Props = {}
 
+export type RootStackParamList = {
+    Tareas: undefined;
+    AgregarTarea: undefined;
+    HomeScreen: undefined;
+}
 
 const Practica27 = (props: Props) => {
     return (
