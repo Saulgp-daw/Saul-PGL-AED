@@ -10,14 +10,21 @@ const PokemonScreen = ({ navigation }: Props) => {
     const { pokemon } = usePokemonContext();
     const [ filtrado, setFiltrado] = useState<PokemonData[]>(pokemon);
 
-
+  function filtrarPokemon (nombre: string){
+    
+    const pokemonFiltrados: PokemonData[] = pokemon.filter( poke => {
+      return poke.nombre.toLowerCase().includes(nombre.toLowerCase());
+    })
+    
+    setFiltrado(pokemonFiltrados);
+  }
 
 
     return (
         <View style={{ flex: 1 }}>
-          <TextInput style={{ backgroundColor: "#6da2f7" }} placeholder='Busca aquí por nombre'></TextInput>
+          <TextInput style={{ backgroundColor: "#6da2f7" }} placeholder='Busca aquí por nombre' onChangeText={(valor) => filtrarPokemon(valor)}></TextInput>
         <FlatList
-          data={pokemon}
+          data={filtrado}
           renderItem={({ item }) => (
             <TouchableOpacity
               key={item.dexEntry}
