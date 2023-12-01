@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useState, useContext, createContext } from 'react'
 import { Tarea } from '../models/Tarea';
 
+//interfaz
 export interface TareasContextType {
     tareas: Tarea[];
     settareas: Dispatch<SetStateAction<Tarea[]>>;

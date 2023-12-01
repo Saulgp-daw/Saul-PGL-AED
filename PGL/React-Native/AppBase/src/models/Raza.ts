@@ -2,7 +2,7 @@ class Raza {
     private id: number;
     private tipo: string;
     private nombre: string;
-    private imagen: string;
+    public imagen: string;
 
     constructor(id: number, tipo: string, nombre: string, imagen: string = "") {
         this.id = id;

@@ -1,13 +1,21 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import TabPokemon from '../navigators/TabPokemon'
+import usePokemon from '../hooks/usePokemon'
+import PokemonContextProvider from '../contexts/PokemonContextProvider'
 
 type Props = {}
 
 const Practica28 = (props: Props) => {
+    //usePokemon();
+
     return (
-        <View>
-            <Text>Practica28</Text>
-        </View>
+        <NavigationContainer>
+            <PokemonContextProvider>
+                <TabPokemon />
+            </PokemonContextProvider>
+        </NavigationContainer>
     )
 }
 
