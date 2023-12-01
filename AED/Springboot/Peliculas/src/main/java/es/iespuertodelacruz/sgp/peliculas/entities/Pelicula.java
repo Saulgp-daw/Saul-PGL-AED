@@ -4,6 +4,8 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the Peliculas database table.
@@ -31,6 +33,7 @@ public class Pelicula implements Serializable {
 	private String trailer;
 
 	//bi-directional many-to-many association to Categoria
+	@JsonIgnore
 	@ManyToMany(fetch= FetchType.LAZY)
 	@JoinTable(
 		name="PeliculaCategoria"
