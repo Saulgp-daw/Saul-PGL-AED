@@ -22,18 +22,18 @@ const PokemonCard = ({ navigation, route }: Props) => {
 
 	return (
 		<View style={{ flex: 1 }}>
-			<Image source={{ uri: poke?.render }} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
-			<Text style={{ fontSize: 30 }}>#{poke?.dexEntry}</Text>
-			
-			<View style={{  flexDirection: 'row'}}>
-			<Text>Tipo: </Text>
+			<Image source={{ uri: poke?.render }} style={{ width: 200, height: 200, resizeMode: 'contain', flex: 1, alignSelf: 'center' }} />
+			<Text style={{ fontSize: 30, alignSelf: 'center' }}>#{poke?.dexEntry}</Text>
+
+			<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+				<Text>Tipo: </Text>
 				{
 					poke?.tipo.map(tipo => (
 						<Text key={tipo}>{tipo} </Text>
 					))
 				}
 			</View>
-			<Text>Habilidades: {poke?.habilidad.join(', ')}</Text>
+			<Text style={{ alignSelf: 'center' }}>Habilidades: {poke?.habilidad.join(', ')}</Text>
 
 			<ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
 				<View style={{ flexDirection: 'row' }}>
@@ -42,13 +42,15 @@ const PokemonCard = ({ navigation, route }: Props) => {
 					))}
 				</View>
 			</ScrollView>
-
-
-
 		</View>
 	)
 }
 
 export default PokemonCard
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+	fairy: {
+		backgroundColor: 'pink'
+	}
+
+})
