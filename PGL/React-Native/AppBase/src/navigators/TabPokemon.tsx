@@ -1,12 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Practica04 from '../screens/Practica04';
-import Practica05 from '../screens/Practica05';
-import CambiarPagina from '../components/CambiarPagina';
-import StackNavigation from './StackNavigation';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StackNavigationPokemon from './Practica28/StackNavigationPokemon';
 import { usePokemonContext } from '../contexts/PokemonContextProvider';
+import StackNavigationBusqueda from './Practica28/StackNavigationBusqueda';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +12,7 @@ const TabPokemon = (props: any) => {
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }} >
             <Tab.Screen name='Pokemon' component={StackNavigationPokemon} />
-            <Tab.Screen name='Practica05' component={Practica05} />
+            <Tab.Screen name='Pokedex' component={StackNavigationBusqueda} />
         </Tab.Navigator>
     )
 }

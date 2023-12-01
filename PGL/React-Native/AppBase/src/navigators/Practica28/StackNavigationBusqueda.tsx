@@ -1,24 +1,23 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { usePokemonContext } from '../../contexts/PokemonContextProvider';
-import PokemonScreen from '../../screens/Practica28/PokemonScreen';
 import PokemonCard from '../../components/Practica28/PokemonCard';
+import PokedexScreen from '../../screens/Practica28/PokedexScreen';
 
 type Props = {}
 const Stack = createNativeStackNavigator();
 
-const StackNavigationPokemon = (props: Props) => {
+const StackNavigationBusqueda = (props: Props) => {
    
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name='Lista de Pokemon' component={PokemonScreen} />
+            <Stack.Screen name='Lista de Pokemon' component={PokedexScreen} />
             <Stack.Screen name='PokemonCard' component={PokemonCard} />
         </Stack.Navigator>
     )
 }
 
-export default StackNavigationPokemon
+export default StackNavigationBusqueda
 
 const styles = StyleSheet.create({})
