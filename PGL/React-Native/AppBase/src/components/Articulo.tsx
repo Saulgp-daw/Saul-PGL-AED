@@ -4,7 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 import WebView from 'react-native-webview';
 
 type RootStackParamList = {
-    element: { articulo: any }
+    element: { articulo: string }
 }
 
 type ScreenRouteProp = RouteProp<RootStackParamList, "element">;
@@ -22,11 +22,19 @@ const Articulo = ({ navigation, route }: Props) => {
     const generateHTML = () => {
         if (articulo) {
 
+            const styledContent = `<style>
+                                        body {
+                                        font-size: 36px;
+                                        margin: 10px;
+                                        }
+                                    </style>
+                                    ${articulo}`;
+
             const htmlContent = `<html>
-            <body>
-              ${articulo}
-            </body>
-          </html>`;
+                                    <body>
+                                    ${styledContent}
+                                    </body>
+                                </html>`;
 
             return htmlContent;
 
