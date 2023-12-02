@@ -28,6 +28,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Practica26 from './src/screens/Practica26';
 import RazaContextProvider from './src/contexts/RazaContextProvider';
 import Practica28 from './src/screens/Practica28';
+import Practica31 from './src/screens/Practica31';
+import StackNavigation from './src/navigators/StackNavigation';
+import StackNoticias from './src/navigators/StackNoticias';
 
 type SectionProps = PropsWithChildren<{
 	title: string;
@@ -67,7 +70,8 @@ const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
 
 	return (
-		<Practica28/>
+		
+		<StackNoticias/>
 	);
 }
 
