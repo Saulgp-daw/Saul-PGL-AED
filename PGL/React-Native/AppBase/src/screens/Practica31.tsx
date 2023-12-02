@@ -19,7 +19,6 @@ const Practica31 = ({ navigation }: Props) => {
                 const response = await axios.get(uri);
                 const data = response.data;
                 AsyncStorage.setItem(uri, JSON.stringify(data));
-                //console.log(data);
                 const responseData = await rssParser.parse(data);
                 //console.log(responseData);
                 setArticulos(responseData);
