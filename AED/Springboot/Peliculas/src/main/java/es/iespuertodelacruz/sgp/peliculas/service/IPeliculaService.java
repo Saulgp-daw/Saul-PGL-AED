@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import es.iespuertodelacruz.sgp.peliculas.entities.Pelicula;
 import es.iespuertodelacruz.sgp.peliculas.repository.IPeliculaRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class IPeliculaService implements IGenericService<Pelicula, Integer> {
@@ -17,18 +18,30 @@ public class IPeliculaService implements IGenericService<Pelicula, Integer> {
 	@Override
 	public Iterable<Pelicula> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return peliculaRepository.findAll();
 	}
 
 	@Override
 	public Optional<Pelicula> findById(Integer id) {
+		
 		// TODO Auto-generated method stub
-		return Optional.empty();
+		return peliculaRepository.findById(id);
 	}
 
 	@Override
-	public Pelicula save(Pelicula element) {
-		// TODO Auto-generated method stub
+	@Transactional
+	public Pelicula save(Pelicula peli) {
+		
+		try {
+			Optional<Pelicula> pelicula = peliculaRepository.findById(peli.getId());
+			
+		}catch(Exception ex) {
+			throw 
+		}
+		
+		
+		
+		
 		return null;
 	}
 

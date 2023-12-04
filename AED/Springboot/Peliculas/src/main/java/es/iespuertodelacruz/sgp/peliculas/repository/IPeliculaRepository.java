@@ -18,6 +18,9 @@ public interface IPeliculaRepository extends JpaRepository<Pelicula, Integer>{
 	@Query("SELECT p FROM Pelicula AS p WHERE p.titulo LIKE :titulo")
 	public List<Pelicula>findByNameNative(String titulo);
 	
+	@Query("DELETE FROM Peliculas WHERE p.id")
+	public void delete(Pelicula p);
+	
 	@Modifying
 	@Query(
 			value = "INSERT INTO Peliculas (id, titulo, direccion, actores, argumento, imagen, trailer)"

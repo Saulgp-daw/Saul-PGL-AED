@@ -12,6 +12,7 @@ type Props = {
 const Practica31 = ({ navigation }: Props) => {
     const [articulos, setArticulos] = useState<rssParser.Feed | undefined>();
     const uri: string = 'https://www.xataka.com/feedburner.xml';
+    const [visitadas, setVisitadas] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -46,9 +47,16 @@ const Practica31 = ({ navigation }: Props) => {
                 <FlatList data={articulos.items} renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.elementos}
-                        onPress={() => navigation.navigate('Articulo', { articulo: item.description })}
+                        onPress={() => { navigation.navigate('Articulo', { articulo: item.description }); setVisitadas([...visitadas, item.title]) }}
                     >
-                        <Text style={styles.estiloTexto}>{item.title}</Text>
+                        {
+                            visitadas.includes(item.title) ? (
+                                <Text style={styles.estiloVisitada}>{item.title}</Text>
+                            ) : (
+                                <Text style={styles.estiloTexto}>{item.title}</Text>
+                            )
+                        }
+
                     </TouchableOpacity>
                 )} />
             ) : (
@@ -75,6 +83,9 @@ const styles = StyleSheet.create({
     estiloTexto: {
         color: "blue",
         textDecorationLine: "underline"
-
+    },
+    estiloVisitada: {
+        color: "purple",
+        textDecorationLine: "underline"
     }
 })
