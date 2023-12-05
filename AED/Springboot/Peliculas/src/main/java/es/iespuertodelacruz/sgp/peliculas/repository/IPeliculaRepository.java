@@ -19,10 +19,10 @@ public interface IPeliculaRepository extends JpaRepository<Pelicula, Integer>{
 	@Query("SELECT p FROM Pelicula AS p WHERE p.titulo LIKE :titulo")
 	public List<Pelicula>findByNameNative(String titulo);
 	
-	@Query("DELETE FROM Peliculas WHERE p.id")
-	public void delete(Pelicula p);
+	@Query("DELETE FROM Pelicula WHERE id = :id")
+	public void deleteById(int id);
 	
-	@Query(value = "DELETE FROM Peliculas where :id", nativeQuery = true )
+	@Query(value = "DELETE FROM Peliculas where id = :id", nativeQuery = true )
 	public Boolean deleteNative(int id);
 	
 	@Modifying
@@ -41,8 +41,11 @@ public interface IPeliculaRepository extends JpaRepository<Pelicula, Integer>{
 	);
 	
 	@Query(
-			value = "UPDATE Peliculas SET titulo = :titulo, direccion = :direccion, actores = :actores, argumento = :argumento, imagen = :imagen, trailer = :trailer"+
-					"WHERE id = :id;",
+			value = "UPDATE Peliculas AS p "
+					+"JOIN PeliculaCategoria AS pc ON pc.pelicula_id = id "
+					+"SET titulo = :titulo, direccion = :direccion, actores = :actores, argumento = :argumento, imagen = :imagen, trailer = :trailer, pc.categoria_id = :categoria_id"
+					+"WHERE id = :id ",
+					
 			nativeQuery = true
 			)
 	public Boolean updateNative(
@@ -51,7 +54,8 @@ public interface IPeliculaRepository extends JpaRepository<Pelicula, Integer>{
 			String direccion,
 			String actores,
 			String imagen,
-			String trailer
+			String trailer,
+			int categoria_id
 	);
 	
 	
