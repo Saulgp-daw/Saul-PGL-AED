@@ -1,6 +1,7 @@
 package es.iespuertodelacruz.sgp.peliculas.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,13 +22,16 @@ public interface IPeliculaRepository extends JpaRepository<Pelicula, Integer>{
 	@Query("DELETE FROM Peliculas WHERE p.id")
 	public void delete(Pelicula p);
 	
+	@Query(value = "DELETE FROM Peliculas where :id", nativeQuery = true )
+	public Boolean deleteNative(int id);
+	
 	@Modifying
 	@Query(
 			value = "INSERT INTO Peliculas (id, titulo, direccion, actores, argumento, imagen, trailer)"
 					+ "VALUES (:id, :titulo, :direccion, :actores, :argumento, :imagen, :trailer);",
 			nativeQuery = true		
 	)
-	List<Pelicula> saveNative(
+	Optional<Pelicula> saveNative(
 			int id, 
 			String titulo, 
 			String direccion,
@@ -35,4 +39,20 @@ public interface IPeliculaRepository extends JpaRepository<Pelicula, Integer>{
 			String imagen,
 			String trailer
 	);
+	
+	@Query(
+			value = "UPDATE Peliculas SET titulo = :titulo, direccion = :direccion, actores = :actores, argumento = :argumento, imagen = :imagen, trailer = :trailer"+
+					"WHERE id = :id;",
+			nativeQuery = true
+			)
+	public Boolean updateNative(
+			int id,
+			String titulo,
+			String direccion,
+			String actores,
+			String imagen,
+			String trailer
+	);
+	
+	
 }

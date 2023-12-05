@@ -27,6 +27,13 @@ public class IPeliculaService implements IGenericService<Pelicula, Integer> {
 		// TODO Auto-generated method stub
 		return peliculaRepository.findById(id);
 	}
+	
+	@Override
+	public void deleteById(Integer id) {
+		// TODO Auto-generated method stub
+		Boolean borrado = peliculaRepository.deleteNative(id);
+	}
+	
 
 	@Override
 	@Transactional
@@ -34,22 +41,27 @@ public class IPeliculaService implements IGenericService<Pelicula, Integer> {
 		
 		try {
 			Optional<Pelicula> pelicula = peliculaRepository.findById(peli.getId());
+			if(pelicula == null) {
+				peliculaRepository.save(peli);
+				
+			}
 			
 		}catch(Exception ex) {
-			throw 
+			System.out.println("No se pudo guardar");
 		}
-		
-		
-		
-		
 		return null;
 	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
+	
+	@Transactional
+	public Pelicula update(Pelicula peli) {
+		
+		
+		return peli;
 		
 	}
+
+	
+	
 
 	
 
