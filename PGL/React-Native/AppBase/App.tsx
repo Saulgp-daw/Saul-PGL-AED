@@ -32,11 +32,13 @@ import Practica26 from './src/screens/Practica26';
 import RazaContextProvider from './src/contexts/RazaContextProvider';
 import Practica28 from './src/screens/Practica28';
 import Practica31 from './src/screens/Practica31';
-import StackNavigation from './src/navigators/StackNavigation';
+import StackNavigation from './src/navigators/Proyecto/StackNavigation';
 import StackNoticias from './src/navigators/StackNoticias';
 import { DataSource } from 'typeorm';
 import { dataSource, PersonaRepository } from "./src/data/Database"
 import { Persona } from './src/data/entity/Persona';
+import Navbar from './src/components/Proyecto/Navbar';
+import Login from './src/screens/Proyecto/Login';
 
 
 type SectionProps = PropsWithChildren<{
@@ -82,39 +84,50 @@ const Stack = createNativeStackNavigator();
 // 	);
 // }
 
-function App(): JSX.Element {
-	const [personas, setPersonas] = useState<Persona[]>([]);
-	async function grabar() {
-		const array = ["Ana", "Martino", "Rebeca"];
-		let neopersonas = [];
-		for (let i = 0; i < 3; i++) {
-			const randomPositionArray = Math.floor(array.length * Math.random());
-			const nombre = array[randomPositionArray];
-			const edad = Math.round(Math.random() * 100) + 1;
-			const persona = {
-				nombre: nombre,
-				edad: edad
-			};
-			neopersonas.push(persona);
-			await PersonaRepository.save(neopersonas);
-			const newpersonas = await PersonaRepository.find();
-			setPersonas(newpersonas);
-		}
-	}
+// function App(): JSX.Element {
+// 	const [personas, setPersonas] = useState<Persona[]>([]);
+// 	async function grabar() {
+// 		const array = ["Ana", "Martino", "Rebeca"];
+// 		let neopersonas = [];
+// 		for (let i = 0; i < 3; i++) {
+// 			const randomPositionArray = Math.floor(array.length * Math.random());
+// 			const nombre = array[randomPositionArray];
+// 			const edad = Math.round(Math.random() * 100) + 1;
+// 			const persona = {
+// 				nombre: nombre,
+// 				edad: edad
+// 			};
+// 			neopersonas.push(persona);
+// 			await PersonaRepository.save(neopersonas);
+// 			const newpersonas = await PersonaRepository.find();
+// 			setPersonas(newpersonas);
+// 		}
+// 	}
 
-	useEffect(() => {
-		async function iniciarDDBB() {
-			await dataSource.initialize();
-		}
-		iniciarDDBB();
-	}, [])
+// 	useEffect(() => {
+// 		async function iniciarDDBB() {
+// 			await dataSource.initialize();
+// 		}
+// 		iniciarDDBB();
+// 	}, [])
+
+// 	return (
+// 		<View style={{ flex: 1 }}>
+// 			<FlatList data={personas} renderItem={(p) => <Text>{p.item.id + " " + p.item.nombre}</Text>} keyExtractor={(it, index) => "" + index} />
+// 			<Button title='Crear Personas' onPress={grabar} />
+
+// 		</View>
+// 	);
+// }
+
+//Practica 26
+function App(): JSX.Element {
 
 	return (
-		<View style={{ flex: 1 }}>
-			<FlatList data={personas} renderItem={(p) => <Text>{p.item.id + " " + p.item.nombre}</Text>} keyExtractor={(it, index) => "" + index} />
-			<Button title='Crear Personas' onPress={grabar} />
+		<NavigationContainer>
+			<StackNavigation />
 
-		</View>
+		</NavigationContainer>
 	);
 }
 
