@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		backgroundColor: "#2bfc23"
+		backgroundColor: "#2bfc23",
 	},
 
 	circleContainer: {
