@@ -3,16 +3,18 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../../screens/Proyecto/Login';
 import Busqueda from '../../screens/Proyecto/Busqueda';
-import Piso from './Piso';
+import Piso from '../../screens/Proyecto/Piso';
+import PerfilPublico from '../../screens/Proyecto/PerfilPublico';
 type Props = {}
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = (props: Props) => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name='Login' component={Login} />
-            <Stack.Screen name='Busqueda' component={Busqueda} />
-            <Stack.Screen name='Piso' component={Piso} />
+            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name='Busqueda' component={Busqueda} options={{ headerShown: false }} />
+            <Stack.Screen name='Piso' component={Piso} options={{ headerShown: false }} />
+            <Stack.Screen name='PerfilPublico' component={PerfilPublico} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }

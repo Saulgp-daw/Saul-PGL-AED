@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import React from 'react'
 import Navbar from '../../components/Proyecto/Navbar'
 import Slider from '../../components/Proyecto/Slider'
-import Piso from '../../navigators/Proyecto/Piso'
+import Piso from './Piso'
 
 type Props = {
   navigation: any,

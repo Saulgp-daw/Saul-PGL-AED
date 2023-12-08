@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { View, Text, FlatList, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Piso from '../../navigators/Proyecto/Piso';
+import Piso from '../../screens/Proyecto/Piso';
 
 
 type SliderProps = {

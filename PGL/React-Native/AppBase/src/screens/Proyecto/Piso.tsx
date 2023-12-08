@@ -1,12 +1,15 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import React from 'react'
 import Slider from '../../components/Proyecto/Slider'
 import Navbar from '../../components/Proyecto/Navbar'
 import Icon from 'react-native-vector-icons/Fontisto';
+import PerfilPublico from './PerfilPublico';
 
-type Props = {}
+type Props = {
+    navigation: any;
+}
 
-const Piso = (props: Props) => {
+const Piso = ({navigation}: Props) => {
     const electrodomesticos: string[] = ["Nevera", "Microondas", "Horno", "Plancha", "Cafetera", "Lavadora", "Lavavajillas", "Secadora", "TV"];
 
     return (
@@ -40,6 +43,14 @@ const Piso = (props: Props) => {
                             </View>
                         ))}
                     </View>
+                </View>
+                <View>
+                    <Text>Inquilinos actuales: </Text>
+                    <TouchableHighlight onPress={()=> navigation.navigate("PerfilPublico")} >
+                        <Text>Pepe</Text>
+                    </TouchableHighlight>
+                    <Text>Mario</Text>
+                    <Text>Luisa</Text>
                 </View>
             </ScrollView>
 
