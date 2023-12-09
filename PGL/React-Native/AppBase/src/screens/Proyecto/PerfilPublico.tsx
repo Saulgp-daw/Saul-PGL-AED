@@ -2,14 +2,16 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Navbar from '../../components/Proyecto/Navbar';
 
-type Props = {}
+type Props = {
+    navigation: any,
+  }
 
-const PerfilPublico = (props: Props) => {
+const PerfilPublico = ({ navigation }: Props) => {
     const perfil = "../../resources/Proyecto/perfil2.jpeg";
     const pisos: string[] = ["Mayorazgo suite", "Pisos Picados"]
     return (
         <View style={{ flex: 1 }}>
-            <Navbar />
+            <Navbar navigation={navigation} />
             <View style={styles.container}>
                 <View style={styles.circleContainer}>
                     <Image source={require(perfil)} style={styles.imgPerfil} />
@@ -19,8 +21,8 @@ const PerfilPublico = (props: Props) => {
 
                 <Text>Piso actual: <Text style={styles.enlacePiso}>Villa Arriba</Text></Text>
                 <Text>Pisos en los que ha estado: </Text>
-                {pisos.map(piso => (
-                    <Text style={styles.enlacePiso} >{piso},</Text>
+                {pisos.map((piso, index) => (
+                    <Text key={index} style={styles.enlacePiso} >{piso},</Text>
                 ))}
                 <Text>Fecha última estancia: 2023/05/12</Text>
                 <TouchableOpacity style={styles.btnValorar}>

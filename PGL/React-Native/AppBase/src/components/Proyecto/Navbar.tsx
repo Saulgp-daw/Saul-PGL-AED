@@ -1,13 +1,17 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import PerfilPrivado from '../../screens/Proyecto/PerfilPrivado';
 
 
-type Props = {}
+type Props = {
+	navigation: any;
+}
 const Drawer = createDrawerNavigator();
 
-const Navbar = (props: Props) => {
+
+const Navbar = ({navigation}: Props) => {
 	const perfil = "../../resources/Proyecto/perfil.jpg";
 
 	
@@ -15,7 +19,7 @@ const Navbar = (props: Props) => {
 		<View style={styles.navbar} >
 			<TouchableOpacity><Icon name='menu' size={30}></Icon></TouchableOpacity>
 			<View style={styles.circleContainer}>
-				<Image source={require(perfil)} style={styles.imgPerfil} />
+				<TouchableHighlight onPress={() => navigation.navigate(PerfilPrivado)} ><Image source={require(perfil)} style={styles.imgPerfil} /></TouchableHighlight>
 			</View>
 		</View>
 	)

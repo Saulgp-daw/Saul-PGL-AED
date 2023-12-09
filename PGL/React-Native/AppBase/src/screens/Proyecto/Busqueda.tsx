@@ -11,7 +11,7 @@ type Props = {
 const Busqueda = ({ navigation }: Props) => {
   return (
     <View style={{ flex: 1 }}>
-      <Navbar />
+      <Navbar navigation={navigation} />
       <ScrollView style={styles.busqueda}>
         <TouchableOpacity onPress={() => navigation.navigate('Piso')} >
           <View style={styles.caja} >

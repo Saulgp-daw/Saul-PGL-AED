@@ -14,7 +14,7 @@ const Piso = ({navigation}: Props) => {
 
     return (
         <View style={styles.container}>
-            <Navbar />
+            <Navbar navigation={navigation} />
             <ScrollView style={styles.container} >
                 <Slider images={[
                     { id: 1, source: require('../../resources/Proyecto/piso1.jpg') },
@@ -46,11 +46,14 @@ const Piso = ({navigation}: Props) => {
                 </View>
                 <View>
                     <Text>Inquilinos actuales: </Text>
+                    <Text>Mario 3.4⭐</Text>
+                    <Text>Luisa 4⭐</Text>
+                </View>
+                <View>
+                    <Text>Propietario: </Text>
                     <TouchableHighlight onPress={()=> navigation.navigate("PerfilPublico")} >
-                        <Text>Pepe</Text>
+                        <Text>Pepe 5⭐</Text>
                     </TouchableHighlight>
-                    <Text>Mario</Text>
-                    <Text>Luisa</Text>
                 </View>
             </ScrollView>
 
