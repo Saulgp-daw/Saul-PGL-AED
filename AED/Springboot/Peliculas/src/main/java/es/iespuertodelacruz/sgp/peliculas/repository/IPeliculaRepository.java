@@ -22,8 +22,11 @@ public interface IPeliculaRepository extends JpaRepository<Pelicula, Integer>{
 	@Query("DELETE FROM Pelicula WHERE id = :id")
 	public void deleteById(int id);
 	
-	@Query(value = "DELETE FROM Peliculas where id = :id", nativeQuery = true )
-	public Boolean deleteNative(int id);
+	@Query(value = "DELETE FROM peliculacategoria WHERE pelicula_id = :id ", nativeQuery = true )
+	public Boolean deleteIntermediaNative(int id); 
+	
+	@Query(value = "DELETE FROM peliculas WHERE id = :id ", nativeQuery = true )
+	public Boolean deletePeliculaNative(int id); 
 	
 	@Modifying
 	@Query(

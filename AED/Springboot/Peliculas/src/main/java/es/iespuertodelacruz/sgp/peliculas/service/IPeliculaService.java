@@ -31,14 +31,21 @@ public class IPeliculaService implements IGenericService<Pelicula, Integer> {
 	
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		Boolean borrado = peliculaRepository.deleteNative(id);
+		// TODO Auto-generated method stub 
+		peliculaRepository.deleteById(id);
+	}
+	
+	
+	public Boolean delete(Integer id) {
+		// TODO Auto-generated method stub 
+		peliculaRepository.deleteIntermediaNative(id); //java.sql.SQLException: Statement.executeQuery() cannot issue statements that do not produce result sets.
+		return peliculaRepository.deletePeliculaNative(id);
 	}
 	
 	@Transactional
 	public Pelicula update(Pelicula peli) {
 		Optional<Pelicula> peliculaExistente = peliculaRepository.findById(peli.getId());
-		if(peliculaExistente != null) {
+		if(peliculaExistente.isPresent()) {
 			for (Categoria c : peliculaExistente.get().getCategorias()) {
 				c.getPeliculas().remove(peliculaExistente);
 			}
@@ -50,6 +57,8 @@ public class IPeliculaService implements IGenericService<Pelicula, Integer> {
 			}
 		}
 		
+		Optional<Pelicula> findById = peliculaRepository.findById(peli.getId());
+		Pelicula peliculaModificada = findById.get();
 		return peli;
 		
 	}
