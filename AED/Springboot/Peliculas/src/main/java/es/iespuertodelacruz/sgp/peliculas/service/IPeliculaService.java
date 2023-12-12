@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.sgp.peliculas.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import es.iespuertodelacruz.sgp.peliculas.entities.Categoria;
 import es.iespuertodelacruz.sgp.peliculas.entities.Pelicula;
 import es.iespuertodelacruz.sgp.peliculas.repository.IPeliculaRepository;
 import jakarta.transaction.Transactional;
+
 
 @Service
 public class IPeliculaService implements IGenericService<Pelicula, Integer> {
@@ -29,18 +31,38 @@ public class IPeliculaService implements IGenericService<Pelicula, Integer> {
 		return peliculaRepository.findById(id);
 	}
 	
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub 
-		peliculaRepository.deleteById(id);
+	@Transactional
+	public void deleteByIdNative(Integer id) {
+		peliculaRepository.deleteIntermediaNative(id);
+		peliculaRepository.deletePeliculaNative(id);	
 	}
 	
+	@Override
+	@Transactional
+	public void deleteById(Integer id) {
+		
+		Optional<Pelicula> opt = peliculaRepository.findById(id);
+		if(!opt.isPresent()) {
+			return;
+		}
+		
+		Pelicula pelicula = opt.get();
+		List<Categoria> cats = pelicula.getCategorias();
+		if( cats != null) {
+			for( Categoria c : cats) {
+				c.getPeliculas().remove(pelicula);
+			}
+			cats.clear();
+		}
+		peliculaRepository.delete(pelicula);
+	}
 	
+	/*
 	public Boolean delete(Integer id) {
 		// TODO Auto-generated method stub 
 		peliculaRepository.deleteIntermediaNative(id); //java.sql.SQLException: Statement.executeQuery() cannot issue statements that do not produce result sets.
 		return peliculaRepository.deletePeliculaNative(id);
-	}
+	}*/
 	
 	@Transactional
 	public Pelicula update(Pelicula peli) {
@@ -60,25 +82,29 @@ public class IPeliculaService implements IGenericService<Pelicula, Integer> {
 		Optional<Pelicula> findById = peliculaRepository.findById(peli.getId());
 		Pelicula peliculaModificada = findById.get();
 		return peli;
-		
 	}
 	
 
 	@Override
 	@Transactional
 	public Pelicula save(Pelicula peli) {
-		
+		Pelicula peliGuardada = null;
 		try {
-			Optional<Pelicula> pelicula = peliculaRepository.findById(peli.getId());
-			if(pelicula == null) {
-				peliculaRepository.save(peli);
-				
+			//Encuentro la película
+			//Optional<Pelicula> pelicula = peliculaRepository.findById(peli.getId());
+			//La guardo independientemente de que tenga o no categorias para así poder persistir en la bbdd si necesita cambios
+			peliGuardada = peliculaRepository.save(peli);
+			//guardo en mi peli guardada las categorias de la que se pasa por parámetro
+			peliGuardada.setCategorias(peli.getCategorias());
+			//recorro todas las categorias de la peli guardada y a esa tabla le añado la pelicula que tengo
+			for(Categoria c : peliGuardada.getCategorias()) {
+				c.getPeliculas().add(peliGuardada);
 			}
 			
 		}catch(Exception ex) {
 			System.out.println("No se pudo guardar");
 		}
-		return null;
+		return peliGuardada;
 	}
 	
 	

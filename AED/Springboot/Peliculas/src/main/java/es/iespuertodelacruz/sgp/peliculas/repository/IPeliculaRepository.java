@@ -10,6 +10,15 @@ import org.springframework.stereotype.Repository;
 
 import es.iespuertodelacruz.sgp.peliculas.entities.Pelicula;
 
+
+/*
+ * 
+ * 
+ * categorias peliculas
+ * peliculas_categorias
+ * categorias_peliculas
+ */
+
 @Repository
 public interface IPeliculaRepository extends JpaRepository<Pelicula, Integer>{
 	
@@ -19,14 +28,14 @@ public interface IPeliculaRepository extends JpaRepository<Pelicula, Integer>{
 	@Query("SELECT p FROM Pelicula AS p WHERE p.titulo LIKE :titulo")
 	public List<Pelicula>findByNameNative(String titulo);
 	
-	@Query("DELETE FROM Pelicula WHERE id = :id")
-	public void deleteById(int id);
 	
-	@Query(value = "DELETE FROM peliculacategoria WHERE pelicula_id = :id ", nativeQuery = true )
-	public Boolean deleteIntermediaNative(int id); 
+	@Modifying
+	@Query(value = "DELETE FROM pelicula_categoria WHERE pelicula_id = :id ", nativeQuery = true )
+	public void deleteIntermediaNative(int id); 
 	
+	@Modifying
 	@Query(value = "DELETE FROM peliculas WHERE id = :id ", nativeQuery = true )
-	public Boolean deletePeliculaNative(int id); 
+	public void deletePeliculaNative(int id); 
 	
 	@Modifying
 	@Query(

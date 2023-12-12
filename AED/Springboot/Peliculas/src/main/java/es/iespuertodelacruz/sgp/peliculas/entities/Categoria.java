@@ -4,6 +4,8 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the Categorias database table.
@@ -21,6 +23,7 @@ public class Categoria implements Serializable {
 	private String nombre;
 
 	//bi-directional many-to-many association to Pelicula
+	@JsonIgnore
 	@ManyToMany(mappedBy="categorias")
 	private List<Pelicula> peliculas;
 

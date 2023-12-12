@@ -23,4 +23,9 @@ const StackNavigation = (props: Props) => {
 
 export default StackNavigation
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+    darkMode: {
+        backgroundColor: 'black'
+    }
+})

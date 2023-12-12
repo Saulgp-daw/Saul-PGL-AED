@@ -18,6 +18,7 @@ public class Pelicula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String actores;
@@ -33,12 +34,12 @@ public class Pelicula implements Serializable {
 	private String trailer;
 
 	//bi-directional many-to-many association to Categoria
-	@JsonIgnore
+	
 	@ManyToMany(fetch= FetchType.LAZY)
 	@JoinTable(
-		name="PeliculaCategoria"
-		, joinColumns={
-			@JoinColumn(name="id")
+		name="pelicula_categoria"
+		,joinColumns={
+			@JoinColumn(name="pelicula_id")
 			}
 		, inverseJoinColumns={
 			@JoinColumn(name="categoria_id")
