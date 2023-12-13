@@ -7,9 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import es.iespuertodelacruz.sgp.peliculas.entities.Categoria;
 import es.iespuertodelacruz.sgp.peliculas.entities.Pelicula;
@@ -32,7 +38,7 @@ class PeliculaServiceTest {
 	
 	@Test
 	void findAllService() {
-		List<Pelicula> findAll = peliculaService.findAll();
+		List<Pelicula> findAll = (List<Pelicula>) peliculaService.findAll();
 		assertNotNull(findAll);
 		assertTrue(findAll.size() == 17);
 	}

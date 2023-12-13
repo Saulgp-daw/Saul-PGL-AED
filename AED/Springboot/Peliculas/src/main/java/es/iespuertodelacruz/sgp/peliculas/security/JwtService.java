@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.sgp.peliculas.controller;
+package es.iespuertodelacruz.sgp.peliculas.security;
 
 import java.security.Key;
 import java.util.Date;

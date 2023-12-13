@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import es.iespuertodelacruz.sgp.peliculas.controller.JwtService;
 import es.iespuertodelacruz.sgp.peliculas.entities.Usuario;
 import es.iespuertodelacruz.sgp.peliculas.service.UsuarioService;
 
 @Service
-public class LoginService {
+public class AuthService {
 	@Autowired
 	private UsuarioService usuarioservice;
 	@Autowired
