@@ -53,7 +53,7 @@ public class PeliculaController {
 		
 		Pelicula save = peliculaService.save(pelicula);
 		if(save != null) {
-			return ResponseEntity.ok("Película guardada");
+			return ResponseEntity.ok(save);
 		}
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar la película");
