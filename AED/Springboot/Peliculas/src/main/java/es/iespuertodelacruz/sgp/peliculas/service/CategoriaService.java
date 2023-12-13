@@ -58,5 +58,15 @@ public class CategoriaService implements IGenericService<Categoria, Integer> {
 		categoriaRepository.delete(categoria);
 
 	}
+	
+	@Transactional
+	public Categoria update(Categoria cat) {
+		Optional<Categoria> findById = categoriaRepository.findById(cat.getId());
+		if(findById.isPresent()) {
+			findById.get().setNombre(cat.getNombre());
+		}
+		return findById.get();
+		
+	}
 
 }
