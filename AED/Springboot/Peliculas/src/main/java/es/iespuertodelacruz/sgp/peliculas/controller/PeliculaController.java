@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.sgp.peliculas.entities.Pelicula;
-import es.iespuertodelacruz.sgp.peliculas.service.IPeliculaService;
+import es.iespuertodelacruz.sgp.peliculas.service.PeliculaService;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api/peliculas")
 public class PeliculaController {
 	@Autowired
-	private IPeliculaService peliculaService;
+	private PeliculaService peliculaService;
 	
 	@GetMapping("")
 	public ResponseEntity<?> findAll(){

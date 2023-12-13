@@ -14,7 +14,7 @@ import es.iespuertodelacruz.sgp.peliculas.repository.IPeliculaRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class IPeliculaService implements IGenericService<Pelicula, Integer> {
+public class PeliculaService implements IGenericService<Pelicula, Integer> {
 
 	@Autowired
 	private IPeliculaRepository peliculaRepository;
@@ -129,11 +129,12 @@ public class IPeliculaService implements IGenericService<Pelicula, Integer> {
 			// recorro todas las categorias de la peli guardada y a esa tabla le añado la
 			// pelicula que tengo
 			for (Categoria c : peliGuardada.getCategorias()) {
-				c.getPeliculas().add(peliGuardada);
+				Optional<Categoria> findById = categoriaRepository.findById(c.getId());
+				findById.get().getPeliculas().add(peliGuardada);
 			}
 
 		} catch (Exception ex) {
-			System.out.println("No se pudo guardar");
+			System.out.println(ex);
 		}
 		return peliGuardada;
 	}
