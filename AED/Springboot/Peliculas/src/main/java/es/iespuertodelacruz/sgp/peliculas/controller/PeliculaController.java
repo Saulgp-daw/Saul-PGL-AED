@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.sgp.peliculas.entities.Pelicula;
-import es.iespuertodelacruz.sgp.peliculas.service.IPeliculaService;
+import es.iespuertodelacruz.sgp.peliculas.service.PeliculaService;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api/peliculas")
 public class PeliculaController {
 	@Autowired
-	private IPeliculaService peliculaService;
+	private PeliculaService peliculaService;
 	
 	@GetMapping("")
 	public ResponseEntity<?> findAll(){
@@ -53,7 +53,7 @@ public class PeliculaController {
 		
 		Pelicula save = peliculaService.save(pelicula);
 		if(save != null) {
-			return ResponseEntity.ok("Película guardada");
+			return ResponseEntity.ok(save);
 		}
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar la película");
