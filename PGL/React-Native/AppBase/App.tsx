@@ -35,10 +35,12 @@ import Practica31 from './src/screens/Practica31';
 import StackNavigation from './src/navigators/Proyecto/StackNavigation';
 import StackNoticias from './src/navigators/StackNoticias';
 import { DataSource } from 'typeorm';
-import { dataSource, PersonaRepository } from "./src/data/Database"
+import { dataSource, NoticiaRepository, FeedRepository } from "./src/data/Database"
 import { Persona } from './src/data/entity/Persona';
 import Navbar from './src/components/Proyecto/Navbar';
 import Login from './src/screens/Proyecto/Login';
+import StackNoticias2 from './src/navigators/StackNoticias2';
+import 'reflect-metadata';
 
 
 type SectionProps = PropsWithChildren<{
@@ -75,17 +77,19 @@ const Stack = createNativeStackNavigator();
 // 	);
 // }
 
+
+
 //Practica 31
 function App(): JSX.Element {
 	useEffect(() => {
-		async function iniciarDDBB(){
+		async function iniciarDDBB() {
 			await dataSource.initialize();
 		}
 		iniciarDDBB();
 	}, [])
 
 	return (
-		<StackNoticias />
+		<StackNoticias2 />
 	);
 }
 

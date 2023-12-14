@@ -12,6 +12,5 @@ export const dataSource = new DataSource({
     type: 'react-native'
 });
 
-export const PersonaRepository = dataSource.getRepository(Persona);
 export const NoticiaRepository = dataSource.getRepository(Noticia);
 export const FeedRepository = dataSource.getRepository(Feed);
