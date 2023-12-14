@@ -16,12 +16,20 @@ const ListaNoticiasNoVistas = ({ miFeed, navigation }: Props) => {
     const [noticias, setNoticias] = useState<Noticia[]>();
     console.log(feed);
 
+    async function actualizarNoticia(noticia: Noticia){
+        await NoticiaRepository.update(
+           { id: noticia.id},
+           { visto: true}
+        ).then(
+            navigation.navigate('Articulo', { articulo: noticia.descripcion })
+        )
+    }
+
     useEffect(() => {
         const cargarNoticias = async () => {
             const noticiasCargadas = await NoticiaRepository.find({
                 where: {
                     feed: { id: feed.id },
-
                 }
             });
             setNoticias(noticiasCargadas);
@@ -34,16 +42,20 @@ const ListaNoticiasNoVistas = ({ miFeed, navigation }: Props) => {
             <Text>Lista Noticias No Vistas</Text>
             {noticias != undefined && noticias.length === 0 ? null : (
                 <FlatList
-                    data={noticias}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                        <View>
-                            <TouchableHighlight onPress={() => { navigation.navigate('Articulo', { articulo: item.descripcion }); item.visto = true; }} >
-                                <Text>{item.titulo} </Text>
-                            </TouchableHighlight>
-                        </View>
-                    )}
-                />
+                data={noticias}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => {
+                    if (!item.visto) {
+                        return (
+                            <View>
+                                <TouchableHighlight onPress={() => { actualizarNoticia(item) }}>
+                                    <Text>{item.titulo} </Text>
+                                </TouchableHighlight>
+                            </View>
+                        );
+                    }
+                }}
+            />
             )}
         </View>
     )

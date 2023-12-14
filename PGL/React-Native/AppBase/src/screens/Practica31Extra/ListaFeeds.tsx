@@ -14,6 +14,8 @@ const ListaFeeds = ({ navigation }: Props) => {
     useEffect(() => {
         const cargarFeeds = async () => {
             const feeds = await FeedRepository.find();
+            console.log(feeds);
+            
             setLista(feeds);
         }
 

@@ -11,10 +11,6 @@ type Props = {}
 const CrearFeeds = (props: Props) => {
     const [titulo, setTitulo] = useState<string>();
     const [url, setUrl] = useState<string>();
-    const [feeds, setFeeds] = useState<Feed[]>();
-
-
-
 
     async function crearFeed() {
         let nuevaFeed = new Feed();
@@ -26,6 +22,8 @@ const CrearFeeds = (props: Props) => {
 
         try {
             const response = await axios.get(url);
+            console.log(response);
+            
             const data = response.data;
             const responseData = await rssParser.parse(data);
 
@@ -35,7 +33,7 @@ const CrearFeeds = (props: Props) => {
                 nuevaNoticia.descripcion = item.description;
                 nuevaNoticia.visto = false;
                 nuevaNoticia.feed = savedFeed;
-                NoticiaRepository.save(nuevaNoticia);
+                await NoticiaRepository.save(nuevaNoticia);
             }
 
             console.log(await FeedRepository.find());
