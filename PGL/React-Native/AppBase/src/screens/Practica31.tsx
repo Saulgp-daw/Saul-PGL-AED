@@ -33,7 +33,7 @@ const Practica31 = ({ navigation }: Props) => {
             }
         };
 
-        fetchData();
+        fetchData(); 
     }, [uri]);
 
     // useEffect(() => {
