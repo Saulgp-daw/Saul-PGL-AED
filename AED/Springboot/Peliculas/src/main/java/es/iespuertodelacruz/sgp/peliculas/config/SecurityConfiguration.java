@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import es.iespuertodelacruz.sgp.peliculas.security.JwtFilter;
 
-@Configuration
+//@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 	@Autowired
