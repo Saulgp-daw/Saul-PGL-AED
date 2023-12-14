@@ -6,7 +6,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Props = {
-    navigation: any;
+    navigation?: any;
 };
 
 const Practica31 = ({ navigation }: Props) => {
