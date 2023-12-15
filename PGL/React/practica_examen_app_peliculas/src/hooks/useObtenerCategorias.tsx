@@ -11,7 +11,7 @@ export interface iCategoria {
 
 const useObtenerCategorias = () => {
     const [categorias, setCategorias] = useState<iCategoria[]>([]);
-    const ruta: string = "http://localhost:3000/categorias";
+    const ruta: string = "http://localhost:8080/api/categorias";
 
 
     useEffect(() => {

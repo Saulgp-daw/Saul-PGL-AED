@@ -3,24 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { Pelicula } from '../models/Pelicula';
 import { useParams } from 'react-router-dom';
 import useObtenerCategorias from './useObtenerCategorias';
+import { iPelicula } from './useObtenerPeliculas';
+
 
 type Props = {
     id: string
 }
 
-interface iPelicula {
-    id: string,
-    titulo: string,
-    direccion: string,
-    actores: string,
-    argumento: string,
-    imagen: string,
-    trailer: string,
-    categoria: string
-}
+
 
 const useDetallePelicula = (id: string | undefined) => {
-    const ruta = "http://localhost:3000/peliculas/";
+    const ruta = "http://localhost:8080/api/peliculas/";
     const [pelicula, setPelicula] = useState<Pelicula>();
     const { categorias } = useObtenerCategorias();
 
@@ -40,7 +33,12 @@ const useDetallePelicula = (id: string | undefined) => {
     }, [categorias]);
 
     function convertirAObjetoPelicula(apiResponse: iPelicula): Pelicula{
-        const nombreCategoria = categorias.find( categoria => categoria.id.toString() == apiResponse.categoria)?.nombre || '';
+        //const nombreCategoria = categorias.find( categoria => categoria.id.toString() == apiResponse.categoria)?.nombre || '';
+        let categorias = "";
+
+        for(let nombre of apiResponse.categorias){
+          categorias += nombre.nombre+", ";
+        }
         return new Pelicula(
             apiResponse.id,
             apiResponse.titulo,
@@ -49,7 +47,7 @@ const useDetallePelicula = (id: string | undefined) => {
             apiResponse.argumento,
             apiResponse.imagen,
             apiResponse.trailer,
-            nombreCategoria
+            categorias
         );
     }
 

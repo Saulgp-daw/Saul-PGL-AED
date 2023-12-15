@@ -5,7 +5,7 @@ import useObtenerCategorias from './useObtenerCategorias';
 
 type Props = {}
 
-interface iPelicula {
+export interface iPelicula {
     id: string,
     titulo: string,
     direccion: string,
@@ -13,7 +13,12 @@ interface iPelicula {
     argumento: string,
     imagen: string,
     trailer: string,
-    categoria: string
+    categorias: iCategoria[]
+}
+
+interface iCategoria {
+  id: number,
+  nombre: string
 }
 
 export interface iPeliculas {
@@ -21,7 +26,7 @@ export interface iPeliculas {
 }
 
 const useObtenerPeliculas = () => {
-    const ruta = "http://localhost:3000/peliculas/";
+    const ruta = "http://localhost:8080/api/peliculas";
     const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
     const [buscador, setBuscador] = useState<iPeliculas>({ peliculas: [] });
     const { categorias } = useObtenerCategorias();
@@ -37,15 +42,25 @@ const useObtenerPeliculas = () => {
     
 
     useEffect(() => {
-      console.log("--categorias cargadas--");
+      //console.log(categorias);
+      
+      //console.log("--categorias cargadas--");
       
       
         async function recogerDatosPeliculas() {
           try {
             const response = await axios.get<iPelicula[]>(ruta);
+            //console.log("Response: ");
+           // console.log(response);
+            
             const peliculasGuardadas: iPeliculas = {
               peliculas: response.data.map((peliculaData: iPelicula) => {
-                const nombreCategoria = categorias.find( categoria => categoria.id.toString() == peliculaData.categoria)?.nombre || '';
+                //const nombreCategoria = categorias.find( categoria => categoria.id.toString() == peliculaData.categoria)?.nombre || '';
+                let categorias = "";
+
+                for(let nombre of peliculaData.categorias){
+                  categorias += nombre.nombre+", ";
+                }
                 return new Pelicula(
                   peliculaData.id,
                   peliculaData.titulo,
@@ -54,7 +69,7 @@ const useObtenerPeliculas = () => {
                   peliculaData.argumento,
                   peliculaData.imagen,
                   peliculaData.trailer,
-                  nombreCategoria
+                  categorias
                 );
               })
             };

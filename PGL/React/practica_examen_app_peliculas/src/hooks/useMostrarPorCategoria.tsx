@@ -10,6 +10,8 @@ const useMostrarPorCategoria = (id: string | undefined) => {
     const { categorias } = useObtenerCategorias();
     const { arrayPeliculas } = useObtenerPeliculas();
     const [pelisCategoria, setPelisCategoria] = useState<iPeliculas>({ peliculas: [] });
+    console.log(arrayPeliculas);
+    
 
     useEffect(() => {
         const peliculas = { peliculas : arrayPeliculas.peliculas.filter ( pelicula => {
