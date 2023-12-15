@@ -7,7 +7,7 @@ import { Categoria } from '../models/Categoria';
 type Props = {}
 
 export interface iPelicula {
-  id: string,
+  id: number,
   titulo: string,
   direccion: string,
   actores: string,

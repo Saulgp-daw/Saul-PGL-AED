@@ -11,6 +11,7 @@ import ListaNoticiasNoVistas from '../screens/Practica31Extra/ListaNoticiasNoVis
 import ListaNoticiasVistas from '../screens/Practica31Extra/ListaNoticiasVistas';
 import { Feed } from '../data/entity/Feed';
 import { RouteProp } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,10 +32,18 @@ const TabNoticias = ({ route }: Props) => {
 
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }} >
-            <Tab.Screen name='Vistas'>
+            <Tab.Screen name='Vistas' options={{
+                tabBarIcon: ({ color, size }) => (
+                    <Icon name="eye-off" size={30} />
+                ),
+            }}>
                 {(props) => <ListaNoticiasNoVistas {...props} miFeed={feed} />}
             </Tab.Screen>
-            <Tab.Screen name='No Vistas'>
+            <Tab.Screen name='No Vistas' options={{
+                tabBarIcon: ({ color, size }) => (
+                    <Icon name="eye" size={30} />
+                ),
+            }}>
                 {(props) => <ListaNoticiasVistas {...props} miFeed={feed} />}
             </Tab.Screen>
         </Tab.Navigator>

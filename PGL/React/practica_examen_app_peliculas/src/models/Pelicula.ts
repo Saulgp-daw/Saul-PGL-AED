@@ -1,7 +1,7 @@
 import { Categoria } from "./Categoria";
 
 class Pelicula {
-  private id: string;
+  private id: number;
   private titulo: string;
   private direccion: string;
   private actores: string;
@@ -11,7 +11,7 @@ class Pelicula {
   private categoria: Categoria[];
 
   constructor(
-    id: string,
+    id: number,
     titulo: string,
     direccion: string,
     actores: string,
@@ -30,11 +30,11 @@ class Pelicula {
     this.categoria = categoria;
   }
 
-  getId = (): string => {
+  getId = (): number => {
     return this.id;
   }
 
-  setId(id: string) {
+  setId(id: number) {
     this.id = id;
   }
 

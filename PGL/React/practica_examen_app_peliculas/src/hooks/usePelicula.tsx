@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Pelicula } from '../models/Pelicula'
 import { useNavigate } from 'react-router-dom';
 import useObtenerPeliculas from './useObtenerPeliculas';
+import { Categoria } from '../models/Categoria';
 
 type Props = {}
 
@@ -27,21 +28,21 @@ const usePelicula = () => {
     const navigate = useNavigate();
     const { arrayPeliculas } = useObtenerPeliculas();
 
-    function devolverUltimoId() {
-        if (arrayPeliculas.peliculas.length > 0) {
-            let ultimoId: string = parseInt(arrayPeliculas.peliculas[arrayPeliculas.peliculas.length - 1].getId()) + 1 + "";
-            //console.log(ultimoId);
-            if (ultimoId.length == 1) {
-                ultimoId = "00" + ultimoId;
-            } else if (ultimoId.length == 2) {
-                ultimoId = "0" + ultimoId;
-            }
-            //console.log(ultimoId);  
-            return ultimoId;
-        }
+    // function devolverUltimoId() {
+    //     if (arrayPeliculas.peliculas.length > 0) {
+    //         let ultimoId: string = parseInt(arrayPeliculas.peliculas[arrayPeliculas.peliculas.length - 1].getId()) + 1 + "";
+    //         //console.log(ultimoId);
+    //         if (ultimoId.length == 1) {
+    //             ultimoId = "00" + ultimoId;
+    //         } else if (ultimoId.length == 2) {
+    //             ultimoId = "0" + ultimoId;
+    //         }
+    //         //console.log(ultimoId);  
+    //         return ultimoId;
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
     function agregarPelicula(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -55,27 +56,30 @@ const usePelicula = () => {
             imagen = "default.gif";
         }
         let trailer: string = formulario.trailer.value ?? "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-        let categoria: string = formulario.categoria.value ?? "";
+        let categoriaValue: string = formulario.categoria.value ?? "";
+        let [categoriaId, categoriaNombre] = categoriaValue.split("|");
 
-        const nuevaPelicula = {
-            "id": devolverUltimoId(),
-            "titulo": titulo,
-            "direccion": direccion,
-            "actores": actores,
-            "argumento": argumento,
-            "imagen": imagen,
-            "trailer": trailer,
-            "categoria": categoria
-        }
+        // const nuevaPelicula = {
+        //     "id": devolverUltimoId(),
+        //     "titulo": titulo,
+        //     "direccion": direccion,
+        //     "actores": actores,
+        //     "argumento": argumento,
+        //     "imagen": imagen,
+        //     "trailer": trailer,
+        //     "categoria": categoria
+        // }
 
-        console.log(nuevaPelicula);
+        let peli = new Pelicula(0, titulo, direccion, actores, argumento, imagen, trailer, [new Categoria(parseInt(categoriaId), categoriaNombre)]);
+
+        console.log(peli);
 
 
         const axiospost = async () => {
             try {
-                const response = await axios.post(ruta, nuevaPelicula);
-                console.log(response.data);
-                navigate("/");
+                // const response = await axios.post(ruta, nuevaPelicula);
+                // console.log(response.data);
+                // navigate("/");
             } catch (error) {
                 console.log(error);
             }
