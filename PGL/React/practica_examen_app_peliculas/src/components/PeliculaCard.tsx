@@ -14,16 +14,7 @@ import "../styles/peliculacard.css"
 type Props = {
 }
 
-interface iPelicula {
-    id: string,
-    titulo: string,
-    direccion: string,
-    actores: string,
-    argumento: string,
-    imagen: string,
-    trailer: string,
-    categoria: string
-}
+
 
 
 const PeliculaCard = (props: Props) => {
@@ -57,10 +48,11 @@ const PeliculaCard = (props: Props) => {
                             <select name="categoria">
                                 {
                                     categorias.map(categoria => (
-                                        <option value={categoria.id} selected={categoria.nombre === pelicula?.getCategoria()}>{categoria.nombre}</option>
+                                        <option value={categoria.id} selected={categoria.nombre === pelicula?.getCategoria()[0].nombre}>{categoria.nombre}</option>
                                     ))
                                 }
                             </select>
+
                             <br />
                             <button onClick={habilitarInputs}>Cancelar</button>
                             <button type='submit'>Actualizar</button>
@@ -81,7 +73,7 @@ const PeliculaCard = (props: Props) => {
                         />
                         <span><span className="tipo">Dirección:</span> {pelicula?.getDireccion()}</span><br />
                         <span><span className="tipo">Reparto: </span>{pelicula?.getActores()}</span><br />
-                        <span><span className="tipo">Categoría:</span> {pelicula?.getCategoria()}</span><br />
+                        <span><span className="tipo">Categoría:</span> {pelicula?.getCategoriasComoString()}</span><br />
                         <span><span className="tipo">Sinópsis:</span> {pelicula?.getArgumento()}</span><br />
                         <button onClick={borrarPelicula}>Borrar</button>
                         <button onClick={habilitarInputs}>Modificar</button>

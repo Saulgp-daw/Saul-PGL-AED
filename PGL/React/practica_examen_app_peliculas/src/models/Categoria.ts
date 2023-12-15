@@ -1,17 +1,17 @@
 class Categoria {
     private id: number;
-    private nombre: string;
+    public nombre: string;
 
     constructor(id: number, nombre: string) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    getId(): number {
+    public getId(): number {
         return this.id;
     }
 
-    getNombre(): string {
+    public getNombre(): string {
         return this.nombre;
     }
 }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react'
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 type Props = {}
 
@@ -15,7 +15,7 @@ const useObtenerCategorias = () => {
 
 
     useEffect(() => {
-        async function recogerDatosCategorias(){
+        async function recogerDatosCategorias() {
             const response = await axios.get<iCategoria[]>(ruta);
             console.log(response.data);
             setCategorias(response.data);
@@ -24,7 +24,7 @@ const useObtenerCategorias = () => {
         recogerDatosCategorias();
     }, []);
 
-  return { categorias }
+    return { categorias }
 }
 
 export default useObtenerCategorias

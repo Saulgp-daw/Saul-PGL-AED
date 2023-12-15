@@ -16,10 +16,10 @@ const ListaNoticiasNoVistas = ({ miFeed, navigation }: Props) => {
     const [noticias, setNoticias] = useState<Noticia[]>();
     console.log(feed);
 
-    async function actualizarNoticia(noticia: Noticia){
+    async function actualizarNoticia(noticia: Noticia) {
         await NoticiaRepository.update(
-           { id: noticia.id},
-           { visto: true}
+            { id: noticia.id },
+            { visto: true }
         ).then(
             navigation.navigate('Articulo', { articulo: noticia.descripcion })
         )
@@ -34,28 +34,34 @@ const ListaNoticiasNoVistas = ({ miFeed, navigation }: Props) => {
             });
             setNoticias(noticiasCargadas);
         }
-        cargarNoticias();
-    }, [])
+        const unsubscribe = navigation.addListener("focus", () => {
+            cargarNoticias();
+        });
+
+        return unsubscribe;
+
+
+    }, [navigation])
 
     return (
         <View>
             <Text>Lista Noticias No Vistas</Text>
             {noticias != undefined && noticias.length === 0 ? null : (
                 <FlatList
-                data={noticias}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => {
-                    if (!item.visto) {
-                        return (
-                            <View>
-                                <TouchableHighlight onPress={() => { actualizarNoticia(item) }}>
-                                    <Text>{item.titulo} </Text>
-                                </TouchableHighlight>
-                            </View>
-                        );
-                    }
-                }}
-            />
+                    data={noticias}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => {
+                        if (!item.visto) {
+                            return (
+                                <View>
+                                    <TouchableHighlight onPress={() => { actualizarNoticia(item) }}>
+                                        <Text>{item.titulo} </Text>
+                                    </TouchableHighlight>
+                                </View>
+                            );
+                        }
+                    }}
+                />
             )}
         </View>
     )

@@ -13,7 +13,7 @@ type Props = {
 
 const PeliculaEnCatalogo = (props: Props) => {
     const pelicula = props.pelicula;
-    const uri: string = "http://localhost:8080/uploads/";
+    const uri: string = "http://localhost:8080/api/peliculas/ficheros/";
     const { agregarQuitarFavorita, pelisfavoritas } = useFavorita();
 
     return (
@@ -28,7 +28,7 @@ const PeliculaEnCatalogo = (props: Props) => {
                             (
                                 <FaStar className='favourite icon' />
                             ) : (
-                                <FaRegStar className='icon'/>
+                                <FaRegStar className='icon' />
                             )
 
                         }
@@ -37,7 +37,7 @@ const PeliculaEnCatalogo = (props: Props) => {
                 <br />
                 <span><span className="tipo">Dirección:</span> {pelicula.getDireccion()}</span><br />
                 <span><span className="tipo">Reparto:</span> {pelicula.getActores()}</span><br />
-                <span><span className="tipo">Categoría: </span>{pelicula.getCategoria()}</span><br />
+                <span><span className="tipo">Categoría: </span>{pelicula.getCategoriasComoString()}</span><br />
                 <span><span className='tipo'>Sinopsis:</span> {pelicula.getArgumento()}</span><br />
 
             </div>

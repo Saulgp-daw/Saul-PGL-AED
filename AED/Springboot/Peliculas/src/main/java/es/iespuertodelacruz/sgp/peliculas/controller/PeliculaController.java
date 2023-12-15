@@ -1,10 +1,14 @@
 package es.iespuertodelacruz.sgp.peliculas.controller;
 
+import java.io.IOException;
+import java.net.URLConnection;
 import java.util.Base64;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +26,6 @@ import es.iespuertodelacruz.sgp.peliculas.dto.PeliculaDTO;
 import es.iespuertodelacruz.sgp.peliculas.entities.Pelicula;
 import es.iespuertodelacruz.sgp.peliculas.service.FileStorageService;
 import es.iespuertodelacruz.sgp.peliculas.service.PeliculaService;
-import jakarta.transaction.Transactional;
 
 @RestController
 @CrossOrigin
@@ -93,7 +96,6 @@ public class PeliculaController {
 		}
 	}
 
-	
 	@PostMapping("/base64")
 	public ResponseEntity<?> nuevaPelicula(@RequestBody PeliculaDTO peliDto) {
 		Pelicula pelicula = new Pelicula();
@@ -102,13 +104,32 @@ public class PeliculaController {
 		pelicula.setArgumento(peliDto.getArgumento());
 		pelicula.setDireccion(peliDto.getDireccion());
 		pelicula.setTrailer(peliDto.getTrailer());
-		pelicula.setCategorias(peliDto.getLista());
+		pelicula.setCategorias(peliDto.getCategorias());
 		String codedfoto = peliDto.getFotoBase64();
 		byte[] photoBytes = Base64.getDecoder().decode(codedfoto);
 		String nombreNuevoFichero = storageService.save(peliDto.getNombreFichero(), photoBytes);
-		pelicula.setImagen(nombreNuevoFichero+".jpg");
+		pelicula.setImagen(nombreNuevoFichero + ".jpg");
 		Pelicula save = peliculaService.save(pelicula);
 		return ResponseEntity.ok(save);
+	}
+
+	@GetMapping("/ficheros/{filename}")
+	public ResponseEntity<?> getFiles(@PathVariable String filename) {
+		Resource resource = storageService.get(filename);
+		// Try to determine file's content type
+		String contentType = null;
+		try {
+			contentType = URLConnection.guessContentTypeFromStream(resource.getInputStream());
+		} catch (IOException ex) {
+			System.out.println("Could not determine file type.");
+		}
+		// Fallback to the default content type if type could not be determined
+		if (contentType == null) {
+			contentType = "application/octet-stream";
+		}
+		String headerValue = "attachment; filename=\"" + resource.getFilename() + "\"";
+		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
+				.header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, headerValue).body(resource);
 	}
 
 }

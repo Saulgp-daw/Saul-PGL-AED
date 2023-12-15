@@ -32,13 +32,13 @@ const useDetallePelicula = (id: string | undefined) => {
         recogerDatos();
     }, [categorias]);
 
-    function convertirAObjetoPelicula(apiResponse: iPelicula): Pelicula{
+    function convertirAObjetoPelicula(apiResponse: iPelicula): Pelicula {
         //const nombreCategoria = categorias.find( categoria => categoria.id.toString() == apiResponse.categoria)?.nombre || '';
-        let categorias = "";
+        // let categorias = "";
 
-        for(let nombre of apiResponse.categorias){
-          categorias += nombre.nombre+", ";
-        }
+        // for(let nombre of apiResponse.categorias){
+        //   categorias += nombre.nombre+", ";
+        // }
         return new Pelicula(
             apiResponse.id,
             apiResponse.titulo,
@@ -47,12 +47,12 @@ const useDetallePelicula = (id: string | undefined) => {
             apiResponse.argumento,
             apiResponse.imagen,
             apiResponse.trailer,
-            categorias
+            apiResponse.categorias
         );
     }
 
 
-    return {pelicula}
+    return { pelicula }
 }
 
 export default useDetallePelicula

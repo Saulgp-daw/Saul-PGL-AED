@@ -12,7 +12,7 @@ public class PeliculaDTO {
 	private String trailer;
 	private String fotoBase64;
 	private String nombreFichero;
-	private List<Categoria> lista;
+	private List<Categoria> categorias;
 	
 	public String getNombreFichero() {
 		return nombreFichero;
@@ -23,7 +23,7 @@ public class PeliculaDTO {
 	}
 
 	public PeliculaDTO(String titulo, String actores, String argumento, String direccion, String trailer,
-			String fotoBase64, String nombreFichero, List<Categoria> lista) {
+			String fotoBase64, String nombreFichero, List<Categoria> categorias) {
 		this.titulo = titulo;
 		this.actores = actores;
 		this.argumento = argumento;
@@ -31,15 +31,15 @@ public class PeliculaDTO {
 		this.trailer = trailer;
 		this.fotoBase64 = fotoBase64;
 		this.nombreFichero = nombreFichero;
-		this.lista = lista;
+		this.categorias = categorias;
 	}
 
-	public List<Categoria> getLista() {
-		return lista;
+	public List<Categoria> getCategorias() {
+		return categorias;
 	}
 
-	public void setLista(List<Categoria> lista) {
-		this.lista = lista;
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 
 	public PeliculaDTO() {

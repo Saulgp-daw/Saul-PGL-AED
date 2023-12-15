@@ -15,11 +15,28 @@ const ListaFeeds = ({ navigation }: Props) => {
         const cargarFeeds = async () => {
             const feeds = await FeedRepository.find();
             console.log(feeds);
-            
+
             setLista(feeds);
         }
 
+
+
+        const unsubscribe = navigation.addListener("focus", () => {
+            cargarFeeds();
+        });
+
+        return unsubscribe;
+    }, [navigation])
+
+    useEffect(() => {
+        const cargarFeeds = async () => {
+            const feeds = await FeedRepository.find();
+            console.log(feeds);
+
+            setLista(feeds);
+        }
         cargarFeeds();
+
     }, [])
 
     return (

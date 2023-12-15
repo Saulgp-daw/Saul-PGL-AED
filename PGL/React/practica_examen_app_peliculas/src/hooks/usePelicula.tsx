@@ -22,23 +22,23 @@ interface iPeliculas {
 }
 
 const usePelicula = () => {
-    const ruta = "http://localhost:3000/peliculas/";
-  // const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
-  const navigate = useNavigate();
-  const { arrayPeliculas } = useObtenerPeliculas();
+    const ruta = "http://localhost:8080/api/peliculas/base64";
+    // const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
+    const navigate = useNavigate();
+    const { arrayPeliculas } = useObtenerPeliculas();
 
     function devolverUltimoId() {
         if (arrayPeliculas.peliculas.length > 0) {
-            let ultimoId: string = parseInt(arrayPeliculas.peliculas[arrayPeliculas.peliculas.length - 1].getId())+1+"";
+            let ultimoId: string = parseInt(arrayPeliculas.peliculas[arrayPeliculas.peliculas.length - 1].getId()) + 1 + "";
             //console.log(ultimoId);
-            if(ultimoId.length == 1){
-                ultimoId = "00"+ultimoId;
-            }else if(ultimoId.length == 2){
-                ultimoId = "0"+ultimoId;
+            if (ultimoId.length == 1) {
+                ultimoId = "00" + ultimoId;
+            } else if (ultimoId.length == 2) {
+                ultimoId = "0" + ultimoId;
             }
             //console.log(ultimoId);  
             return ultimoId;
-        } 
+        }
 
         return null;
     }
@@ -51,8 +51,8 @@ const usePelicula = () => {
         let actores: string = formulario.actores.value;
         let argumento: string = formulario.argumento.value;
         let imagen: string = formulario.imagen.value ?? "default.gif";
-        if(imagen.trim() === ""){
-          imagen = "default.gif";
+        if (imagen.trim() === "") {
+            imagen = "default.gif";
         }
         let trailer: string = formulario.trailer.value ?? "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
         let categoria: string = formulario.categoria.value ?? "";
@@ -69,7 +69,7 @@ const usePelicula = () => {
         }
 
         console.log(nuevaPelicula);
-        
+
 
         const axiospost = async () => {
             try {
@@ -82,7 +82,7 @@ const usePelicula = () => {
         }
         axiospost();
     }
-    
+
 
 
     return { agregarPelicula }

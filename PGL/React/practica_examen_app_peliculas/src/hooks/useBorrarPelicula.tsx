@@ -6,7 +6,7 @@ import useFavorita from './useFavorita';
 type Props = {}
 
 const useBorrarPelicula = (id: string | undefined) => {
-    const ruta = "http://localhost:3000/peliculas/";
+    const ruta = "http://localhost:8080/api/peliculas/";
     const navigate = useNavigate();
     const { actualizarFavoritoSiSeBorra } = useFavorita();
 
