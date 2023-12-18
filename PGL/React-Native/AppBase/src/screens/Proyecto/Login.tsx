@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, View, TextInput, Button, TouchableOpacity } fr
 import React from 'react'
 import Navbar from '../../components/Proyecto/Navbar';
 import Busqueda from './Busqueda';
+import Registro from './Registro';
 
 type Props = {
 	navigation: any;
@@ -24,9 +25,13 @@ const Login = ({ navigation }: Props) => {
 				<Text>Contraseña</Text>
 				<TextInput placeholder='*************' style={styles.textinput} />
 			</View>
+			
 
 			<TouchableOpacity style={styles.btnEntrar} onPress={() => navigation.navigate(Busqueda)} >
 				<Text>Entrar</Text>
+			</TouchableOpacity>
+			<TouchableOpacity style={styles.btnEntrar} onPress={() => navigation.navigate(Registro)} >
+				<Text>Registro</Text>
 			</TouchableOpacity>
 		</View>
 	);

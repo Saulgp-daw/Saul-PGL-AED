@@ -80,18 +80,18 @@ const Stack = createNativeStackNavigator();
 
 
 //Practica 31
-function App(): JSX.Element {
-	useEffect(() => {
-		async function iniciarDDBB() {
-			await dataSource.initialize();
-		}
-		iniciarDDBB();
-	}, [])
+// function App(): JSX.Element {
+// 	useEffect(() => {
+// 		async function iniciarDDBB() {
+// 			await dataSource.initialize();
+// 		}
+// 		iniciarDDBB();
+// 	}, [])
 
-	return (
-		<StackNoticias2 />
-	);
-}
+// 	return (
+// 		<StackNoticias2 />
+// 	);
+// }
 
 // function App(): JSX.Element {
 // 	const [personas, setPersonas] = useState<Persona[]>([]);
@@ -130,15 +130,15 @@ function App(): JSX.Element {
 // }
 
 //Practica 26
-// function App(): JSX.Element {
+function App(): JSX.Element {
 
-// 	return (
-// 		<NavigationContainer>
-// 			<StackNavigation />
+	return (
+		<NavigationContainer>
+			<StackNavigation />
 
-// 		</NavigationContainer>
-// 	);
-// }
+		</NavigationContainer>
+	);
+}
 
 
 
