@@ -108,7 +108,7 @@ public class PeliculaController {
 		String codedfoto = peliDto.getFotoBase64();
 		byte[] photoBytes = Base64.getDecoder().decode(codedfoto);
 		String nombreNuevoFichero = storageService.save(peliDto.getNombreFichero(), photoBytes);
-		pelicula.setImagen(nombreNuevoFichero + ".jpg");
+		pelicula.setImagen(nombreNuevoFichero);
 		Pelicula save = peliculaService.save(pelicula);
 		return ResponseEntity.ok(save);
 	}

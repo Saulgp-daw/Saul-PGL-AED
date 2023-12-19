@@ -19,7 +19,7 @@ const PeliculaEnCatalogo = (props: Props) => {
     return (
         <div className='miniaturaPelicula'>
             <Link to={`/pelicula/${pelicula.getId()}`} className='enlace'>
-                <img src={uri + pelicula.getImagen()} alt={pelicula.getTitulo()} />
+                <img src={uri + pelicula.getImagen()} alt={pelicula.getTitulo()} className='imgCatalogo' />
             </Link>
             <div>
                 <h3 className='titulo'>{pelicula.getTitulo()} &nbsp;

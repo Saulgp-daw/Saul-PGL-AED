@@ -18,7 +18,7 @@ type Props = {
 
 
 const PeliculaCard = (props: Props) => {
-    const uri: string = "http://localhost:3000/";
+    const uri: string = "http://localhost:8080/api/peliculas/ficheros/";
     const { id } = useParams();
     const { pelicula } = useDetallePelicula(id);
     const { borrarPelicula } = useBorrarPelicula(id);

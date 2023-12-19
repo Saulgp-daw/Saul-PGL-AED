@@ -1,4 +1,4 @@
-.miniaturaPelicula{
+.miniaturaPelicula {
     background-color: rgb(0, 0, 0);
     color: white;
     max-height: 25em;
@@ -9,32 +9,36 @@
     padding: 1rem;
 }
 
-.miniaturaPelicula::-webkit-scrollbar{
+.miniaturaPelicula::-webkit-scrollbar {
     width: 0em;
 }
 
-.tipo{
+.tipo {
     font-weight: bold;
     color: rgb(6, 245, 145);
 }
 
-.enlace{
+.enlace {
     display: flex;
     justify-content: center;
 }
 
-.miniaturaPelicula  .titulo{
+.miniaturaPelicula .titulo {
     text-align: center;
     margin: 0.5rem;
     display: flex;
     justify-content: space-between;
 }
 
-.miniaturaPelicula:hover{
+.miniaturaPelicula:hover {
     background-color: rgb(6, 245, 145);
     color: black;
 }
 
-.miniaturaPelicula:hover .tipo{
+.miniaturaPelicula:hover .tipo {
     color: black;
+}
+
+.imgCatalogo {
+    height: 13rem;
 }

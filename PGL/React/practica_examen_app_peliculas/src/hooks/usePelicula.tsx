@@ -4,18 +4,19 @@ import { Pelicula } from '../models/Pelicula'
 import { useNavigate } from 'react-router-dom';
 import useObtenerPeliculas from './useObtenerPeliculas';
 import { Categoria } from '../models/Categoria';
+import { iCategoria } from './useObtenerCategorias';
 
 type Props = {}
 
 interface iPelicula {
-    id: string,
     titulo: string,
-    direccion: string,
     actores: string,
     argumento: string,
-    imagen: string,
+    direccion: string,
     trailer: string,
-    categoria: string
+    fotoBase64: string,
+    nombreFichero: string,
+    categorias: Categoria[]
 }
 
 interface iPeliculas {
@@ -27,6 +28,24 @@ const usePelicula = () => {
     // const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
     const navigate = useNavigate();
     const { arrayPeliculas } = useObtenerPeliculas();
+    const [categorias, setCategorias] = useState<Categoria[]>([]);
+    const [nombrefichero, setnombrefichero] = useState("");
+    const [photoBase64, setphotoBase64] = useState("");
+
+    function agregarQuitarCategoria(cat: Categoria) {
+
+        if (!categorias.some((p) => p.getId() === cat.getId())) {
+            setCategorias([...categorias, cat]);
+        } else {
+            const nuevoArray = categorias.filter((p) => p.getId() !== cat.getId());
+            setCategorias(nuevoArray);
+        }
+
+        //console.log(categorias);
+
+
+
+    }
 
     // function devolverUltimoId() {
     //     if (arrayPeliculas.peliculas.length > 0) {
@@ -51,35 +70,28 @@ const usePelicula = () => {
         let direccion: string = formulario.direccion.value;
         let actores: string = formulario.actores.value;
         let argumento: string = formulario.argumento.value;
-        let imagen: string = formulario.imagen.value ?? "default.gif";
-        if (imagen.trim() === "") {
-            imagen = "default.gif";
-        }
         let trailer: string = formulario.trailer.value ?? "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-        let categoriaValue: string = formulario.categoria.value ?? "";
-        let [categoriaId, categoriaNombre] = categoriaValue.split("|");
+        let dataBase64 = photoBase64;
+        dataBase64 = dataBase64.replace(/^.*base64,/, "");
 
-        // const nuevaPelicula = {
-        //     "id": devolverUltimoId(),
-        //     "titulo": titulo,
-        //     "direccion": direccion,
-        //     "actores": actores,
-        //     "argumento": argumento,
-        //     "imagen": imagen,
-        //     "trailer": trailer,
-        //     "categoria": categoria
-        // }
 
-        let peli = new Pelicula(0, titulo, direccion, actores, argumento, imagen, trailer, [new Categoria(parseInt(categoriaId), categoriaNombre)]);
-
-        console.log(peli);
+        const nuevaPeli: iPelicula = {
+            titulo: titulo,
+            actores: actores,
+            argumento: argumento,
+            direccion: direccion,
+            trailer: trailer,
+            fotoBase64: dataBase64,
+            nombreFichero: nombrefichero,
+            categorias: categorias
+        }
 
 
         const axiospost = async () => {
             try {
-                // const response = await axios.post(ruta, nuevaPelicula);
-                // console.log(response.data);
-                // navigate("/");
+                const response = await axios.post(ruta, nuevaPeli);
+                console.log(response.data);
+                navigate("/");
             } catch (error) {
                 console.log(error);
             }
@@ -89,7 +101,7 @@ const usePelicula = () => {
 
 
 
-    return { agregarPelicula }
+    return { agregarPelicula, agregarQuitarCategoria, setnombrefichero, setphotoBase64 }
 }
 
 export default usePelicula

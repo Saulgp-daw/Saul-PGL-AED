@@ -30,6 +30,7 @@ class Pelicula {
     this.categoria = categoria;
   }
 
+
   getId = (): number => {
     return this.id;
   }
