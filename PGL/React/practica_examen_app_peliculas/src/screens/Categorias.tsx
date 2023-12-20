@@ -14,7 +14,7 @@ const Categorias = (props: Props) => {
       {categorias.length > 0 ?
         (
           categorias.map(categoria => (
-            <Link to={`/categorias/${categoria.nombre}`} key={categoria.id}>
+            <Link to={`/categorias/${categoria.id}`} key={categoria.id}>
               <h3>{categoria.nombre}</h3>
             </Link>
           ))

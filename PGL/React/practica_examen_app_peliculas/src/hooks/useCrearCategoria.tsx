@@ -8,7 +8,7 @@ type Props = {}
 const useCrearCategoria = () => {
     const { categorias } = useObtenerCategorias();
     const navigate = useNavigate();
-    const ruta = "http://localhost:3000/categorias/";
+    const ruta = "http://localhost:8080/api/categorias";
 
     function devolverUltimoIdCategoria(){
         let ultimoId: number = 0;
@@ -28,7 +28,7 @@ const useCrearCategoria = () => {
 
         const axiospost = async () => {
             try{
-                const response = await axios.post(ruta, {"id" : devolverUltimoIdCategoria(), "nombre": nombre});
+                const response = await axios.post(ruta, {"id" : 0, "nombre": nombre});
                 console.log(response.status);
                 
                 navigate("/");

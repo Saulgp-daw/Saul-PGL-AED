@@ -76,7 +76,7 @@ const useObtenerPeliculas = () => {
             );
           })
         };
-        console.log(peliculasGuardadas);
+        //console.log(peliculasGuardadas);
 
         setArrayPeliculas(peliculasGuardadas);
         setBuscador(peliculasGuardadas);

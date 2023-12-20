@@ -1,5 +1,5 @@
 class Categoria {
-    private id: number;
+    public id: number;
     public nombre: string;
 
     constructor(id: number, nombre: string) {

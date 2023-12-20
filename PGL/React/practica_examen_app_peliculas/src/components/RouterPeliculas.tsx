@@ -26,7 +26,7 @@ const RouterPeliculas = (props: Props) => {
             <Route path='/mostrar' element={<Mostrar />}></Route>
             <Route path='/crear_pelicula' element={<Crear />}></Route>
             <Route path='/categorias' element={<Categorias />}></Route>
-            <Route path='/categorias/:nombre' element={<MostrarPorCategoria />}></Route>
+            <Route path='/categorias/:id' element={<MostrarPorCategoria />}></Route>
           </Routes>
         </PeliculasContextProvider>
       </BrowserRouter>

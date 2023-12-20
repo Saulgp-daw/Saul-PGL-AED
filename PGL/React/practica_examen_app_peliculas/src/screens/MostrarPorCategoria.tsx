@@ -7,14 +7,14 @@ import "../styles/mostrar.css"
 type Props = {}
 
 const MostrarPorCategoria = (props: Props) => {
-  const { nombre } = useParams();
-  const { pelisCategoria } = useMostrarPorCategoria(nombre);
-  console.log(nombre);
+  const { id } = useParams();
+  const { pelisCategoria } = useMostrarPorCategoria(id);
+  //console.log(id);
 
 
   return (
     <div>
-      <h3>Películas con categoría de {nombre}</h3>
+      <h3>Películas con categoría de {id}</h3>
       <div className="containerMiniaturas">
         {pelisCategoria.peliculas.length > 0 ? (
           pelisCategoria.peliculas.map(pelicula => (

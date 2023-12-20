@@ -1,39 +1,70 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import usePelicula, { iPelicula } from './usePelicula';
+import { Categoria } from '../models/Categoria';
 
 type Props = {}
 
 const useModificarPelicula = () => {
-    const ruta = "http://localhost:3000/peliculas/";
+    const ruta = "http://localhost:8080/api/peliculas/";
     const navigate = useNavigate();
+    const [categoriasPeli, setCategoriasPeli] = useState<Categoria[]>([]);
+
+    function agregarQuitarCategoria(cat: Categoria) {
+
+        if (!categoriasPeli.some((p) => p.id === cat.getId())) {
+            setCategoriasPeli([...categoriasPeli, cat]);
+        } else {
+            const nuevoArray = categoriasPeli.filter((p) => p.id !== cat.getId());
+            setCategoriasPeli(nuevoArray);
+        }
+
+        console.log(categoriasPeli);
+    }
 
     function modificarPelicula(event: React.FormEvent<HTMLFormElement>){
         event.preventDefault();
         let formulario: HTMLFormElement = event.currentTarget;
-        let id: string = formulario.idPelicula.value;
+        let id: number = parseInt(formulario.idPelicula.value);
         let titulo: string = formulario.titulo.value;
         let direccion: string = formulario.direccion.value;
         let actores: string = formulario.actores.value;
         let argumento: string = formulario.argumento.value;
-        let imagen: string = formulario.imagen.value;
+        let nombreFichero: string = formulario.imagen.value;
         let trailer: string = formulario.trailer.value;
-        let categoria: string = formulario.categoria.value;
+        console.log(categoriasPeli);
+        
 
-        const peliModificada = {
-            "id" : id,
-            "titulo": titulo,
-            "direccion": direccion,
-            "actores": actores,
-            "argumento": argumento,
-            "imagen": imagen,
-            "trailer": trailer,
-            "categoria": categoria
+        // const peliModificada = {
+        //     "id" : id,
+        //     "titulo": titulo,
+        //     "direccion": direccion,
+        //     "actores": actores,
+        //     "argumento": argumento,
+        //     "imagen": nombreFichero,
+        //     "trailer": trailer,
+        //     "categoria": categoria
+        // }
+
+        const peliculaModificada: iPelicula = {
+            id: id,
+            titulo: titulo,
+            actores: direccion,
+            argumento: argumento,
+            direccion: direccion,
+            trailer: trailer,
+            nombreFichero: nombreFichero,
+            categorias: categoriasPeli,
+            
         }
+
+        console.log(peliculaModificada);
+        
 
         const axiosPut = async (ruta: string) => {
             try {
-                const response = await axios.put(ruta+id, peliModificada)
+                const response = await axios.put(ruta+id, peliculaModificada)
                 console.log(response.data);
                 console.log(response.status);
                 navigate("/");
@@ -46,7 +77,7 @@ const useModificarPelicula = () => {
 
     }
 
-  return { modificarPelicula }
+  return { modificarPelicula, agregarQuitarCategoria, setCategoriasPeli, categoriasPeli }
 }
 
 export default useModificarPelicula

@@ -17,7 +17,7 @@ const useObtenerCategorias = () => {
     useEffect(() => {
         async function recogerDatosCategorias() {
             const response = await axios.get<iCategoria[]>(ruta);
-            console.log(response.data);
+            //console.log(response.data);
             setCategorias(response.data);
         }
 

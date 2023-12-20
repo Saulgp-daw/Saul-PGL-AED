@@ -8,13 +8,14 @@ import { iCategoria } from './useObtenerCategorias';
 
 type Props = {}
 
-interface iPelicula {
+export interface iPelicula {
+    id: number,
     titulo: string,
     actores: string,
     argumento: string,
     direccion: string,
     trailer: string,
-    fotoBase64: string,
+    fotoBase64?: string,
     nombreFichero: string,
     categorias: Categoria[]
 }
@@ -28,24 +29,22 @@ const usePelicula = () => {
     // const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
     const navigate = useNavigate();
     const { arrayPeliculas } = useObtenerPeliculas();
-    const [categorias, setCategorias] = useState<Categoria[]>([]);
+    const [categoriasPeli, setCategoriasPeli] = useState<Categoria[]>([]);
     const [nombrefichero, setnombrefichero] = useState("");
     const [photoBase64, setphotoBase64] = useState("");
 
     function agregarQuitarCategoria(cat: Categoria) {
 
-        if (!categorias.some((p) => p.getId() === cat.getId())) {
-            setCategorias([...categorias, cat]);
+        if (!categoriasPeli.some((p) => p.id === cat.getId())) {
+            setCategoriasPeli([...categoriasPeli, cat]);
         } else {
-            const nuevoArray = categorias.filter((p) => p.getId() !== cat.getId());
-            setCategorias(nuevoArray);
+            const nuevoArray = categoriasPeli.filter((p) => p.id !== cat.getId());
+            setCategoriasPeli(nuevoArray);
         }
 
-        //console.log(categorias);
-
-
-
+        console.log(categoriasPeli);
     }
+    /*
 
     // function devolverUltimoId() {
     //     if (arrayPeliculas.peliculas.length > 0) {
@@ -62,6 +61,7 @@ const usePelicula = () => {
 
     //     return null;
     // }
+    */
 
     function agregarPelicula(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -76,6 +76,7 @@ const usePelicula = () => {
 
 
         const nuevaPeli: iPelicula = {
+            id: 0,
             titulo: titulo,
             actores: actores,
             argumento: argumento,
@@ -83,7 +84,7 @@ const usePelicula = () => {
             trailer: trailer,
             fotoBase64: dataBase64,
             nombreFichero: nombrefichero,
-            categorias: categorias
+            categorias: categoriasPeli
         }
 
 
@@ -101,7 +102,7 @@ const usePelicula = () => {
 
 
 
-    return { agregarPelicula, agregarQuitarCategoria, setnombrefichero, setphotoBase64 }
+    return { agregarPelicula, agregarQuitarCategoria, setnombrefichero, setphotoBase64, categoriasPeli, setCategoriasPeli }
 }
 
 export default usePelicula

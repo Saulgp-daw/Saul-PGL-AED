@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pelicula } from '../models/Pelicula'
 import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
@@ -9,6 +9,8 @@ import useModificarPelicula from '../hooks/useModificarPelicula';
 import useObtenerCategorias from '../hooks/useObtenerCategorias';
 //css
 import "../styles/peliculacard.css"
+import usePelicula from '../hooks/usePelicula';
+import { Categoria } from '../models/Categoria';
 
 
 type Props = {
@@ -22,9 +24,15 @@ const PeliculaCard = (props: Props) => {
     const { id } = useParams();
     const { pelicula } = useDetallePelicula(id);
     const { borrarPelicula } = useBorrarPelicula(id);
-    const { modificarPelicula } = useModificarPelicula();
+    const { modificarPelicula, agregarQuitarCategoria, categoriasPeli, setCategoriasPeli } = useModificarPelicula();
     const [modificar, setModificar] = useState(false);
     const { categorias } = useObtenerCategorias();
+
+   useEffect(() => {
+        const cats = pelicula?.getCategoria();
+        setCategoriasPeli(cats!);
+   }, [pelicula])
+    
 
     function habilitarInputs() {
         setModificar(!modificar);
@@ -45,17 +53,39 @@ const PeliculaCard = (props: Props) => {
                             <label htmlFor="imagen">Url imagen: </label><input type="text" name='imagen' defaultValue={pelicula?.getImagen()} /><br />
                             <label htmlFor="trailer">Trailer: </label><input type="text" name='trailer' defaultValue={pelicula?.getTrailer()} /><br />
                             <label htmlFor="categoria">Categoria: </label>
-                            <select name="categoria">
-                                {
-                                    categorias.map(categoria => (
-                                        <option value={categoria.id} selected={categoria.nombre === pelicula?.getCategoria()[0].nombre}>{categoria.nombre}</option>
-                                    ))
+                            
+                            {categorias.map(categoria => {
+                                if (categoriasPeli.some((c) => c.id === categoria.id)) {
+                                    return <div key={categoria.id}>
+                                        <input
+                                            type="checkbox"
+                                            id={`categoria-${categoria.id}`}
+                                            name="categoriasSeleccionadas"
+                                            value={`${categoria.id}|${categoria.nombre}`}
+                                            onChange={() => agregarQuitarCategoria(new Categoria(categoria.id, categoria.nombre))}
+                                            checked />
+                                        <label htmlFor={`categoria-${categoria.id}`}>{categoria.nombre}</label>
+                                    </div>
+                                } else {
+                                    return <div key={categoria.id}>
+                                        <input
+                                            type="checkbox"
+                                            id={`categoria-${categoria.id}`}
+                                            name="categoriasSeleccionadas"
+                                            value={`${categoria.id}|${categoria.nombre}`}
+                                            onChange={() => agregarQuitarCategoria(new Categoria(categoria.id, categoria.nombre))}
+                                        />
+                                        <label htmlFor={`categoria-${categoria.id}`}>{categoria.nombre}</label>
+                                    </div>
                                 }
-                            </select>
+                            })
+                            }
+
+
+
 
                             <br />
-                            <button onClick={habilitarInputs}>Cancelar</button>
-                            <button type='submit'>Actualizar</button>
+                            <><button onClick={habilitarInputs}>Cancelar</button><button type='submit'>Actualizar</button></>
                         </form>
                     </div>
                 </div>

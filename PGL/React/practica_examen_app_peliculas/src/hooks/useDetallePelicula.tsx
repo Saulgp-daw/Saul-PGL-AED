@@ -21,9 +21,9 @@ const useDetallePelicula = (id: string | undefined) => {
         async function recogerDatos() {
             try {
                 const response = await axios.get<iPelicula>(ruta + id);
-                console.log(response);
+                //console.log(response);
                 const peliculaNueva: Pelicula = convertirAObjetoPelicula(response.data);
-                console.log(peliculaNueva);
+                //console.log(peliculaNueva);
                 setPelicula(peliculaNueva);
             } catch (error) {
                 console.error('Error al obtener datos de la API', error);
