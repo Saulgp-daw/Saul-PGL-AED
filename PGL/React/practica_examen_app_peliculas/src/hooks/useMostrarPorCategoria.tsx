@@ -20,7 +20,7 @@ const useMostrarPorCategoria = (id: string | undefined) => {
                 //console.log(pelicula.getCategoria());
                 if(pelicula.getCategoria().some((c) => c.id == parseInt(id+"") ))
                     return pelicula;
-                //return pelicula.getCategoria()[0].getNombre() == nombre?.toString();
+                //return pelicula.getCategoria()[0].getNombre() == nombre?.toString()
             })
         }
 
