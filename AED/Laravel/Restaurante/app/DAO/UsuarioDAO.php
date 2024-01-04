@@ -73,6 +73,6 @@
                 $usuarioEncontrado = $usuario;
             }
     
-            return $usuarioEncontrado;
+            return $usuarioEncontrado; 
         }
     }

@@ -13,7 +13,7 @@ class Usuario extends Model
     private string $contrasenha;
     private string $rol;
 
-    public function __construct(int $telefono, string $nombre, string $contrasenha, string $rol = "CLIENTE"){
+    public function __construct(int $telefono=null, string $nombre=null, string $contrasenha=null, string $rol = "CLIENTE"){
         $this->telefono = $telefono;
         $this->nombre = $nombre;
         $this->contrasenha = $contrasenha;
