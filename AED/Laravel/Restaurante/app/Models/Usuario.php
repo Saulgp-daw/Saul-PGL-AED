@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Usuario extends Model
 {
     //use HasFactory;
-    private string $telefono;
+    private int $telefono;
     private string $nombre;
     private string $contrasenha;
     private string $rol;
 
-    public function __construct(int $telefono=null, string $nombre=null, string $contrasenha=null, string $rol = "CLIENTE"){
+    public function __construct(int $telefono=000, string $nombre="null", string $contrasenha="null", string $rol = "CLIENTE"){
         $this->telefono = $telefono;
         $this->nombre = $nombre;
         $this->contrasenha = $contrasenha;
