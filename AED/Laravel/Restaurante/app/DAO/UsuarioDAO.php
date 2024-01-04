@@ -51,4 +51,28 @@
             $stmt = null;
             return $usuarioCreado ?? null;
         }
+
+        public function findById($id){
+            $usuarioEncontrado = null;
+            //SELECT * FROM `usuarios` WHERE telefono=123456789
+            $sql = "SELECT * FROM ".UsuarioContract::TABLE_NAME ." WHERE ".UsuarioContract::COL_TEL. " = :telefono";
+
+            $stmt = $this->myPDO->prepare($sql);
+            $stmt->execute(
+                [
+                    ':telefono' => $id
+                ]
+            );
+
+            if ($row = $stmt->fetch()) {
+                $usuario = new Usuario();
+                $usuario->setTelefono($row[UsuarioContract::COL_TEL]);
+                $usuario->setNombre($row[UsuarioContract::COL_NAME]);
+                $usuario->setContrasenha($row[UsuarioContract::COL_PASSWORD]);
+                $usuario->setRol($row[UsuarioContract::COL_ROLE]);
+                $usuarioEncontrado = $usuario;
+            }
+    
+            return $usuarioEncontrado;
+        }
     }
