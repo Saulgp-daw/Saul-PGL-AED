@@ -24,6 +24,12 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
+	private byte active;
+
+	private String email;
+
+	private String hash;
+
 	private String nombre;
 
 	private String password;
@@ -39,6 +45,30 @@ public class Usuario implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public byte getActive() {
+		return this.active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getHash() {
+		return this.hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 
 	public String getNombre() {
