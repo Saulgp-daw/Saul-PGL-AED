@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import es.iespuertodelacruz.sgp.peliculas.dto.RegisterDTO;
 import es.iespuertodelacruz.sgp.peliculas.entities.Usuario;
 import es.iespuertodelacruz.sgp.peliculas.service.UsuarioService;
 
@@ -16,14 +17,17 @@ public class AuthService {
 	@Autowired
 	private JwtService jwtService;
 
-	public String register(UserDetailsLogin userdetails) {
+	public String register(RegisterDTO userdetails) {
 		Usuario userentity = new Usuario();
 		userentity.setNombre(userdetails.getUsername());
 		userentity.setPassword(passwordEncoder.encode(userdetails.getPassword()));
 		userentity.setRol("ROLE_USER");
+		
+		//userdetails.setRole(userentity.getRol());
+		String generateToken = jwtService.generateToken(userdetails.getUsername(), userdetails.getPassword());
+		userentity.setEmail(userdetails.getEmail());
+		userentity.setHash(generateToken);
 		Usuario save = usuarioservice.save(userentity);
-		userdetails.setRole(userentity.getRol());
-		String generateToken = jwtService.generateToken(userdetails.username, userdetails.password);
 		return generateToken;
 	}
 

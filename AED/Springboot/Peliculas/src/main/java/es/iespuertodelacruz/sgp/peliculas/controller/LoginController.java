@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.iespuertodelacruz.sgp.peliculas.dto.RegisterDTO;
 import es.iespuertodelacruz.sgp.peliculas.security.AuthService;
 import es.iespuertodelacruz.sgp.peliculas.security.UserDetailsLogin;
 
@@ -23,7 +24,7 @@ public class LoginController {
 	private AuthService service;
 
 	@PostMapping("/register")
-	public ResponseEntity<?> register(@RequestBody UserDetailsLogin request) {
+	public ResponseEntity<?> register(@RequestBody RegisterDTO request) {
 		return ResponseEntity.ok(service.register(request));
 	}
 
