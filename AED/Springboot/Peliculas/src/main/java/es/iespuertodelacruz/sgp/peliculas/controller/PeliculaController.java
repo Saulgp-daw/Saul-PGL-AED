@@ -29,7 +29,7 @@ import es.iespuertodelacruz.sgp.peliculas.service.PeliculaService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/peliculas")
+@RequestMapping("/api/v1/peliculas")
 public class PeliculaController {
 	@Autowired
 	private PeliculaService peliculaService;

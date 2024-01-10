@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import es.iespuertodelacruz.sgp.peliculas.dto.LoginDTO;
 import es.iespuertodelacruz.sgp.peliculas.dto.RegisterDTO;
 import es.iespuertodelacruz.sgp.peliculas.entities.Usuario;
 import es.iespuertodelacruz.sgp.peliculas.service.UsuarioService;
@@ -31,7 +32,7 @@ public class AuthService {
 		return generateToken;
 	}
 
-	public String authenticate(UserDetailsLogin request) {
+	public String authenticate(LoginDTO request) {
 		Usuario userentity = usuarioservice.findByName(request.getUsername());
 		UserDetailsLogin userlogin = null;
 		if (userentity != null) {

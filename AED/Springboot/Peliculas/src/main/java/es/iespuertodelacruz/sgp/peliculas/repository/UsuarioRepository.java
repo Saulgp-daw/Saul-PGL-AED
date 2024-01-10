@@ -11,4 +11,7 @@ import es.iespuertodelacruz.sgp.peliculas.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	@Query("SELECT u from Usuario u where u.nombre=:nombre")
 	public Usuario findByName(@Param("nombre") String nombre);
+	
+	@Query("SELECT u from Usuario u WHERE u.email=:email")
+	public Usuario findByEmail(@Param("email") String email);
 }
