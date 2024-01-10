@@ -27,7 +27,7 @@ export interface iPeliculas {
 }
 
 const useObtenerPeliculas = () => {
-  const ruta = "http://localhost:8080/api/peliculas";
+  const ruta = "http://localhost:8080/api/v1/peliculas";
   const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
   const [buscador, setBuscador] = useState<iPeliculas>({ peliculas: [] });
   const { categorias } = useObtenerCategorias();

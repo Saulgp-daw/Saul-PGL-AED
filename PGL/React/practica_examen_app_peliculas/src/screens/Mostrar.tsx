@@ -23,7 +23,7 @@ const Mostrar = (props: Props) => {
     //const [buscador, setBuscador] = useState<iPeliculas>({ peliculas: [] });
     const { agregarQuitarFavorita, pelisfavoritas } = useFavorita();
 
-    const uri: string = "http://localhost:8080/api/peliculas";
+    const uri: string = "http://localhost:8080/api/v1/peliculas";
 
     return (
         <div className='vista'>

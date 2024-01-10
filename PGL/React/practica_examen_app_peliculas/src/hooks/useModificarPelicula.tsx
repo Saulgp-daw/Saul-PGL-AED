@@ -7,7 +7,7 @@ import { Categoria } from '../models/Categoria';
 type Props = {}
 
 const useModificarPelicula = () => {
-    const ruta = "http://localhost:8080/api/peliculas/";
+    const ruta = "http://localhost:8080/api/v1/peliculas/";
     const navigate = useNavigate();
     const [categoriasPeli, setCategoriasPeli] = useState<Categoria[]>([]);
 
@@ -23,7 +23,7 @@ const useModificarPelicula = () => {
         console.log(categoriasPeli);
     }
 
-    function modificarPelicula(event: React.FormEvent<HTMLFormElement>){
+    function modificarPelicula(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         let formulario: HTMLFormElement = event.currentTarget;
         let id: number = parseInt(formulario.idPelicula.value);
@@ -34,7 +34,7 @@ const useModificarPelicula = () => {
         let nombreFichero: string = formulario.imagen.value;
         let trailer: string = formulario.trailer.value;
         console.log(categoriasPeli);
-        
+
 
         // const peliModificada = {
         //     "id" : id,
@@ -56,15 +56,15 @@ const useModificarPelicula = () => {
             trailer: trailer,
             nombreFichero: nombreFichero,
             categorias: categoriasPeli,
-            
+
         }
 
         console.log(peliculaModificada);
-        
+
 
         const axiosPut = async (ruta: string) => {
             try {
-                const response = await axios.put(ruta+id, peliculaModificada)
+                const response = await axios.put(ruta + id, peliculaModificada)
                 console.log(response.data);
                 console.log(response.status);
                 navigate("/");
@@ -77,7 +77,7 @@ const useModificarPelicula = () => {
 
     }
 
-  return { modificarPelicula, agregarQuitarCategoria, setCategoriasPeli, categoriasPeli }
+    return { modificarPelicula, agregarQuitarCategoria, setCategoriasPeli, categoriasPeli }
 }
 
 export default useModificarPelicula

@@ -13,7 +13,7 @@ type Props = {
 
 
 const useDetallePelicula = (id: string | undefined) => {
-    const ruta = "http://localhost:8080/api/peliculas/";
+    const ruta = "http://localhost:8080/api/v1/peliculas/";
     const [pelicula, setPelicula] = useState<Pelicula>();
     const { categorias } = useObtenerCategorias();
 

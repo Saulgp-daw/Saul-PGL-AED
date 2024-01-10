@@ -13,7 +13,7 @@ type Props = {
 
 const PeliculaEnCatalogo = (props: Props) => {
     const pelicula = props.pelicula;
-    const uri: string = "http://localhost:8080/api/peliculas/ficheros/";
+    const uri: string = "http://localhost:8080/api/v1/peliculas/ficheros/";
     const { agregarQuitarFavorita, pelisfavoritas } = useFavorita();
 
     return (

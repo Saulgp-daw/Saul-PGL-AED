@@ -20,7 +20,7 @@ type Props = {
 
 
 const PeliculaCard = (props: Props) => {
-    const uri: string = "http://localhost:8080/api/peliculas/ficheros/";
+    const uri: string = "http://localhost:8080/api/v1/peliculas/ficheros/";
     const { id } = useParams();
     const { pelicula } = useDetallePelicula(id);
     const { borrarPelicula } = useBorrarPelicula(id);
@@ -28,11 +28,11 @@ const PeliculaCard = (props: Props) => {
     const [modificar, setModificar] = useState(false);
     const { categorias } = useObtenerCategorias();
 
-   useEffect(() => {
+    useEffect(() => {
         const cats = pelicula?.getCategoria();
         setCategoriasPeli(cats!);
-   }, [pelicula])
-    
+    }, [pelicula])
+
 
     function habilitarInputs() {
         setModificar(!modificar);
@@ -53,7 +53,7 @@ const PeliculaCard = (props: Props) => {
                             <label htmlFor="imagen">Url imagen: </label><input type="text" name='imagen' defaultValue={pelicula?.getImagen()} /><br />
                             <label htmlFor="trailer">Trailer: </label><input type="text" name='trailer' defaultValue={pelicula?.getTrailer()} /><br />
                             <label htmlFor="categoria">Categoria: </label>
-                            
+
                             {categorias.map(categoria => {
                                 if (categoriasPeli.some((c) => c.id === categoria.id)) {
                                     return <div key={categoria.id}>

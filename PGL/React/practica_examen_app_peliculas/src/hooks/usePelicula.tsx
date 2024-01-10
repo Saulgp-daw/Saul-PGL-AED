@@ -25,7 +25,7 @@ interface iPeliculas {
 }
 
 const usePelicula = () => {
-    const ruta = "http://localhost:8080/api/peliculas/base64";
+    const ruta = "http://localhost:8080/api/v1/peliculas/base64";
     // const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
     const navigate = useNavigate();
     const { arrayPeliculas } = useObtenerPeliculas();
