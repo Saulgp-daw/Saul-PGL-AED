@@ -90,7 +90,7 @@ const usePelicula = () => {
 
         const axiospost = async () => {
             try {
-                const response = await axios.post(ruta, nuevaPeli);
+                const response = await axios.post(ruta, nuevaPeli, { headers: {} });
                 console.log(response.data);
                 navigate("/");
             } catch (error) {

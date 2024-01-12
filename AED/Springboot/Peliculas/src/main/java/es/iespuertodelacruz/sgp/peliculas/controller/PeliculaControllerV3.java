@@ -29,8 +29,8 @@ import es.iespuertodelacruz.sgp.peliculas.service.PeliculaService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/peliculas")
-public class PeliculaController {
+@RequestMapping("/api/v3/peliculas")
+public class PeliculaControllerV3 {
 	@Autowired
 	private PeliculaService peliculaService;
 
@@ -49,6 +49,69 @@ public class PeliculaController {
 		return ResponseEntity.ok(peliculaEncontrada);
 	}
 
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
+		Optional<Pelicula> peliABorrar = peliculaService.findById(id);
+		if (peliABorrar.isPresent()) {
+			peliculaService.deleteById(id);
+			return ResponseEntity.ok("pelicula borrada");
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("el id del registro no existe");
+		}
+	}
+
+	@PostMapping("")
+	public ResponseEntity<?> save(@RequestBody Pelicula pelicula) {
+
+		Pelicula save = peliculaService.save(pelicula);
+		if (save != null) {
+			return ResponseEntity.ok(save);
+		}
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar la película");
+	}
+
+	@PutMapping("")
+	public ResponseEntity<?> update(@RequestBody Pelicula pelicula) {
+		Pelicula update = peliculaService.update(pelicula);
+		System.out.println(update.getCategorias());
+		if (update != null) {
+			return ResponseEntity.ok(update);
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar la película");
+
+	}
+
+	@PostMapping("/upload")
+	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+		String message = "";
+		try {
+			String namefile = storageService.save(file);
+
+			message = "" + namefile;
+			return ResponseEntity.status(HttpStatus.OK).body(message);
+		} catch (Exception e) {
+			message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+		}
+	}
+
+	@PostMapping("/base64")
+	public ResponseEntity<?> nuevaPelicula(@RequestBody PeliculaDTO peliDto) {
+		Pelicula pelicula = new Pelicula();
+		pelicula.setTitulo(peliDto.getTitulo());
+		pelicula.setActores(peliDto.getActores());
+		pelicula.setArgumento(peliDto.getArgumento());
+		pelicula.setDireccion(peliDto.getDireccion());
+		pelicula.setTrailer(peliDto.getTrailer());
+		pelicula.setCategorias(peliDto.getCategorias());
+		String codedfoto = peliDto.getFotoBase64();
+		byte[] photoBytes = Base64.getDecoder().decode(codedfoto);
+		String nombreNuevoFichero = storageService.save(peliDto.getNombreFichero(), photoBytes);
+		pelicula.setImagen(nombreNuevoFichero);
+		Pelicula save = peliculaService.save(pelicula);
+		return ResponseEntity.ok(save);
+	}
 
 	@GetMapping("/ficheros/{filename}")
 	public ResponseEntity<?> getFiles(@PathVariable String filename) {

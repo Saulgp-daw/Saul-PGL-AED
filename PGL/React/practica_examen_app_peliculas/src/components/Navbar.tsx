@@ -7,10 +7,12 @@ type Props = {}
 const Navbar = (props: Props) => {
   return (
     <div className='navbar'>
-        <h3>Gestor de Películas</h3>
-        <Link to="/mostrar">Mostrar Películas</Link> 
-        <Link to="/crear_pelicula">Crear Película</Link> 
-        <Link to="/categorias">Categorias</Link> 
+      <h3>Gestor de Películas</h3>
+      <Link to="/mostrar">Mostrar Películas</Link>
+      <Link to="/crear_pelicula">Crear Película</Link>
+      <Link to="/categorias">Categorias</Link>
+      <Link to="/login">Login</Link>
+      <Link to="/registro">Registro</Link>
     </div>
   )
 }

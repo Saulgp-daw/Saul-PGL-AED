@@ -22,7 +22,7 @@ import es.iespuertodelacruz.sgp.peliculas.service.UsuarioService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class LoginController {
 	Logger log;
 	@Autowired
@@ -36,7 +36,7 @@ public class LoginController {
 	public ResponseEntity<?> register(@RequestBody RegisterDTO request) {
 		String token = service.register(request);
 		mailService.send(request.getEmail(), "Verficiación de cuenta",
-				"http://localhost:8080/api/registerverify?usermail=" + request.getEmail() + "&hash="
+				"http://localhost:8080/api/v1/registerverify?usermail=" + request.getEmail() + "&hash="
 						+ token);
 		return ResponseEntity.ok(token);
 	}

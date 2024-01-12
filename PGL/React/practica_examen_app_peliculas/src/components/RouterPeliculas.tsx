@@ -9,6 +9,8 @@ import PeliculaCard from './PeliculaCard';
 import PeliculasContextProvider from '../contexts/PeliculasContextProvider';
 import PeliculasFavoritas from './PeliculasFavoritas';
 import MostrarPorCategoria from '../screens/MostrarPorCategoria';
+import Registro from '../screens/Registro';
+import Login from '../screens/Login';
 
 type Props = {}
 
@@ -27,6 +29,8 @@ const RouterPeliculas = (props: Props) => {
             <Route path='/crear_pelicula' element={<Crear />}></Route>
             <Route path='/categorias' element={<Categorias />}></Route>
             <Route path='/categorias/:id' element={<MostrarPorCategoria />}></Route>
+            <Route path='/registro' element={<Registro />}></Route>
+            <Route path='/login' element={<Login />}></Route>
           </Routes>
         </PeliculasContextProvider>
       </BrowserRouter>
