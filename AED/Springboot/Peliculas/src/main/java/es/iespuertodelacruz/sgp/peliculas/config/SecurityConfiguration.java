@@ -21,14 +21,25 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-		.cors(cors -> cors.disable())
-		.csrf(csrf -> csrf.disable())
+				.cors(cors -> cors.disable())
+				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-						.requestMatchers("/", "/swagger-ui.html", "/swagger-ui/**", "/v2/**", "configuration/**",
-								"/swagger*/**", "/webjars/**", "/api/login", "/api/register", "/api/v1/**", "/v3/**",
-								"/chat", "/topic/messages")
-						.permitAll().requestMatchers("/api/v3/**").hasRole("ADMIN").anyRequest().authenticated())
+						.requestMatchers("/", 
+								"/swagger-ui.html", 
+								"/swagger-ui/**", 
+								"/v2/**", 
+								"configuration/**",
+								"/swagger*/**", 
+								"/webjars/**", 
+								"/api/login", 
+								"/api/register", 
+								"/api/v1/**", 
+								"/v3/**",
+								"/chat", 
+								"/topic/messages")
+						.permitAll()
+						.requestMatchers("/api/v3/**").hasRole("ADMIN").anyRequest().authenticated())
 				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.getOrBuild();

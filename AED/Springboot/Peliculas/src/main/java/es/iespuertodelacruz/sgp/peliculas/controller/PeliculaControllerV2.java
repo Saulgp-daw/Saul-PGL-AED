@@ -60,10 +60,9 @@ public class PeliculaControllerV2 {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar la película");
 	}
 
-	@PutMapping("")
+	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@RequestBody Pelicula pelicula) {
 		Pelicula update = peliculaService.update(pelicula);
-		System.out.println(update.getCategorias());
 		if (update != null) {
 			return ResponseEntity.ok(update);
 		}

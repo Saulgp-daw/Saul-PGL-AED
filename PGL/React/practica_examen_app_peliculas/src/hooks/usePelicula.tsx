@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import useObtenerPeliculas from './useObtenerPeliculas';
 import { Categoria } from '../models/Categoria';
 import { iCategoria } from './useObtenerCategorias';
+import { useAppContext } from '../contexts/PeliculasContextProvider';
 
 type Props = {}
 
@@ -16,7 +17,7 @@ export interface iPelicula {
     direccion: string,
     trailer: string,
     fotoBase64?: string,
-    nombreFichero: string,
+    imagen: string,
     categorias: Categoria[]
 }
 
@@ -25,13 +26,14 @@ interface iPeliculas {
 }
 
 const usePelicula = () => {
-    const ruta = "http://localhost:8080/api/v1/peliculas/base64";
+    const ruta = "http://localhost:8080/api/v2/peliculas/base64";
     // const [arrayPeliculas, setArrayPeliculas] = useState<iPeliculas>({ peliculas: [] });
     const navigate = useNavigate();
     const { arrayPeliculas } = useObtenerPeliculas();
     const [categoriasPeli, setCategoriasPeli] = useState<Categoria[]>([]);
     const [nombrefichero, setnombrefichero] = useState("");
     const [photoBase64, setphotoBase64] = useState("");
+    const { token } = useAppContext();
 
     function agregarQuitarCategoria(cat: Categoria) {
 
@@ -83,14 +85,16 @@ const usePelicula = () => {
             direccion: direccion,
             trailer: trailer,
             fotoBase64: dataBase64,
-            nombreFichero: nombrefichero,
+            imagen: nombrefichero,
             categorias: categoriasPeli
         }
+        console.log(token);
+
 
 
         const axiospost = async () => {
             try {
-                const response = await axios.post(ruta, nuevaPeli, { headers: {} });
+                const response = await axios.post(ruta, nuevaPeli, { headers: { 'Authorization': `Bearer ${token}` } });
                 console.log(response.data);
                 navigate("/");
             } catch (error) {

@@ -8,21 +8,29 @@ import PeliculasFavoritas from '../components/PeliculasFavoritas';
 export interface PeliculasContextType {
   pelisfavoritas: Pelicula[];
   setpelisfavoritas: Dispatch<SetStateAction<Pelicula[]>>;
+  token: string;
+  settoken: Dispatch<SetStateAction<string>>;
 };
 
 //Contexto
 const PeliculasContext = createContext<PeliculasContextType>({
   pelisfavoritas: [],
-  setpelisfavoritas: () => { }
+  setpelisfavoritas: () => { },
+  token: '',
+  settoken: () => { }
 });
 
 
 //Proveedor
 const PeliculasContextProvider = (props: any) => {
   const [pelisFavoritas, setPelisFavoritas] = useState<Pelicula[]>([]);
+  const [token, setToken] = useState<string>('');
+
   const contextValues: PeliculasContextType = {
     pelisfavoritas: pelisFavoritas,
-    setpelisfavoritas: setPelisFavoritas
+    setpelisfavoritas: setPelisFavoritas,
+    token: token,
+    settoken: setToken
   }
 
   return (

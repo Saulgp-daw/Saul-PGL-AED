@@ -93,7 +93,10 @@ const PeliculaCard = (props: Props) => {
                 <div>
                     <h2>Detalles Película</h2>
                     <div>
-                        <img src={uri + pelicula?.getImagen()} alt={pelicula?.getTitulo()} />
+                        {pelicula?.getImagen() ?
+                            <img src={uri + pelicula?.getImagen()} alt={pelicula?.getTitulo()} /> : null
+                        }
+
                     </div>
                     <div>
                         <h4><span className="tipo">{pelicula?.getTitulo()}</span></h4><br />

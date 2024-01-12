@@ -3,13 +3,16 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import usePelicula, { iPelicula } from './usePelicula';
 import { Categoria } from '../models/Categoria';
+import { useAppContext } from '../contexts/PeliculasContextProvider';
 
 type Props = {}
 
 const useModificarPelicula = () => {
-    const ruta = "http://localhost:8080/api/v1/peliculas/";
+    const ruta = "http://localhost:8080/api/v2/peliculas/";
     const navigate = useNavigate();
     const [categoriasPeli, setCategoriasPeli] = useState<Categoria[]>([]);
+    const { token } = useAppContext();
+    console.log(token);
 
     function agregarQuitarCategoria(cat: Categoria) {
 
@@ -50,11 +53,11 @@ const useModificarPelicula = () => {
         const peliculaModificada: iPelicula = {
             id: id,
             titulo: titulo,
-            actores: direccion,
+            actores: actores,
             argumento: argumento,
             direccion: direccion,
             trailer: trailer,
-            nombreFichero: nombreFichero,
+            imagen: nombreFichero,
             categorias: categoriasPeli,
 
         }
@@ -64,7 +67,7 @@ const useModificarPelicula = () => {
 
         const axiosPut = async (ruta: string) => {
             try {
-                const response = await axios.put(ruta + id, peliculaModificada)
+                const response = await axios.put(ruta + id, peliculaModificada, { headers: { 'Authorization': `Bearer ${token}` } })
                 console.log(response.data);
                 console.log(response.status);
                 navigate("/");

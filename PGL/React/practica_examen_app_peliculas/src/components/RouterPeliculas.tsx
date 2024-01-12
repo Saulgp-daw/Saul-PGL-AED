@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
 import Categorias from '../screens/Categorias';
 import Crear from '../screens/Crear';
-import Operaciones from '../screens/Operaciones';
 import Mostrar from '../screens/Mostrar';
 import PeliculaCard from './PeliculaCard';
 import PeliculasContextProvider from '../contexts/PeliculasContextProvider';

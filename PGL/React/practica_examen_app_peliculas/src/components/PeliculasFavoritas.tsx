@@ -7,7 +7,7 @@ type Props = {}
 
 const PeliculasFavoritas = (props: Props) => {
   const { pelisfavoritas, setpelisfavoritas } = useAppContext();
-  const uri: string = "http://localhost:8080/api/peliculas/ficheros/";
+  const uri: string = "http://localhost:8080/api/v1/peliculas/ficheros/";
   console.log(pelisfavoritas);
 
 

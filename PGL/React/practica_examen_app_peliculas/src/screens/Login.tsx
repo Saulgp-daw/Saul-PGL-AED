@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../contexts/PeliculasContextProvider';
 
 type Props = {}
 
@@ -12,13 +13,13 @@ export interface iLogin {
 const Login = (props: Props) => {
     const ruta = "http://localhost:8080/api/v1/login";
     const navigate = useNavigate();
+    const { token, settoken } = useAppContext();
 
     function login(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         let formulario: HTMLFormElement = event.currentTarget;
         let username: string = formulario.username.value;
         let password: string = formulario.password.value;
-        let email: string = formulario.email.value;
 
         const nuevoLogin: iLogin = {
             username: username,
@@ -27,11 +28,20 @@ const Login = (props: Props) => {
 
         console.log(nuevoLogin);
 
+
+
         const axiospost = async () => {
             try {
                 const response = await axios.post(ruta, nuevoLogin);
                 console.log(response.data);
-                navigate("/");
+                let status = response.status;
+
+                if (status === 200) {
+                    settoken(response.data);
+                    navigate("/");
+                }
+
+
             } catch (error) {
                 console.log(error);
             }
