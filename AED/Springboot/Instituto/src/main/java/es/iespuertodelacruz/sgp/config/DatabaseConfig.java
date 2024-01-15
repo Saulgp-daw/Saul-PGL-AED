@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.sgp.peliculas.config;
+package es.iespuertodelacruz.sgp.config;
 
 import javax.sql.DataSource;
 
