@@ -75,7 +75,7 @@ public class AlumnoService implements IGenericService<Alumno, String> {
 		Optional<Alumno> alumnoAntiguo = alumnoRepository.findById(alumno.getDni());
 		
 		if(alumnoAntiguo.isPresent()) {
-			if(alumnoAntiguo.get().getMatriculas() != null) {
+			/*if(alumnoAntiguo.get().getMatriculas() != null) {
 				List<Matricula> matriculasAntiguas = alumnoAntiguo.get().getMatriculas();
 				for(Matricula m : matriculasAntiguas) {
 					if(m.getAlumno().getDni() == alumnoAntiguo.get().getDni()) {
@@ -99,7 +99,7 @@ public class AlumnoService implements IGenericService<Alumno, String> {
 						alumnoAntiguo.get().getMatriculas().add(findById.get());
 					}
 				}
-			}
+			}*/
 			alumnoAntiguo.get().setNombre(alumno.getNombre());
 			alumnoAntiguo.get().setApellidos(alumno.getApellidos());
 			alumnoAntiguo.get().setFechanacimiento(alumno.getFechanacimiento());

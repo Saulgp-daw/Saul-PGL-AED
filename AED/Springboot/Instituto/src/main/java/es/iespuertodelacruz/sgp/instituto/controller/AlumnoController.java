@@ -75,11 +75,25 @@ public class AlumnoController {
 	}
 	
 	@PutMapping("/{dni}")
-	public ResponseEntity<?> update(@RequestBody Alumno alumno){
-		Alumno update = alumnoService.update(alumno);
-		if(update != null) {
-			return ResponseEntity.ok(update);
+	public ResponseEntity<?> update(@RequestBody AlumnoDTO alumnoDto){
+		Optional<Alumno> alumnoEncontrado = alumnoService.findById(alumnoDto.getDni());
+		System.out.println("--------------"+alumnoEncontrado.get().getDni());
+		System.out.println("--------------"+alumnoEncontrado.get().getNombre());
+		
+		if(alumnoEncontrado.isPresent()) {
+			Alumno alumno = new Alumno();
+			alumno.setNombre(alumnoEncontrado.get().getNombre());
+			alumno.setApellidos(alumnoEncontrado.get().getApellidos());
+			alumno.setFechanacimiento(alumnoEncontrado.get().getFechanacimiento());
+			alumno.setImagen(alumnoEncontrado.get().getImagen());
+			Alumno update = alumnoService.update(alumno);
+			
+			if(update != null) {
+				return ResponseEntity.ok(update);
+			}
 		}
+		
+		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar alumno");
 
 	}
