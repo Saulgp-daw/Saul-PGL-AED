@@ -10,7 +10,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "Api Peliculas", version = "v1"))
+@OpenAPIDefinition(info = @Info(title = "Api Instituto", version = "v1"))
 public class SwaggerConfig {
 	@Bean
 	public OpenAPI customizeOpenAPI() {

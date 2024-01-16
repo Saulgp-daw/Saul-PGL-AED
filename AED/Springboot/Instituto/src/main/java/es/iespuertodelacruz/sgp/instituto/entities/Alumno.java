@@ -1,8 +1,10 @@
-package es.iespuertodelacruz.sgp.entities;
+package es.iespuertodelacruz.sgp.instituto.entities;
 
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -29,8 +31,11 @@ public class Alumno implements Serializable {
 	private BigInteger fechanacimiento;
 
 	private String nombre;
+	
+	private String imagen;
 
 	//bi-directional many-to-one association to Matricula
+	//@JsonIgnore
 	@OneToMany(mappedBy="alumno")
 	private List<Matricula> matriculas;
 
@@ -67,6 +72,14 @@ public class Alumno implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public String getImagen() {
+		return this.imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public List<Matricula> getMatriculas() {

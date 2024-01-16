@@ -1,19 +1,10 @@
-package es.iespuertodelacruz.sgp.entities;
+package es.iespuertodelacruz.sgp.instituto.entities;
 
 import java.io.Serializable;
+import jakarta.persistence.*;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -33,6 +24,7 @@ public class Matricula implements Serializable {
 	private int year;
 
 	//bi-directional many-to-one association to Alumno
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="dni")
 	private Alumno alumno;
@@ -40,6 +32,7 @@ public class Matricula implements Serializable {
 	//bi-directional many-to-many association to Asignatura
 	//@ManyToMany(mappedBy="matriculas")
 	//private List<Asignatura> asignaturas;
+	
 	
 	@ManyToMany(fetch= FetchType.LAZY)
 	@JoinTable(

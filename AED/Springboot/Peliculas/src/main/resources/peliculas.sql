@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categorias` (
   `id` int NOT NULL,
   `nombre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -62,7 +62,7 @@ CREATE TABLE `peliculas` (
   `argumento` varchar(255) NOT NULL,
   `imagen` varchar(255) NOT NULL,
   `trailer` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Volcado de datos para la tabla `peliculas`
@@ -96,7 +96,7 @@ CREATE TABLE `pelicula_categoria` (
   `id` int NOT NULL,
   `pelicula_id` int DEFAULT NULL,
   `categoria_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 --
 -- Volcado de datos para la tabla `pelicula_categoria`
@@ -136,7 +136,7 @@ CREATE TABLE `usuarios` (
   `active` tinyint(1) DEFAULT NULL,
   `hash` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Volcado de datos para la tabla `usuarios`

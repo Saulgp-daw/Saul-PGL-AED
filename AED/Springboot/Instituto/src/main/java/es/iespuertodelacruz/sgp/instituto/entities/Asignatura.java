@@ -1,7 +1,9 @@
-package es.iespuertodelacruz.sgp.entities;
+package es.iespuertodelacruz.sgp.instituto.entities;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,8 +34,8 @@ public class Asignatura implements Serializable {
 	private String nombre;
 
 	//bi-directional many-to-many association to Matricula
-	@ManyToMany
-	@JoinColumn(name="id")
+	@JsonIgnore
+	@ManyToMany(mappedBy = "asignaturas")
 	private List<Matricula> matriculas;
 
 	public Asignatura() {

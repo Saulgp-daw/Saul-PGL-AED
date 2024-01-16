@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.sgp.config;
+package es.iespuertodelacruz.sgp.instituto.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

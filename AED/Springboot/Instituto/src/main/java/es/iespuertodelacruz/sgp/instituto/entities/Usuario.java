@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.sgp.entities;
+package es.iespuertodelacruz.sgp.instituto.entities;
 
 import java.io.Serializable;
 

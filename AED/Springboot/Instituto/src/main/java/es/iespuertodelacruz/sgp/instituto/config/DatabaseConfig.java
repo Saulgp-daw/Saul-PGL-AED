@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.sgp.config;
+package es.iespuertodelacruz.sgp.instituto.config;
 
 import javax.sql.DataSource;
 
