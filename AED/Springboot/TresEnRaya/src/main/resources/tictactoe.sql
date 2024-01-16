@@ -1,3 +1,13 @@
+CREATE TABLE usuarios (
+	email VARCHAR(255) NOT NULL UNIQUE,
+	nick VARCHAR(50) PRIMARY KEY NOT NULL,
+	password varchar(200) NOT NULL,
+	rol varchar(45) NOT NULL,
+	active tinyint(1) DEFAULT 0,
+	hash VARCHAR(255) DEFAULT NULL
+	
+);
+
 CREATE TABLE partidas (
 	idPartida int AUTO_INCREMENT PRIMARY KEY,
 	estado VARCHAR(50) NOT NULL,
@@ -9,14 +19,5 @@ CREATE TABLE partidas (
 	
 	CONSTRAINT fk_usuario1 FOREIGN KEY (nickJug1) REFERENCES usuarios(nick),
 	CONSTRAINT fk_usuario2 FOREIGN KEY (nickJug2) REFERENCES usuarios(nick)
-)
+);
 
-CREATE TABLE usuarios (
-	email VARCHAR(255) NOT NULL UNIQUE,
-	nick VARCHAR(50) PRIMARY KEY NOT NULL,
-	password varchar(200) NOT NULL,
-	rol varchar(45) NOT NULL,
-	active tinyint(1) DEFAULT 0,
-	hash VARCHAR(255) DEFAULT NULL
-	
-)
