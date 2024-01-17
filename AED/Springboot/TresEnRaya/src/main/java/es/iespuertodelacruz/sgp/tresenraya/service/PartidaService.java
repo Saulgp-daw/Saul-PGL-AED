@@ -6,33 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.iespuertodelacruz.sgp.tresenraya.dto.ApuestaDTO;
-import es.iespuertodelacruz.sgp.tresenraya.entities.Partida;
+import es.iespuertodelacruz.sgp.tresenraya.entities.PartidaEntity;
 import es.iespuertodelacruz.sgp.tresenraya.repository.IPartidaRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class PartidaService implements IGenericService<Partida, Integer> {
+public class PartidaService implements IGenericService<PartidaEntity, Integer> {
 	
 	@Autowired
 	private IPartidaRepository partidaRepository;
 
 	@Override
-	public Iterable<Partida> findAll() {
+	public Iterable<PartidaEntity> findAll() {
 		// TODO Auto-generated method stub
 		return partidaRepository.findAll();
 	}
 
 	@Override
-	public Optional<Partida> findById(Integer id) {
+	public Optional<PartidaEntity> findById(Integer id) {
 		// TODO Auto-generated method stub
 		return partidaRepository.findById(id);
 	}
 
 	@Override
 	@Transactional
-	public Partida save(Partida element) {
+	public PartidaEntity save(PartidaEntity element) {
 		// TODO Auto-generated method stub
-		Partida partidaGuardada = null;
+		PartidaEntity partidaGuardada = null;
 		try {
 			partidaGuardada = partidaRepository.save(element);
 			
@@ -49,8 +49,8 @@ public class PartidaService implements IGenericService<Partida, Integer> {
 	}
 	
 	@Transactional
-	public Partida update(ApuestaDTO element) {
-		Optional<Partida> partidaExistente = partidaRepository.findById(element.getIdPartida());
+	public PartidaEntity update(int id, ApuestaDTO element) {
+		Optional<PartidaEntity> partidaExistente = partidaRepository.findById(id);
 		//System.out.println("-------------------"+partidaExistente.get().getEstado());
 		//System.out.println("-------------------"+element.getTablero());
 		if(partidaExistente.isPresent()) {

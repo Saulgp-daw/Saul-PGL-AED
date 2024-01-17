@@ -1,8 +1,9 @@
 package es.iespuertodelacruz.sgp.tresenraya.dto;
 
 public class ApuestaDTO {
-	private int idPartida;
+	//private int idPartida;
 	private String simbolo;
+	private String tablero;
 	
 	public String getSimbolo() {
 		return simbolo;
@@ -14,9 +15,9 @@ public class ApuestaDTO {
 	}
 
 
-	private String tablero;
 	
 	
+	/*
 	public int getIdPartida() {
 		return idPartida;
 	}
@@ -24,7 +25,7 @@ public class ApuestaDTO {
 
 	public void setIdPartida(int idPartida) {
 		this.idPartida = idPartida;
-	}
+	}*/
 
 
 	public String getTablero() {
@@ -42,9 +43,5 @@ public class ApuestaDTO {
 	}
 
 
-	public ApuestaDTO(int idPartida, String tablero) {
-		super();
-		this.idPartida = idPartida;
-		this.tablero = tablero;
-	}
+	
 }
