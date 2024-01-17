@@ -25,6 +25,13 @@ public class PartidaRESTController {
 	@Autowired
 	private PartidaService partidaService;
 	
+	@GetMapping("")
+	public ResponseEntity<?> findAll() {
+		Iterable<Partida> lista = partidaService.findAll();
+		return ResponseEntity.ok(lista);
+	}
+	
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findById(@PathVariable Integer id) {
 		Optional<Partida> partidaEncontrada = partidaService.findById(id);
@@ -44,8 +51,7 @@ public class PartidaRESTController {
 	@PostMapping("/{id}/apuestas")
 	public  ResponseEntity<?> apuesta(@RequestBody ApuestaDTO apuestaDto){
 		
-		//System.out.println("-------------------"+apuestaDto.getIdPartida());
-		//System.out.println("-------------------"+apuestaDto.getTablero());
+		
 		Partida update = partidaService.update(apuestaDto);
 		
 		if(update != null) {

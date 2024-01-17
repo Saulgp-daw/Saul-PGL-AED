@@ -19,7 +19,7 @@ public class PartidaService implements IGenericService<Partida, Integer> {
 	@Override
 	public Iterable<Partida> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return partidaRepository.findAll();
 	}
 
 	@Override
