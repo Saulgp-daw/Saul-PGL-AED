@@ -8,16 +8,14 @@ CREATE TABLE usuarios (
 	
 );
 
+drop table if EXISTS partidas;
 CREATE TABLE partidas (
-	idPartida int AUTO_INCREMENT PRIMARY KEY,
+	id_partida int AUTO_INCREMENT PRIMARY KEY,
 	estado VARCHAR(50) NOT NULL,
-	nickJug1 varchar(50) NOT NULL,
-	nickJug2 varchar(50) NOT NULL,
-	simboloJug1 CHARACTER(1) NOT NULL,
-	simboloJug2 CHARACTER(1) NOT NULL,
-	tablero VARCHAR(9) NOT NULL,
-	
-	CONSTRAINT fk_usuario1 FOREIGN KEY (nickJug1) REFERENCES usuarios(nick),
-	CONSTRAINT fk_usuario2 FOREIGN KEY (nickJug2) REFERENCES usuarios(nick)
+	nick_jug1 varchar(50) NOT NULL,
+	nick_jug2 varchar(50) NOT NULL,
+	simbolo_jug1 CHARACTER(1) DEFAULT 'O',
+	simbolo_jug2 CHARACTER(1) DEFAULT 'X',
+	tablero VARCHAR(9) NOT NULL
 );
 
