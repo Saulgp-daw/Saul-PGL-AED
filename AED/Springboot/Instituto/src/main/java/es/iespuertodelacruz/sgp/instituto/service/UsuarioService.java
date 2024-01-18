@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.sgp.instituto.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +9,14 @@ import org.springframework.stereotype.Service;
 
 import es.iespuertodelacruz.sgp.instituto.entities.Usuario;
 import es.iespuertodelacruz.sgp.instituto.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService implements IGenericService<Usuario, Integer> {
 	@Autowired
 	UsuarioRepository usuariorepository;
+	
+	
 
 	@Override
 	public Iterable<Usuario> findAll() {
@@ -39,5 +44,18 @@ public class UsuarioService implements IGenericService<Usuario, Integer> {
 	
 	public Usuario findByEmail(String email) {
 		return usuariorepository.findByEmail(email);
+	}
+	
+	@Transactional
+	public Usuario update(Usuario usuario) {
+		Optional<Usuario> usuarioAntiguo = usuariorepository.findById(usuario.getId());
+		
+		if(usuarioAntiguo.isPresent()) {
+			usuarioAntiguo.get().setEmail(usuario.getEmail());
+			usuarioAntiguo.get().setPassword(usuario.getPassword());
+			usuarioAntiguo.get().setHash(usuario.getHash());
+			return usuarioAntiguo.get();
+		}
+		return null;
 	}
 }

@@ -49,4 +49,18 @@ public class AuthService {
 		}
 		return generateToken;
 	}
+	
+	public Boolean passCoinciden(String nuevaPass, String passCodificada) {
+		return passwordEncoder.matches(nuevaPass, passCodificada);
+	}
+	
+	public String codificarPassword(String password) {
+		return passwordEncoder.encode(password);
+	}
+	
+	public String generateNewToken(String username, String password) {
+		return jwtService.generateToken(username, password);
+	}
+	
+	 
 }

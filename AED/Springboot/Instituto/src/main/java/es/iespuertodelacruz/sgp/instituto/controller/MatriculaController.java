@@ -49,57 +49,7 @@ public class MatriculaController {
 		return ResponseEntity.ok(element);
 	}
 	
-	@PostMapping("")
-	public ResponseEntity<?> save(@RequestBody MatriculaDTO matriculaDto){
-		Matricula matricula = new Matricula();
-		Optional<Alumno> alumno = alumnoService.findById(matriculaDto.getDni());
-		if(alumno.isPresent()) {
-			matricula.setAlumno(alumno.get());
-			matricula.setYear(matriculaDto.getYear());
-			matricula.setAsignaturas(matriculaDto.getAsignaturas());
-		}
-		
-		
-		Matricula save = matriculaService.save(matricula);
-		if (save != null) {
-			return ResponseEntity.ok(save);
-		}
-
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar la matricula");
-		
-	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable("id") int id, @RequestParam("dni") String dni, @RequestBody MatriculaDTO matriculaDto) {
-	    Matricula matricula = new Matricula();
-	    matricula.setId(id);
-	    matricula.setYear(matriculaDto.getYear());
-
-	    Optional<Alumno> alumno = alumnoService.findById(matriculaDto.getDni());
-	    
-	    matricula.setAlumno(alumno.orElseThrow(() -> new RuntimeException("Alumno not found")));
-
-	    matricula.setAsignaturas(matriculaDto.getAsignaturas());
-
-	    Matricula update = matriculaService.update(matricula);
-
-	    if (update != null) {
-	        return ResponseEntity.ok(update);
-	    }
-
-	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar la matricula");
-	}
-
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
-		Optional<Matricula> matriculaABorrar = matriculaService.findById(id);
-		if(matriculaABorrar.isPresent()) {
-			matriculaService.deleteById(id);return ResponseEntity.ok("matricula borrada");
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("el id del registro no existe");
-		}
-	}
 	
 	
  }

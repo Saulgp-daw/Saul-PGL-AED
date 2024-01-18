@@ -44,56 +44,5 @@ public class AlumnoController {
 		return ResponseEntity.ok(alumno);
 	}
 	
-	@PostMapping("")
-	public ResponseEntity<?> save(@RequestBody AlumnoDTO alumnoDTO){
-		Alumno alumno = new Alumno();
-		alumno.setDni(alumnoDTO.getDni());
-		alumno.setNombre(alumnoDTO.getNombre());
-		alumno.setApellidos(alumnoDTO.getApellidos());
-		alumno.setFechanacimiento(alumnoDTO.getFechanacimiento());
-		//alumno.setMatriculas(alumnoDTO.getMatriculas());
-		String codedfoto = alumnoDTO.getBase64();
-		byte[] photoBytes = Base64.getDecoder().decode(codedfoto);
-		String nombreNuevoFichero = storageService.save(alumnoDTO.getImagen(), photoBytes);
-		
-		alumno.setImagen(nombreNuevoFichero);
-		System.out.println("---------------------------------"+alumno.getMatriculas());
-		Alumno save = alumnoService.save(alumno);
-		return ResponseEntity.ok(save);
-		
-	}
 	
-	@DeleteMapping("/{dni}")
-	public ResponseEntity<?> delete(@PathVariable String dni){
-		Optional<Alumno> alumnoABorrar = alumnoService.findById(dni);
-		if(alumnoABorrar.isPresent()) {
-			alumnoService.deleteById(dni);
-			return ResponseEntity.ok("alumno borrado");
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("el id del registro no existe");
-		}
-	}
-	
-	@PutMapping("/{dni}")
-	public ResponseEntity<?> update(@PathVariable String dni, @RequestBody AlumnoDTO alumnoDto){
-		Optional<Alumno> alumnoEncontrado = alumnoService.findById(dni);
-		
-		if(alumnoEncontrado.isPresent()) {
-			Alumno alumno = new Alumno();
-			alumno.setDni(alumnoEncontrado.get().getDni());
-			alumno.setNombre(alumnoDto.getNombre());
-			alumno.setApellidos(alumnoDto.getApellidos());
-			alumno.setFechanacimiento(alumnoDto.getFechanacimiento());
-			alumno.setImagen(alumnoDto.getImagen());
-			Alumno update = alumnoService.update(alumno);
-			
-			if(update != null) {
-				return ResponseEntity.ok(update);
-			}
-		}
-		
-		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar alumno");
-
-	}
  }

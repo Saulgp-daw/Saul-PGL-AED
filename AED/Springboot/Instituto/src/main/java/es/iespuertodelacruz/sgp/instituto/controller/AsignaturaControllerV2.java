@@ -20,8 +20,8 @@ import es.iespuertodelacruz.sgp.instituto.service.AsignaturaService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/asignaturas")
-public class AsignaturaController {
+@RequestMapping("/api/v2/asignaturas")
+public class AsignaturaControllerV2 {
 
 	@Autowired
 	private AsignaturaService asignaturaService;
@@ -37,7 +37,34 @@ public class AsignaturaController {
 		Optional<Asignatura> element = asignaturaService.findById(id);
 		return ResponseEntity.ok(element);
 	}
-	
-	
 
+	@PostMapping("")
+	public ResponseEntity<?> save(Asignatura asignatura) {
+		Asignatura save = asignaturaService.save(asignatura);
+		return ResponseEntity.ok(save);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
+		Optional<Asignatura> asignaturaABorrar = asignaturaService.findById(id);
+		if (asignaturaABorrar.isPresent()) {
+			asignaturaService.deleteById(id);
+			return ResponseEntity.ok("Asignatura borrada");
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("el id del registro no existe");
+		}
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Asignatura asignatura){
+		
+			Asignatura update = asignaturaService.update(id, asignatura);
+			if (update != null) {
+				return ResponseEntity.ok(update);
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar la asignatura");
+		
+	}
+
+	
 }
