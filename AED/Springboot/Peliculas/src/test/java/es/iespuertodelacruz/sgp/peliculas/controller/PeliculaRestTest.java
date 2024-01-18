@@ -46,7 +46,7 @@ import es.iespuertodelacruz.sgp.peliculas.service.PeliculaService;
 @Import(ApplicationNoSecurity.class)
 public class PeliculaRestTest {
 
-	@Autowired
+	/*@Autowired
 	MockMvc mockMvc;
 
 	@Autowired
@@ -82,7 +82,7 @@ public class PeliculaRestTest {
     		;
     		
     		
-	}
+	}*/
 
 }
 

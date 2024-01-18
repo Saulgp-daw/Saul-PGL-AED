@@ -18,7 +18,7 @@ public class AlumnoDTO {
 	public AlumnoDTO() {
 		super();
 	}
-	public AlumnoDTO(String dni, String nombre, String apellidos, BigInteger fechanacimiento, String base64,
+	public AlumnoDTO( String dni, String nombre, String apellidos, BigInteger fechanacimiento, String base64,
 			String imagen) {
 		super();
 		this.dni = dni;
@@ -29,6 +29,7 @@ public class AlumnoDTO {
 		this.imagen = imagen;
 		//this.matriculas = matriculas;
 	}
+	
 	public String getDni() {
 		return dni;
 	}

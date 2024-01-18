@@ -75,17 +75,16 @@ public class AlumnoController {
 	}
 	
 	@PutMapping("/{dni}")
-	public ResponseEntity<?> update(@RequestBody AlumnoDTO alumnoDto){
-		Optional<Alumno> alumnoEncontrado = alumnoService.findById(alumnoDto.getDni());
-		System.out.println("--------------"+alumnoEncontrado.get().getDni());
-		System.out.println("--------------"+alumnoEncontrado.get().getNombre());
+	public ResponseEntity<?> update(@PathVariable String dni, @RequestBody AlumnoDTO alumnoDto){
+		Optional<Alumno> alumnoEncontrado = alumnoService.findById(dni);
 		
 		if(alumnoEncontrado.isPresent()) {
 			Alumno alumno = new Alumno();
-			alumno.setNombre(alumnoEncontrado.get().getNombre());
-			alumno.setApellidos(alumnoEncontrado.get().getApellidos());
-			alumno.setFechanacimiento(alumnoEncontrado.get().getFechanacimiento());
-			alumno.setImagen(alumnoEncontrado.get().getImagen());
+			alumno.setDni(alumnoEncontrado.get().getDni());
+			alumno.setNombre(alumnoDto.getNombre());
+			alumno.setApellidos(alumnoDto.getApellidos());
+			alumno.setFechanacimiento(alumnoDto.getFechanacimiento());
+			alumno.setImagen(alumnoDto.getImagen());
 			Alumno update = alumnoService.update(alumno);
 			
 			if(update != null) {

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.sgp.instituto.dto.MatriculaDTO;
@@ -66,6 +68,27 @@ public class MatriculaController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar la matricula");
 		
 	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<?> update(@PathVariable("id") int id, @RequestParam("dni") String dni, @RequestBody MatriculaDTO matriculaDto) {
+	    Matricula matricula = new Matricula();
+	    matricula.setId(id);
+	    matricula.setYear(matriculaDto.getYear());
+
+	    Optional<Alumno> alumno = alumnoService.findById(dni);
+	    matricula.setAlumno(alumno.orElseThrow(() -> new RuntimeException("Alumno not found")));
+
+	    matricula.setAsignaturas(matriculaDto.getAsignaturas());
+
+	    Matricula update = matriculaService.update(matricula);
+
+	    if (update != null) {
+	        return ResponseEntity.ok(update);
+	    }
+
+	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar la matricula");
+	}
+
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Integer id) {

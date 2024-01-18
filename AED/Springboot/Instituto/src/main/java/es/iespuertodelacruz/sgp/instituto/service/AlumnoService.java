@@ -75,38 +75,44 @@ public class AlumnoService implements IGenericService<Alumno, String> {
 		Optional<Alumno> alumnoAntiguo = alumnoRepository.findById(alumno.getDni());
 		
 		if(alumnoAntiguo.isPresent()) {
-			/*if(alumnoAntiguo.get().getMatriculas() != null) {
-				List<Matricula> matriculasAntiguas = alumnoAntiguo.get().getMatriculas();
-				for(Matricula m : matriculasAntiguas) {
-					if(m.getAlumno().getDni() == alumnoAntiguo.get().getDni()) {
-						matriculaRepository.delete(m);
-					}
-				}
-				
-				alumnoAntiguo.get().getMatriculas().clear();
-				
-				List<Matricula> matriculasAuxiliares = new ArrayList<Matricula>();
-				List<Matricula> matriculas = alumno.getMatriculas();
-				
-				for(Matricula m : matriculas) {
-					matriculasAuxiliares.add(m);
-				}
-				
-				for(Matricula m : matriculasAuxiliares) {
-					if(!alumnoAntiguo.get().getMatriculas().contains(m)) {
-						Optional<Matricula> findById = matriculaRepository.findById(m.getId());
-						findById.get().setAlumno(alumno);
-						alumnoAntiguo.get().getMatriculas().add(findById.get());
-					}
-				}
-			}*/
+		
+			alumnoAntiguo.get().setDni(alumno.getDni());
 			alumnoAntiguo.get().setNombre(alumno.getNombre());
 			alumnoAntiguo.get().setApellidos(alumno.getApellidos());
 			alumnoAntiguo.get().setFechanacimiento(alumno.getFechanacimiento());
 			alumnoAntiguo.get().setImagen(alumno.getImagen());
+			
+			return alumnoAntiguo.get();
 		}
-		return alumnoAntiguo.get();
+		return null;
 		
 	}
 
 }
+
+
+/*if(alumnoAntiguo.get().getMatriculas() != null) {
+List<Matricula> matriculasAntiguas = alumnoAntiguo.get().getMatriculas();
+for(Matricula m : matriculasAntiguas) {
+	if(m.getAlumno().getDni() == alumnoAntiguo.get().getDni()) {
+		matriculaRepository.delete(m);
+	}
+}
+
+alumnoAntiguo.get().getMatriculas().clear();
+
+List<Matricula> matriculasAuxiliares = new ArrayList<Matricula>();
+List<Matricula> matriculas = alumno.getMatriculas();
+
+for(Matricula m : matriculas) {
+	matriculasAuxiliares.add(m);
+}
+
+for(Matricula m : matriculasAuxiliares) {
+	if(!alumnoAntiguo.get().getMatriculas().contains(m)) {
+		Optional<Matricula> findById = matriculaRepository.findById(m.getId());
+		findById.get().setAlumno(alumno);
+		alumnoAntiguo.get().getMatriculas().add(findById.get());
+	}
+}
+}*/

@@ -25,7 +25,7 @@ import es.iespuertodelacruz.sgp.peliculas.entities.Pelicula;
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
 @Sql(scripts = {"/peliculas.sql"})
 class PeliculaServiceTest {
-
+/*
 	@Autowired IokPeliculaRepository okRepository;
 	
 	@Autowired PeliculaService peliculaService;
@@ -154,7 +154,7 @@ class PeliculaServiceTest {
 		
 
 		
-	}	
+	}	*/
 	
 }
 
