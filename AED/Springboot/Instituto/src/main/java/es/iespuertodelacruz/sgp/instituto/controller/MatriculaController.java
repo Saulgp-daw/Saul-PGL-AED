@@ -75,7 +75,8 @@ public class MatriculaController {
 	    matricula.setId(id);
 	    matricula.setYear(matriculaDto.getYear());
 
-	    Optional<Alumno> alumno = alumnoService.findById(dni);
+	    Optional<Alumno> alumno = alumnoService.findById(matriculaDto.getDni());
+	    
 	    matricula.setAlumno(alumno.orElseThrow(() -> new RuntimeException("Alumno not found")));
 
 	    matricula.setAsignaturas(matriculaDto.getAsignaturas());
