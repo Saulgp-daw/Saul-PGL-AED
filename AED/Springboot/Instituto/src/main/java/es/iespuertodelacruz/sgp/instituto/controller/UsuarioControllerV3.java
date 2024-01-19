@@ -1,9 +1,6 @@
 package es.iespuertodelacruz.sgp.instituto.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.sgp.instituto.dto.ModificarDTO;
-import es.iespuertodelacruz.sgp.instituto.dto.RegisterDTO;
 import es.iespuertodelacruz.sgp.instituto.dto.UsuarioDTO;
 import es.iespuertodelacruz.sgp.instituto.entities.Usuario;
 import es.iespuertodelacruz.sgp.instituto.security.AuthService;
@@ -25,8 +22,8 @@ import es.iespuertodelacruz.sgp.instituto.service.UsuarioService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v2/usuarios")
-public class UsuarioControllerV2 {
+@RequestMapping("/api/v3/usuarios")
+public class UsuarioControllerV3 {
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -36,15 +33,20 @@ public class UsuarioControllerV2 {
 	
 	@GetMapping("")
 	public ResponseEntity<?> findAll(){
-		Iterable<Usuario> iterable = usuarioService.findAll();
-		List<Usuario> lista = new ArrayList<Usuario>();
-		
-		for(Usuario u : iterable) {
-			lista.add(u);
-		}
-		
-		
-		return ResponseEntity.ok(lista.stream().map(this::convertirAdto).collect(Collectors.toList()));
+		Iterable<Usuario> iterable = usuarioService.findAll();		
+		return ResponseEntity.ok(iterable);
+	}
+	
+	@PostMapping("")
+	public ResponseEntity<?> save(@RequestBody Usuario usuario){
+		/**
+		 * Hacer el DTO de usuarioPOST 
+		 * ponerle la contraseña codificada
+		 * poner el hash
+		 * poner el active a 1
+		 */
+		Usuario save = usuarioService.save(usuario);
+		return ResponseEntity.ok(save);
 	}
 	
 	@PutMapping("/{id}")
