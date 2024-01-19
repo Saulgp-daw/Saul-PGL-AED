@@ -5,9 +5,10 @@ import { useAppContext } from '../contexts/TokenContextProvider';
 import { useNavigate } from 'react-router-dom';
 
 
-export interface iLogin {
+export interface iRegistro {
     username: string,
-    password: string
+    password: string,
+    email: string
 }
 
 type Props = {
@@ -15,30 +16,27 @@ type Props = {
 };
 
 const Registro = ({ navigation }: Props) => {
-    const ruta = "http://172.26.13.0:8080/api/v1/login";
+    const ruta = "http://172.26.13.0:8080/api/v1/register";
     const { token, settoken } = useAppContext();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    useEffect(() => {
-        console.log(username);
-
-    }, [username]);
+    const [email, setEmail] = useState("");
 
 
+    function registro() {
 
-    function login() {
-
-        const nuevoLogin: iLogin = {
+        const nuevoRegistro: iRegistro = {
             username: username,
-            password: password
+            password: password,
+            email: email
         }
 
-        console.log(nuevoLogin);
+        console.log(nuevoRegistro);
 
         const axiospost = async () => {
             try {
 
-                const response = await axios.post(ruta, nuevoLogin);
+                const response = await axios.post(ruta, nuevoRegistro);
                 console.log(response.data);
                 let status = response.status;
                 console.log(status);
@@ -59,11 +57,14 @@ const Registro = ({ navigation }: Props) => {
     return (
         <View>
             <Text>Registro</Text>
+            <Text>Email</Text>
+            <TextInput style={{ backgroundColor: "lightblue" }} onChangeText={(texto) => setEmail(texto)} />
             <Text>Username</Text>
             <TextInput style={{ backgroundColor: "lightblue" }} onChangeText={(texto) => setUsername(texto)} />
             <Text>Password</Text>
             <TextInput style={{ backgroundColor: "lightblue" }} onChangeText={(texto) => setPassword(texto)} />
-            <Button title='Login' onPress={login} />
+
+            <Button title='Login' onPress={registro} />
             <TouchableHighlight onPress={() => navigation.navigate("Login")}>
                 <Text>Login</Text>
             </TouchableHighlight>
