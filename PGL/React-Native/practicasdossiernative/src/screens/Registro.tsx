@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useAppContext } from '../contexts/TokenContextProvider';
 import { useNavigate } from 'react-router-dom';
-import Registro from './Registro';
 
 
 export interface iLogin {
@@ -15,7 +14,7 @@ type Props = {
     navigation: any;
 };
 
-const Login = ({ navigation }: Props) => {
+const Registro = ({ navigation }: Props) => {
     const ruta = "http://172.26.13.0:8080/api/v1/login";
     const { token, settoken } = useAppContext();
     const [username, setUsername] = useState("");
@@ -59,16 +58,17 @@ const Login = ({ navigation }: Props) => {
 
     return (
         <View>
+            <Text>Registro</Text>
             <Text>Username</Text>
             <TextInput style={{ backgroundColor: "lightblue" }} onChangeText={(texto) => setUsername(texto)} />
             <Text>Password</Text>
             <TextInput style={{ backgroundColor: "lightblue" }} onChangeText={(texto) => setPassword(texto)} />
             <Button title='Login' onPress={login} />
-            <TouchableHighlight onPress={() => navigation.navigate("Registro")}>
-                <Text>Registro</Text>
+            <TouchableHighlight onPress={() => navigation.navigate("Login")}>
+                <Text>Login</Text>
             </TouchableHighlight>
         </View>
     )
 }
 
-export default Login
+export default Registro

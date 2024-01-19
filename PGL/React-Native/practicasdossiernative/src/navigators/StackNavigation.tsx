@@ -2,6 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../screens/Login';
+import Registro from '../screens/Registro';
+import TokenContextProvider from '../contexts/TokenContextProvider';
+
 
 
 type Props = {}
@@ -10,9 +13,12 @@ const Stack = createNativeStackNavigator();
 const StackNavigation = (props: Props) => {
     return (
 
-        <Stack.Navigator>
-            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-        </Stack.Navigator>
+        <TokenContextProvider>
+            <Stack.Navigator>
+                <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+                <Stack.Screen name='Registro' component={Registro} options={{ headerShown: false }} />
+            </Stack.Navigator>
+        </TokenContextProvider>
 
     )
 }
