@@ -33,7 +33,7 @@ const Login = ({ navigation }: Props) => {
             username: username,
             password: password
         }
-
+        navigation.navigate("DrawerGestion");
         console.log(nuevoLogin);
 
         const axiospost = async () => {
@@ -43,6 +43,7 @@ const Login = ({ navigation }: Props) => {
                 console.log(response.data);
                 let status = response.status;
                 console.log(status);
+                //navigation.navigate("DrawerGestion");
                 if (status === 200) {
                     settoken(response.data);
                     console.log("todo correcto");

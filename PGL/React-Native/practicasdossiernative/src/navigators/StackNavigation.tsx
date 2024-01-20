@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../screens/Login';
 import Registro from '../screens/Registro';
 import TokenContextProvider from '../contexts/TokenContextProvider';
+import DrawerGestion from './DrawerGestion';
 
 
 
@@ -17,6 +18,7 @@ const StackNavigation = (props: Props) => {
             <Stack.Navigator>
                 <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
                 <Stack.Screen name='Registro' component={Registro} options={{ headerShown: false }} />
+                <Stack.Screen name='DrawerGestion' component={DrawerGestion} options={{ headerShown: false }}/>
             </Stack.Navigator>
         </TokenContextProvider>
 
