@@ -31,6 +31,7 @@ const Login = ({ navigation }: Props) => {
                 console.log(data);
 
                 if (data != null) {
+                    settoken(data);
                     navigation.navigate("DrawerGestion");
                 }
             } catch (e) {
