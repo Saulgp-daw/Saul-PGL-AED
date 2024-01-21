@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, Platform  } from 'react-native';
+import { View, Text, TextInput, Button, Platform, Alert  } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import { useAppContext } from '../contexts/TokenContextProvider';
 
 type Props = {}
 
-export type Alumno = {
+type Alumno = {
   dni: string;
   nombre: string;
   apellidos: string;
@@ -74,7 +74,7 @@ const AgregarAlumno = (props: Props) => {
       try{
         const response = await axios.post(ruta, nuevoAlumno, { headers: { 'Authorization': `Bearer ${token}` } });
         console.log(response.data);
-        alert("Alumno añadido!");
+        Alert.alert("Alumno añadido!", "Respuesta: "+response.status);
       }catch(error){
         console.log(error);
       }
