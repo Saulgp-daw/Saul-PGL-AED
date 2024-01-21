@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.sgp.instituto.dto.ModificarDTO;
-import es.iespuertodelacruz.sgp.instituto.dto.RegisterDTO;
 import es.iespuertodelacruz.sgp.instituto.dto.UsuarioDTO;
 import es.iespuertodelacruz.sgp.instituto.entities.Usuario;
 import es.iespuertodelacruz.sgp.instituto.security.AuthService;
+import es.iespuertodelacruz.sgp.instituto.security.JwtService;
 import es.iespuertodelacruz.sgp.instituto.service.UsuarioService;
 
 @RestController
@@ -34,6 +35,9 @@ public class UsuarioControllerV2 {
 	@Autowired
 	private AuthService service;
 	
+	@Autowired
+	private JwtService jwtService;
+	
 	@GetMapping("")
 	public ResponseEntity<?> findAll(){
 		Iterable<Usuario> iterable = usuarioService.findAll();
@@ -45,6 +49,16 @@ public class UsuarioControllerV2 {
 		
 		
 		return ResponseEntity.ok(lista.stream().map(this::convertirAdto).collect(Collectors.toList()));
+	}
+	
+	@GetMapping("/profile")
+	public ResponseEntity<?> profile(@RequestHeader("Authorization") String authorizationHeader){
+		System.out.println("----------------------------------"+authorizationHeader);
+		String token = authorizationHeader.substring(7);
+		String username = jwtService.extractUsername(token);
+		System.out.println("----------------------------------"+username);
+		Usuario usuario = usuarioService.findByName(username);
+		return ResponseEntity.ok(usuario);
 	}
 	
 	@PutMapping("/{id}")
