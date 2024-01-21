@@ -64,7 +64,7 @@ const BuscarAlumno = ({ navigation }: Props) => {
         const response = await axios.get<Alumno>(ruta + "/" + dni, { headers: { 'Authorization': `Bearer ${token}` } });
         //console.log(response.data);
         setAlumnoEncontrado(response.data); 
-        navigation.navigate("InfoAlumno", { alumno: alumnoEncontrado });
+        navigation.navigate("InfoAlumno", { alumno: response.data });
 
 
       } catch (error) {
