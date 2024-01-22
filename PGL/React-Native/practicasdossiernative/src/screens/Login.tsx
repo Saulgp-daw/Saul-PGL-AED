@@ -15,14 +15,14 @@ type Props = {
 };
 
 const Login = ({ navigation }: Props) => {
-    //const ruta = "http://172.26.13.0:8080/api/v1/login";
-    const ruta = "http://192.168.1.51:8080/api/v1/login";
+    const ruta = "http://172.26.13.0:8080/api/v1/login";
+    //const ruta = "http://192.168.1.51:8080/api/v1/login";
     const { token, settoken } = useAppContext();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    
+
     useEffect(() => {
         const verificarToken = async () => {
             try {
@@ -40,7 +40,7 @@ const Login = ({ navigation }: Props) => {
         };
 
         verificarToken();
-    }, [navigation]); 
+    }, [navigation]);
 
 
     async function login() {
@@ -52,7 +52,7 @@ const Login = ({ navigation }: Props) => {
         //navigation.navigate("DrawerGestion");
         console.log(nuevoLogin);
 
-       
+
 
 
         const axiospost = async () => {
@@ -67,7 +67,7 @@ const Login = ({ navigation }: Props) => {
                     console.log("todo correcto");
                     const jsonValue = JSON.stringify(response.data);
                     console.log(jsonValue);
-                    
+
                     await AsyncStorage.setItem('token', jsonValue);
                     navigation.navigate("DrawerGestion");
                 }
@@ -87,7 +87,7 @@ const Login = ({ navigation }: Props) => {
                     console.log(error.message);
                     setError("Error en la configuración o ejecución de la solicitud");
                 }
-            }finally {
+            } finally {
                 setLoading(false);
             }
         }

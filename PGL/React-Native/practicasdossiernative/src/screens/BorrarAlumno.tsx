@@ -7,18 +7,19 @@ import axios from 'axios';
 type Props = {}
 
 const BorrarAlumno = (props: Props) => {
-  
-  const ruta = "http://192.168.1.51:8080/api/v2/alumnos";
+
+  //const ruta = "http://192.168.1.51:8080/api/v2/alumnos";
+  const ruta = "http://172.26.13.0:8080/api/v2/alumnos";
   const [loading, setLoading] = useState(false);
   const { token, settoken } = useAppContext();
   const [dni, setDni] = useState("");
 
-  async function borrar(){
-    try{
-      const response = await axios.delete(ruta+"/"+dni, { headers: { 'Authorization': `Bearer ${token}` } });
-    console.log(response);
-    Alert.alert("Alumno borrado", "Respuesta: "+response.status);
-    }catch(error){
+  async function borrar() {
+    try {
+      const response = await axios.delete(ruta + "/" + dni, { headers: { 'Authorization': `Bearer ${token}` } });
+      console.log(response);
+      Alert.alert("Alumno borrado", "Respuesta: " + response.status);
+    } catch (error) {
       Alert.alert("Algo ha ido mal", error.message);
     }
   }

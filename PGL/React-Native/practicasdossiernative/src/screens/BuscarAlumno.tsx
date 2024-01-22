@@ -35,7 +35,8 @@ type Asignatura = {
 }
 
 const BuscarAlumno = ({ navigation }: Props) => {
-  const ruta = "http://192.168.1.51:8080/api/v2/alumnos";
+  //const ruta = "http://192.168.1.51:8080/api/v2/alumnos";
+  const ruta = "http://172.26.13.0:8080/api/v2/alumnos";
   const [loading, setLoading] = useState(false);
   const [dni, setDni] = useState("");
   const { token, settoken } = useAppContext();
@@ -63,7 +64,7 @@ const BuscarAlumno = ({ navigation }: Props) => {
       try {
         const response = await axios.get<Alumno>(ruta + "/" + dni, { headers: { 'Authorization': `Bearer ${token}` } });
         //console.log(response.data);
-        setAlumnoEncontrado(response.data); 
+        setAlumnoEncontrado(response.data);
         navigation.navigate("InfoAlumno", { alumno: response.data });
 
 

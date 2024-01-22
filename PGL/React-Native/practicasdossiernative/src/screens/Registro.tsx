@@ -16,8 +16,8 @@ type Props = {
 };
 
 const Registro = ({ navigation }: Props) => {
-    //const ruta = "http://172.26.13.0:8080/api/v1/register";
-    const ruta = "http://192.168.1.51:8080/api/v1/register";
+    const ruta = "http://172.26.13.0:8080/api/v1/register";
+    //const ruta = "http://192.168.1.51:8080/api/v1/register";
     const { token, settoken } = useAppContext();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -41,16 +41,16 @@ const Registro = ({ navigation }: Props) => {
                 const response = await axios.post(ruta, nuevoRegistro);
                 console.log(response.data);
                 let status = response.status;
-                
+
                 if (status === 200) {
                     settoken(response.data);
-                    console.log("Registro correcto: "+status);
+                    console.log("Registro correcto: " + status);
                     navigation.navigate("Login");
                 }
 
 
             } catch (error) {
-                
+
                 console.log(error);
             } finally {
                 setLoading(false);

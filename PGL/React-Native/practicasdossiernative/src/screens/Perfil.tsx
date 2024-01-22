@@ -8,7 +8,7 @@ type Props = {}
 type Usuario = {
   id: number;
   nombre: string;
-	email: string;
+  email: string;
   active: boolean;
   hash: string;
   password: string;
@@ -16,33 +16,36 @@ type Usuario = {
 }
 
 const Perfil = (props: Props) => {
-	const ruta = "http://192.168.1.51:8080/api/v2/usuarios/profile";
-	const { token, settoken } = useAppContext();
-	const [informacionUsuario, setInformacionUsuario] = useState<Usuario>(null);
-	
+  //const ruta = "http://192.168.1.51:8080/api/v2/usuarios/profile";
+  const ruta = "http://172.26.13.0:8080/api/v2/usuarios/profile";
+  const { token, settoken } = useAppContext();
+  const [informacionUsuario, setInformacionUsuario] = useState<Usuario>(null);
+
 
   useEffect(() => {
-	console.log("hola");
-	
+    console.log("hola");
+
     const axiosget = async () => {
-      try{
-        const response = await axios.get(ruta, { headers: {
-			Authorization: `Bearer ${token}`, // Agrega el token a los encabezados
-		  },});
+      try {
+        const response = await axios.get(ruta, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Agrega el token a los encabezados
+          },
+        });
         console.log(response.data);
-		setInformacionUsuario(response.data);
-      }catch(error){
+        setInformacionUsuario(response.data);
+      } catch (error) {
         console.log(error);
-        
+
       }
     }
-	axiosget();
+    axiosget();
   }, [])
 
   return (
     <View style={{ flex: 1 }}>
       <Text>Perfil</Text>
-      {informacionUsuario != null ? 
+      {informacionUsuario != null ?
         <View>
           <Text>Id: {informacionUsuario.id}</Text>
           <Text>Username: {informacionUsuario.nombre}</Text>
@@ -50,7 +53,7 @@ const Perfil = (props: Props) => {
           <Text>Active: {informacionUsuario.active}</Text>
           <Text>Rol: {informacionUsuario.rol}</Text>
         </View>
-        
+
         : null
       }
     </View>

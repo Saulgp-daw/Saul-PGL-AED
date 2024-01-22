@@ -18,7 +18,8 @@ type Props = {
 };
 
 const InfoAlumno = ({ navigation, route }: Props) => {
-  const ruta = "http://192.168.1.51:8080/api/v2/alumnos/ficheros/";
+  //const ruta = "http://192.168.1.51:8080/api/v2/alumnos/ficheros/";
+  const ruta = "http://172.26.13.0:8080/api/v2/alumnos/ficheros/";
   const { token, settoken } = useAppContext();
 
   const alumno = route?.params?.alumno;
@@ -49,7 +50,7 @@ const InfoAlumno = ({ navigation, route }: Props) => {
                 data={item.asignaturas}
                 keyExtractor={(asignatura) => asignatura.id.toString()} // Agrega esta línea
                 renderItem={({ item }) => (
-                    <Text>{item.curso + " " + item.nombre}</Text>
+                  <Text>{item.curso + " " + item.nombre}</Text>
                 )}
               />
             </View>

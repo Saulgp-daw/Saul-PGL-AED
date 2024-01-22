@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, Platform, Alert  } from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { View, Text, TextInput, Button, Platform, Alert } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 import { useAppContext } from '../contexts/TokenContextProvider';
@@ -17,7 +17,8 @@ type Alumno = {
 }
 
 const AgregarAlumno = (props: Props) => {
-  const ruta = "http://192.168.1.51:8080/api/v2/alumnos";
+  //const ruta = "http://192.168.1.51:8080/api/v2/alumnos";
+  const ruta = "http://172.26.13.0:8080/api/v2/alumnos";
   const [dni, setDni] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
@@ -41,7 +42,7 @@ const AgregarAlumno = (props: Props) => {
       console.log(response.assets[0].fileName);
       setBase64(response.assets[0].base64);
       setImagen(response.assets[0].fileName);
-      
+
     });
   }
 
@@ -58,7 +59,7 @@ const AgregarAlumno = (props: Props) => {
     setShow(true);
   };
 
-  async function crear(){
+  async function crear() {
     const nuevoAlumno: Alumno = {
       dni: dni,
       nombre: nombre,
@@ -71,17 +72,17 @@ const AgregarAlumno = (props: Props) => {
     console.log(nuevoAlumno);
 
     const axiospost = async () => {
-      try{
+      try {
         const response = await axios.post(ruta, nuevoAlumno, { headers: { 'Authorization': `Bearer ${token}` } });
         console.log(response.data);
-        Alert.alert("Alumno añadido!", "Respuesta: "+response.status);
-      }catch(error){
+        Alert.alert("Alumno añadido!", "Respuesta: " + response.status);
+      } catch (error) {
         console.log(error);
       }
     }
 
     axiospost();
-    
+
   }
 
 
@@ -95,12 +96,12 @@ const AgregarAlumno = (props: Props) => {
       <Text>Apellidos: </Text>
       <TextInput style={{ backgroundColor: "lightblue" }} onChangeText={(texto) => setApellidos(texto)} />
       <Text>Imagen: </Text>
-      <Button title={imagen ?  "Subir otra imagen" : "Seleccionar Imagen" } onPress={() => selectImage()} />
-      {imagen? 
+      <Button title={imagen ? "Subir otra imagen" : "Seleccionar Imagen"} onPress={() => selectImage()} />
+      {imagen ?
         <Text>Imagen seleccionada: {imagen}</Text> : null
       }
       <Text>Fecha de Nacimiento: </Text>
-      <Text>{date.getDate()+"/"+(Number(date.getMonth())+1)+"/"+date.getFullYear()}</Text>
+      <Text>{date.getDate() + "/" + (Number(date.getMonth()) + 1) + "/" + date.getFullYear()}</Text>
       <Button onPress={showDatepicker} title="Mostrar selector de fecha" />
       {show && (
         <DateTimePicker
@@ -112,9 +113,9 @@ const AgregarAlumno = (props: Props) => {
           onChange={onChange}
         />
       )}
-      
-      <Button title={loading ? 'Enviando...' : 'Agregar'} onPress={crear}/>
-      
+
+      <Button title={loading ? 'Enviando...' : 'Agregar'} onPress={crear} />
+
 
 
     </View>
