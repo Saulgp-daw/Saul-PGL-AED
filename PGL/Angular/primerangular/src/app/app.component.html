@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Document</h1>
+  {{title}}
+
+  <div (click)="unMetodo(5)">
+    Pulsando aquí mostraremos la tabla:
+  </div>
+  <textarea rows="30">
+
+    {{resultadoTabla}}
+  </textarea>
+
+  <ul>
+    <li *ngFor="let num of numeros">
+      {{num * 2}}
+    </li>
+  </ul>
+</body>
+
+</html>
