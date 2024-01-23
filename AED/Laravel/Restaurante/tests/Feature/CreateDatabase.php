@@ -63,5 +63,29 @@ VALUES
     (4, 689088259, '2024-01-05 12:25:00', 5)
 ");
 
+$pdo->exec("
+INSERT INTO mesas (num_mesa, sillas, disponible)
+VALUES 
+    (1, 4, 1),
+    (2, 2, 1),
+    (3, 5, 0)
+");
+
+$pdo->exec("
+INSERT INTO reservas_mesas (id_reserva_mesa, id_reserva, num_mesa)
+VALUES 
+    (1, 1, 1),
+    (2, 2, 1),
+    (3, 3, 2)
+");
+
+$pdo->exec("
+INSERT INTO estados_reservas (id_estado, id_reserva, estado)
+VALUES 
+    (1, 1, 'Confirmada'),
+    (2, 2, 'Sin Confirmar'),
+    (3, 3, 'Cancelada')
+");
+
 
 ?>

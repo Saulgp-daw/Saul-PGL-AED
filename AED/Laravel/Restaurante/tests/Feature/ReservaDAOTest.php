@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\DAO\ReservaDAO;
 use App\DAO\UsuarioDAO;
 use App\Models\Reserva;
+use App\Models\Mesa;
 use Throwable;
 
 use function PHPUnit\Framework\assertFalse;
@@ -75,6 +76,17 @@ class ReservaDAOTest extends TestCase
             $this->assertTrue($encontrada->getDuracion() == $reservaCorrecta->getDuracion());
 
         }
+    }
+
+    public function test_reserva_solapada(): void{
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+        $reservaNueva = new Reserva(1000, 922442291, new Datetime('2023-01-01 12:00:00'), 2);
+        $mesa = new Mesa(1, 4, true);
+
+        $filasAfectadas = $reservaDAO->reservasSeSolapan($reservaNueva, $mesa);
+        var_dump($filasAfectadas);
+        assertTrue($filasAfectadas > 0);
     }
 
     public function test_save(): void {
