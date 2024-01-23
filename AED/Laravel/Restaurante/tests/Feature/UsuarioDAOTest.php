@@ -30,6 +30,31 @@ class UsuarioDAOTest extends TestCase
         }
     }
 
+    public function test_find_All(): void {
+        $pdo = DB::getPdo();
+        $usuarioDAO = new UsuarioDAO($pdo);
+        $usuarios = $usuarioDAO->findAll();
+
+        $this->assertTrue(count($usuarios) >= 3);
+        $idsEnDB = [123456789, 689088259, 890678456];
+
+        foreach ($idsEnDB as $id) {
+            $usuarioCorrecto = $usuarioDAO->findById($id);
+            $encontrado = null;
+            for($i = 0; $i < count($usuarios) && $encontrado == null; $i++){
+                if($usuarios[$i]->getTelefono() == $usuarioCorrecto->getTelefono()){
+                    $encontrado = $usuarios[$i];
+                }
+            }
+            $this->assertTrue($encontrado->getTelefono() == $id);
+            $usuarioCorrecto = $usuarioDAO->findById($id);
+            $this->assertTrue($encontrado->getTelefono() == $usuarioCorrecto->getTelefono());
+            $this->assertTrue($encontrado->getNombre() == $usuarioCorrecto->getNombre());
+            $this->assertTrue($encontrado->getContrasenha() == $usuarioCorrecto->getContrasenha());
+            $this->assertTrue($encontrado->getRol() == $usuarioCorrecto->getRol());
+        }
+    }
+
     public function test_find_by_id(): void {
         $pdo = DB::getPdo();
         $usuarioDAO = new UsuarioDAO($pdo);
@@ -40,7 +65,7 @@ class UsuarioDAOTest extends TestCase
         assertTrue($encontrado instanceof Usuario);
 
         // Ejemplo dentro de tu test
-        dump(DB::table('reservas')->get());
+        //dump(DB::table('reservas')->get());
 
 
     }
@@ -67,6 +92,36 @@ class UsuarioDAOTest extends TestCase
         assertTrue($grabado->getContrasenha() == 1234);
         assertTrue($grabado->getRol() == "CLIENTE");
 
+    }
+
+    public function test_actualizar_usuario(){
+        $pdo = DB::getPdo();
+        $usuarioDAO = new UsuarioDAO($pdo);
+        $usuarioEncontrado = $usuarioDAO->findById(689088259);
+        $this->assertNotNull($usuarioEncontrado);
+        $usuarioEncontrado->setNombre("Juan");
+        $usuarioEncontrado->setContrasenha("1234");
+        $usuarioEncontrado->setRol("CLIENTE");
+        $actualizado = $usuarioDAO->update($usuarioEncontrado);
+        $this->assertTrue($actualizado);
+
+        $usuarioActualizado = $usuarioDAO->findById($usuarioEncontrado->getTelefono());
+
+        $this->assertTrue($usuarioActualizado->getNombre() == "Juan");
+        $this->assertTrue($usuarioActualizado->getRol() == "CLIENTE");
+        $this->assertTrue($usuarioActualizado->getContrasenha() == "1234");
+        //dump(DB::table('usuarios')->get());
+        
+    }
+
+    //falla porque no puedo borrar un usuario con una foreign key en otra tabla
+    public function test_delete_usuario(): void {
+        $pdo = DB::getPdo();
+        $usuarioDAO = new UsuarioDAO($pdo);
+
+        $this->assertTrue($usuarioDAO->delete(689088259));
+        $encontrado = $usuarioDAO->findById(689088259);
+        $this->assertNull($encontrado);
     }
 
     

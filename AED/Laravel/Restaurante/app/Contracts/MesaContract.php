@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-class MesasContract {
+class MesaContract {
     public const TABLE_NAME="mesas";
     public const COL_NUMBER="num_mesas";
     public const COL_SEATS="sillas";

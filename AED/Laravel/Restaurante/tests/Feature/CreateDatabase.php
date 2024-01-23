@@ -10,10 +10,11 @@ CREATE TABLE usuarios (
 
 $pdo->exec("
 CREATE TABLE reservas (
-    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    id_reserva INT AUTO_INCREMENT,
     telefono INT NOT NULL,
     fecha_hora DATETIME NOT NULL,
     duracion INT NOT NULL,
+    CONSTRAINT pk_reservas PRIMARY KEY(id_reserva),
     FOREIGN KEY (telefono) REFERENCES usuarios(telefono)
 )
 ");
@@ -54,12 +55,12 @@ VALUES
 ");
 
 $pdo->exec("
-INSERT INTO reservas (telefono, fecha_hora, duracion)
+INSERT INTO reservas (id_reserva, telefono, fecha_hora, duracion)
 VALUES 
-    (123456789, '2023-01-01 12:00:00', 2),
-    (123456789, '2023-01-01 14:00:00', 1),
-    (123456789, '2023-01-03 12:00:00', 5),
-    (689088259, '2024-01-05 12:25:00', 5)
+    (1, 123456789, '2023-01-01 12:00:00', 2),
+    (2, 123456789, '2023-01-01 14:00:00', 1),
+    (3, 123456789, '2023-01-03 12:00:00', 5),
+    (4, 689088259, '2024-01-05 12:25:00', 5)
 ");
 
 
