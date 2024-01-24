@@ -3,7 +3,6 @@
 namespace App\DAO;
 
 use App\Contracts\UsuarioContract;
-use App\Contracts\ReservaMesaContract;
 use App\Contracts\MesaContract;
 use App\Contracts\ReservaContract;
 use App\DAO\Crud;
@@ -35,7 +34,9 @@ class ReservaDAO implements Crud
             $telefono = $row[ReservaContract::COL_TEL];
             $fecha_hora = $row[ReservaContract::COL_DATE];
             $duracion = $row[ReservaContract::COL_DURATION];
-            $reserva = new Reserva($id_reserva, $telefono, new Datetime($fecha_hora), $duracion);
+            $num_mesa = $row[ReservaContract::COL_NUM_TABLE];
+            $estado = $row[ReservaContract::COL_STATE];
+            $reserva = new Reserva($id_reserva, $telefono, new Datetime($fecha_hora), $duracion, $num_mesa, $estado);
             $reservas[] = $reserva;
         }
         return $reservas;
@@ -59,38 +60,98 @@ class ReservaDAO implements Crud
             $reserva->setTelefono($row[ReservaContract::COL_TEL]);
             $reserva->setFecha_hora(new Datetime($row[ReservaContract::COL_DATE]));
             $reserva->setDuracion($row[ReservaContract::COL_DURATION]);
+            $reserva->setNum_mesa($row[ReservaContract::COL_NUM_TABLE]);
+            $reserva->setEstado($row[ReservaContract::COL_STATE]);
             $reservaEncontrada = $reserva;
         }
 
         return $reservaEncontrada;
     }
 
+    public function findByTelefono($telefono){
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . ReservaContract::TABLE_NAME. " WHERE :telefono = ". ReservaContract::COL_TEL);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute([
+            ":telefono" => $telefono
+        ]);
+        $reservas = [];
+        while ($row = $stmt->fetch()) {
+            $id_reserva = $row[ReservaContract::COL_ID];
+            $telefono = $row[ReservaContract::COL_TEL];
+            $fecha_hora = $row[ReservaContract::COL_DATE];
+            $duracion = $row[ReservaContract::COL_DURATION];
+            $num_mesa = $row[ReservaContract::COL_NUM_TABLE];
+            $estado = $row[ReservaContract::COL_STATE];
+            $reserva = new Reserva($id_reserva, $telefono, new Datetime($fecha_hora), $duracion, $num_mesa, $estado);
+            $reservas[] = $reserva;
+        }
+        return $reservas;
+    }
+
+    public function reservasSeSolapan(Reserva $dao)
+    {
+        //         SELECT COUNT(*) FROM reservas AS r
+        // WHERE
+        //     '2023-01-01 09:00:00' < DATE_ADD(r.fecha_hora, INTERVAL r.duracion HOUR)
+        //     AND DATE_ADD('2023-01-01 09:00:00', INTERVAL 3 HOUR) > r.fecha_hora
+        //     AND r.num_mesa = 1;
+
+        $sql = "SELECT COUNT(*) FROM " . ReservaContract::TABLE_NAME
+            . " WHERE "
+            . ":fecha_hora1 < DATE_ADD(" . ReservaContract::COL_DATE . ", INTERVAL " . ReservaContract::COL_DURATION . " HOUR) "
+            . "AND DATE_ADD( :fecha_hora2, INTERVAL :duracion HOUR) > " . ReservaContract::COL_DATE
+            . " AND " . ReservaContract::COL_NUM_TABLE . " = :num_mesa";
+
+
+            $stmt = $this->myPDO->prepare($sql);
+            $stmt->execute([
+                ':fecha_hora1' => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
+                ':fecha_hora2' => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
+                ':duracion' => $dao->getDuracion(),
+                ':num_mesa' => $dao->getNum_mesa()
+            ]);
+
+            $filasAfectadas = $stmt->rowCount();
+            //echo "Filas afectadas: $filasAfectadas";
+
+
+        return $filasAfectadas ?? 0;
+    }
+
     public function save($dao)
     {
         $sql = "INSERT INTO " . ReservaContract::TABLE_NAME . " (" .
-           // ReservaContract::COL_ID . ", " .
+            ReservaContract::COL_ID . ", " .
             ReservaContract::COL_TEL . ", " .
             ReservaContract::COL_DATE . ", " .
-            ReservaContract::COL_DURATION .
-            ") VALUES ( :telefono, :fecha_hora, :duracion)";
+            ReservaContract::COL_DURATION . ", " .
+            ReservaContract::COL_NUM_TABLE . ", " .
+            ReservaContract::COL_STATE .
+
+            ") VALUES (:id_reserva, :telefono, :fecha_hora, :duracion, :num_mesa, :estado)";
+
 
         try {
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
             $stmt->execute(
                 [
-                   // ":id_reserva" => $dao->getId_reserva(),
+                    ":id_reserva" => $dao->getId_reserva(),
                     ":telefono" => $dao->getTelefono(),
                     ":fecha_hora" => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
-                    ":duracion" => $dao->getDuracion()
+                    ":duracion" => $dao->getDuracion(),
+                    ":num_mesa" => $dao->getNum_mesa(),
+                    ":estado" => $dao->getEstado()
                 ]
             );
             $filasAfectadas = $stmt->rowCount();
             //echo "Filas afectadas: $filasAfectadas";
 
             if ($filasAfectadas > 0) {
+                $ultimoIdInsertado = $this->myPDO->lastInsertId();
                 $this->myPDO->commit();
-                $reserva = new Reserva($this->myPDO->lastInsertId(), $dao->getTelefono(), $dao->getFecha_hora(), $dao->getDuracion());
+
+                $reserva = new Reserva($ultimoIdInsertado, $dao->getTelefono(), $dao->getFecha_hora(), $dao->getDuracion(), $dao->getNum_mesa(), $dao->getEstado());
             }
         } catch (Exception $ex) {
             echo "ha habido una excepción se lanza rollback automático: $ex";
@@ -101,74 +162,27 @@ class ReservaDAO implements Crud
         return $reserva ?? null;
     }
 
-    public function reservasSeSolapan(Reserva $nuevaReserva, Mesa $mesa)
-    {
-        /**
-         * SELECT COUNT(*) FROM reservas
-         *JOIN reservas_mesas ON reservas.id_reserva = reservas_mesas.id_reserva
-         *JOIN mesas ON reservas_mesas.num_mesa = mesas.num_mesa
-         *WHERE
-         *  '2023-01-01 14:00:00' < DATE_ADD(reservas.fecha_hora, INTERVAL reservas.duracion HOUR)
-         *  AND DATE_ADD('2023-01-01 14:00:00', INTERVAL 3 HOUR) > reservas.fecha_hora
-         *  AND mesas.num_mesa = 4;
-         */
 
-         $sql = "SELECT COUNT(*) FROM ". ReservaContract::TABLE_NAME 
-         . " AS r JOIN ". ReservaMesaContract::TABLE_NAME . " AS rm ON r.". ReservaContract::COL_ID . " = rm.". ReservaMesaContract::COL_ID_BOOK
-         . " JOIN ". MesaContract::TABLE_NAME . " AS m ON rm.". ReservaMesaContract::COL_SEAT_NUM. " = m.". MesaContract::COL_NUMBER
-         . " WHERE :fecha_hora1 < DATE_ADD(".ReservaContract::COL_DATE.", INTERVAL ". ReservaContract::COL_DURATION. " HOUR) AND DATE_ADD( :fecha_hora2, INTERVAL :duracion HOUR) > ". ReservaContract::COL_DATE
-            ." AND m.". MesaContract::COL_NUMBER. " = :num_mesa"; 
-
-       /*$sql = "SELECT COUNT(*) FROM reservas JOIN reservas_mesas ON reservas.id_reserva = reservas_mesas.id_reserva JOIN mesas ON reservas_mesas.num_mesa = mesas.num_mesa
-        WHERE '2023-01-01 12:00:00' < datetime(reservas.fecha_hora, '+' || reservas.duracion || ' hours') AND datetime('2023-01-01 12:00:00', '+' || 5 ||'hours') > reservas.fecha_hora AND mesas.num_mesa = 1";*/
-
-
-            $filasAfectadas = 0;
-            echo "Consulta SQL: $sql";
-
-        try{
-            $this->myPDO->beginTransaction();
-            $stmt = $this->myPDO->prepare($sql);
-            $stmt->execute(
-                [
-                   ":fecha_hora1" => $nuevaReserva->getFecha_hora()->format('Y-m-d H:i:s'),
-                   ":fecha_hora2" => $nuevaReserva->getFecha_hora()->format('Y-m-d H:i:s'),
-                   ":duracion" => $nuevaReserva->getDuracion(),
-                    ":num_mesa" => $mesa->getNum_mesa()
-                ]
-            );
-
-            $filasAfectadas = $stmt->rowCount();
-            echo "Filas afectadas: $filasAfectadas";
-
-            if ($filasAfectadas > 0) {
-                $this->myPDO->commit();
-            }
-
-
-        }catch(Exception $ex){
-            echo "ha habido una excepción se lanza rollback automático: \n $ex";
-            $this->myPDO->rollback();
-        }
-
-        return $filasAfectadas;
-    }
 
     public function update($dao)
     {
-        $sql = "UPDATE ". ReservaContract::TABLE_NAME. 
-        " SET ".ReservaContract::COL_TEL." = :telefono, "
-        . ReservaContract::COL_DATE." = :fecha_hora, "
-        . ReservaContract::COL_DURATION. " = :duracion WHERE ". ReservaContract::COL_ID . " = :id";
+        $sql = "UPDATE " . ReservaContract::TABLE_NAME .
+            " SET " . ReservaContract::COL_TEL . " = :telefono, "
+            . ReservaContract::COL_DATE . " = :fecha_hora, "
+            . ReservaContract::COL_NUM_TABLE . " = :num_mesa, "
+            . ReservaContract::COL_STATE . " = :estado, "
+            . ReservaContract::COL_DURATION . " = :duracion WHERE " . ReservaContract::COL_ID . " = :id";
 
         $actualizado = false;
-        try{
+        try {
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
             $stmt->execute([
                 ':telefono' => $dao->getTelefono(),
                 ':fecha_hora' => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
                 ':duracion' => $dao->getDuracion(),
+                ":num_mesa" => $dao->getNum_mesa(),
+                ":estado" => $dao->getEstado(),
                 ':id' => $dao->getId_reserva()
             ]);
 
@@ -178,22 +192,20 @@ class ReservaDAO implements Crud
                 $actualizado = true;
                 $this->myPDO->commit();
             }
-
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             echo "ha habido una excepción se lanza rollback automático: $ex";
             $this->myPDO->rollback();
         }
 
         $stmt = null;
         return $actualizado;
-
     }
 
     public function delete($id)
     {
-        $sql = "DELETE FROM ". ReservaContract::TABLE_NAME. 
-        " WHERE "
-        . ReservaContract::COL_ID . " = :id";
+        $sql = "DELETE FROM " . ReservaContract::TABLE_NAME .
+            " WHERE "
+            . ReservaContract::COL_ID . " = :id";
 
         try {
             $this->myPDO->beginTransaction();
@@ -215,6 +227,6 @@ class ReservaDAO implements Crud
         }
         $stmt = null;
 
-        return $borrado ?? false ;
+        return $borrado ?? false;
     }
 }
