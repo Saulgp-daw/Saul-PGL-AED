@@ -100,7 +100,7 @@ class ReservaDAO implements Crud
             . " WHERE "
             . ":fecha_hora1 < DATE_ADD(" . ReservaContract::COL_DATE . ", INTERVAL " . ReservaContract::COL_DURATION . " HOUR) "
             . "AND DATE_ADD( :fecha_hora2, INTERVAL :duracion HOUR) > " . ReservaContract::COL_DATE
-            . " AND " . ReservaContract::COL_TEL . " = :telefono";
+            . " AND " . ReservaContract::COL_NUM_TABLE . " = :num_mesa";
 
 
             $stmt = $this->myPDO->prepare($sql);
@@ -108,7 +108,7 @@ class ReservaDAO implements Crud
                 ':fecha_hora1' => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
                 ':fecha_hora2' => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
                 ':duracion' => $dao->getDuracion(),
-                ':telefono' => $dao->getTelefono()
+                ':num_mesa' => $dao->getNum_mesa()
             ]);
 
             $filasAfectadas = $stmt->rowCount();
