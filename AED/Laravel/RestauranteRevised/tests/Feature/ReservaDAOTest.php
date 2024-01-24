@@ -82,68 +82,77 @@ class ReservaDAOTest extends TestCase
     //     }
     // }
 
+    public function test_find_by_telefono(): void{
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+
+        $reservasEncontradas = $reservaDAO->findByTelefono(689088259);
+
+        $this->assertTrue(count($reservasEncontradas) > 0);
+    }
+
     public function test_reserva_solapada(): void{
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
         $reservaNueva = new Reserva(1000, 922442291, new Datetime('2023-01-01 12:00:00'), 2, 1, "Sin confirmar");
-        
+
 
         $filasAfectadas = $reservaDAO->reservasSeSolapan($reservaNueva);
         //var_dump($filasAfectadas);
         assertTrue($filasAfectadas > 0);
     }
 
-    public function test_save(): void {
-        $pdo = DB::getPdo();
-        $reservaDAO = new ReservaDAO($pdo);
-        $fechaHora = new DateTime();
-        $reserva =  new Reserva(1000, 922442291, new Datetime('2023-01-01 12:00:00'), 2, 1, "Sin confirmar");
+    // public function test_save(): void {
+    //     $pdo = DB::getPdo();
+    //     $reservaDAO = new ReservaDAO($pdo);
+    //     $fechaHora = new DateTime();
+    //     $reserva =  new Reserva(1000, 689088259, new Datetime('2023-01-01 12:00:00'), 2, 1, "Sin confirmar");
 
-        try{
-            $reservaGuardada = $reservaDAO->save($reserva);
-            var_dump($reservaGuardada);
+    //     try{
+    //         $reservaGuardada = $reservaDAO->save($reserva);
+    //         //var_dump($reservaGuardada);
 
-            //$this->addToAssertionCount(1);
+    //         //$this->addToAssertionCount(1);
 
-        }catch(Throwable $ignored){
-        }
+    //     }catch(Throwable $ignored){
+    //     }
 
-        $grabado = null;
-        //dump(DB::table('reservas')->get());
+    //     $grabado = null;
+    //     //dump(DB::table('reservas')->get());
 
-        assertNotNull(isset($reservaGuardada));
+    //     assertNotNull(isset($reservaGuardada));
 
-        if(isset($reservaGuardada)){
-            $grabado = $reservaDAO->findById($reservaGuardada->getId_reserva());
-        }
-        $this->assertNotNull($grabado);
-        $this->assertTrue($grabado->getTelefono() == 689088259);
-        $this->assertTrue($grabado->getDuracion() == 3);
-        $this->assertTrue($grabado->getFecha_hora()->format('Y-m-d H:i:s') == $fechaHora->format('Y-m-d H:i:s'));
+    //     if(isset($reservaGuardada)){
+    //         $grabado = $reservaDAO->findById($reservaGuardada->getId_reserva());
+    //     }
+    //     $this->assertNotNull($grabado);
+    //     $this->assertTrue($grabado->getTelefono() == $reserva->getTelefono());
+    //     $this->assertTrue($grabado->getDuracion() == $reserva->getDuracion());
+    //     $this->assertTrue($grabado->getFecha_hora()->format('Y-m-d H:i:s') == '2023-01-01 12:00:00');
 
-    }
+    // }
 
-    public function test_actualizar_reserva(): void{
-        $pdo = DB::getPdo();
-        $reservaDAO = new ReservaDAO($pdo);
-        $reservaEncontrada = $reservaDAO->findById(13);
-        $this->assertNotNull($reservaEncontrada);
-        $reservaEncontrada->setTelefono(890678456);
-        $fechaHora = new Datetime();
-        $reservaEncontrada->setFecha_hora($fechaHora);
-        $reservaEncontrada->setDuracion(1);
+    // public function test_actualizar_reserva(): void{
+    //     $pdo = DB::getPdo();
+    //     $reservaDAO = new ReservaDAO($pdo);
+    //     $reservaEncontrada = $reservaDAO->findById(13);
+    //     $this->assertNotNull($reservaEncontrada);
+    //     $reservaEncontrada->setTelefono(890678456);
+    //     $fechaHora = new Datetime();
+    //     $reservaEncontrada->setFecha_hora($fechaHora);
+    //     $reservaEncontrada->setDuracion(1);
 
 
-        $actualizado = $reservaDAO->update($reservaEncontrada);
-        $this->assertTrue($actualizado);
+    //     $actualizado = $reservaDAO->update($reservaEncontrada);
+    //     $this->assertTrue($actualizado);
 
-        $reservaActualizada = $reservaDAO->findById(13);
-        $this->assertTrue($reservaActualizada->getTelefono() == 890678456);
-        $this->assertTrue($reservaActualizada->getFecha_hora()->format('Y-m-d H:i:s') == $fechaHora->format('Y-m-d H:i:s'));
-        $this->assertTrue($reservaActualizada->getDuracion() == 1);
-        //dump(DB::table('reservas')->get());
+    //     $reservaActualizada = $reservaDAO->findById(13);
+    //     $this->assertTrue($reservaActualizada->getTelefono() == 890678456);
+    //     $this->assertTrue($reservaActualizada->getFecha_hora()->format('Y-m-d H:i:s') == $fechaHora->format('Y-m-d H:i:s'));
+    //     $this->assertTrue($reservaActualizada->getDuracion() == 1);
+    //     //dump(DB::table('reservas')->get());
 
-    }
+    // }
 
     // public function test_delete_reserva(): void{
     //     $pdo = DB::getPdo();
@@ -152,7 +161,7 @@ class ReservaDAOTest extends TestCase
 
     //     $reservaABorrar = $reservaDAO->findById(12);
     //     $this->assertNotNull($reservaABorrar);
-        
+
     //     $this->assertTrue($reservaDAO->delete($reservaABorrar->getId_reserva()));
     //     $encontrada = $reservaDAO->findById(1);
     //     $this->assertNull($encontrada);

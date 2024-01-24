@@ -68,6 +68,26 @@ class ReservaDAO implements Crud
         return $reservaEncontrada;
     }
 
+    public function findByTelefono($telefono){
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . ReservaContract::TABLE_NAME. " WHERE :telefono = ". ReservaContract::COL_TEL);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute([
+            ":telefono" => $telefono
+        ]);
+        $reservas = [];
+        while ($row = $stmt->fetch()) {
+            $id_reserva = $row[ReservaContract::COL_ID];
+            $telefono = $row[ReservaContract::COL_TEL];
+            $fecha_hora = $row[ReservaContract::COL_DATE];
+            $duracion = $row[ReservaContract::COL_DURATION];
+            $num_mesa = $row[ReservaContract::COL_NUM_TABLE];
+            $estado = $row[ReservaContract::COL_STATE];
+            $reserva = new Reserva($id_reserva, $telefono, new Datetime($fecha_hora), $duracion, $num_mesa, $estado);
+            $reservas[] = $reserva;
+        }
+        return $reservas;
+    }
+
     public function reservasSeSolapan(Reserva $dao)
     {
         //         SELECT COUNT(*) FROM reservas AS r
@@ -82,7 +102,7 @@ class ReservaDAO implements Crud
             . "AND DATE_ADD( :fecha_hora2, INTERVAL :duracion HOUR) > " . ReservaContract::COL_DATE
             . " AND " . ReservaContract::COL_TEL . " = :telefono";
 
-        
+
             $stmt = $this->myPDO->prepare($sql);
             $stmt->execute([
                 ':fecha_hora1' => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
@@ -110,10 +130,7 @@ class ReservaDAO implements Crud
 
             ") VALUES (:id_reserva, :telefono, :fecha_hora, :duracion, :num_mesa, :estado)";
 
-            if ($this->reservasSeSolapan($dao)) {
-                echo "SE SOLAPAN";
-                return null;
-            }
+
         try {
             $this->myPDO->beginTransaction();
             $stmt = $this->myPDO->prepare($sql);
