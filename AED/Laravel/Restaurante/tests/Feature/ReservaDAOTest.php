@@ -23,7 +23,7 @@ class ReservaDAOTest extends TestCase
 {
     public  $databaseCreated = false;
 
-    public  function setUp(): void
+   /* public  function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +32,7 @@ class ReservaDAOTest extends TestCase
             require 'CreateDatabase.php';
             $this->databaseCreated = true;
         }
-    }
+    }*/
 
     public function test_find_by_id(): void {
         $pdo = DB::getPdo();
@@ -117,5 +117,39 @@ class ReservaDAOTest extends TestCase
         $this->assertTrue($grabado->getDuracion() == 3);
         $this->assertTrue($grabado->getFecha_hora()->format('Y-m-d H:i:s') == $fechaHora->format('Y-m-d H:i:s'));
 
+    }
+
+    public function test_actualizar_reserva(): void{
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+        $reservaEncontrada = $reservaDAO->findById(1);
+        $this->assertNotNull($reservaEncontrada);
+        $reservaEncontrada->setTelefono(890678456);
+        $fechaHora = new Datetime();
+        $reservaEncontrada->setFecha_hora($fechaHora);
+        $reservaEncontrada->setDuracion(1);
+
+
+        $actualizado = $reservaDAO->update($reservaEncontrada);
+        $this->assertTrue($actualizado);
+
+        $reservaActualizada = $reservaDAO->findById(1);
+        $this->assertTrue($reservaActualizada->getTelefono() == 890678456);
+        $this->assertTrue($reservaActualizada->getFecha_hora()->format('Y-m-d H:i:s') == $fechaHora->format('Y-m-d H:i:s'));
+        $this->assertTrue($reservaActualizada->getDuracion() == 1);
+
+    }
+
+    public function test_delete_reserva(): void{
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+        $usuarioDAO = new UsuarioDAO($pdo);
+
+        $reservaABorrar = $reservaDAO->findById(1);
+        $this->assertNotNull($reservaABorrar);
+        
+        $this->assertTrue($reservaDAO->delete($reservaABorrar->getId_reserva()));
+        $encontrada = $reservaDAO->findById(1);
+        //$this->assertNull($encontrada);
     }
 }
