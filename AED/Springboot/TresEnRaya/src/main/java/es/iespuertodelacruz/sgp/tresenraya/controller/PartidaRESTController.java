@@ -161,8 +161,8 @@ public class PartidaRESTController {
 
 	}
 	
-	public static boolean comprobarAcierto(String tablero) {
+	/*public static boolean comprobarAcierto(String tablero) {
 		
-	}
+	}*/
 
 }

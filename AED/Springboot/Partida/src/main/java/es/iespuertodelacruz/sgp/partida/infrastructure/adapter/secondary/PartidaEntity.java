@@ -10,8 +10,8 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name="partidas")
-@NamedQuery(name="Partida.findAll", query="SELECT p FROM Partida p")
-public class Partida implements Serializable {
+@NamedQuery(name="PartidaEntity.findAll", query="SELECT p FROM PartidaEntity p")
+public class PartidaEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -35,7 +35,7 @@ public class Partida implements Serializable {
 
 	private String tablero;
 
-	public Partida() {
+	public PartidaEntity() {
 	}
 
 	public int getIdPartida() {
