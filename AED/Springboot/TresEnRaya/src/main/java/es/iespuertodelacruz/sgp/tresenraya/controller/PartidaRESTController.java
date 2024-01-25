@@ -57,9 +57,28 @@ public class PartidaRESTController {
 			System.out.println("-----------PARTIDA ENCONTRADA");
 			
 			String simboloApuesta = apuestaDto.getSimbolo();
+			int posicion = apuestaDto.getPosicion();
 			String tablero = partidaBuscada.get().getTablero();
 			String simb1 = partidaBuscada.get().getSimboloJug1();
 			String simb2 = partidaBuscada.get().getSimboloJug2();
+			
+			
+			System.out.println("Posicion: "+posicion);
+			System.out.println("Simbolo: "+simboloApuesta);
+			System.out.println("Tablero antiguo: "+tablero);
+			
+			String tableroNuevo = reemplazarCaracter(tablero, posicion, simboloApuesta);
+			System.out.println("Tablero nuevo: "+tableroNuevo);
+			
+			if(!tablero.contains("-")) {
+				partidaBuscada.get().setEstado("FINALIZADA");
+				partidaService.save(partidaBuscada.get());
+			}
+			
+			if(partidaBuscada.get().getEstado() == "FINALIZADA") {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Partida Finalizada");
+			}
+			
 			
 			long cantSimb1 = tablero.chars().filter(ch -> ch == simb1.charAt(0)).count();
 			long cantSimb2 = tablero.chars().filter(ch -> ch == simb2.charAt(0)).count();
@@ -67,7 +86,7 @@ public class PartidaRESTController {
 			System.out.println("Tablero: "+tablero);
 			
 			if(cantSimb1 == 0 && cantSimb2 == 0) {
-				PartidaEntity update = partidaService.update(id, apuestaDto);
+				PartidaEntity update = partidaService.update(id, tableroNuevo);
 				if(update != null) {
 					return ResponseEntity.ok(update);
 				}
@@ -79,7 +98,7 @@ public class PartidaRESTController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No es tu turno");
 				
 			}else {
-				PartidaEntity update = partidaService.update(apuestaDto);
+				PartidaEntity update = partidaService.update(id, tableroNuevo);
 				if(update != null) {
 					return ResponseEntity.ok(update);
 				}
@@ -91,6 +110,18 @@ public class PartidaRESTController {
 		
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar el tablero");
+		
+	}
+	
+	public static String reemplazarCaracter(String tableroOriginal, int posicion, String simbolo) {
+		if(posicion < 0 || posicion > tableroOriginal.length()) {
+			throw new IllegalArgumentException("Posición fuera de rango");
+		}
+		
+		char[] caracteres = tableroOriginal.toCharArray();
+		caracteres[posicion] = simbolo.charAt(0);
+		
+		return new String(caracteres);
 		
 	}
 	

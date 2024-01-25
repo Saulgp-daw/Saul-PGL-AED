@@ -49,13 +49,13 @@ public class PartidaService implements IGenericService<PartidaEntity, Integer> {
 	}
 	
 	@Transactional
-	public PartidaEntity update(int id, ApuestaDTO element) {
+	public PartidaEntity update(int id, String tablero) {
 		Optional<PartidaEntity> partidaExistente = partidaRepository.findById(id);
 		//System.out.println("-------------------"+partidaExistente.get().getEstado());
 		//System.out.println("-------------------"+element.getTablero());
 		if(partidaExistente.isPresent()) {
 			System.out.println("-------------------PRESENTE");
-			partidaExistente.get().setTablero(element.getTablero());
+			partidaExistente.get().setTablero(tablero);
 		}
 		
 		return partidaExistente.get();
