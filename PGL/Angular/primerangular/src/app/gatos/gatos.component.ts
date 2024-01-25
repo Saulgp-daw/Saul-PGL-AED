@@ -10,6 +10,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class GatosComponent {
   edadHumana: number = 0;
+  gato = new Gato();
 
   gatoFormData = new FormGroup({
     nombre: new FormControl(""),
@@ -39,6 +40,7 @@ export class GatosComponent {
         this.edadHumana = 10;
         break;
     }
+
 
   }
 }

@@ -160,5 +160,9 @@ public class PartidaRESTController {
 		return new String(caracteres);
 
 	}
+	
+	public static boolean comprobarAcierto(String tablero) {
+		
+	}
 
 }
