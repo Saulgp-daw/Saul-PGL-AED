@@ -13,7 +13,7 @@ public class ApuestaDTO {
 	}
 
 
-	private String tablero;
+	
 	
 	public String getSimbolo() {
 		return simbolo;

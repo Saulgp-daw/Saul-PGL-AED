@@ -49,7 +49,25 @@ public class PartidaService implements IGenericService<PartidaEntity, Integer> {
 	}
 	
 	@Transactional
-	public PartidaEntity update(int id, String tablero) {
+	public PartidaEntity update(PartidaEntity element) {
+		Optional<PartidaEntity> partidaExistente = partidaRepository.findById(element.getIdPartida());
+		//System.out.println("-------------------"+partidaExistente.get().getEstado());
+		//System.out.println("-------------------"+element.getTablero());
+		if(partidaExistente.isPresent()) {
+			System.out.println("-------------------PRESENTE EN LA BBDD-----------");
+			partidaExistente.get().setEstado(element.getEstado());
+			partidaExistente.get().setNickJug1(element.getNickJug1());
+			partidaExistente.get().setNickJug2(element.getNickJug2());
+			partidaExistente.get().setSimboloJug1(element.getSimboloJug1());
+			partidaExistente.get().setSimboloJug2(element.getSimboloJug2());
+			partidaExistente.get().setTablero(element.getTablero());
+		}
+		
+		return partidaExistente.get();
+	}
+	
+	@Transactional
+	public PartidaEntity apuesta(int id, String tablero) {
 		Optional<PartidaEntity> partidaExistente = partidaRepository.findById(id);
 		//System.out.println("-------------------"+partidaExistente.get().getEstado());
 		//System.out.println("-------------------"+element.getTablero());
@@ -60,5 +78,7 @@ public class PartidaService implements IGenericService<PartidaEntity, Integer> {
 		
 		return partidaExistente.get();
 	}
+	
+	
 
 }

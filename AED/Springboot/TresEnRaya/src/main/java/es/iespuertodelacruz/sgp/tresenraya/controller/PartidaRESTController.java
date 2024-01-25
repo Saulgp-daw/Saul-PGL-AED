@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.sgp.tresenraya.dto.ApuestaDTO;
+import es.iespuertodelacruz.sgp.tresenraya.dto.PartidaDTO;
 import es.iespuertodelacruz.sgp.tresenraya.entities.PartidaEntity;
 import es.iespuertodelacruz.sgp.tresenraya.service.PartidaService;
 
@@ -21,33 +22,52 @@ import es.iespuertodelacruz.sgp.tresenraya.service.PartidaService;
 @CrossOrigin
 @RequestMapping("/api/v1/partidas")
 public class PartidaRESTController {
-	
+
 	@Autowired
 	private PartidaService partidaService;
-	
+
 	@GetMapping("")
 	public ResponseEntity<?> findAll() {
 		Iterable<PartidaEntity> lista = partidaService.findAll();
 		return ResponseEntity.ok(lista);
 	}
-	
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findById(@PathVariable Integer id) {
 		Optional<PartidaEntity> partidaEncontrada = partidaService.findById(id);
 		return ResponseEntity.ok(partidaEncontrada);
 	}
-	
+
 	@PostMapping("")
-	public ResponseEntity<?> save(@RequestBody PartidaEntity partida){
+	public ResponseEntity<?> save(@RequestBody PartidaEntity partida) {
 		PartidaEntity save = partidaService.save(partida);
-		if(save != null) {
+		if (save != null) {
 			return ResponseEntity.ok(save);
 		}
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar la partida");
 	}
-	
+
+	@PostMapping("/nueva")
+	public ResponseEntity<?> nuevaPartida(@RequestBody PartidaDTO partidaDTO) {
+
+		PartidaEntity partidaNueva = new PartidaEntity();
+		partidaNueva.setIdPartida(0);
+		partidaNueva.setEstado("INICIADA");
+		partidaNueva.setNickJug1(partidaDTO.getNickJug1());
+		partidaNueva.setNickJug2(partidaDTO.getNickJug2());
+		partidaNueva.setSimboloJug1(partidaDTO.getSimboloJug1());
+		partidaNueva.setSimboloJug2(partidaDTO.getSimboloJug2());
+		partidaNueva.setTablero("---------");
+
+		PartidaEntity save = partidaService.save(partidaNueva);
+		if (save != null) {
+			return ResponseEntity.ok(save);
+		}
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar la partida");
+	}
+
 	@PostMapping("/{id}/apuestas")
 	public  ResponseEntity<?> apuesta(@PathVariable int id, @RequestBody ApuestaDTO apuestaDto){
 		
@@ -70,9 +90,23 @@ public class PartidaRESTController {
 			String tableroNuevo = reemplazarCaracter(tablero, posicion, simboloApuesta);
 			System.out.println("Tablero nuevo: "+tableroNuevo);
 			
+			if(partidaBuscada.get().getNickJug2().equals("CPU") && tableroNuevo.contains("-")) {
+				
+				char[] tableroArray = tableroNuevo.toCharArray();
+				int rndPos = 0 ;
+				do {
+				    rndPos = (int) Math.floor(Math.random() * (tableroArray.length - 1));
+				} while (tableroArray[rndPos] != '-');
+				System.out.println("Pos aleatoria"+ rndPos);
+				
+				
+
+				tableroNuevo = reemplazarCaracter(tableroNuevo, rndPos, simb2);
+			}
+			
 			if(!tablero.contains("-")) {
 				partidaBuscada.get().setEstado("FINALIZADA");
-				partidaService.save(partidaBuscada.get());
+				partidaService.update(partidaBuscada.get());
 			}
 			
 			if(partidaBuscada.get().getEstado() == "FINALIZADA") {
@@ -86,7 +120,7 @@ public class PartidaRESTController {
 			System.out.println("Tablero: "+tablero);
 			
 			if(cantSimb1 == 0 && cantSimb2 == 0) {
-				PartidaEntity update = partidaService.update(id, tableroNuevo);
+				PartidaEntity update = partidaService.apuesta(id, tableroNuevo);
 				if(update != null) {
 					return ResponseEntity.ok(update);
 				}
@@ -98,32 +132,33 @@ public class PartidaRESTController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No es tu turno");
 				
 			}else {
-				PartidaEntity update = partidaService.update(id, tableroNuevo);
+				PartidaEntity update = partidaService.apuesta(id, tableroNuevo);
+				
+				
+				if(!tableroNuevo.contains("-")) {
+					update.setEstado("FINALIZADA");
+					partidaService.update(update);
+				}
 				if(update != null) {
 					return ResponseEntity.ok(update);
 				}
 			}
 		}
 		
-		
-		
-		
-		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar el tablero");
 		
 	}
-	
+
 	public static String reemplazarCaracter(String tableroOriginal, int posicion, String simbolo) {
-		if(posicion < 0 || posicion > tableroOriginal.length()) {
+		if (posicion < 0 || posicion > tableroOriginal.length()) {
 			throw new IllegalArgumentException("Posición fuera de rango");
 		}
-		
+
 		char[] caracteres = tableroOriginal.toCharArray();
 		caracteres[posicion] = simbolo.charAt(0);
-		
+
 		return new String(caracteres);
-		
+
 	}
-	
-	
+
 }
