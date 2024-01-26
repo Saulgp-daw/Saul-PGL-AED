@@ -1,0 +1,21 @@
+type Query {
+    getAllPersons: [Person]
+    getNico: Person
+    getPerson(nombre: String! ): Person
+    
+    getLogin( nombre: String!, password: String! ): String
+    
+}
+
+type Mutation{
+	agregar(id: Int, name: String, age: Int):Person
+}
+
+
+
+type Person {
+	id: Int
+    name: String
+    age: Int
+}
+
