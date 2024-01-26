@@ -21,7 +21,7 @@ public class PartidaEntityMapper {
 			pe.setEstado(p.getEstado());
 			pe.setNickJug1(p.getNickJug1());
 			pe.setNickJug2(p.getNickJug2());
-			pe.setSimboloJug1(p.getNickJug1());
+			pe.setSimboloJug1(p.getSimboloJug1());
 			pe.setSimboloJug2(p.getSimboloJug2());
 			pe.setTablero(p.getTablero());
 		}
