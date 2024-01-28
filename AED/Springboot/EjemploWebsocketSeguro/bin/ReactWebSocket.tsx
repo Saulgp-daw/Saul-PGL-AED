@@ -14,8 +14,6 @@ import { Client } from '@stomp/stompjs';
 import axios from 'axios';
 
 const ReactWebSocket = () => {
-
-    //Su usamos react native
     /*
     Object.assign(global, {
         TextEncoder: encoding.TextEncoder,
@@ -37,42 +35,26 @@ const ReactWebSocket = () => {
 
     const [conectado, setConectado] = useState("desconectado");
 
-
-
+   
+    
 
 
 
 
     function login() {
-        async function getToken(nombre: string, password: string) {
-            let loginmessage = {
+        async function getToken(nombre: string, password: string){
+            let loginmessage={
                 nombre,
                 password
             };
-            let response = await axios.post("http://localhost:8080/api/login", loginmessage);
+            let response = await axios.post("http://localhost:8080/api/login",loginmessage);
             console.log(response.data);
             let token = response.data;
             setToken(token);
             setAutor(nombre);
         }
 
-        getToken(usuario, clave);
-    }
-
-    function registro() {
-        async function getToken(nombre: string, password: string) {
-            let loginmessage = {
-                nombre,
-                password
-            };
-            let response = await axios.post("http://localhost:8080/api/registro", loginmessage);
-            console.log(response.data);
-            let token = response.data;
-            setToken(token);
-            setAutor(nombre);
-        }
-
-        getToken(usuario, clave);
+        getToken(usuario,clave);
     }
 
 
@@ -81,20 +63,20 @@ const ReactWebSocket = () => {
     function enviar() {
 
         let stompClient = stompRef.current;
-        let messageTo = {
-            author: autor,
+        let messageTo={
+            author:   autor,
             receiver: "no hay receptor específico",
             content: mensaje
-
+        
         };
 
         stompClient.publish({ destination: "/app/mensajegeneral", body: JSON.stringify(messageTo) });
         console.log("enviado público");
-        /*
-                let arr = historico;
-                arr.push("le dices a  todos: "  + messageTo.content);
-                setHistorico([...arr]); 
-                */
+/*
+        let arr = historico;
+        arr.push("le dices a  todos: "  + messageTo.content);
+        setHistorico([...arr]); 
+        */
     }
 
 
@@ -102,18 +84,18 @@ const ReactWebSocket = () => {
 
 
         let stompClient = stompRef.current;
-        let messageTo = {
-            author: autor,
+        let messageTo={
+            author:   autor,
             receiver: receptor,
             content: mensaje
-
+        
         };
         stompClient.publish({ destination: "/app/privado", body: JSON.stringify(messageTo) });
         console.log("enviado privado");
 
         let arr = historico;
-        arr.push("le dices a  " + messageTo.receiver + ": " + messageTo.content);
-        setHistorico([...arr]);
+        arr.push("le dices a  " + messageTo.receiver +": " + messageTo.content);
+        setHistorico([...arr]);        
     }
 
 
@@ -135,21 +117,21 @@ const ReactWebSocket = () => {
         let arr = historico;
         arr.push(nuevoMensaje.author + " te dice en privado: " + nuevoMensaje.content);
         setHistorico([...arr]);
-    }
+    }    
 
-
+ 
 
     function conectar() {
-        async function getMensajesPrivados() {
-            let response = await axios.get("http://localhost:8080/api/mensajes", {
-
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Authorization": "Bearer " + token
+        async function getMensajesPrivados(){
+            let response = await axios.get("http://localhost:8080/api/mensajes",{
+                
+                headers:{
+                    "Access-Control-Allow-Origin" : "*",
+                    "Authorization": "Bearer "+token
                 }
-
+                
             });
-            let nuevoHistorico = response.data.map((mensaje: any) => JSON.stringify(mensaje));
+            let nuevoHistorico = response.data.map( (mensaje:any) => JSON.stringify(mensaje));
             setHistorico(nuevoHistorico);
         }
 
@@ -159,9 +141,9 @@ const ReactWebSocket = () => {
         stompRef.current = new Client({
 
             brokerURL: 'ws://localhost:8080/websocket',
-            connectHeaders: {
+            connectHeaders:   {
                 Authorization: 'Bearer ' + token,
-            },
+            },            
             debug: function (str) {
                 console.log(str);
             },
@@ -181,7 +163,7 @@ const ReactWebSocket = () => {
 
             setConectado("conectado");
 
-
+            
             console.log("entra en conectarOK");
             let stompClient = stompRef.current;
             stompClient.subscribe('/salas/general', onPublicMessageReceived);
@@ -220,7 +202,7 @@ const ReactWebSocket = () => {
                 placeholder='usuario'
 
             />
-            <br />
+            <br/>
 
             <input
                 type="text"
@@ -233,40 +215,13 @@ const ReactWebSocket = () => {
 
             />
 
-            <br />
-            <button onClick={login}>Login</button>
-            <br />
-
-            <input
-                type="text"
-                onChange={(e) => {
-                    e.preventDefault();
-                    let texto = e.currentTarget.value;
-                    setUsuario(texto);
-                }}
-                placeholder='usuario'
-
-            />
-            <br />
-
-            <input
-                type="text"
-                onChange={(e) => {
-                    e.preventDefault();
-                    let texto = e.currentTarget.value;
-                    setClave(texto);
-                }}
-                placeholder='contraseña'
-
-            />
-
-            <br />
-            <button onClick={registro}>registro</button>
-            <br />
-
-            <br />
-            Estado websocket: {conectado}
-            <br />
+                <br />
+             <button onClick={login}>Login</button>
+             <br />
+            
+             <br/>
+             Estado websocket: {conectado}
+             <br/>             
             <input
                 type="text"
                 onChange={(e) => {
@@ -279,10 +234,10 @@ const ReactWebSocket = () => {
                 disabled
 
             />
-            <br />
+            <br/>
 
             <button onClick={conectar}>Conectar websocket</button>
-            <br /> <br />
+            <br/> <br/>
             <input
                 type="text"
                 onChange={(e) => {
@@ -293,7 +248,7 @@ const ReactWebSocket = () => {
                 placeholder='receptor'
 
             />
-            <br />
+            <br/>
             <input
                 type="text"
                 onChange={(e) => {
@@ -307,7 +262,7 @@ const ReactWebSocket = () => {
 
             />
 
-            <br />
+            <br/>
             <input
                 type="text"
                 onChange={(e) => {
@@ -318,16 +273,16 @@ const ReactWebSocket = () => {
                 placeholder='mensaje'
 
             />
-            <br />
-            <button onClick={enviar}>Mensaje a todos</button>  <br />
+             <br/>
+            <button onClick={enviar}>Mensaje a todos</button>  <br/>
             <button onClick={enviarPrivado}>Mensaje privado a receptor</button>
             <ul>
-
+            
                 {historico.map(
                     (linea, id) => <li key={"dato" + id}> {linea} </li>
                 )}
 
-
+            
             </ul>
 
         </div>
