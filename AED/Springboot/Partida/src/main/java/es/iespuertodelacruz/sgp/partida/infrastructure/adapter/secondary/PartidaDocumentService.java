@@ -9,21 +9,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import es.iespuertodelacruz.sgp.partida.domain.model.Partida;
 import es.iespuertodelacruz.sgp.partida.domain.port.secondary.IPartidaDomainRepository;
 
 @Service
-public class PartidaDocumentService implements IPartidaDomainRepository{
-	
+public class PartidaDocumentService implements IPartidaDomainRepository {
+
 	@Autowired
 	IPartidaRepositoryDocument pdRepository;
-	
+
 	PartidaDocumentMapper mapper = new PartidaDocumentMapper();
-	
+
 	@Autowired
-    private MongoTemplate mongoTemplate;
+	private MongoTemplate mongoTemplate;
 
 	@Override
 	public List<Partida> findAll() {
@@ -35,8 +34,8 @@ public class PartidaDocumentService implements IPartidaDomainRepository{
 	public Partida findById(Integer id) {
 		Partida partida = null;
 		if (id != null) {
-			Optional<PartidaDocument> opt = pdRepository.findById(id+"");
-			if(opt.isPresent()) {
+			Optional<PartidaDocument> opt = pdRepository.findById(id + "");
+			if (opt.isPresent()) {
 				PartidaDocument partidaDocument = opt.get();
 				partida = mapper.toDomain(partidaDocument);
 			}
@@ -46,33 +45,32 @@ public class PartidaDocumentService implements IPartidaDomainRepository{
 
 	@Override
 	public Partida save(Partida partida) {
-		if(partida != null) {
-			PartidaDocument pd = mapper.toDocument(partida);
-			pd.setIdPartida((Integer.parseInt(obtenerUltimoId().toString())+1)+"");
-			PartidaDocument save = pdRepository.save(pd);
-			return mapper.toDomain(save);
-			//System.out.println("Último id: "+obtenerUltimoId());
-		}
-		return null;
+		String ultimoId = obtenerUltimoId().toString();
+		int nuevoId = Integer.parseInt(ultimoId) + 1;
+
+		PartidaDocument pd = mapper.toDocument(partida);
+		pd.setIdPartida(String.valueOf(nuevoId));
+
+		PartidaDocument save = pdRepository.save(pd);
+		return mapper.toDomain(save);
 	}
-	
-	
-	
-	 public Object obtenerUltimoId() {
-	        // Crea un objeto Query con sort por _id de forma descendente y limita a 1 resultado
-	        Query query = new Query().with(Sort.by(Sort.Order.desc("_id"))).limit(1);
 
-	        // Ejecuta la consulta y proyecta solo el campo _id
-	        PartidaDocument resultado = mongoTemplate.findOne(query, PartidaDocument.class, "partidas");
+	public Object obtenerUltimoId() {
+		// Crea un objeto Query con sort por _id de forma descendente y limita a 1
+		// resultado
+		Query query = new Query().with(Sort.by(Sort.Order.desc("_id"))).limit(1);
 
-	        // Devuelve el valor de _id del resultado
-	        return resultado != null ? resultado.getIdPartida() : 0;
-	    }
+		// Ejecuta la consulta y proyecta solo el campo _id
+		PartidaDocument resultado = mongoTemplate.findOne(query, PartidaDocument.class, "partidas");
+
+		// Devuelve el valor de _id del resultado
+		return resultado != null ? resultado.getIdPartida() : 0;
+	}
 
 	@Override
 	public Partida update(Partida partida) {
 		Optional<PartidaDocument> opt = pdRepository.findById(partida.getIdPartida());
-		if(opt.isPresent()) {
+		if (opt.isPresent()) {
 			PartidaDocument pd = mapper.toDocument(partida);
 			pd.setIdPartida(partida.getIdPartida());
 			pd.setEstado(partida.getEstado());
@@ -92,6 +90,5 @@ public class PartidaDocumentService implements IPartidaDomainRepository{
 		List<PartidaDocument> lista = pdRepository.findByEstado(estado);
 		return lista.stream().map(pd -> mapper.toDomain(pd)).collect(Collectors.toList());
 	}
-	
 
 }

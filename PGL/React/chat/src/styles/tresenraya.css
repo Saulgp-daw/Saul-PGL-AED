@@ -3,6 +3,19 @@
     font-size: large;
 }
 
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
+    grid-gap: 8px; /* Espacio entre las casillas (ajusta según tus necesidades) */
+  }
+  
+  .casilla {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+  }
+
 .scrollable-list {
     height: 50vh; /* Altura deseada de la lista */
     overflow-y: scroll; /* Agregar barra de desplazamiento vertical si es necesario */

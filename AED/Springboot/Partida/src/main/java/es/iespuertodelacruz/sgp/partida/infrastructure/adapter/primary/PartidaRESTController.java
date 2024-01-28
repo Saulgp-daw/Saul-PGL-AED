@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.sgp.partida.domain.model.Partida;
+import es.iespuertodelacruz.sgp.partida.domain.model.ResultadoOperacion;
 import es.iespuertodelacruz.sgp.partida.domain.port.primary.IPartidaDomainService;
 import es.iespuertodelacruz.sgp.partida.infrastructure.adapter.primary.dto.ApuestaDTO;
 import es.iespuertodelacruz.sgp.partida.infrastructure.adapter.primary.dto.PartidaDTO;
@@ -80,22 +81,32 @@ public class PartidaRESTController {
 	@PostMapping("/{id}/apuestas")
 	public ResponseEntity<?> apuesta(@PathVariable int id, @RequestBody ApuestaDTO apuestaDto) {
 		Partida partida = partidaDomainService.findById(id);
+		String mensaje = "";
 		if (partida != null) {
 			String respuesta = partida.apuesta(apuestaDto.getSimbolo(), apuestaDto.getPosicion());
 			switch (respuesta) {
 			case "FINALIZADA":
 			case "EMPATE":
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La partida está finalizada");
+				mensaje = "La partida está finalizada";
+				return ResponseEntity.ok(new ResultadoOperacion(mensaje, partida) );
+				//return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La partida está finalizada");
 			case "COGIDA":
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La posición está cogida");
+				mensaje = "La posición está cogida";
+				return ResponseEntity.ok(new ResultadoOperacion(mensaje, partida) );
+				//return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La posición está cogida");
 			case "TURNO":
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No es tu turno");
+				mensaje = "No es tu turno";
+				return ResponseEntity.ok(new ResultadoOperacion(mensaje, partida) );
+				//return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No es tu turno");
 			case "SIMBOLO":
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No hay nadie con este simbolo");
+				mensaje = "No hay nadie con este simbolo";
+				//return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No hay nadie con este simbolo");
+				return ResponseEntity.ok(new ResultadoOperacion(mensaje, partida) );
 			case "OK":
 				Partida update = partidaDomainService.update(partida);
 				if (update != null) {
-					return ResponseEntity.ok(update);
+					mensaje = "Movimiento aprobado";
+					return ResponseEntity.ok(new ResultadoOperacion(mensaje, update));
 				}
 			}
 
@@ -111,3 +122,5 @@ public class PartidaRESTController {
 	
 
 }
+
+

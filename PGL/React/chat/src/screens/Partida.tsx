@@ -9,7 +9,9 @@ type Partida = {
     estado: String;
     nickJug1: String;
     nickJug2: String;
-
+    simboloJug1: String;
+    simboloJug2: String;
+    tablero: String;
 }
 
 const Partida = (props: Props) => {
@@ -21,15 +23,36 @@ const Partida = (props: Props) => {
     const [simbolo2, setSimbolo2] = useState("O");
     const [apuesta, setApuesta] = useState("");
     const [posicion, setPosicion] = useState("");
-    const [tablero, setTablero] = useState("--------");
-    const [mensaje, setMensaje] = useState("hola");
+    const [tablero, setTablero] = useState("---------");
+    const [mensaje, setMensaje] = useState("");
+    const [partida, setPartida] = useState<Partida>();
 
     async function nuevaPartida() {
-        let response = await axios.post(ruta + "nueva", {
-            "nickJug1": nickJug1,
-            "simboloJug1": simbolo.toUpperCase()
-        });
-        console.log(response.data);
+        try {
+            let response = await axios.post(ruta + "nueva", {
+                "nickJug1": nickJug1,
+                "simboloJug1": simbolo.toUpperCase()
+            });
+            console.log(response.data);
+
+            const nueva: Partida = {
+                idPartida: response.data.idPartida,
+                estado: response.data.estado,
+                nickJug1: response.data.nickJug1,
+                nickJug2: response.data.nickJug2,
+                simboloJug1: response.data.simboloJug1,
+                simboloJug2: response.data.simboloJug2,
+                tablero: response.data.tablero,
+            }
+
+            setPartida(nueva);
+
+
+
+        } catch (error) {
+            console.log(error);
+        }
+
 
 
     }
@@ -41,7 +64,17 @@ const Partida = (props: Props) => {
             });
             console.log(response);
             if (response.status == 200) {
-                setTablero(response.data.tablero);
+                const nueva: Partida = {
+                    idPartida: response.data.partida.idPartida,
+                    estado: response.data.partida.estado,
+                    nickJug1: response.data.partida.nickJug1,
+                    nickJug2: response.data.partida.nickJug2,
+                    simboloJug1: response.data.partida.simboloJug1,
+                    simboloJug2: response.data.partida.simboloJug2,
+                    tablero: response.data.partida.tablero,
+                }
+    
+                setPartida(nueva);
                 setMensaje("Nuevo tablero");
             }
 
@@ -66,13 +99,23 @@ const Partida = (props: Props) => {
             });
             console.log(response);
             if (response.status == 200) {
-                setTablero(response.data.tablero);
-                setMensaje("Movimiento aprobado");
+                const nueva: Partida = {
+                    idPartida: response.data.partida.idPartida,
+                    estado: response.data.partida.estado,
+                    nickJug1: response.data.partida.nickJug1,
+                    nickJug2: response.data.partida.nickJug2,
+                    simboloJug1: response.data.partida.simboloJug1,
+                    simboloJug2: response.data.partida.simboloJug2,
+                    tablero: response.data.partida.tablero,
+                }
+    
+                setPartida(nueva);
+                setMensaje(response.data.mensaje);
             }
 
         } catch (error) {
             if (axios.isAxiosError(error) && error.response != undefined) {
-                setMensaje(error.response.data);
+                setMensaje(error.response.data.mensaje);
             }
             console.log(mensaje);
 
@@ -183,11 +226,24 @@ const Partida = (props: Props) => {
 
             <br />
             <div>/////////////////////////////////////////////</div>
-                <div className='estilo'>
-                    {tablero && tablero.match(/.{1,3}/g)?.map((fila, index) => (
-                        <div key={index}>{fila}</div>
+            <p>
+                Estado: {partida?.estado} - Num. Sala: {partida?.idPartida}
+            </p>
+            <p>
+                Jugador1: {partida?.nickJug1} - Jugador2: {partida?.nickJug2}
+            </p>
+            <p>
+                SimboloJ1: {partida?.simboloJug1} - SimboloJ1: {partida?.simboloJug2}
+            </p>
+            <div className='tablero'>
+
+                {partida?.tablero &&
+                    partida.tablero.split('').map((caracter, index) => (
+                        <div key={index} className='casilla'>
+                            {caracter}
+                        </div>
                     ))}
-                </div>
+            </div>
 
             <div>{mensaje}</div>
         </div>
