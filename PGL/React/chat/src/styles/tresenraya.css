@@ -1,0 +1,23 @@
+.estilo{
+    font-weight: bold;
+    font-size: large;
+}
+
+.scrollable-list {
+    height: 50vh; /* Altura deseada de la lista */
+    overflow-y: scroll; /* Agregar barra de desplazamiento vertical si es necesario */
+    border: 1px solid #ccc; /* Borde para visualización */
+  }
+
+  .scrollable-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column-reverse; /* Invertir dirección de la columna */
+  }
+
+  .scrollable-list li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd; /* Borde inferior para separar elementos */
+  }

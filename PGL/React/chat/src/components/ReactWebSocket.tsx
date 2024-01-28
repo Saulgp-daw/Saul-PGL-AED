@@ -12,6 +12,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import * as encoding from 'text-encoding';
 import { Client } from '@stomp/stompjs';
 import axios from 'axios';
+import "../styles/tresenraya.css"
 
 const ReactWebSocket = () => {
 
@@ -321,14 +322,16 @@ const ReactWebSocket = () => {
             <br />
             <button onClick={enviar}>Mensaje a todos</button>  <br />
             <button onClick={enviarPrivado}>Mensaje privado a receptor</button>
-            <ul>
+            <div className='scrollable-list'>
+                <ul>
 
-                {historico.map(
-                    (linea, id) => <li key={"dato" + id}> {linea} </li>
-                )}
+                    {historico.map(
+                        (linea, id) => <li key={"dato" + id}> {linea} </li>
+                    )}
 
 
-            </ul>
+                </ul>
+            </div>
 
         </div>
 

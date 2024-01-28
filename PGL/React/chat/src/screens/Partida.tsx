@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import "../styles/tresenraya.css"
 
 type Props = {}
+
+type Partida = {
+    idPartida: String;
+    estado: String;
+    nickJug1: String;
+    nickJug2: String;
+
+}
 
 const Partida = (props: Props) => {
     const ruta = "http://localhost:8080/api/v1/partidas/";
@@ -18,7 +27,7 @@ const Partida = (props: Props) => {
     async function nuevaPartida() {
         let response = await axios.post(ruta + "nueva", {
             "nickJug1": nickJug1,
-            "simboloJug1": simbolo
+            "simboloJug1": simbolo.toUpperCase()
         });
         console.log(response.data);
 
@@ -28,7 +37,7 @@ const Partida = (props: Props) => {
         try {
             let response = await axios.put(ruta + sala + "/unirse", {
                 "nickJug2": nickJug2,
-                "simboloJug2": simbolo2
+                "simboloJug2": simbolo2.toUpperCase()
             });
             console.log(response);
             if (response.status == 200) {
@@ -37,6 +46,10 @@ const Partida = (props: Props) => {
             }
 
         } catch (error) {
+            if (axios.isAxiosError(error) && error.response != undefined) {
+                setMensaje(error.response.data);
+            }
+            console.log(mensaje);
             console.error('Error en la solicitud:', error);
         }
 
@@ -48,7 +61,7 @@ const Partida = (props: Props) => {
         console.log(sala);
         try {
             let response = await axios.post(ruta + Number(sala) + "/apuestas", {
-                "simbolo": apuesta,
+                "simbolo": apuesta.toUpperCase(),
                 "posicion": Number(posicion)
             });
             console.log(response);
@@ -170,7 +183,7 @@ const Partida = (props: Props) => {
 
             <br />
             <div>/////////////////////////////////////////////</div>
-                <div>
+                <div className='estilo'>
                     {tablero && tablero.match(/.{1,3}/g)?.map((fila, index) => (
                         <div key={index}>{fila}</div>
                     ))}

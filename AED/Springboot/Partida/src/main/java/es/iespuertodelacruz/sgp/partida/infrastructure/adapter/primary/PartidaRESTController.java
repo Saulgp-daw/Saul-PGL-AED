@@ -90,6 +90,8 @@ public class PartidaRESTController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La posición está cogida");
 			case "TURNO":
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No es tu turno");
+			case "SIMBOLO":
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No hay nadie con este simbolo");
 			case "OK":
 				Partida update = partidaDomainService.update(partida);
 				if (update != null) {

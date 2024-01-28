@@ -111,6 +111,10 @@ public class Partida {
 			 return "COGIDA";
 	    }
 		
+		if(!this.getSimboloJug1().equals(simbolo) && !this.getSimboloJug2().equals(simbolo)) {
+			return "SIMBOLO";
+		}
+		
 		if(cantSimb1 > cantSimb2 && this.getSimboloJug1().equals(simbolo)) {
 			 return "TURNO";
 		}else if(cantSimb2 > cantSimb1 && this.getSimboloJug2().equals(simbolo) || cantSimb2 == cantSimb1 && this.getSimboloJug2().equals(simbolo)) {
