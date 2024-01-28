@@ -8,4 +8,6 @@ public interface IPartidaDomainRepository {
 	List<Partida> findAll();
 	Partida findById(Integer id);
 	Partida save(Partida partida);
+	Partida update(Partida partida);
+	List<Partida> findByEstado(String estado);
 }

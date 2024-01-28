@@ -7,7 +7,7 @@ public class PartidaEntityMapper {
 	public Partida toDomain(PartidaEntity pe) {
 		Partida partida = null;
 		if(pe != null) {
-			partida = new Partida(pe.getIdPartida(), pe.getEstado(), pe.getNickJug1(), pe.getNickJug2(), pe.getSimboloJug1(), pe.getSimboloJug2(), pe.getTablero());
+			partida = new Partida(pe.getIdPartida()+"", pe.getEstado(), pe.getNickJug1(), pe.getNickJug2(), pe.getSimboloJug1(), pe.getSimboloJug2(), pe.getTablero());
 			
 		}
 		return partida;
@@ -17,7 +17,7 @@ public class PartidaEntityMapper {
 		PartidaEntity pe = null;
 		if(p != null) {
 			pe = new PartidaEntity();
-			pe.setIdPartida(p.getIdPartida());
+			pe.setIdPartida(Integer.parseInt(p.getIdPartida()));
 			pe.setEstado(p.getEstado());
 			pe.setNickJug1(p.getNickJug1());
 			pe.setNickJug2(p.getNickJug2());
