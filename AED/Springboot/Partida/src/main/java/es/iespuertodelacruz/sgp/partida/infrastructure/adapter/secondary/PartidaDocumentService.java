@@ -9,11 +9,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.iespuertodelacruz.sgp.partida.domain.model.Partida;
 import es.iespuertodelacruz.sgp.partida.domain.port.secondary.IPartidaDomainRepository;
 
-//@Service
+@Service
 public class PartidaDocumentService implements IPartidaDomainRepository{
 	
 	@Autowired

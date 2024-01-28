@@ -11,7 +11,7 @@ import es.iespuertodelacruz.sgp.partida.domain.model.Partida;
 import es.iespuertodelacruz.sgp.partida.domain.port.secondary.IPartidaDomainRepository;
 import jakarta.transaction.Transactional;
 
-@Service
+//@Service
 public class PartidaEntityService implements IPartidaDomainRepository {
 
 	@Autowired

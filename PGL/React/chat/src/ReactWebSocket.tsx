@@ -65,7 +65,7 @@ const ReactWebSocket = () => {
                 nombre,
                 password
             };
-            let response = await axios.post("http://localhost:8080/api/registro", loginmessage);
+            let response = await axios.post("http://localhost:8080/api/register", loginmessage);
             console.log(response.data);
             let token = response.data;
             setToken(token);

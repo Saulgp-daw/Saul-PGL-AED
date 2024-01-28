@@ -21,27 +21,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-	@Autowired	private JwtFilter jwtAuthFilter;
+	@Autowired
+	private JwtFilter jwtAuthFilter;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http
-			.cors(cors->cors.disable())
-			.csrf(csrf -> csrf.disable() )
-				.authorizeHttpRequests(auth -> auth
-					.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-					.requestMatchers(
-					"/", "/swagger-ui.html", 
-					"/swagger-ui/**", "/v2/**", 
-					"configuration/**",	"/swagger*/**", 
-					"/webjars/**", "/api/login", 
-					"/api/register", "/v3/**",
-					"/websocket*/**", "/index.html", "/api/v1/**"
-					).permitAll()
-						
-					.requestMatchers("/api/v3/**").hasRole("ADMIN").anyRequest().authenticated()
-				)
+		http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+						.requestMatchers("/", "/swagger-ui.html", "/swagger-ui/**", "/v2/**", "configuration/**",
+								"/swagger*/**", "/webjars/**", "/api/login", "/api/register", "/v3/**",
+								"/websocket*/**", "/index.html", "/api/v1/**")
+						.permitAll()
+
+						.requestMatchers("/api/v3/**").hasRole("ADMIN").anyRequest().authenticated())
 				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
