@@ -1,8 +1,5 @@
 <p>gatos works!</p>
-<form [formGroup]="gatoFormData">
-  <input type="text" formControlName="nombre" placeholder="nombre"><br>
-  <input type="text" formControlName="peso" placeholder="peso"><br>
-  <input type="text" formControlName="edad" placeholder="edad"><br>
-
-  <button type="submit">Guardar</button>
-</form>
+<div>
+  <input type="text" [(ngModel)]="mote" placeholder="mote"><br>
+  <button (click)="procesarForm()">Guardar</button>
+</div>

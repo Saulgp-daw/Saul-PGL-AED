@@ -1,0 +1,9 @@
+<h3>Piedra, papel, tijeras</h3>
+<p>Opción elegida por la máquina: <span></span></p>
+<p>Opción elegida por el usuario: <span>{{eleccion}}</span></p>
+<select [(ngModel)]="eleccion">
+  <option *ngFor="let opcion of opciones" value={{opcion}}>{{opcion}}</option>
+</select>
+<button (click)="jugada()">Jugar</button>
+
+<p *ngIf="finalizada">El resultado es: empate</p>

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-gatos',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './gatos.component.html',
   styleUrl: './gatos.component.css'
 })
@@ -18,6 +18,11 @@ export class GatosComponent {
     edad: new FormControl(""),
 
   });
+
+  mote: String = "";
+  procesarForm() {
+    alert("el mote es: " + this.mote);
+  }
 
   comprobarEdad() {
     let edad = Number(this.gatoFormData.value.edad);

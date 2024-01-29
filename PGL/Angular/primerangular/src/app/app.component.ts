@@ -3,13 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NewComponentComponent } from './new-component/new-component.component';
 import { GatosComponent } from './gatos/gatos.component';
+import { PiedraPapelTijerasComponent } from './piedra-papel-tijeras/piedra-papel-tijeras.component';
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, NewComponentComponent, GatosComponent],
+  imports: [RouterOutlet, CommonModule, NewComponentComponent, GatosComponent, PiedraPapelTijerasComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
