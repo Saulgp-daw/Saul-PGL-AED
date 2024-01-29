@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class PiedraPapelTijerasComponent {
   opciones = ["piedra", "tijeras", "papel"];
   eleccion: String = "";
+  eleccionMaquina: string = "";
   resultado: string = "";
   finalizada: boolean = false;
 
@@ -19,28 +20,28 @@ export class PiedraPapelTijerasComponent {
 
   jugada() {
     let random = Math.floor(Math.random() * this.opciones.length);
-    let eleccionMaquina = this.opciones[random];
-    console.log(eleccionMaquina);
+    this.eleccionMaquina = this.opciones[random];
+    console.log(this.eleccionMaquina);
 
     console.log(this.eleccion);
 
-    if (this.eleccion == "piedra" && eleccionMaquina == "piedra") {
+    if (this.eleccion == "piedra" && this.eleccionMaquina == "piedra") {
       this.resultado = "empate";
-    } else if (this.eleccion == "piedra" && eleccionMaquina == "papel") {
+    } else if (this.eleccion == "piedra" && this.eleccionMaquina == "papel") {
       this.resultado = "maquina";
-    } else if (this.eleccion == "piedra" && eleccionMaquina == "tijeras") {
+    } else if (this.eleccion == "piedra" && this.eleccionMaquina == "tijeras") {
       this.resultado = "usuario";
-    } else if (this.eleccion == "papel" && eleccionMaquina == "piedra") {
+    } else if (this.eleccion == "papel" && this.eleccionMaquina == "piedra") {
       this.resultado = "maquina";
-    } else if (this.eleccion == "papel" && eleccionMaquina == "papel") {
+    } else if (this.eleccion == "papel" && this.eleccionMaquina == "papel") {
       this.resultado = "empate";
-    } else if (this.eleccion == "papel" && eleccionMaquina == "tijeras") {
+    } else if (this.eleccion == "papel" && this.eleccionMaquina == "tijeras") {
       this.resultado = "maquina";
-    } else if (this.eleccion == "tijeras" && eleccionMaquina == "piedra") {
+    } else if (this.eleccion == "tijeras" && this.eleccionMaquina == "piedra") {
       this.resultado = "maquina";
-    } else if (this.eleccion == "tijeras" && eleccionMaquina == "papel") {
+    } else if (this.eleccion == "tijeras" && this.eleccionMaquina == "papel") {
       this.resultado = "usuario";
-    } else if (this.eleccion == "tijeras" && eleccionMaquina == "tijeras") {
+    } else if (this.eleccion == "tijeras" && this.eleccionMaquina == "tijeras") {
       this.resultado = "empate";
     }
 
@@ -48,6 +49,13 @@ export class PiedraPapelTijerasComponent {
 
 
 
+  }
+
+  reseteo() {
+    this.eleccion = "";
+    this.eleccionMaquina = "";
+    this.finalizada = false;
+    this.resultado = "";
   }
 
 }
