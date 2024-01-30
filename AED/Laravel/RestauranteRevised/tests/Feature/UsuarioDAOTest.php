@@ -17,7 +17,7 @@ use function PHPUnit\Framework\assertTrue;
 class UsuarioDAOTest extends TestCase
 {
 
-    /*public  $databaseCreated = false;
+    public  $databaseCreated = false;
 
     public  function setUp(): void
     {
@@ -28,7 +28,7 @@ class UsuarioDAOTest extends TestCase
             require 'CreateDatabase.php';
             $this->databaseCreated = true;
         }
-    }*/
+    }
 
     public function test_find_All(): void {
         $pdo = DB::getPdo();
@@ -74,7 +74,7 @@ class UsuarioDAOTest extends TestCase
         $pdo = DB::getPdo();
         $usuarioDAO = new UsuarioDAO($pdo);
         $usuario = new Usuario(922342291, "Pepe", "1234");
-        
+
 
         try{
             $usuarioGuardado = $usuarioDAO->save($usuario);
@@ -85,7 +85,7 @@ class UsuarioDAOTest extends TestCase
         if(isset($usuarioGuardado)){
             $grabado = $usuarioDAO->findById(922342291);
         }
-        
+
 
         assertNotNull($grabado);
         assertTrue($grabado->getNombre() == "Pepe");
@@ -111,7 +111,7 @@ class UsuarioDAOTest extends TestCase
         $this->assertTrue($usuarioActualizado->getRol() == "CLIENTE");
         $this->assertTrue($usuarioActualizado->getContrasenha() == "1234");
         //dump(DB::table('usuarios')->get());
-        
+
     }
 
     //falla porque no puedo borrar un usuario con una foreign key en otra tabla
@@ -124,5 +124,5 @@ class UsuarioDAOTest extends TestCase
         $this->assertNull($encontrado);
     }
 
-    
+
 }

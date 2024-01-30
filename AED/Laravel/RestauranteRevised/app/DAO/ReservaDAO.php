@@ -36,7 +36,7 @@ class ReservaDAO implements Crud
             $duracion = $row[ReservaContract::COL_DURATION];
             $num_mesa = $row[ReservaContract::COL_NUM_TABLE];
             $estado = $row[ReservaContract::COL_STATE];
-            $reserva = new Reserva($id_reserva, $telefono, new Datetime($fecha_hora), $duracion, $num_mesa, $estado);
+            $reserva = new Reserva($id_reserva, $telefono, $fecha_hora, $duracion, $num_mesa, $estado);
             $reservas[] = $reserva;
         }
         return $reservas;
@@ -58,7 +58,7 @@ class ReservaDAO implements Crud
             $reserva = new Reserva();
             $reserva->setId_reserva($row[ReservaContract::COL_ID]);
             $reserva->setTelefono($row[ReservaContract::COL_TEL]);
-            $reserva->setFecha_hora(new Datetime($row[ReservaContract::COL_DATE]));
+            $reserva->setFecha_hora($row[ReservaContract::COL_DATE]);
             $reserva->setDuracion($row[ReservaContract::COL_DURATION]);
             $reserva->setNum_mesa($row[ReservaContract::COL_NUM_TABLE]);
             $reserva->setEstado($row[ReservaContract::COL_STATE]);
@@ -82,7 +82,7 @@ class ReservaDAO implements Crud
             $duracion = $row[ReservaContract::COL_DURATION];
             $num_mesa = $row[ReservaContract::COL_NUM_TABLE];
             $estado = $row[ReservaContract::COL_STATE];
-            $reserva = new Reserva($id_reserva, $telefono, new Datetime($fecha_hora), $duracion, $num_mesa, $estado);
+            $reserva = new Reserva($id_reserva, $telefono, $fecha_hora, $duracion, $num_mesa, $estado);
             $reservas[] = $reserva;
         }
         return $reservas;
@@ -138,7 +138,7 @@ class ReservaDAO implements Crud
                 [
                     ":id_reserva" => $dao->getId_reserva(),
                     ":telefono" => $dao->getTelefono(),
-                    ":fecha_hora" => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
+                    ":fecha_hora" => $dao->getFecha_hora(),
                     ":duracion" => $dao->getDuracion(),
                     ":num_mesa" => $dao->getNum_mesa(),
                     ":estado" => $dao->getEstado()
@@ -179,7 +179,7 @@ class ReservaDAO implements Crud
             $stmt = $this->myPDO->prepare($sql);
             $stmt->execute([
                 ':telefono' => $dao->getTelefono(),
-                ':fecha_hora' => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
+                ':fecha_hora' => $dao->getFecha_hora(),
                 ':duracion' => $dao->getDuracion(),
                 ":num_mesa" => $dao->getNum_mesa(),
                 ":estado" => $dao->getEstado(),

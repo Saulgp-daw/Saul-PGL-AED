@@ -1,6 +1,6 @@
 <?php
 $pdo->exec("
-CREATE TABLE usuarios ( 
+CREATE TABLE usuarios (
     telefono INT PRIMARY KEY NOT NULL,
     nombre VARCHAR(255) NOT NULL,
     contrasenha VARCHAR(255) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE reservas (
 
 $pdo->exec("
 INSERT INTO usuarios (telefono, nombre, contrasenha, rol)
-VALUES 
+VALUES
     (123456789, 'Juan Perez', '1234', 'CLIENTE'),
     (689088259, 'Saul', '1q2w3e4r', 'ADMIN'),
     (890678456, 'Benito', '1234', 'CLIENTE');
@@ -40,7 +40,7 @@ VALUES
 
 $pdo->exec("
 INSERT INTO mesas ( num_mesa, sillas)
-VALUES 
+VALUES
 	(1, 4),
     (2, 4),
     (3, 2),
@@ -49,12 +49,12 @@ VALUES
 
 $pdo->exec("
 INSERT INTO reservas (id_reserva, telefono, fecha_hora, duracion, num_mesa, estado)
-VALUES 
-    (1, 123456789, '2023-01-01 12:00:00', 2, 1, 'Confirmada'),
-    (2, 123456789, '2023-01-01 14:00:00', 1, 1, 'Confirmada'),
-    (3, 123456789, '2023-01-03 12:00:00', 5, 2, 'Sin confirmar'),
-    (4, 890678456, '2023-01-03 20:00:00', 5, 2, 'En curso'),
-    (5, 689088259, '2024-01-05 12:25:00', 5, 3, 'Cancelada');
+VALUES
+(1, 123456789, strftime('%s','2023-01-01 12:00:00'), 2, 1, 'Confirmada'),
+(2, 123456789, strftime('%s','2023-01-01 14:00:00'), 1, 1, 'Confirmada'),
+(3, 123456789, strftime('%s','2023-01-03 12:00:00'), 5, 2, 'Sin confirmar'),
+(4, 890678456, strftime('%s','2023-01-03 20:00:00'), 5, 2, 'En curso'),
+(5, 689088259, strftime('%s','2024-01-05 12:25:00'), 5, 3, 'Cancelada');
 ");
 
 ?>

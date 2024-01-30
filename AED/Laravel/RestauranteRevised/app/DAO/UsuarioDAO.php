@@ -139,8 +139,8 @@ class UsuarioDAO implements Crud
                 ':telefono' => $usuario->getTelefono()
             ]);
 
-            
-            
+
+
 
             $filasAfectadas = $stmt->rowCount();
 
