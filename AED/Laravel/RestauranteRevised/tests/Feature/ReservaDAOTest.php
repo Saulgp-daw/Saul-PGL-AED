@@ -91,16 +91,19 @@ class ReservaDAOTest extends TestCase
         $this->assertTrue(count($reservasEncontradas) > 0);
     }
 
-    // public function test_reserva_solapada(): void{
-    //     $pdo = DB::getPdo();
-    //     $reservaDAO = new ReservaDAO($pdo);
-    //     $reservaNueva = new Reserva(1000, 922442291, new Datetime('2023-01-01 12:00:00'), 2, 1, "Sin confirmar");
+    public function test_reserva_solapada(): void{
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+        $reservaNueva = new Reserva(1000, 922442291, strtotime('2023-01-01 12:00:00'), 2, 1, "Sin confirmar");
+        $fechaUnix = strtotime('2023-01-01 12:00:00');
+        echo "Fecha Unix antes de la inserción: $fechaUnix\n";
+        dump(DB::table('reservas')->get());
 
 
-    //     $filasAfectadas = $reservaDAO->reservasSeSolapan($reservaNueva);
-    //     var_dump($filasAfectadas);
-    //     assertTrue($filasAfectadas > 0);
-    // }
+        $filasAfectadas = $reservaDAO->reservasSeSolapan($reservaNueva);
+        var_dump($filasAfectadas);
+        assertTrue($filasAfectadas > 0);
+    }
 
     public function test_save(): void
     {
@@ -152,7 +155,7 @@ class ReservaDAOTest extends TestCase
         $this->assertTrue($reservaActualizada->getTelefono() == 890678456);
         $this->assertTrue($reservaActualizada->getFecha_hora() == $unixTimestampActual);
         $this->assertTrue($reservaActualizada->getDuracion() == 1);
-        dump(DB::table('reservas')->get());
+        //dump(DB::table('reservas')->get());
 
     }
 

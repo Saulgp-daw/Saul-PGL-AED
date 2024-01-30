@@ -19,7 +19,7 @@ $pdo->exec("
 CREATE TABLE reservas (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
     telefono INT NOT NULL,
-    fecha_hora DATETIME NOT NULL,
+    fecha_hora INTEGER NOT NULL,
     duracion INT NOT NULL,
     num_mesa int NOT null,
     estado varchar(50) NOT NULL,
@@ -35,6 +35,7 @@ INSERT INTO usuarios (telefono, nombre, contrasenha, rol)
 VALUES
     (123456789, 'Juan Perez', '1234', 'CLIENTE'),
     (689088259, 'Saul', '1q2w3e4r', 'ADMIN'),
+    (912121212, 'Pepe', '1q2w3e4r', 'CLIENTE'),
     (890678456, 'Benito', '1234', 'CLIENTE');
 ");
 

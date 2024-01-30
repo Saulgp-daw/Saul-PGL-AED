@@ -119,8 +119,8 @@ class UsuarioDAOTest extends TestCase
         $pdo = DB::getPdo();
         $usuarioDAO = new UsuarioDAO($pdo);
 
-        $this->assertTrue($usuarioDAO->delete(689088259));
-        $encontrado = $usuarioDAO->findById(689088259);
+        $this->assertTrue($usuarioDAO->delete(912121212));
+        $encontrado = $usuarioDAO->findById(912121212);
         $this->assertNull($encontrado);
     }
 

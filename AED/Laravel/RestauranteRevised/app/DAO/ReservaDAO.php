@@ -96,19 +96,34 @@ class ReservaDAO implements Crud
         //     AND DATE_ADD('2023-01-01 09:00:00', INTERVAL 3 HOUR) > r.fecha_hora
         //     AND r.num_mesa = 1;
 
-        $sql = "SELECT COUNT(*) FROM " . ReservaContract::TABLE_NAME
+        //         SELECT * FROM reservas AS r
+        // WHERE
+        //     '1706608800' < r.fecha_hora + r.duracion * 3600
+        //     AND r.fecha_hora < '1706608800' + 3 * 3600
+        //     AND r.num_mesa = 1;
+
+
+        // $sql = "SELECT COUNT(*) FROM " . ReservaContract::TABLE_NAME
+        //     . " WHERE "
+        //     . ":fecha_hora1 < DATE_ADD(" . ReservaContract::COL_DATE . ", INTERVAL " . ReservaContract::COL_DURATION . " HOUR) "
+        //     . "AND DATE_ADD( :fecha_hora2, INTERVAL :duracion HOUR) > " . ReservaContract::COL_DATE
+        //     . " AND " . ReservaContract::COL_NUM_TABLE . " = :num_mesa";
+
+            $sql = "SELECT COUNT(*) FROM ". ReservaContract::TABLE_NAME
             . " WHERE "
-            . ":fecha_hora1 < DATE_ADD(" . ReservaContract::COL_DATE . ", INTERVAL " . ReservaContract::COL_DURATION . " HOUR) "
-            . "AND DATE_ADD( :fecha_hora2, INTERVAL :duracion HOUR) > " . ReservaContract::COL_DATE
-            . " AND " . ReservaContract::COL_NUM_TABLE . " = :num_mesa";
+            . " 1672574400 < ". ReservaContract::COL_DATE . " + ". ReservaContract::COL_DURATION. " * 3600"
+            . " AND ". ReservaContract::COL_DATE . " < 1672574400 + 3 * 3600"
+            . " AND ". ReservaContract::COL_NUM_TABLE. " = 1;";
+
+            echo "Consulta SQL: $sql\n";
 
 
             $stmt = $this->myPDO->prepare($sql);
             $stmt->execute([
-                ':fecha_hora1' => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
-                ':fecha_hora2' => $dao->getFecha_hora()->format('Y-m-d H:i:s'),
-                ':duracion' => $dao->getDuracion(),
-                ':num_mesa' => $dao->getNum_mesa()
+                // ':fecha_hora1' => $dao->getFecha_hora(),
+                // ':fecha_hora2' => $dao->getFecha_hora(),
+                // ':duracion' => $dao->getDuracion(),
+                // ':num_mesa' => $dao->getNum_mesa()
             ]);
 
             $filasAfectadas = $stmt->rowCount();
