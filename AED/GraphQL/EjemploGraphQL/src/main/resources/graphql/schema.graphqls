@@ -1,0 +1,9 @@
+type Curso{
+id: String
+nombre: String
+categoria: String
+}
+type Query {
+cursos: [Curso]
+curso(id : String ): Curso
+}
