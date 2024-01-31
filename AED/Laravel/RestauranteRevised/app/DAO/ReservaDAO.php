@@ -68,8 +68,9 @@ class ReservaDAO implements Crud
         return $reservaEncontrada;
     }
 
-    public function findByTelefono($telefono){
-        $stmt = $this->myPDO->prepare("SELECT * FROM " . ReservaContract::TABLE_NAME. " WHERE :telefono = ". ReservaContract::COL_TEL);
+    public function findByTelefono($telefono)
+    {
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . ReservaContract::TABLE_NAME . " WHERE :telefono = " . ReservaContract::COL_TEL);
         $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
         $stmt->execute([
             ":telefono" => $telefono
@@ -90,44 +91,33 @@ class ReservaDAO implements Crud
 
     public function reservasSeSolapan(Reserva $dao)
     {
-        //         SELECT COUNT(*) FROM reservas AS r
-        // WHERE
-        //     '2023-01-01 09:00:00' < DATE_ADD(r.fecha_hora, INTERVAL r.duracion HOUR)
-        //     AND DATE_ADD('2023-01-01 09:00:00', INTERVAL 3 HOUR) > r.fecha_hora
-        //     AND r.num_mesa = 1;
+        // $sql = "  SELECT * FROM reservas AS r
+        //     WHERE
+        //    '1704110400' < r.fecha_hora + r.duracion * 3600
+        //     AND r.fecha_hora < '1704110400' + 3 * 3600
+        //    AND r.num_mesa = 1;";
 
-        //         SELECT * FROM reservas AS r
-        // WHERE
-        //     '1706608800' < r.fecha_hora + r.duracion * 3600
-        //     AND r.fecha_hora < '1706608800' + 3 * 3600
-        //     AND r.num_mesa = 1;
+           $sql = "SELECT * FROM ". ReservaContract::TABLE_NAME
+           . " WHERE "
+           . ":fecha_hora1 < ". ReservaContract::COL_DATE . " + ". ReservaContract::COL_DURATION. " * 3600"
+           . " AND ". ReservaContract::COL_DATE. " < :fecha_hora2 + :duracion * 3600 "
+           . "AND ". ReservaContract::COL_NUM_TABLE. " = :num_mesa";
 
+        // echo "Fecha_hora1: " . $dao->getFecha_hora() . "\n";
+        // echo "Fecha_hora2: " . $dao->getFecha_hora() . "\n";
+        // echo "Duracion: " . $dao->getDuracion() . "\n";
+        // echo "Num_mesa: " . $dao->getNum_mesa() . "\n";
 
-        // $sql = "SELECT COUNT(*) FROM " . ReservaContract::TABLE_NAME
-        //     . " WHERE "
-        //     . ":fecha_hora1 < DATE_ADD(" . ReservaContract::COL_DATE . ", INTERVAL " . ReservaContract::COL_DURATION . " HOUR) "
-        //     . "AND DATE_ADD( :fecha_hora2, INTERVAL :duracion HOUR) > " . ReservaContract::COL_DATE
-        //     . " AND " . ReservaContract::COL_NUM_TABLE . " = :num_mesa";
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->execute([
+            ':fecha_hora1' => $dao->getFecha_hora(),
+            ':fecha_hora2' => $dao->getFecha_hora(),
+            ':duracion' => $dao->getDuracion(),
+            ':num_mesa' => $dao->getNum_mesa()
+        ]);
 
-            $sql = "SELECT COUNT(*) FROM ". ReservaContract::TABLE_NAME
-            . " WHERE "
-            . " 1672574400 < ". ReservaContract::COL_DATE . " + ". ReservaContract::COL_DURATION. " * 3600"
-            . " AND ". ReservaContract::COL_DATE . " < 1672574400 + 3 * 3600"
-            . " AND ". ReservaContract::COL_NUM_TABLE. " = 1;";
-
-            echo "Consulta SQL: $sql\n";
-
-
-            $stmt = $this->myPDO->prepare($sql);
-            $stmt->execute([
-                // ':fecha_hora1' => $dao->getFecha_hora(),
-                // ':fecha_hora2' => $dao->getFecha_hora(),
-                // ':duracion' => $dao->getDuracion(),
-                // ':num_mesa' => $dao->getNum_mesa()
-            ]);
-
-            $filasAfectadas = $stmt->rowCount();
-            //echo "Filas afectadas: $filasAfectadas";
+        $filasAfectadas = $stmt->rowCount();
+        echo "Filas afectadas: $filasAfectadas";
 
 
         return $filasAfectadas ?? 0;

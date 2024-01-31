@@ -23,16 +23,16 @@ class ReservaDAOTest extends TestCase
 {
     public  $databaseCreated = false;
 
-    public  function setUp(): void
-    {
-        parent::setUp();
+    // public  function setUp(): void
+    // {
+    //     parent::setUp();
 
-        if (!$this->databaseCreated) {
-            $pdo = DB::getPdo();
-            require 'CreateDatabase.php';
-            $this->databaseCreated = true;
-        }
-    }
+    //     if (!$this->databaseCreated) {
+    //         $pdo = DB::getPdo();
+    //         require 'CreateDatabase.php';
+    //         $this->databaseCreated = true;
+    //     }
+    // }
 
     public function test_find_by_id(): void
     {
@@ -94,14 +94,12 @@ class ReservaDAOTest extends TestCase
     public function test_reserva_solapada(): void{
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
-        $reservaNueva = new Reserva(1000, 922442291, strtotime('2023-01-01 12:00:00'), 2, 1, "Sin confirmar");
-        $fechaUnix = strtotime('2023-01-01 12:00:00');
-        echo "Fecha Unix antes de la inserción: $fechaUnix\n";
+        $reservaNueva = new Reserva(1000, 922442291, strtotime('2024-01-01 12:00:00'), 3, 1, "Sin confirmar");
         dump(DB::table('reservas')->get());
 
 
         $filasAfectadas = $reservaDAO->reservasSeSolapan($reservaNueva);
-        var_dump($filasAfectadas);
+        //var_dump($filasAfectadas);
         assertTrue($filasAfectadas > 0);
     }
 
