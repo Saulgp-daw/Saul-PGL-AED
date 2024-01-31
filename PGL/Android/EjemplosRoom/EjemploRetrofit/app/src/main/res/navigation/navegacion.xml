@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navegacion"
+    app:startDestination="@id/principal">
+
+    <fragment
+        android:id="@+id/listaAlumnos"
+        android:name="es.iespuertodelacruz.jc.ejemploretrofit.ListaAlumnos"
+        android:label="fragment_lista_alumnos"
+        tools:layout="@layout/fragment_lista_alumnos" />
+    <fragment
+        android:id="@+id/crearAlumno"
+        android:name="es.iespuertodelacruz.jc.ejemploretrofit.CrearAlumno"
+        android:label="fragment_crear_alumno"
+        tools:layout="@layout/fragment_crear_alumno" />
+    <fragment
+        android:id="@+id/principal"
+        android:name="es.iespuertodelacruz.jc.ejemploretrofit.Home"
+        android:label="fragment_principal"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home2_to_listaAlumnos"
+            app:destination="@id/listaAlumnos" />
+        <action
+            android:id="@+id/action_home2_to_crearAlumno"
+            app:destination="@id/crearAlumno" />
+    </fragment>
+</navigation>

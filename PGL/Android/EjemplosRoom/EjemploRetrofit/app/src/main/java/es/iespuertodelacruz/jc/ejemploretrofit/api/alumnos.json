@@ -1,0 +1,29 @@
+{
+
+"alumnos":[
+ {
+    "id": "1",
+    "dni": "123456789",
+    "nombre": "Juan",
+    "apellidos": "Pérez",
+    "fechanacimiento": "1990-01-01",
+    "estudios": "Ingeniería Informática"
+  },
+  {
+    "id": "2",
+    "dni": "987654321",
+    "nombre": "María",
+    "apellidos": "Gómez",
+    "fechanacimiento": "1985-05-15",
+    "estudios": "Biología"
+  },
+  {
+    "id": "3",
+    "dni": "555555555",
+    "nombre": "Pedro",
+    "apellidos": "Sánchez",
+    "fechanacimiento": "2001-11-30",
+    "estudios": "Medicina"
+  }
+]
+}

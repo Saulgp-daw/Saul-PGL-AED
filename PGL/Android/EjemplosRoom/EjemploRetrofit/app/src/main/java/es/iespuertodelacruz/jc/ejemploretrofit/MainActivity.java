@@ -19,15 +19,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
-
-
-
-
-
         MutableLiveData<PerroDTO> mutablePerros = new MutableLiveData<>();
 
         RESTService restService = RetrofitClient.getInstance().getRestService();
@@ -37,10 +28,8 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<PerroDTO> call, retrofit2.Response<PerroDTO> response) {
                 if(response.isSuccessful()) {
                     PerroDTO perros = response.body();
-
-
-
                     mutablePerros.setValue(perros);
+                    System.out.println("--------Response body: "+response.body());
                 }
             }
 
@@ -53,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         //ponemos this en owner pero si esto fuera un fragment: getViewLifecycleOwner()
         mutablePerros.observe( this, perro -> {
-            System.out.println("recibido  query retrofit:_____________________________ " +perro);
+            System.out.println("recibido  query retrofit:_____________________________ " +perro.getMessage());
         });
 
 

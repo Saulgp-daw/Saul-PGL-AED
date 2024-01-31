@@ -9,7 +9,7 @@ public class RetrofitClient {
     private static RetrofitClient instance = null;
     private RESTService restService;
 
-    private RetrofitClient() {
+    public RetrofitClient() {
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://dog.ceo/api/breeds/image/")

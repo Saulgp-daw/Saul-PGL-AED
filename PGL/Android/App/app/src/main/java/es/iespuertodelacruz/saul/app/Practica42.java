@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.saul.app;
 
+import static java.security.AccessController.getContext;
+
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,6 @@ public class Practica42 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.practica06);
 
-        File file = new File(getContext().getFilesDir(), "personas.csv")
+        //File file = new File(getContext().getFilesDir(), "personas.csv");
     }
 }
