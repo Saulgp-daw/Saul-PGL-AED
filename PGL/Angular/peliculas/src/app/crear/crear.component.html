@@ -1,0 +1,11 @@
+<p>crear works!</p>
+<p>{{prueba | json }}</p>
+
+<form [formGroup]="form" (submit)="guardar()">
+  <label for="id">Id: </label><input type="number" name="id" id="id" formControlName="id"><br>
+  <label for="nombre">nombre: </label><input type="text" name="nombre" id="nombre" formControlName="nombre"><br>
+  <label for="terminado">terminado: </label><input type="text" name="terminado" id="terminado"
+    formControlName="terminado"><br>
+  <button type="submit">Enviar</button>
+
+</form>
