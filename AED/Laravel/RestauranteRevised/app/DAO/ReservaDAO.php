@@ -7,7 +7,9 @@ use App\Contracts\MesaContract;
 use App\Contracts\ReservaContract;
 use App\DAO\Crud;
 use App\Models\Reserva;
+use App\Models\Reserva2;
 use App\Models\Mesa;
+use App\Models\Usuario;
 use Exception;
 use PDO;
 use \Datetime;
@@ -40,6 +42,59 @@ class ReservaDAO implements Crud
             $reservas[] = $reserva;
         }
         return $reservas;
+    }
+
+    public function findByIdWithUsuario($id){
+        $reservaEncontrada = null;
+        $usuarioEncontrado = null;
+        $reservaConUsuario = null;
+        $sql = "SELECT * FROM ". ReservaContract::TABLE_NAME. " WHERE ".ReservaContract::COL_ID. " = :id";
+
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->execute([
+            ':id' => $id
+        ]);
+
+        if($row = $stmt->fetch()){
+            $reserva = new Reserva();
+            $reserva->setId_reserva($row[ReservaContract::COL_ID]);
+            $reserva->setTelefono($row[ReservaContract::COL_TEL]);
+            $reserva->setFecha_hora($row[ReservaContract::COL_DATE]);
+            $reserva->setDuracion($row[ReservaContract::COL_DURATION]);
+            $reserva->setNum_mesa($row[ReservaContract::COL_NUM_TABLE]);
+            $reserva->setEstado($row[ReservaContract::COL_STATE]);
+            $reservaEncontrada = $reserva;
+        }
+
+        if($reservaEncontrada){
+            $sqlUsuario = "SELECT * FROM ". UsuarioContract::TABLE_NAME. " WHERE :telefono = ". UsuarioContract::COL_TEL;
+            $stmt = $this->myPDO->prepare($sqlUsuario);
+            $stmt->execute([
+                ':telefono' => $reservaEncontrada->getTelefono()
+            ]);
+            if($row = $stmt->fetch()){
+                $usuario = new Usuario();
+                $usuario->setTelefono($row[UsuarioContract::COL_TEL]);
+                $usuario->setNombre($row[UsuarioContract::COL_NAME]);
+                $usuario->setContrasenha($row[UsuarioContract::COL_PASSWORD]);
+                $usuario->setRol($row[UsuarioContract::COL_ROLE]);
+
+
+
+                $reservaConUsuario = new Reserva2(
+                    $reservaEncontrada->getId_reserva(),
+                    $usuario,
+                    $reservaEncontrada->getFecha_hora(),
+                    $reservaEncontrada->getDuracion(),
+                    $reservaEncontrada->getNum_mesa(),
+                    $reservaEncontrada->getEstado()
+                );
+                //dump($reservaConUsuario);
+            }
+
+
+        }
+        return $reservaConUsuario;
     }
 
 
@@ -218,6 +273,34 @@ class ReservaDAO implements Crud
             $stmt->execute(
                 [
                     ':id' => $id
+                ]
+            );
+            $filasAfectadas = $stmt->rowCount();
+
+            if ($filasAfectadas > 0) {
+                $this->myPDO->commit();
+                $borrado = true;
+            }
+        } catch (Exception $ex) {
+            echo "ha habido una excepción se lanza rollback automático: $ex";
+            $this->myPDO->rollback();
+        }
+        $stmt = null;
+
+        return $borrado ?? false;
+    }
+
+    public function deleteByTelefono($telefono){
+        $sql = "DELETE FROM " . ReservaContract::TABLE_NAME .
+            " WHERE "
+            . ReservaContract::COL_TEL. " = :telefono";
+
+        try {
+            $this->myPDO->beginTransaction();
+            $stmt = $this->myPDO->prepare($sql);
+            $stmt->execute(
+                [
+                    ':telefono' => $telefono
                 ]
             );
             $filasAfectadas = $stmt->rowCount();

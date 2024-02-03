@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\DAO\ReservaDAO;
 use App\DAO\UsuarioDAO;
 use App\Models\Reserva;
+use App\Models\Reserva2;
 use App\Models\Mesa;
 use Throwable;
 use DateTime;
@@ -23,16 +24,16 @@ class ReservaDAOTest extends TestCase
 {
     public  $databaseCreated = false;
 
-    // public  function setUp(): void
-    // {
-    //     parent::setUp();
+    public  function setUp(): void
+    {
+        parent::setUp();
 
-    //     if (!$this->databaseCreated) {
-    //         $pdo = DB::getPdo();
-    //         require 'CreateDatabase.php';
-    //         $this->databaseCreated = true;
-    //     }
-    // }
+        if (!$this->databaseCreated) {
+            $pdo = DB::getPdo();
+            require 'CreateDatabase.php';
+            $this->databaseCreated = true;
+        }
+    }
 
     public function test_find_by_id(): void
     {
@@ -53,6 +54,27 @@ class ReservaDAOTest extends TestCase
         $usuarioEncontrado = $usuarioDAO->findById($encontrado->getTelefono());
         assertNotNull(isset($usuarioEncontrado));
         assertTrue($usuarioEncontrado->getTelefono() == $encontrado->getTelefono());
+    }
+
+    public function test_find_id_usuario(){
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+        $encontrado = $reservaDAO->findByIdWithUsuario(2);
+        assertTrue(isset($encontrado));
+        assertTrue(2 == $encontrado->getId_reserva());
+        assertTrue(1 == $encontrado->getDuracion());
+
+        assertTrue(1672581600 == $encontrado->getFecha_hora());
+        assertTrue(1 == $encontrado->getNum_mesa());
+        assertTrue("Confirmada" == $encontrado->getEstado());
+
+        assertTrue($encontrado->getUsuario() !== null);
+        assertTrue($encontrado->getUsuario()->getTelefono() == 123456789);
+        assertTrue($encontrado->getUsuario()->getNombre() == 'Juan Perez');
+        assertTrue($encontrado->getUsuario()->getContrasenha() == '1234');
+        assertTrue($encontrado->getUsuario()->getRol() == 'CLIENTE');
+        //dump($encontrado);
+
     }
 
     public function test_find_All(): void
@@ -158,6 +180,19 @@ class ReservaDAOTest extends TestCase
     }
 
     public function test_delete_reserva(): void{
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+        $usuarioDAO = new UsuarioDAO($pdo);
+
+        $reservaABorrar = $reservaDAO->findById(2);
+        $this->assertNotNull($reservaABorrar);
+
+        $this->assertTrue($reservaDAO->delete($reservaABorrar->getId_reserva()));
+        $encontrada = $reservaDAO->findById(2);
+        $this->assertNull($encontrada);
+    }
+
+    public function test_delete_reserva_telefono(): void{
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
         $usuarioDAO = new UsuarioDAO($pdo);
