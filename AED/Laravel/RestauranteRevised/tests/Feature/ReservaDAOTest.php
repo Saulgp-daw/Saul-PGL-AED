@@ -113,6 +113,13 @@ class ReservaDAOTest extends TestCase
         $this->assertTrue(count($reservasEncontradas) > 0);
     }
 
+    public function test_find_by_estado():void{
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+        $reservasEncontradas = $reservaDAO->findByEstado("Sin confirmar");
+        $this->assertTrue(count($reservasEncontradas) > 0);
+    }
+
     public function test_reserva_solapada(): void{
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);

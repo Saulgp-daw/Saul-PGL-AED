@@ -19,4 +19,7 @@ use App\Http\Controllers\UsuarioController;
 // });
 
 Route::any('/', [UsuarioController::class, "registroForm"]);
+Route::get('/registroForm', [UsuarioController::class, "registroForm"]);
 Route::post('/registro', [UsuarioController::class, "registro"]);
+Route::get('/loginForm', [UsuarioController::class, "loginForm"]);
+Route::post('/login', [UsuarioController::class, "login"]);

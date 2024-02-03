@@ -144,6 +144,26 @@ class ReservaDAO implements Crud
         return $reservas;
     }
 
+    public function findByEstado($estado){
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . ReservaContract::TABLE_NAME . " WHERE :estado = " . ReservaContract::COL_STATE);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute([
+            ":estado" => $estado
+        ]);
+        $reservas = [];
+        while ($row = $stmt->fetch()) {
+            $id_reserva = $row[ReservaContract::COL_ID];
+            $telefono = $row[ReservaContract::COL_TEL];
+            $fecha_hora = $row[ReservaContract::COL_DATE];
+            $duracion = $row[ReservaContract::COL_DURATION];
+            $num_mesa = $row[ReservaContract::COL_NUM_TABLE];
+            $estado = $row[ReservaContract::COL_STATE];
+            $reserva = new Reserva($id_reserva, $telefono, $fecha_hora, $duracion, $num_mesa, $estado);
+            $reservas[] = $reserva;
+        }
+        return $reservas;
+    }
+
     public function reservasSeSolapan(Reserva $dao)
     {
         // $sql = "  SELECT * FROM reservas AS r
