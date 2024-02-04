@@ -3,8 +3,6 @@
 namespace App\DAO;
 
 use App\Contracts\UsuarioContract;
-use App\Contracts\ReservaMesaContract;
-use App\Contracts\ReservaContract;
 use App\DAO\Crud;
 use App\Models\Usuario;
 use Exception;
@@ -157,4 +155,6 @@ class UsuarioDAO implements Crud
         $stmt = null;
         return $actualizado;
     }
+
+
 }

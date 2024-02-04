@@ -124,7 +124,7 @@ class ReservaDAOTest extends TestCase
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
         $reservaNueva = new Reserva(1000, 922442291, strtotime('2024-01-01 12:00:00'), 3, 1, "Sin confirmar");
-        dump(DB::table('reservas')->get());
+        //dump(DB::table('reservas')->get());
 
 
         $filasAfectadas = $reservaDAO->reservasSeSolapan($reservaNueva);

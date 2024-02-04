@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ReservaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,14 @@ use App\Http\Controllers\UsuarioController;
 //     return view('welcome');
 // });
 
-Route::any('/', [UsuarioController::class, "registroForm"]);
-Route::get('/registroForm', [UsuarioController::class, "registroForm"]);
+Route::any('/', [UsuarioController::class, "index"]);
+Route::get('/registro_form', [UsuarioController::class, "index"]);
 Route::post('/registro', [UsuarioController::class, "registro"]);
-Route::get('/loginForm', [UsuarioController::class, "loginForm"]);
+Route::get('/login_form', [UsuarioController::class, "loginForm"]);
+Route::get('/logout', [UsuarioController::class, "logout"]);
 Route::post('/login', [UsuarioController::class, "login"]);
+Route::get('/home', [ReservaController::class, "index"]);
+Route::post('/reserva', [ReservaController::class, "reserva"]);
+Route::get('/perfil/{telefono}', [UsuarioController::class, "perfil"]);
+Route::delete('/borrar/{id}', [ReservaController::class, "borrar"]);
+Route::put('/confirmar/{id}', [ReservaController::class, "confirmar"]);

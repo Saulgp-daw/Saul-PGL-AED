@@ -192,7 +192,7 @@ class ReservaDAO implements Crud
         ]);
 
         $filasAfectadas = $stmt->rowCount();
-        echo "Filas afectadas: $filasAfectadas";
+        //echo "Filas afectadas: $filasAfectadas";
 
 
         return $filasAfectadas ?? 0;

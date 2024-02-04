@@ -53,6 +53,7 @@ class UsuarioController extends Controller
             $credencialesCorrectas = $usuarioDAO->login(trim($nickname), trim($password));
             if ($credencialesCorrectas) {
                 session(['usuario' => $nickname]);
+
                 return redirect("/home");
             }
         }
