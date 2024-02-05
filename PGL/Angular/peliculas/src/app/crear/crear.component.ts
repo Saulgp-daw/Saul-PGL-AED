@@ -17,7 +17,7 @@ export class CrearComponent {
   todoService: ToDoService = inject(ToDoService);
 
 
-  prueba = this.todoService.getAll();
+  lista = this.todoService.getAll();
 
   form = new FormGroup({
     id: new FormControl(''),
@@ -26,6 +26,17 @@ export class CrearComponent {
   });
 
   public guardar() {
+    let id = this.form.value.id ?? "";
+    let nombre = this.form.value.nombre ?? "";
+    let terminado = this.form.value.terminado ?? false;
+
+
+    let newToDo = new ToDo(parseInt(id), nombre, !!terminado);
+    console.log(newToDo);
+
+    this.lista.push(newToDo);
+
+
 
   }
 

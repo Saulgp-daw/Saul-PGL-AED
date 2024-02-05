@@ -1,11 +1,13 @@
-<p>crear works!</p>
-<p>{{prueba | json }}</p>
+<h3>Crea una nueva Tarea: </h3>
 
 <form [formGroup]="form" (submit)="guardar()">
   <label for="id">Id: </label><input type="number" name="id" id="id" formControlName="id"><br>
   <label for="nombre">nombre: </label><input type="text" name="nombre" id="nombre" formControlName="nombre"><br>
-  <label for="terminado">terminado: </label><input type="text" name="terminado" id="terminado"
-    formControlName="terminado"><br>
+  <label for="terminado">terminado: </label>
+  <label for="true"><input type="radio" name="terminado" id="terminado" value="true"
+      formControlName="terminado">Sí</label>
+  <label for="true"><input type="radio" name="terminado" id="terminado" value="false"
+      formControlName="terminado">No</label><br>
   <button type="submit">Enviar</button>
 
 </form>

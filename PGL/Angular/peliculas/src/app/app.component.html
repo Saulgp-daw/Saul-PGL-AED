@@ -1,2 +1,7 @@
-<app-mostrar></app-mostrar>
-<app-crear></app-crear>
+<main>
+  <ul>
+    <li><a [routerLink]="['/mostrar']">Mostrar</a></li>
+    <li><a [routerLink]="['/crear']">Crear</a></li>
+  </ul>
+  <router-outlet></router-outlet>
+</main>
