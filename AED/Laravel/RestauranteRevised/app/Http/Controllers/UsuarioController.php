@@ -20,10 +20,10 @@ class UsuarioController extends Controller
         $nombre = $request->input("nombre");
         $contrasenha = $request->input("contrasenha");
         $contrasenha2 = $request->input("contrasenha2");
-        $telefono = $request->input("telefono");
+        $telefono = trim($request->input("telefono"));
 
         if ($contrasenha != $contrasenha2) {
-            return  self::index("Las contraseñas no coinciden");
+            return  redirect('/registro_form')->with('error', 'No coinciden las contraseñas.');
         }
 
         $hash_contrasenha = password_hash(trim($contrasenha), PASSWORD_DEFAULT);
@@ -33,10 +33,16 @@ class UsuarioController extends Controller
         $pdo = DB::getPdo();
         $usuarioDao = new UsuarioDAO($pdo);
 
+        $existente = $usuarioDao->findById($telefono);
+
+        if($existente){
+            return  redirect('/registro_form')->with('error', 'Ya existe un usuario con este teléfono.');
+        }
+
         $usuarioNuevo = $usuarioDao->save($usuario);
 
         if ($usuarioNuevo) {
-            return  self::index("Exito!");
+            return  redirect('/login_form');
         }
     }
 
@@ -70,7 +76,7 @@ class UsuarioController extends Controller
 
     public function logout(){
         session()->flush();
-        return self::index("Sesión finalizada");
+        return redirect('/registro_form')->with('error', 'Sesión finalizada.');
     }
 
     public function perfil($telefono){

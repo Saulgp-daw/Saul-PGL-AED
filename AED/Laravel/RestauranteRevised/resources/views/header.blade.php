@@ -51,10 +51,22 @@
 
         .contenedor:nth-child(odd) {
             background: #333;
+            color: white;
         }
 
         .contenedor:nth-child(even) {
             background: #6e6e6e;
+            color: white;
+        }
+
+        .error {
+            background-color: rgb(241, 117, 117);
+            color: white;
+            border-radius: 10px;
+            padding: 1rem;
+            position: absolute;
+            top: 5rem;
+            right: 0.5rem;
         }
     </style>
 </head>

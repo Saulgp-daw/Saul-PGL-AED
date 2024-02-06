@@ -1,6 +1,6 @@
 @include('header')
 @include('navbar')
-<h3>Reserva</h3>
+<h3>Modificar reserva</h3>
 @if (session('error'))
     <div class="error">
         {{ session('error') }}

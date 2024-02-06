@@ -13,9 +13,9 @@ use DateTime;
 class ReservaController extends Controller
 {
     public function index($mensaje = ""){
-        if(!session()->has('usuario_tel')){
-            return UsuarioController::index("Autentíquese antes de entrar");
-        }
+        // if(!session()->has('usuario_tel')){
+        //     return UsuarioController::index("Autentíquese antes de entrar");
+        // }
         $telefono = session()->get('usuario_tel');
 
         $pdo = DB::getPdo();
@@ -34,6 +34,7 @@ class ReservaController extends Controller
     }
 
     public function reserva(Request $request){
+
         $telefono = $request->input("telefono");
         $duracion = $request->input("duracion");
         $sillas = $request->input("sillas");
@@ -93,7 +94,7 @@ class ReservaController extends Controller
         $pdo = DB::getPdo();
         $reservaDao = new ReservaDAO($pdo);
         $telefono = session()->get("usuario_tel");
-        echo $telefono;
+
 
         $existe = $reservaDao->findById($id);
 
@@ -105,6 +106,19 @@ class ReservaController extends Controller
             }else{
                 echo "Algo fue mal";
             }
+        }
+    }
+
+    public function modificar($id){
+
+        $pdo = DB::getPdo();
+        $reservaDao = new ReservaDAO($pdo);
+
+        $reserva = $reservaDao->findById($id);
+        $telefono = session()->get("usuario_tel");
+        $opciones = [1, 2, 3, 4, 5, 6];
+        if($reserva){
+            return view('modificar', compact('reserva', 'telefono', 'opciones'));
         }
     }
 }

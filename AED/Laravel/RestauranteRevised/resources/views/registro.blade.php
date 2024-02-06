@@ -1,6 +1,12 @@
 @include('header')
     <h3>Registro</h3>
    <div class="h5" style="position: absolute; top: 10px; right: 10px;">{{ $mensaje ?? "" }}</div>
+   @if(session('error'))
+    <div class="error">
+        {{ session('error') }}
+    </div>
+@endif
+
     <form action="registro" method="post">
         @csrf
         <label for="nombre">* Nombre: </label>

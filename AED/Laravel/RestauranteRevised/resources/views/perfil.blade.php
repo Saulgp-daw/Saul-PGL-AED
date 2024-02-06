@@ -33,9 +33,8 @@
                         </form>
                     </div>
                     <div>
-                        <form action="{{ url("/modificar/{$reserva->getId_reserva()}") }}" method="POST">
+                        <form action="{{ url("/modificar_form/{$reserva->getId_reserva()}") }}" method="GET">
                             @csrf
-                            @method('PUT')
                             <button type="submit">Modificar</button>
                         </form>
                     </div>
