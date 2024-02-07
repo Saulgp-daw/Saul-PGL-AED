@@ -6,6 +6,6 @@
         <a href="/logout">Logout</a>
     </div>
     <div class="navbar-right">
-        <a href={{ "/perfil/".$telefono }}>{{ 'Usuario: ' . $telefono ?? '' }}</a>
+        <a href={{ "/perfil/".$telefonoSesion}}>{{ 'Usuario: ' . $telefonoSesion ?? '' }}</a>
     </div>
 </nav>

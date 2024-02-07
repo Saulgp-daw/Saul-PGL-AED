@@ -9,7 +9,7 @@
 <form action="reserva" method="post">
     @csrf
     <label for="telefono">* Teléfono: </label>
-    <input type="text" name="telefono" id="telefono" value={{ $telefono }} required><br>
+    <input type="text" name="telefono" id="telefono" value={{ $telefonoSesion }} required><br>
     <label for="duracion">* Duración: </label>
     <select name="duracion" id="duracion" required>
         @foreach ($opciones as $value)

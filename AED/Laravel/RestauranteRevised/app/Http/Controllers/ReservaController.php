@@ -16,7 +16,7 @@ class ReservaController extends Controller
         // if(!session()->has('usuario_tel')){
         //     return UsuarioController::index("Autentíquese antes de entrar");
         // }
-        $telefono = session()->get('usuario_tel');
+        $telefonoSesion = session()->get('usuario_tel');
 
         $pdo = DB::getPdo();
         $mesaDao = new MesaDAO($pdo);
@@ -30,7 +30,7 @@ class ReservaController extends Controller
         //     echo "<br>";
         // }
 
-        return view("reserva", compact("telefono", "opciones", "mensaje"));
+        return view("reserva", compact("telefonoSesion", "opciones", "mensaje"));
     }
 
     public function reserva(Request $request){
@@ -52,8 +52,9 @@ class ReservaController extends Controller
         $reservaDao = new ReservaDAO($pdo);
         $mesas = $mesaDao->findMesasPorSilla($sillas);
         $reservada = false;
-        $mensaje = "Ya hay reservas con esta fecha y hora";
+        $mensaje = "No hay mesas";
         if(count($mesas) > 0){
+            $mensaje = "Ya hay reservas con esta fecha y hora";
             foreach($mesas as $mesa){
                 $nuevaReserva = new Reserva(0, $telefono, $fecha_unix, $duracion, $mesa->getNum_mesa(), "Sin confirmar" );
 
@@ -69,31 +70,31 @@ class ReservaController extends Controller
                     }
                 }
             }
-            return self::index($mensaje);
+            //return self::index($mensaje);
         }
-
+        return  redirect('/home')->with('error', $mensaje);
         //$nuevaReserva = new Reserva(0, $telefono, $fecha_unix, $duracion, )
     }
 
     public function borrar($id){
         $pdo = DB::getPdo();
         $reservaDao = new ReservaDAO($pdo);
-        $telefono = session()->get("usuario_tel");
-        echo $telefono;
+        $telefonoSesion = session()->get("usuario_tel");
+        echo $telefonoSesion;
 
         $existe = $reservaDao->findById($id);
 
         if($existe){
             $borrada = $reservaDao->delete($existe->getId_reserva());
             if($borrada){
-                return redirect("/perfil/".$telefono);
+                return redirect("/perfil/".$telefonoSesion);
             }
         }
     }
     public function confirmar($id){
         $pdo = DB::getPdo();
         $reservaDao = new ReservaDAO($pdo);
-        $telefono = session()->get("usuario_tel");
+        $telefonoSesion = session()->get("usuario_tel");
 
 
         $existe = $reservaDao->findById($id);
@@ -102,7 +103,7 @@ class ReservaController extends Controller
             $existe->setEstado("Confirmada");
             $actualizada = $reservaDao->update($existe);
             if($actualizada){
-                return redirect("/perfil/".$telefono);
+                return redirect("/perfil/".$telefonoSesion);
             }else{
                 echo "Algo fue mal";
             }
@@ -110,15 +111,58 @@ class ReservaController extends Controller
     }
 
     public function modificar($id){
-
         $pdo = DB::getPdo();
         $reservaDao = new ReservaDAO($pdo);
 
         $reserva = $reservaDao->findById($id);
-        $telefono = session()->get("usuario_tel");
+        $telefonoSesion = session()->get("usuario_tel");
         $opciones = [1, 2, 3, 4, 5, 6];
         if($reserva){
-            return view('modificar', compact('reserva', 'telefono', 'opciones'));
+            return view('modificar', compact('reserva', 'telefonoSesion', 'opciones'));
         }
+    }
+
+    public function actualizar(Request $request){
+        $id_reserva = $request->input("id_reserva");
+        $telefono = $request->input("telefono");
+        $duracion = $request->input("duracion");
+        $sillas = $request->input("sillas");
+        $fecha_hora = $request->input("fecha_hora");
+        $telefonoSesion = session()->get('usuario_tel');
+
+        //echo $telefono. "<br> ". $duracion. "<br> ". $sillas . "<br> ". $fecha_hora;
+        $datetime = DateTime::createFromFormat('Y-m-d\TH:i', $fecha_hora);
+        if($datetime){
+            $fecha_unix = $datetime->getTimestamp();
+        }
+
+        $pdo = DB::getPdo();
+        $mesaDao = new MesaDAO($pdo);
+        $reservaDao = new ReservaDAO($pdo);
+        $mesas = $mesaDao->findMesasPorSilla($sillas);
+        $reservada = false;
+        $mensaje = "Ya hay reservas con esta fecha y hora";
+        if(count($mesas) > 0){
+            foreach($mesas as $mesa){
+                $nuevaReserva = new Reserva($id_reserva, $telefono, $fecha_unix, $duracion, $mesa->getNum_mesa(), "Sin confirmar" );
+
+                if(!$reservada){
+                    $solapamiento = $reservaDao->reservasSeSolapan($nuevaReserva);
+
+                    if($solapamiento == 0){
+                        $mesaReservada = $reservaDao->update($nuevaReserva);
+                        if($mesaReservada){
+                            $reservada = true;
+                            $mensaje = "Reserva modificada con éxito. Recuerde confirmarla";
+                        }
+
+                    }
+                }
+            }
+            return  redirect('/modificar_form/'.$id_reserva)->with('error', $mensaje);
+        }
+
+
+
     }
 }

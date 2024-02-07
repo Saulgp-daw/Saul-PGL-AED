@@ -28,7 +28,7 @@ class UsuarioController extends Controller
 
         $hash_contrasenha = password_hash(trim($contrasenha), PASSWORD_DEFAULT);
 
-        $usuario = new Usuario(intval(trim($telefono)), $nombre, $hash_contrasenha);
+        $usuario = new Usuario(intval($telefono), $nombre, $hash_contrasenha);
 
         $pdo = DB::getPdo();
         $usuarioDao = new UsuarioDAO($pdo);
@@ -84,18 +84,27 @@ class UsuarioController extends Controller
             return self::index("Autentíquese antes de entrar");
         }
 
+        $telefonoSesion = session()->get('usuario_tel');
+
+
+
         $pdo = DB::getPdo();
         $usuarioDao = new UsuarioDAO($pdo);
         $reservaDao = new ReservaDAO($pdo);
         $reservas = [];
-        //$telefono = session()->get('usuario_tel');
 
         $usuario = $usuarioDao->findById($telefono);
+        $usuarioSesion = $usuarioDao->findById($telefonoSesion);
 
         if($usuario){
+            if($usuario->getTelefono() != $telefonoSesion && $usuarioSesion->getRol() == "CLIENTE"){
+                return redirect('/home')->with('error', 'No tienes permisos para ver otros usuarios.');
+            }
+
             $reservas = $reservaDao->findByTelefono($usuario->getTelefono());
+            return view("perfil", compact("usuario", "reservas", "telefonoSesion"));
         }
 
-        return view("perfil", compact("usuario", "reservas", "telefono"));
+        return redirect('/home')->with('error', 'Usuario inexistente.');
     }
 }

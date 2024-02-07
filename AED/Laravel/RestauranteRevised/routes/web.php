@@ -27,29 +27,29 @@ Route::get('/logout', [UsuarioController::class, "logout"]);
 
 Route::post('/registro', [UsuarioController::class, "registro"]);
 Route::get('/registro', function () {
-    // Redirige al usuario o muestra un mensaje
     return redirect('/home')->with('error', 'Operación no permitida.');
 });
 Route::post('/login', [UsuarioController::class, "login"]);
 Route::get('/login', function () {
-    // Redirige al usuario o muestra un mensaje
     return redirect('/home')->with('error', 'Operación no permitida.');
 });
 
 Route::post('/reserva', [ReservaController::class, "reserva"]);
 Route::get('/reserva', function () {
-    // Redirige al usuario o muestra un mensaje
     return redirect('/home')->with('error', 'Operación no permitida.');
 });
 
 Route::delete('/borrar/{id}', [ReservaController::class, "borrar"]);
 Route::get('/borrar/{id}', function () {
-    // Redirige al usuario o muestra un mensaje
     return redirect('/home')->with('error', 'Operación no permitida.');
 });
 Route::put('/confirmar/{id}', [ReservaController::class, "confirmar"]);
 Route::get('/confirmar/{id}', function () {
-    // Redirige al usuario o muestra un mensaje
+    return redirect('/home')->with('error', 'Operación no permitida.');
+});
+
+Route::put('/modificar', [ReservaController::class, "actualizar"]);
+Route::get('/modificar', function () {
     return redirect('/home')->with('error', 'Operación no permitida.');
 });
 

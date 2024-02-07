@@ -1,6 +1,11 @@
 @include('header')
 @include('navbar')
 <h2>Perfil</h2>
+@if (session('error'))
+    <div class="error">
+        {{ session('error') }}
+    </div>
+@endif
 
 @if ($usuario)
 
