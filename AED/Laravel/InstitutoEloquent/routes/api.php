@@ -2,9 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\TasksController;
-use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\Api\AlumnoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,7 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('tasks', TasksController::class);
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
-//Route::get('/tasks', [TasksController::class, "terminada"]);
+Route::apiResource('alumnos', AlumnoController::class);

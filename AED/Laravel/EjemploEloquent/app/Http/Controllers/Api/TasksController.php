@@ -9,13 +9,19 @@ use App\Http\Resources\TaskResource;
 
 class TasksController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api')->except([‘index’, ’show’]);
+    // }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $lista = Task::all();
         return TaskResource::collection(Task::all());
     }
@@ -80,6 +86,7 @@ class TasksController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return response()->json(null, 204);
     }
 }
