@@ -7,11 +7,13 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 use App\DAO\UsuarioDAO;
+use App\DAO\ReservaDAO;
 use App\Models\Usuario;
 use Throwable;
 
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertTrue;
 
 class UsuarioDAOTest extends TestCase
@@ -118,9 +120,16 @@ class UsuarioDAOTest extends TestCase
     public function test_delete_usuario(): void {
         $pdo = DB::getPdo();
         $usuarioDAO = new UsuarioDAO($pdo);
+        $reservaDao = new ReservaDAO($pdo);
 
-        $this->assertTrue($usuarioDAO->delete(912121212));
-        $encontrado = $usuarioDAO->findById(912121212);
+        $reservasPorTelefonoBorradas = $reservaDao->deleteByTelefono(890678456);
+        assertTrue($reservasPorTelefonoBorradas);
+
+        $reservasEncontradas = $reservaDao->findByTelefono(890678456);
+        assertTrue(count($reservasEncontradas) == 0);
+
+        $this->assertTrue($usuarioDAO->delete(890678456));
+        $encontrado = $usuarioDAO->findById(890678456);
         $this->assertNull($encontrado);
     }
 

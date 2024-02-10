@@ -44,6 +44,45 @@ class ReservaDAO implements Crud
         return $reservas;
     }
 
+    public function findAllConUsuario(){
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . ReservaContract::TABLE_NAME);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute(); // Ejecutamos la sentencia
+        $reservas = [];
+        while ($row = $stmt->fetch()) {
+            $id_reserva = $row[ReservaContract::COL_ID];
+            $telefono = $row[ReservaContract::COL_TEL];
+            $fecha_hora = $row[ReservaContract::COL_DATE];
+            $duracion = $row[ReservaContract::COL_DURATION];
+            $num_mesa = $row[ReservaContract::COL_NUM_TABLE];
+            $estado = $row[ReservaContract::COL_STATE];
+            $usuario = self::devolverUsuario($telefono);
+            $reserva = new Reserva2($id_reserva, $usuario, $fecha_hora, $duracion, $num_mesa, $estado);
+            $reservas[] = $reserva;
+        }
+        return $reservas;
+    }
+
+    private function devolverUsuario($telefono){
+        $usuarioEncontrado = null;
+        $sql = "SELECT * FROM ". UsuarioContract::TABLE_NAME. " WHERE :telefono = ". UsuarioContract::COL_TEL;
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->execute([
+            ':telefono' => $telefono
+        ]);
+
+        if($row = $stmt->fetch()){
+            $usuario = new Usuario();
+            $usuario->setTelefono($row[UsuarioContract::COL_TEL]);
+            $usuario->setNombre($row[UsuarioContract::COL_NAME]);
+            $usuario->setContrasenha($row[UsuarioContract::COL_PASSWORD]);
+            $usuario->setRol($row[UsuarioContract::COL_ROLE]);
+            $usuarioEncontrado = $usuario;
+        }
+
+        return $usuarioEncontrado;
+    }
+
     public function findByIdWithUsuario($id){
         $reservaEncontrada = null;
         $usuarioEncontrado = null;
@@ -149,6 +188,26 @@ class ReservaDAO implements Crud
         $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
         $stmt->execute([
             ":estado" => $estado
+        ]);
+        $reservas = [];
+        while ($row = $stmt->fetch()) {
+            $id_reserva = $row[ReservaContract::COL_ID];
+            $telefono = $row[ReservaContract::COL_TEL];
+            $fecha_hora = $row[ReservaContract::COL_DATE];
+            $duracion = $row[ReservaContract::COL_DURATION];
+            $num_mesa = $row[ReservaContract::COL_NUM_TABLE];
+            $estado = $row[ReservaContract::COL_STATE];
+            $reserva = new Reserva($id_reserva, $telefono, $fecha_hora, $duracion, $num_mesa, $estado);
+            $reservas[] = $reserva;
+        }
+        return $reservas;
+    }
+
+    public function reservasDelDia(){
+        //SELECT * FROM reservas WHERE DATE(FROM_UNIXTIME(fecha_hora)) = CURDATE();
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . ReservaContract::TABLE_NAME . " WHERE DATE(FROM_UNIXTIME( " . ReservaContract::COL_DATE.")) = CURDATE();");
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute([
         ]);
         $reservas = [];
         while ($row = $stmt->fetch()) {

@@ -14,6 +14,34 @@
     <p>Rol: {{ $usuario->getRol() }}</p>
     </div>
 
+    @if ($usuario->getRol() == 'ADMIN')
+        <h3>Ir a la lista de usuarios: </h3>
+        <a href="/lista_usuarios">Lista de usuarios</a>
+        <h3>Reservas del día: </h3>
+        @foreach ($reservasDeldia as $reserva)
+            <div class="contenedor">
+                <div>
+                    <p> Fecha: {{ date('Y-m-d H:i:s', $reserva->getFecha_hora()) }}
+                        Duración: {{ $reserva->getDuracion() }}h
+                        Num_mesa: {{ $reserva->getNum_mesa() }}
+                        Estado: {{ $reserva->getEstado() }}
+                    </p>
+                </div>
+                <div>
+                    <form action="{{ url("/borrar/{$reserva->getId_reserva()}") }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                            onclick="return confirm('¿Estás seguro de que quieres borrar este elemento?')">Cancelar
+                            reserva</button>
+
+                    </form>
+                </div>
+            </div>
+        @endforeach
+    @endif
+
     @if ($reservas)
         <div>
             <h3>Sus reservas: </h3>
@@ -33,14 +61,9 @@
                             @method('DELETE')
 
                             <button type="submit"
-                                onclick="return confirm('¿Estás seguro de que quieres borrar este elemento?')">Borrar</button>
+                                onclick="return confirm('¿Estás seguro de que quieres borrar este elemento?')">Cancelar
+                                reserva</button>
 
-                        </form>
-                    </div>
-                    <div>
-                        <form action="{{ url("/modificar_form/{$reserva->getId_reserva()}") }}" method="GET">
-                            @csrf
-                            <button type="submit">Modificar</button>
                         </form>
                     </div>
                     <div>
@@ -54,6 +77,13 @@
                             </form>
                         @endif
                     </div>
+                    <div>
+                        <form action="{{ url("/modificar_form/{$reserva->getId_reserva()}") }}" method="GET">
+                            @csrf
+                            <button type="submit">Modificar</button>
+                        </form>
+                    </div>
+
                 </div>
             @endforeach
         </div>

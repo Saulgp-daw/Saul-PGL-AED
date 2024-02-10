@@ -61,7 +61,7 @@ class UsuarioController extends Controller
         $usuario = $usuarioDao->findById(trim($telefono));
 
         if (!$usuario) {
-            return self::loginForm("Usuario inexistente");
+            return redirect('/login_form')->with('error', 'Usuario inexistente.');
         }
 
         if (trim($telefono) == $usuario->getTelefono() && password_verify($contrasenha, $usuario->getContrasenha())) {
@@ -70,7 +70,7 @@ class UsuarioController extends Controller
             //echo $dato;
             return redirect("/home");
         } else {
-            return self::loginForm("Credenciales incorrectas");
+            return redirect('/login_form')->with('error', 'Credenciales incorrectas.');
         }
     }
 
@@ -80,31 +80,39 @@ class UsuarioController extends Controller
     }
 
     public function perfil($telefono){
-        if(!session()->has('usuario_tel')){
-            return self::index("Autentíquese antes de entrar");
-        }
-
         $telefonoSesion = session()->get('usuario_tel');
-
-
 
         $pdo = DB::getPdo();
         $usuarioDao = new UsuarioDAO($pdo);
         $reservaDao = new ReservaDAO($pdo);
         $reservas = [];
-
+        $reservasDeldia = [];
         $usuario = $usuarioDao->findById($telefono);
         $usuarioSesion = $usuarioDao->findById($telefonoSesion);
+
+
 
         if($usuario){
             if($usuario->getTelefono() != $telefonoSesion && $usuarioSesion->getRol() == "CLIENTE"){
                 return redirect('/home')->with('error', 'No tienes permisos para ver otros usuarios.');
             }
-
+            $reservasDeldia = $reservaDao->reservasDelDia();
             $reservas = $reservaDao->findByTelefono($usuario->getTelefono());
-            return view("perfil", compact("usuario", "reservas", "telefonoSesion"));
+            return view("perfil", compact("usuario", "reservas", "telefonoSesion", "reservasDeldia"));
         }
 
         return redirect('/home')->with('error', 'Usuario inexistente.');
+    }
+
+    public function listaUsuarios(){
+        $telefonoSesion = session()->get('usuario_tel');
+        $pdo = DB::getPdo();
+        $usuarioDao = new UsuarioDAO($pdo);
+        $listaUsuarios = $usuarioDao->findAll();
+
+
+
+
+        return view("lista",compact("telefonoSesion", "listaUsuarios"));
     }
 }

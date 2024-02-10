@@ -58,4 +58,5 @@ Route::group(['middleware' => ['redirectIfNotAuthorized']], function () {
     Route::get('/home', [ReservaController::class, "index"]);
     Route::get('/perfil/{telefono}', [UsuarioController::class, "perfil"]);
     Route::get('/modificar_form/{id}', [ReservaController::class, "modificar"]);
+    Route::get('/lista_usuarios', [UsuarioController::class, "listaUsuarios"]);
 });

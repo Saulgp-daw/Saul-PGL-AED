@@ -161,8 +161,6 @@ class ReservaController extends Controller
             }
             return  redirect('/modificar_form/'.$id_reserva)->with('error', $mensaje);
         }
-
-
-
     }
+
 }

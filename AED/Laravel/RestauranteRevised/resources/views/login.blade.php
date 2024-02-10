@@ -1,6 +1,10 @@
 @include('header')
 <h3>Login</h3>
-<div class="h5" style="position: absolute; top: 10px; right: 10px;">{{ $mensaje ?? '' }}</div>
+@if (session('error'))
+    <div class="error">
+        {{ session('error') }}
+    </div>
+@endif
 <form action="login" method="post">
     @csrf
     <label for="telefono">* Teléfono: </label>

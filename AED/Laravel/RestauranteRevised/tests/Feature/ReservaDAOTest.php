@@ -77,6 +77,39 @@ class ReservaDAOTest extends TestCase
 
     }
 
+    public function test_find_all_con_usuario(){
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+        $usuarioDao = new UsuarioDAO($pdo);
+        $reservas = $reservaDAO->findAllConUsuario();
+        $this->assertTrue(count($reservas) >= 4);
+        $idsEnDB = [1, 2, 3, 4];
+        foreach ($idsEnDB as $id) {
+            $reservaCorrecta = $reservaDAO->findById($id);
+
+            $encontrada = null;
+            for($i = 0; $i < count($reservas); $i++){
+                if ($reservas[$i]->getId_reserva() == $reservaCorrecta->getId_reserva()) {
+                    $encontrada = $reservas[$i];
+                }
+            }
+            $usuarioCorrecto = $usuarioDao->findById($reservaCorrecta->getTelefono());
+
+
+            $this->assertTrue($encontrada->getId_reserva() == $id);
+            $usuario = $encontrada->getUsuario();
+            assertNotNull($usuario);
+            assertTrue($reservaCorrecta->getTelefono() == $usuario->getTelefono());
+            assertTrue($usuarioCorrecto->getTelefono() == $usuario->getTelefono());
+            assertTrue($usuarioCorrecto->getNombre() == $usuario->getNombre());
+            assertTrue($usuarioCorrecto->getRol() == $usuario->getRol());
+            assertTrue($usuarioCorrecto->getContrasenha() == $usuario->getContrasenha());
+            $this->assertTrue($encontrada->getFecha_hora() == $reservaCorrecta->getFecha_hora());
+            $this->assertTrue($encontrada->getDuracion() == $reservaCorrecta->getDuracion());
+        }
+
+    }
+
     public function test_find_All(): void
     {
         $pdo = DB::getPdo();
@@ -210,5 +243,15 @@ class ReservaDAOTest extends TestCase
         $this->assertTrue($reservaDAO->delete($reservaABorrar->getId_reserva()));
         $encontrada = $reservaDAO->findById(2);
         $this->assertNull($encontrada);
+    }
+
+    public function test_reservas_del_dia(): void{
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+        $reservas = $reservaDAO->reservasDelDia();
+
+        assertTrue(count($reservas) > 0);
+        assertTrue($reservas[0]->getTelefono() == 689088259);
+        assertTrue($reservas[0]->getNum_mesa() == 5);
     }
 }
