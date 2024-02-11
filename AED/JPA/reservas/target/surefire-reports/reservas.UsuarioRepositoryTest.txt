@@ -1,4 +1,20 @@
 -------------------------------------------------------------------------------
 Test set: reservas.UsuarioRepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.631 s - in reservas.UsuarioRepositoryTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.007 s <<< FAILURE! - in reservas.UsuarioRepositoryTest
+reservas.UsuarioRepositoryTest  Time elapsed: 0.007 s  <<< ERROR!
+org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+	at reservas.UsuarioRepositoryTest.setUpBeforeClass(UsuarioRepositoryTest.java:40)
+Caused by: org.hibernate.exception.SQLGrammarException: Error calling Driver#connect
+	at reservas.UsuarioRepositoryTest.setUpBeforeClass(UsuarioRepositoryTest.java:40)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Tabla "usuarios" ya existe
+Table "usuarios" already exists; SQL statement:
+CREATE TABLE usuarios (
+    telefono INT PRIMARY KEY NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    contrasenha VARCHAR(255) NOT NULL,
+    rol VARCHAR(20) DEFAULT 'CLIENTE' NOT NULL
+) [42101-214]
+	at reservas.UsuarioRepositoryTest.setUpBeforeClass(UsuarioRepositoryTest.java:40)
+

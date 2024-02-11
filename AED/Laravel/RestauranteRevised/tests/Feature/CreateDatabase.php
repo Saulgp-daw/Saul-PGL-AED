@@ -1,4 +1,11 @@
 <?php
+
+$pdo->exec("
+DROP TABLE IF EXISTS reservas;
+DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS mesas;
+");
+
 $pdo->exec("
 CREATE TABLE usuarios (
     telefono INT PRIMARY KEY NOT NULL,
@@ -34,6 +41,7 @@ $pdo->exec("
 INSERT INTO usuarios (telefono, nombre, contrasenha, rol)
 VALUES
     (123456789, 'Juan Perez', '1234', 'CLIENTE'),
+    (123456786, 'Juan Luis', '1234', 'CLIENTE'),
     (689088259, 'Saul', '1q2w3e4r', 'ADMIN'),
     (912121212, 'Pepe', '1q2w3e4r', 'CLIENTE'),
     (890678456, 'Benito', '1234', 'CLIENTE');

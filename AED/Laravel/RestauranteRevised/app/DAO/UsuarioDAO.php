@@ -156,5 +156,25 @@ class UsuarioDAO implements Crud
         return $actualizado;
     }
 
+    public function findByNombreParcial($parteNombre){
+        //SELECT * FROM usuarios WHERE UPPER(nombre) LIKE UPPER('%s%');
+        $sql = "SELECT * FROM ". UsuarioContract::TABLE_NAME." WHERE UPPER (". UsuarioContract::COL_NAME.") LIKE UPPER ('%". $parteNombre."%')";
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute(); // Ejecutamos la sentencia
+        $usuarios = [];
+        while ($row = $stmt->fetch()) {
+
+            $telefono = $row[UsuarioContract::COL_TEL];
+            $nombre = $row[UsuarioContract::COL_NAME];
+            $contrasenha = $row[UsuarioContract::COL_PASSWORD];
+            $rol = $row[UsuarioContract::COL_ROLE];
+            $usuario = new Usuario($telefono, $nombre, $contrasenha, $rol);
+            $usuarios[] = $usuario;
+        }
+        return $usuarios;
+
+    }
+
 
 }

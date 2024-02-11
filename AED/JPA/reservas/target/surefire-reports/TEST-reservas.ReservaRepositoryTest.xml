@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="reservas.UsuarioRepositoryTest" time="0.007" tests="1" errors="1" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="reservas.ReservaRepositoryTest" time="1.685" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,49 +58,9 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="reservas.UsuarioRepositoryTest" classname="reservas.UsuarioRepositoryTest" time="0.007">
-    <error message="Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]" type="org.hibernate.service.spi.ServiceException">org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
-	at reservas.UsuarioRepositoryTest.setUpBeforeClass(UsuarioRepositoryTest.java:40)
-Caused by: org.hibernate.exception.SQLGrammarException: Error calling Driver#connect
-	at reservas.UsuarioRepositoryTest.setUpBeforeClass(UsuarioRepositoryTest.java:40)
-Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
-Tabla "usuarios" ya existe
-Table "usuarios" already exists; SQL statement:
-CREATE TABLE usuarios (
-    telefono INT PRIMARY KEY NOT NULL,
-    nombre VARCHAR(255) NOT NULL,
-    contrasenha VARCHAR(255) NOT NULL,
-    rol VARCHAR(20) DEFAULT 'CLIENTE' NOT NULL
-) [42101-214]
-	at reservas.UsuarioRepositoryTest.setUpBeforeClass(UsuarioRepositoryTest.java:40)
-</error>
-    <system-err><![CDATA[feb 11, 2024 9:38:00 P. M. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
-INFO: HHH000204: Processing PersistenceUnitInfo [name: TEST]
-feb 11, 2024 9:38:00 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
-WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-feb 11, 2024 9:38:00 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=TRUE;DB_CLOSE_DELAY=0;MODE=Mysql;DATABASE_TO_LOWER=TRUE;INIT=RUNSCRIPT FROM 'src/test/resources/restaurante.sql';]
-feb 11, 2024 9:38:00 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001001: Connection properties: {}
-feb 11, 2024 9:38:00 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001003: Autocommit mode: false
-feb 11, 2024 9:38:00 P. M. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections <init>
-INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-feb 11, 2024 9:38:00 P. M. org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator initiateService
-WARN: HHH000342: Could not obtain connection to query metadata : Cannot invoke "org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState.getConnection()" because "this.state" is null
-feb 11, 2024 9:38:00 P. M. org.hibernate.dialect.Dialect <init>
-INFO: HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-feb 11, 2024 9:38:00 P. M. org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
-WARN: SQL Error: 42101, SQLState: 42S01
-feb 11, 2024 9:38:00 P. M. org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
-ERROR: Tabla "usuarios" ya existe
-Table "usuarios" already exists; SQL statement:
-CREATE TABLE usuarios (
-    telefono INT PRIMARY KEY NOT NULL,
-    nombre VARCHAR(255) NOT NULL,
-    contrasenha VARCHAR(255) NOT NULL,
-    rol VARCHAR(20) DEFAULT 'CLIENTE' NOT NULL
-) [42101-214]
-]]></system-err>
-  </testcase>
+  <testcase name="test_find_all" classname="reservas.ReservaRepositoryTest" time="0.1"/>
+  <testcase name="test_find_by_estado" classname="reservas.ReservaRepositoryTest" time="0.004"/>
+  <testcase name="test_find_by_fecha" classname="reservas.ReservaRepositoryTest" time="0.025"/>
+  <testcase name="test_find_by_id" classname="reservas.ReservaRepositoryTest" time="0.003"/>
+  <testcase name="test_find_by_telefono" classname="reservas.ReservaRepositoryTest" time="0.003"/>
 </testsuite>

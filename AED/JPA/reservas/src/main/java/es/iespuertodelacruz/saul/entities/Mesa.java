@@ -26,6 +26,12 @@ public class Mesa implements Serializable {
 	@OneToMany(mappedBy="mesa")
 	private List<Reserva> reservas;
 
+	public Mesa(int numMesa, int sillas) {
+		super();
+		this.numMesa = numMesa;
+		this.sillas = sillas;
+	}
+
 	public Mesa() {
 	}
 

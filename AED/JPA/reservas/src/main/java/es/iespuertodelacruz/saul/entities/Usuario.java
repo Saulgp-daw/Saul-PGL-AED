@@ -13,10 +13,16 @@ import java.util.List;
 @Table(name="usuarios")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
+	@Override
+	public String toString() {
+		return "Usuario [telefono=" + telefono + ", contrasenha=" + contrasenha + ", nombre=" + nombre + ", rol=" + rol
+				+ ", reservas=" + reservas + "]";
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int telefono;
 
 	private String contrasenha;

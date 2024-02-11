@@ -133,5 +133,25 @@ class UsuarioDAOTest extends TestCase
         $this->assertNull($encontrado);
     }
 
+    public function test_find_by_nombre_parcial(): void {
+        $pdo = DB::getPdo();
+        $usuarioDAO = new UsuarioDAO($pdo);
+        $usuarios = $usuarioDAO->findByNombreParcial("ju");
+        assertTrue(count($usuarios) > 0);
+
+        foreach ($usuarios as $usuario) {
+            $usuarioCorrecto = $usuarioDAO->findById($usuario->getTelefono());
+            assertNotNull($usuarioCorrecto);
+            assertTrue($usuario->getTelefono() == $usuarioCorrecto->getTelefono() );
+            assertTrue($usuario->getTelefono() == $usuarioCorrecto->getTelefono() );
+            assertTrue($usuario->getRol() == $usuarioCorrecto->getRol() );
+        }
+
+
+
+    }
+
+
+
 
 }

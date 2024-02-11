@@ -86,160 +86,160 @@ class UsuarioDAO
         return $filasAfectadas;
     }
 
-    // function findAll()
-    // {
-    //     $stmt = $this->myPDO->prepare("SELECT * FROM " . self::$tabla);
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
-    //     $stmt->execute(); // Ejecutamos la sentencia
-    //     $alumnos = [];
-    //     while ($row = $stmt->fetch()) {
+    function findAll()
+    {
+        $stmt = $this->myPDO->prepare("SELECT * FROM " . self::$tabla);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute(); // Ejecutamos la sentencia
+        $alumnos = [];
+        while ($row = $stmt->fetch()) {
 
-    //         $dni = $row[self::$colDni];
-    //         $nombre = $row[self::$colNombre];
-    //         $apellidos = $row[self::$colApellidos];
-    //         $fechaNacimiento = $row[self::$colFechaNacimiento];
-    //         $alumno = new Alumno($dni, $nombre, $apellidos, $fechaNacimiento);
-    //         $alumnos[] = $alumno;
-    //     }
-    //     return $alumnos;
-    // }
+            $dni = $row[self::$colDni];
+            $nombre = $row[self::$colNombre];
+            $apellidos = $row[self::$colApellidos];
+            $fechaNacimiento = $row[self::$colFechaNacimiento];
+            $alumno = new Alumno($dni, $nombre, $apellidos, $fechaNacimiento);
+            $alumnos[] = $alumno;
+        }
+        return $alumnos;
+    }
 
-    // function save($alumno)
-    // {
-    //     $sql = "INSERT INTO " . self::$tabla . " (" . self::$colDni . ", " . self::$colNombre . ", " . self::$colApellidos . ", " . self::$colFechaNacimiento . ")
-    //     VALUES (:dni, :nombre, :apellidos, :fechanacimiento)";
-
-
-    //     try {
-    //         $this->myPDO->beginTransaction();
-    //         $stmt = $this->myPDO->prepare($sql);
-    //         $stmt->execute(
-    //             [
-    //                 ':dni' => $alumno->dni,
-    //                 ':nombre' => $alumno->nombre,
-    //                 ":apellidos" => $alumno->apellidos,
-    //                 ":fechanacimiento" => $alumno->fechaNacimiento
-    //             ]
-    //         );
-    //         //si filasAfectadas > 0 => hubo éxito consulta
-    //         $filasAfectadas = $stmt->rowCount();
-    //         //echo "Filas afectadas: $filasAfectadas";
-
-    //         if ($filasAfectadas > 0) {
-    //             $this->myPDO->commit();
-    //             $alumnoCreado = new Alumno($alumno->dni, $alumno->nombre, $alumno->apellidos, $alumno->fechaNacimiento);
-    //         }
-    //     } catch (Exception $ex) {
-    //         echo "ha habido una excepción se lanza rollback automático: $ex";
-    //         $this->myPDO->rollback();
-    //     }
-    //     $stmt = null;
-
-    //     return $alumnoCreado ?? null;
-    // }
-
-    // function findById($dni)
-    // {
-    //     $alumnoEncontrado = null;
-    //     $sql = "SELECT * FROM " . self::$tabla . " WHERE :dni = " . self::$colDni;
-    //     $stmt = $this->myPDO->prepare($sql);
-    //     $stmt->execute(
-    //         [
-    //             ':dni' => $dni
-    //         ]
-    //     );
-
-    //     if ($row = $stmt->fetch()) {
-    //         $alumno = new Alumno();
-    //         $alumno->dni = $row[self::$colDni];
-    //         $alumno->nombre = $row[self::$colNombre];
-    //         $alumno->apellidos = $row[self::$colApellidos];
-    //         $alumno->fechaNacimiento = $row[self::$colFechaNacimiento];
-    //         $alumnoEncontrado = $alumno;
-    //     }
-
-    //     return $alumnoEncontrado;
-    // }
-
-    // function findByName($nombre)
-    // {
-    //     $alumnosEncontrados = [];
-    //     $sql = "SELECT * FROM " . self::$tabla . " WHERE UPPER(:nombre) = UPPER(" . self::$colNombre.")";
-    //     $stmt = $this->myPDO->prepare($sql);
-    //     $stmt->execute(
-    //         [
-    //             ':nombre' => $nombre
-    //         ]
-    //     );
-
-    //     while ($row = $stmt->fetch()) {
-    //         $alumno = new Alumno();
-    //         $alumno->dni = $row[self::$colDni];
-    //         $alumno->nombre = $row[self::$colNombre];
-    //         $alumno->apellidos = $row[self::$colApellidos];
-    //         $alumno->fechaNacimiento = $row[self::$colFechaNacimiento];
-    //         $alumnosEncontrados[] = $alumno;
-    //     }
-
-    //     return $alumnosEncontrados;
-    // }
+    function save($alumno)
+    {
+        $sql = "INSERT INTO " . self::$tabla . " (" . self::$colDni . ", " . self::$colNombre . ", " . self::$colApellidos . ", " . self::$colFechaNacimiento . ")
+        VALUES (:dni, :nombre, :apellidos, :fechanacimiento)";
 
 
+        try {
+            $this->myPDO->beginTransaction();
+            $stmt = $this->myPDO->prepare($sql);
+            $stmt->execute(
+                [
+                    ':dni' => $alumno->dni,
+                    ':nombre' => $alumno->nombre,
+                    ":apellidos" => $alumno->apellidos,
+                    ":fechanacimiento" => $alumno->fechaNacimiento
+                ]
+            );
+            //si filasAfectadas > 0 => hubo éxito consulta
+            $filasAfectadas = $stmt->rowCount();
+            //echo "Filas afectadas: $filasAfectadas";
 
-    // function update($alumno)
-    // {
-    //     $sql = "UPDATE ". self::$tabla. " SET ".self::$colNombre. " = :nombre, ".
-    //     self::$colApellidos. " = :apellidos, ".self::$colFechaNacimiento. " = :fechanacimiento WHERE ".self::$colDni . " = :dni";
-    //     $filasAfectadas = 0;
-    //     try{
-    //         $this->myPDO->beginTransaction();
-    //         $stmt = $this->myPDO->prepare($sql);
-    //         $stmt->execute(
-    //             [
-    //                 ':dni' => $alumno->dni,
-    //                 ':nombre' => $alumno->nombre,
-    //                 ":apellidos" => $alumno->apellidos,
-    //                 ":fechanacimiento" => $alumno->fechaNacimiento
-    //             ]
-    //         );
-    //         $filasAfectadas = $stmt->rowCount();
-    //         //echo "Filas afectadas: $filasAfectadas";
+            if ($filasAfectadas > 0) {
+                $this->myPDO->commit();
+                $alumnoCreado = new Alumno($alumno->dni, $alumno->nombre, $alumno->apellidos, $alumno->fechaNacimiento);
+            }
+        } catch (Exception $ex) {
+            echo "ha habido una excepción se lanza rollback automático: $ex";
+            $this->myPDO->rollback();
+        }
+        $stmt = null;
 
-    //         if ($filasAfectadas > 0) {
-    //             $this->myPDO->commit();
-    //         }
+        return $alumnoCreado ?? null;
+    }
 
-    //     }catch(Exception $ex){
-    //         echo "ha habido una excepción se lanza rollback automático: $ex";
-    //         $this->myPDO->rollback();
-    //     }
-    //     $stmt = null;
-    //     return $filasAfectadas;
-    // }
+    function findById($dni)
+    {
+        $alumnoEncontrado = null;
+        $sql = "SELECT * FROM " . self::$tabla . " WHERE :dni = " . self::$colDni;
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->execute(
+            [
+                ':dni' => $dni
+            ]
+        );
 
-    // function delete($dni)
-    // {
-    //     $sql = "DELETE FROM ".self::$tabla. " WHERE :dni = ".self::$colDni;
-    //     $filasAfectadas = 0;
-    //     try{
-    //         $this->myPDO->beginTransaction();
-    //         $stmt = $this->myPDO->prepare($sql);
-    //         $stmt->execute(
-    //             [
-    //                 ':dni' => $dni
-    //             ]
-    //         );
-    //         $filasAfectadas = $stmt->rowCount();
-    //         //echo "Filas afectadas: $filasAfectadas";
+        if ($row = $stmt->fetch()) {
+            $alumno = new Alumno();
+            $alumno->dni = $row[self::$colDni];
+            $alumno->nombre = $row[self::$colNombre];
+            $alumno->apellidos = $row[self::$colApellidos];
+            $alumno->fechaNacimiento = $row[self::$colFechaNacimiento];
+            $alumnoEncontrado = $alumno;
+        }
 
-    //         if ($filasAfectadas > 0) {
-    //             $this->myPDO->commit();
-    //         }
-    //     }catch(Exception $ex){
-    //         echo "ha habido una excepción se lanza rollback automático: $ex";
-    //         $this->myPDO->rollback();
-    //     }
-    //     $stmt = null;
-    //     return $filasAfectadas;
-    // }
+        return $alumnoEncontrado;
+    }
+
+    function findByName($nombre)
+    {
+        $alumnosEncontrados = [];
+        $sql = "SELECT * FROM " . self::$tabla . " WHERE UPPER(:nombre) = UPPER(" . self::$colNombre.")";
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->execute(
+            [
+                ':nombre' => $nombre
+            ]
+        );
+
+        while ($row = $stmt->fetch()) {
+            $alumno = new Alumno();
+            $alumno->dni = $row[self::$colDni];
+            $alumno->nombre = $row[self::$colNombre];
+            $alumno->apellidos = $row[self::$colApellidos];
+            $alumno->fechaNacimiento = $row[self::$colFechaNacimiento];
+            $alumnosEncontrados[] = $alumno;
+        }
+
+        return $alumnosEncontrados;
+    }
+
+
+
+    function update($alumno)
+    {
+        $sql = "UPDATE ". self::$tabla. " SET ".self::$colNombre. " = :nombre, ".
+        self::$colApellidos. " = :apellidos, ".self::$colFechaNacimiento. " = :fechanacimiento WHERE ".self::$colDni . " = :dni";
+        $filasAfectadas = 0;
+        try{
+            $this->myPDO->beginTransaction();
+            $stmt = $this->myPDO->prepare($sql);
+            $stmt->execute(
+                [
+                    ':dni' => $alumno->dni,
+                    ':nombre' => $alumno->nombre,
+                    ":apellidos" => $alumno->apellidos,
+                    ":fechanacimiento" => $alumno->fechaNacimiento
+                ]
+            );
+            $filasAfectadas = $stmt->rowCount();
+            //echo "Filas afectadas: $filasAfectadas";
+
+            if ($filasAfectadas > 0) {
+                $this->myPDO->commit();
+            }
+
+        }catch(Exception $ex){
+            echo "ha habido una excepción se lanza rollback automático: $ex";
+            $this->myPDO->rollback();
+        }
+        $stmt = null;
+        return $filasAfectadas;
+    }
+
+    function delete($dni)
+    {
+        $sql = "DELETE FROM ".self::$tabla. " WHERE :dni = ".self::$colDni;
+        $filasAfectadas = 0;
+        try{
+            $this->myPDO->beginTransaction();
+            $stmt = $this->myPDO->prepare($sql);
+            $stmt->execute(
+                [
+                    ':dni' => $dni
+                ]
+            );
+            $filasAfectadas = $stmt->rowCount();
+            //echo "Filas afectadas: $filasAfectadas";
+
+            if ($filasAfectadas > 0) {
+                $this->myPDO->commit();
+            }
+        }catch(Exception $ex){
+            echo "ha habido una excepción se lanza rollback automático: $ex";
+            $this->myPDO->rollback();
+        }
+        $stmt = null;
+        return $filasAfectadas;
+    }
 }

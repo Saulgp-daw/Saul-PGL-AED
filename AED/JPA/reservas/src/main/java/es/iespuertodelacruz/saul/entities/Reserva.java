@@ -12,7 +12,16 @@ import java.math.BigInteger;
 @Entity
 @Table(name="reservas")
 @NamedQuery(name="Reserva.findAll", query="SELECT r FROM Reserva r")
+@NamedQuery(name="Reserva.findByEstado", query="SELECT r FROM Reserva r WHERE r.estado = :estado")
+@NamedQuery(name="Reserva.findByTelefono", query="SELECT r FROM Reserva r WHERE r.usuario.telefono = :telefono")
+//@NamedQuery(name= "Alumno.findAllRel", query = "SELECT a FROM Alumno a JOIN FETCH a.matriculas")
 public class Reserva implements Serializable {
+	@Override
+	public String toString() {
+		return "Reserva [idReserva=" + idReserva + ", duracion=" + duracion + ", estado=" + estado + ", fechaHora="
+				+ fechaHora + ", mesa=" + mesa + ", usuario=" + usuario + "]";
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

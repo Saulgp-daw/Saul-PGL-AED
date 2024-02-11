@@ -1,3 +1,9 @@
+SET MODE MYSQL;
+DROP TABLE IF EXISTS reservas;
+DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS mesas;
+
+
 CREATE TABLE usuarios (
     telefono INT PRIMARY KEY NOT NULL,
     nombre VARCHAR(255) NOT NULL,
