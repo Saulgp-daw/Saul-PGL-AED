@@ -205,9 +205,35 @@ class ReservaDAO implements Crud
 
     public function reservasDelDia(){
         //SELECT * FROM reservas WHERE DATE(FROM_UNIXTIME(fecha_hora)) = CURDATE();
-        $stmt = $this->myPDO->prepare("SELECT * FROM " . ReservaContract::TABLE_NAME . " WHERE DATE(FROM_UNIXTIME( " . ReservaContract::COL_DATE.")) = CURDATE();");
+        //SELECT * FROM reservas WHERE DATE(datetime(fecha_hora, 'unixepoch')) = DATE('now');
+        $sql = "SELECT * FROM ". ReservaContract::TABLE_NAME. " WHERE DATE(datetime(". ReservaContract::COL_DATE.", 'unixepoch')) = DATE('now')";
+        $sql2 = "SELECT * FROM " . ReservaContract::TABLE_NAME . " WHERE DATE(FROM_UNIXTIME( " . ReservaContract::COL_DATE.")) = CURDATE()";
+        $stmt = $this->myPDO->prepare($sql);
         $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
         $stmt->execute([
+        ]);
+        $reservas = [];
+        while ($row = $stmt->fetch()) {
+            $id_reserva = $row[ReservaContract::COL_ID];
+            $telefono = $row[ReservaContract::COL_TEL];
+            $fecha_hora = $row[ReservaContract::COL_DATE];
+            $duracion = $row[ReservaContract::COL_DURATION];
+            $num_mesa = $row[ReservaContract::COL_NUM_TABLE];
+            $estado = $row[ReservaContract::COL_STATE];
+            $reserva = new Reserva($id_reserva, $telefono, $fecha_hora, $duracion, $num_mesa, $estado);
+            $reservas[] = $reserva;
+        }
+        return $reservas;
+    }
+
+    public function reservasEnFecha($inicioDia, $finDia){
+        //SELECT * FROM reservas WHERE fecha_hora >= 1708128000 AND fecha_hora < 1708214399;
+        $sql = "SELECT * FROM ". ReservaContract::TABLE_NAME. " WHERE ". ReservaContract::COL_DATE . " >= :inicioDia AND ". ReservaContract::COL_DATE." < :finDia";
+        $stmt = $this->myPDO->prepare($sql);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); //devuelve array asociativo
+        $stmt->execute([
+            ':inicioDia' => $inicioDia,
+            ':finDia' => $finDia,
         ]);
         $reservas = [];
         while ($row = $stmt->fetch()) {

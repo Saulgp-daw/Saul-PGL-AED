@@ -26,7 +26,7 @@ $pdo->exec("
 CREATE TABLE reservas (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
     telefono INT NOT NULL,
-    fecha_hora INT NOT NULL,
+    fecha_hora BIGINT NOT NULL,
     duracion INT NOT NULL,
     num_mesa int NOT null,
     estado varchar(50) NOT NULL,

@@ -56,7 +56,8 @@ class ReservaDAOTest extends TestCase
         assertTrue($usuarioEncontrado->getTelefono() == $encontrado->getTelefono());
     }
 
-    public function test_find_id_usuario(){
+    public function test_find_id_usuario()
+    {
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
         $encontrado = $reservaDAO->findByIdWithUsuario(2);
@@ -77,7 +78,8 @@ class ReservaDAOTest extends TestCase
 
     }
 
-    public function test_find_all_con_usuario(){
+    public function test_find_all_con_usuario()
+    {
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
         $usuarioDao = new UsuarioDAO($pdo);
@@ -88,7 +90,7 @@ class ReservaDAOTest extends TestCase
             $reservaCorrecta = $reservaDAO->findById($id);
 
             $encontrada = null;
-            for($i = 0; $i < count($reservas); $i++){
+            for ($i = 0; $i < count($reservas); $i++) {
                 if ($reservas[$i]->getId_reserva() == $reservaCorrecta->getId_reserva()) {
                     $encontrada = $reservas[$i];
                 }
@@ -107,7 +109,6 @@ class ReservaDAOTest extends TestCase
             $this->assertTrue($encontrada->getFecha_hora() == $reservaCorrecta->getFecha_hora());
             $this->assertTrue($encontrada->getDuracion() == $reservaCorrecta->getDuracion());
         }
-
     }
 
     public function test_find_All(): void
@@ -146,14 +147,16 @@ class ReservaDAOTest extends TestCase
         $this->assertTrue(count($reservasEncontradas) > 0);
     }
 
-    public function test_find_by_estado():void{
+    public function test_find_by_estado(): void
+    {
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
         $reservasEncontradas = $reservaDAO->findByEstado("Sin confirmar");
         $this->assertTrue(count($reservasEncontradas) > 0);
     }
 
-    public function test_reserva_solapada(): void{
+    public function test_reserva_solapada(): void
+    {
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
         $reservaNueva = new Reserva(1000, 922442291, strtotime('2024-01-01 12:00:00'), 3, 1, "Sin confirmar");
@@ -219,7 +222,8 @@ class ReservaDAOTest extends TestCase
 
     }
 
-    public function test_delete_reserva(): void{
+    public function test_delete_reserva(): void
+    {
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
         $usuarioDAO = new UsuarioDAO($pdo);
@@ -232,7 +236,8 @@ class ReservaDAOTest extends TestCase
         $this->assertNull($encontrada);
     }
 
-    public function test_delete_reserva_telefono(): void{
+    public function test_delete_reserva_telefono(): void
+    {
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
         $usuarioDAO = new UsuarioDAO($pdo);
@@ -245,13 +250,67 @@ class ReservaDAOTest extends TestCase
         $this->assertNull($encontrada);
     }
 
-    public function test_reservas_del_dia(): void{
+    public function test_reservas_del_dia(): void
+    {
         $pdo = DB::getPdo();
         $reservaDAO = new ReservaDAO($pdo);
+
+        $fechaActual = new DateTime();  // Esto crea un objeto DateTime con la fecha y hora actuales
+        $unixTimestampActual = $fechaActual->getTimestamp();
+        $reserva =  new Reserva(1001, 689088259, $unixTimestampActual, 2, 1, "Sin confirmar");
+
+        try {
+            $reservaGuardada = $reservaDAO->save($reserva);
+        } catch (Throwable $ignored) {
+        }
+
+        assertNotNull(isset($reservaGuardada));
+
+
         $reservas = $reservaDAO->reservasDelDia();
+        //var_dump($reservas);
 
         assertTrue(count($reservas) > 0);
         assertTrue($reservas[0]->getTelefono() == 689088259);
-        assertTrue($reservas[0]->getNum_mesa() == 5);
+        assertTrue($reservas[0]->getNum_mesa() == 1);
+        assertTrue($reservas[0]->getId_reserva() == 1001);
+        assertTrue($reservas[0]->getDuracion() == 2);
+
+        $reservaBuscada = $reservaDAO->findById($reserva->getId_reserva());
+        assertNotNull($reservaBuscada);
+        assertTrue($reservaBuscada->getId_reserva() == $reservas[0]->getId_reserva());
+    }
+
+    public function test_fecha_reserva(): void
+    {
+        $pdo = DB::getPdo();
+        $reservaDAO = new ReservaDAO($pdo);
+
+        // Fecha en formato "Año-Mes-Día"
+        $fecha = "2023-01-01";
+
+        // Convertir la fecha en un timestamp Unix
+        $timestamp = strtotime($fecha);
+
+        // Calcular el inicio del día (00:00:00)
+        $inicio_dia = strtotime('midnight', $timestamp);
+
+        // Calcular el fin del día (23:59:59)
+        $fin_dia = strtotime('tomorrow', $inicio_dia) - 1;
+
+        // Mostrar los resultados
+        echo "Inicio del día: " . date('Y-m-d H:i:s', $inicio_dia) . "\n";
+        echo "Inicio del día: " . $inicio_dia . "\n";
+
+        echo "Fin del día: " . date('Y-m-d H:i:s', $fin_dia) . "\n";
+        echo "Fin del día: " . $fin_dia . "\n";
+
+        $reservas = $reservaDAO->reservasEnFecha($inicio_dia, $fin_dia);
+        //var_dump($reservas);
+        assertTrue(count($reservas) > 0);
+        assertTrue($reservas[0]->getTelefono() == 123456789);
+        assertTrue($reservas[0]->getNum_mesa() == 1);
+        assertTrue($reservas[0]->getId_reserva() == 1);
+        assertTrue($reservas[0]->getDuracion() == 2);
     }
 }
