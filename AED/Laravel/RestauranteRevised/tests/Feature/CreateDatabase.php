@@ -1,10 +1,10 @@
 <?php
 
-$pdo->exec("
-DROP TABLE IF EXISTS reservas;
-DROP TABLE IF EXISTS usuarios;
-DROP TABLE IF EXISTS mesas;
-");
+// $pdo->exec("
+// DROP TABLE IF EXISTS reservas;
+// DROP TABLE IF EXISTS usuarios;
+// DROP TABLE IF EXISTS mesas;
+// ");
 
 $pdo->exec("
 CREATE TABLE usuarios (
