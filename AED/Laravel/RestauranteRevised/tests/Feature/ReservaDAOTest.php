@@ -19,7 +19,9 @@ use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertTrue;
 
-
+//composer create-project laravel/laravel nombreproyecto
+// $this->assertTrue($empleadoConJefe->jefe instanceof Empleado);
+//php artisan make:test NombreDeLaPruebaTest
 class ReservaDAOTest extends TestCase
 {
     public  $databaseCreated = false;
