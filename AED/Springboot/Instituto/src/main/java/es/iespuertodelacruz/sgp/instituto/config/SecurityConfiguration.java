@@ -40,6 +40,7 @@ public class SecurityConfiguration {
 								"/topic/messages")
 						.permitAll()
 						.requestMatchers("/api/v3/**").hasRole("ADMIN").anyRequest().authenticated())
+						//.requestMatchers("/api/v2/**").hasRole("PROPIETARIO").anyRequest().authenticated())
 				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.getOrBuild();
