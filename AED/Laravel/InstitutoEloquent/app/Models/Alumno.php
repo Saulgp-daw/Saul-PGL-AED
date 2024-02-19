@@ -43,8 +43,8 @@ class Alumno extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function matriculas()
-    {
-        return $this->hasMany('App\Models\Matricula', 'dni', 'dni');
-    }
+    // public function matriculas()
+    // {
+    //     return $this->hasMany('App\Models\Matricula', 'dni', 'dni');
+    // }
 }

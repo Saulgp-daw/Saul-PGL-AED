@@ -38,6 +38,12 @@ public class PeliculaController {
 	private FileStorageService storageService;
 
 	@GetMapping("")
+	public ResponseEntity<?> hola() {
+		Iterable<Pelicula> lista = peliculaService.findAll();
+		return ResponseEntity.ok(lista);
+	}
+	
+	@GetMapping("")
 	public ResponseEntity<?> findAll() {
 		Iterable<Pelicula> lista = peliculaService.findAll();
 		return ResponseEntity.ok(lista);
